@@ -22,6 +22,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+         <activity
+            android:name="com.smp.funwithmusic.JohnActivity"
+            android:label="@string/johns_activity" />
+         <activity
+            android:name="com.smp.funwithmusic.SteveActivity"
+            android:label="@string/steves_activity" />
     </application>
 
 </manifest>

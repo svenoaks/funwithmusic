@@ -1,0 +1,3 @@
+INDEX VERSION 1.126+C:\Users\Steve\Documents\GitHub\funwithmusic\.metadata\.plugins\org.eclipse.jdt.core
+1643531027.index
+3085333062.index
