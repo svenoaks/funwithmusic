@@ -1,0 +1,6 @@
+package com.smp.funwithmusic;
+
+public class Constants
+{
+	public static final String SONG_ACTION = "com.smp.funwithmusic.SONG_ACTION";
+}

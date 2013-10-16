@@ -1,0 +1,80 @@
+[
+  {
+    "symbolicName": "com.nineoldandroids.library",
+    "version": {
+      "major": 2,
+      "minor": 4,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "59f19e43354d32de831379c23ce03bb259a4c2b7",
+    "jarFileModificationDate": "2013-08-27T04:37:36-04:00",
+    "location": "D:\\git\\funwithmusic\\CardsUILib\\libs\\nineoldandroids-2.4.0.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "cardsuilib",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "8f261c51219bbdb4161cd3c6bff333f9ebf2e210",
+    "jarFileModificationDate": "2013-10-15T18:45:03.055-04:00",
+    "location": "D:\\git\\funwithmusic\\CardsUILib\\bin\\cardsuilib.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android-support-v4",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "4a6be13368bb64c5a0b0460632d228a1a915f58f",
+    "jarFileModificationDate": "2013-10-14T21:06:20.560-04:00",
+    "location": "D:\\git\\funwithmusic\\funwithmusic\\libs\\android-support-v4.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "322db3959c3383f4be9daa75ffa427d1485879ad",
+    "jarFileModificationDate": "2013-07-16T19:11:22.622-04:00",
+    "location": "D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-17\\android.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "f4f6d0685c8372195356c55b8578565fe2487825",
+    "jarFileModificationDate": "2013-09-19T07:20:37.975-04:00",
+    "location": "D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-18\\android.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "47ffff881d2fe54d5c646fcc3a646bf291008448",
+    "jarFileModificationDate": "2012-12-31T20:05:27.027-05:00",
+    "location": "D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-16\\android.jar",
+    "javaRuntime": false
+  }
+]
