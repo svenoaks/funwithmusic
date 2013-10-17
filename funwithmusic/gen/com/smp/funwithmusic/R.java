@@ -41,6 +41,8 @@ public final class R {
         public static final int card_grid_font_size=0x7f050091;
         public static final int card_horizontal_map_height=0x7f05009e;
         public static final int card_large_text=0x7f050094;
+        /**  modified from 25.0sp 
+         */
         public static final int card_medium_text=0x7f050095;
         public static final int card_minimum_padding=0x7f050066;
         public static final int card_padding=0x7f050099;
@@ -208,8 +210,9 @@ public final class R {
         public static final int card_background_shadow=0x7f020002;
         public static final int card_shadow=0x7f020003;
         public static final int ic_launcher=0x7f020004;
-        public static final int selectable_background_cardbank=0x7f020005;
-        public static final int top_shadow=0x7f020006;
+        public static final int play=0x7f020005;
+        public static final int selectable_background_cardbank=0x7f020006;
+        public static final int top_shadow=0x7f020007;
     }
     public static final class id {
         public static final int ScrollView1=0x7f090005;
@@ -230,7 +233,7 @@ public final class R {
         public static final int activity_john=0x7f030000;
         public static final int activity_main=0x7f030001;
         public static final int activity_steve=0x7f030002;
-        public static final int card_ex=0x7f030003;
+        public static final int card_song=0x7f030003;
         public static final int cards_view=0x7f030004;
         public static final int cards_view_multicolumn=0x7f030005;
         public static final int header=0x7f030006;

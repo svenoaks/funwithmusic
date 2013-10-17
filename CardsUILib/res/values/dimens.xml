@@ -148,7 +148,7 @@
     <dimen name="card_grid_font_size">14.0sp</dimen>
     <dimen name="card_temperature_size">90.0dip</dimen>
     <dimen name="card_xl_text">35.0sp</dimen>
-    <dimen name="card_large_text">25.0sp</dimen>
+    <dimen name="card_large_text">20.0sp</dimen><!-- modified from 25.0sp -->
     <dimen name="card_medium_text">18.0sp</dimen>
     <dimen name="card_small_text">14.0sp</dimen>
     <dimen name="card_action_small_text">12.0sp</dimen>

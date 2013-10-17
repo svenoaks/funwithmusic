@@ -33,6 +33,8 @@ public final class R {
         public static int card_grid_font_size=0x7f050091;
         public static int card_horizontal_map_height=0x7f05009e;
         public static int card_large_text=0x7f050094;
+        /**  modified from 25.0sp 
+         */
         public static int card_medium_text=0x7f050095;
         public static int card_minimum_padding=0x7f050066;
         public static int card_padding=0x7f050099;

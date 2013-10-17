@@ -79,15 +79,15 @@ public class UtilityMethods
 		}
 	}
 	@SuppressWarnings("unchecked")
-	public static ArrayList<String> getSongList(Context context)
+	public static ArrayList<Song> getSongList(Context context)
 	{
-		ArrayList<String> songs;
+		ArrayList<Song> songs;
 
 		Object obj = readObjectFromFile(context, SONG_FILE_NAME);
 		if (obj != null)
-			songs = (ArrayList<String>) obj;
+			songs = (ArrayList<Song>) obj;
 		else
-			songs = new ArrayList<String>();
+			songs = new ArrayList<Song>();
 
 		return songs;
 

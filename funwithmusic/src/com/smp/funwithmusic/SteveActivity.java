@@ -5,6 +5,7 @@ import static com.smp.funwithmusic.UtilityMethods.*;
 
 import java.util.ArrayList;
 
+import com.fima.cardsui.objects.Card;
 import com.fima.cardsui.objects.CardStack;
 import com.fima.cardsui.views.CardUI;
 
@@ -20,6 +21,7 @@ import android.view.View.OnClickListener;
 
 public class SteveActivity extends Activity
 {
+	CardStack lastStack;
 	CardUI mCardView;
 	ArrayList<String> songs;
 	private IntentFilter filter;
@@ -67,22 +69,51 @@ public class SteveActivity extends Activity
 	}
 	private void addCardsFromList()
 	{
-		ArrayList<String> songs = getSongList(this);
+		ArrayList<Song> songs = getSongList(this);
 		if (this.songs == null || this.songs.size() != songs.size())
 		{
 			mCardView.clearCards();
-			for (String song : songs)
+			for (Song song : songs)
 			{
 				addCard(song);
 			}
 			mCardView.refresh();
 		}
 	}
-	private void addCard(String title)
+	
+	//Adds to same stack if the artist is the same.
+	
+	private void addCard(Song song)
 	{
-		mCardView.addCard(new MusicCard(title));
+		ArrayList<Card> lastCards = lastStack.getCards();
+		
+		if (lastStack != null && lastCards.size() > 0)
+		{
+			MusicCard lastCard = (MusicCard) lastCards.get(lastCards.size() -1);
+			if (lastCard.getSong().getArtist().equals(song.getArtist()))
+			{
+				mCardView.addCardToLastStack(new MusicCard(song));
+			}
+			else
+			{
+				makeNewStack(song);
+			}
+		}
+		else
+		{
+			makeNewStack(song);
+		}
 		
 	}
+	private void makeNewStack(Song song)
+	{
+		CardStack newStack = new CardStack();
+		newStack.setTitle(song.getArtist());
+		newStack.add(new MusicCard(song));
+		mCardView.addStack(newStack);
+		lastStack = newStack;
+	}
+	/*
 	private void TestCards()
 	{
 		mCardView = (CardUI) findViewById(R.id.cardsview);
@@ -126,5 +157,5 @@ public class SteveActivity extends Activity
 		// draw cards
 		mCardView.refresh();
 	}
-	
+	*/
 }

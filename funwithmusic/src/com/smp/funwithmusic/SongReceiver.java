@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 public class SongReceiver extends BroadcastReceiver
 {
-	public static final String DASH = " - ";
+	
 	public String mAlbum;
 	public String mArtist;
 	public Context mContext;
@@ -27,8 +27,8 @@ public class SongReceiver extends BroadcastReceiver
 	public void onReceive(Context context, Intent intent)
 	{
 		setSongInfo(context, intent);
-		String songInfo = mArtist + DASH + mTitle + DASH + mAlbum;
-		writeNewSong(context, songInfo);
+		Song song = new Song(mTitle, mArtist, mAlbum);
+		writeNewSong(context, song);
 
 		Intent send = new Intent();
 		send.setAction(SONG_ACTION)
@@ -55,7 +55,7 @@ public class SongReceiver extends BroadcastReceiver
 
 			}
 
-			if (intent.getAction().equals("com.htc.music.playbackcomplete"))
+			else if (intent.getAction().equals("com.htc.music.playbackcomplete"))
 			{
 
 			}
@@ -187,12 +187,12 @@ public class SongReceiver extends BroadcastReceiver
 
 	}
 
-	private void writeNewSong(Context context, String songTitle)
+	private void writeNewSong(Context context, Song song)
 	{
-		ArrayList<String> songs = getSongList(context);
-		if (!songs.contains(songTitle))
+		ArrayList<Song> songs = getSongList(context);
+		if (!songs.contains(song))
 		{
-			songs.add(songTitle);
+			songs.add(song);
 			writeObjectToFile(context, SONG_FILE_NAME, songs);
 		}
 	}

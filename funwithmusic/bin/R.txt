@@ -185,8 +185,9 @@ int drawable card_background 0x7f020001
 int drawable card_background_shadow 0x7f020002
 int drawable card_shadow 0x7f020003
 int drawable ic_launcher 0x7f020004
-int drawable selectable_background_cardbank 0x7f020005
-int drawable top_shadow 0x7f020006
+int drawable play 0x7f020005
+int drawable selectable_background_cardbank 0x7f020006
+int drawable top_shadow 0x7f020007
 int id ScrollView1 0x7f090005
 int id action_settings 0x7f09000c
 int id cardContent 0x7f090009
@@ -203,7 +204,7 @@ int id title 0x7f090001
 int layout activity_john 0x7f030000
 int layout activity_main 0x7f030001
 int layout activity_steve 0x7f030002
-int layout card_ex 0x7f030003
+int layout card_song 0x7f030003
 int layout cards_view 0x7f030004
 int layout cards_view_multicolumn 0x7f030005
 int layout header 0x7f030006
