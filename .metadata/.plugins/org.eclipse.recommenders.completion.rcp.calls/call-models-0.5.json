@@ -7,11 +7,16 @@
   "D:\\git\\funwithmusic\\CardsUILib\\bin\\cardsuilib.jar": {
     "location": "D:\\git\\funwithmusic\\CardsUILib\\bin\\cardsuilib.jar",
     "status": "UNRESOLVED",
-    "error": "No call model found for \u0027D:\\git\\funwithmusic\\CardsUILib\\bin\\cardsuilib.jar\u0027. Neither fingerprint \u00278f261c51219bbdb4161cd3c6bff333f9ebf2e210\u0027 nor symbolic name \u0027cardsuilib\u0027 are known."
+    "error": "No call model found for \u0027D:\\git\\funwithmusic\\CardsUILib\\bin\\cardsuilib.jar\u0027. Neither fingerprint \u002717e4fff40d9ee2ab14f60753ec9feac0a867d38e\u0027 nor symbolic name \u0027cardsuilib\u0027 are known."
   },
   "D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-18\\android.jar": {
     "location": "D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-18\\android.jar",
     "status": "UNRESOLVED",
     "error": "No call model found for \u0027D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-18\\android.jar\u0027. Neither fingerprint \u0027f4f6d0685c8372195356c55b8578565fe2487825\u0027 nor symbolic name \u0027android\u0027 are known."
+  },
+  "D:\\git\\funwithmusic\\funwithmusic\\src": {
+    "location": "D:\\git\\funwithmusic\\funwithmusic\\src",
+    "status": "UNRESOLVED",
+    "error": "No class path info available for \u0027D:\\git\\funwithmusic\\funwithmusic\\src\u0027. Skipped."
   }
 }

@@ -37,7 +37,6 @@ public class SteveActivity extends Activity
 		}
 
 	}
-
 	@Override
 	protected void onPause()
 	{
@@ -45,7 +44,6 @@ public class SteveActivity extends Activity
 
 		unregisterReceiver(receiver);
 	}
-
 	@Override
 	protected void onResume()
 	{
@@ -53,24 +51,22 @@ public class SteveActivity extends Activity
 		addCardsFromList();
 		registerReceiver(receiver, filter);
 	}
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_steve);
-
+		
 		mCardView = (CardUI) findViewById(R.id.cardsview);
 		mCardView.setSwipeable(true);
-
+		
 		filter = new IntentFilter(SONG_ACTION);
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
-
-		// TestCards();
+		
+		//TestCards();
 	}
-
 	private void addCardsFromList()
 	{
 		ArrayList<Song> songs = getSongList(this);
@@ -84,30 +80,31 @@ public class SteveActivity extends Activity
 			mCardView.refresh();
 		}
 	}
-
-	// Adds to same stack if the artist is the same.
-
+	
+	//Adds to same stack if the artist is the same.
+	
 	private void addCard(Song song)
 	{
-		if (lastStack != null)
+		ArrayList<Card> lastCards = lastStack.getCards();
+		
+		if (lastStack != null && lastCards.size() > 0)
 		{
-			ArrayList<Card> lastCards = lastStack.getCards();
-
-			if (lastCards.size() > 0)
+			MusicCard lastCard = (MusicCard) lastCards.get(lastCards.size() -1);
+			if (lastCard.getSong().getArtist().equals(song.getArtist()))
 			{
-				MusicCard lastCard = (MusicCard) lastCards.get(lastCards.size() - 1);
-				if (lastCard.getSong().getArtist().equals(song.getArtist()))
-				{
-					mCardView.addCardToLastStack(new MusicCard(song));
-					return;
-				}
+				mCardView.addCardToLastStack(new MusicCard(song));
+			}
+			else
+			{
+				makeNewStack(song);
 			}
 		}
-
-		makeNewStack(song);
-
+		else
+		{
+			makeNewStack(song);
+		}
+		
 	}
-
 	private void makeNewStack(Song song)
 	{
 		CardStack newStack = new CardStack();
@@ -117,36 +114,48 @@ public class SteveActivity extends Activity
 		lastStack = newStack;
 	}
 	/*
-	 * private void TestCards() { mCardView = (CardUI)
-	 * findViewById(R.id.cardsview); mCardView.setSwipeable(true);
-	 * 
-	 * // add AndroidViews Cards mCardView.addCard(new
-	 * MusicCard("Get the CardsUI view")); mCardView.addCardToLastStack(new
-	 * MusicCard("for Android at")); MusicCard androidViewsCard = new
-	 * MusicCard("www.androidviews.net");
-	 * androidViewsCard.setOnClickListener(new OnClickListener() {
-	 * 
-	 * @Override public void onClick(View v) { Intent intent = new
-	 * Intent(Intent.ACTION_VIEW);
-	 * intent.setData(Uri.parse("http://www.androidviews.net/"));
-	 * startActivity(intent);
-	 * 
-	 * } }); mCardView.addCardToLastStack(androidViewsCard);
-	 * 
-	 * // add one card, and then add another one to the last stack.
-	 * mCardView.addCard(new MusicCard("2 cards"));
-	 * mCardView.addCardToLastStack(new MusicCard("2 cards"));
-	 * 
-	 * // add one card mCardView.addCard(new MusicCard("1 card"));
-	 * 
-	 * // create a stack CardStack stack = new CardStack();
-	 * stack.setTitle("title test");
-	 * 
-	 * // add 3 cards to stack stack.add(new MusicCard("3 cards"));
-	 * stack.add(new MusicCard("3 cards")); stack.add(new MusicCard("3 cards"));
-	 * 
-	 * // add stack to cardView mCardView.addStack(stack);
-	 * 
-	 * // draw cards mCardView.refresh(); }
-	 */
+	private void TestCards()
+	{
+		mCardView = (CardUI) findViewById(R.id.cardsview);
+		mCardView.setSwipeable(true);
+		 
+		// add AndroidViews Cards
+		mCardView.addCard(new MusicCard("Get the CardsUI view"));
+		mCardView.addCardToLastStack(new MusicCard("for Android at"));
+		MusicCard androidViewsCard = new MusicCard("www.androidviews.net");
+		androidViewsCard.setOnClickListener(new OnClickListener() {
+		 
+		            @Override
+		            public void onClick(View v) {
+		                Intent intent = new Intent(Intent.ACTION_VIEW);
+		                intent.setData(Uri.parse("http://www.androidviews.net/"));
+		                startActivity(intent);
+		 
+		            }
+		        });
+		mCardView.addCardToLastStack(androidViewsCard);
+		 
+		// add one card, and then add another one to the last stack.
+		mCardView.addCard(new MusicCard("2 cards"));
+		mCardView.addCardToLastStack(new MusicCard("2 cards"));
+		 
+		// add one card
+		mCardView.addCard(new MusicCard("1 card"));
+		 
+		// create a stack
+		CardStack stack = new CardStack();
+		stack.setTitle("title test");
+		 
+		// add 3 cards to stack
+		stack.add(new MusicCard("3 cards"));
+		stack.add(new MusicCard("3 cards"));
+		stack.add(new MusicCard("3 cards"));
+		 
+		// add stack to cardView
+		mCardView.addStack(stack);
+		 
+		// draw cards
+		mCardView.refresh();
+	}
+	*/
 }

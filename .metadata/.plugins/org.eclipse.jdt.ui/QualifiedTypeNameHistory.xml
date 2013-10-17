@@ -23,4 +23,6 @@
 <fullyQualifiedTypeName name="android.content.BroadcastReceiver"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="android.content.IntentFilter"/>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="com.fima.cardsui.objects.Card"/>
 </qualifiedTypeNameHistroy>
