@@ -6,5 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="johns_activity">John\'s Activity</string>
     <string name="steves_activity">Fun With Music</string>
+     <string name="todo">TODO</string>
+     <string name="artist_info">Get Artist Info</string>
 
 </resources>

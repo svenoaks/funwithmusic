@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Fun With Music</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="johns_activity">John\'s Activity</string>
+    <string name="steves_activity">Fun With Music</string>
+
+</resources>

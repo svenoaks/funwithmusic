@@ -1,15 +1,28 @@
 [
   {
-    "symbolicName": "visualizer",
+    "symbolicName": "kryo-2.22-all",
     "version": {
       "major": -1,
       "minor": -1,
       "micro": -1,
       "qualifier": ""
     },
-    "jarFileFingerprint": "3ff8ad0033cec261043b06fb04975df70af13359",
-    "jarFileModificationDate": "2013-10-17T21:50:52.041-04:00",
-    "location": "D:\\git\\funwithmusic\\Visualizer\\bin\\visualizer.jar",
+    "jarFileFingerprint": "2d1216ee96837ce58bd2416e4b53a00038a3af53",
+    "jarFileModificationDate": "2013-10-16T22:14:30-04:00",
+    "location": "D:\\git\\funwithmusic\\silk-library\\libs\\kryo-2.22-all.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "httpclientandroidlib-1.1.2",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "0f05dbe836328fa9ac4c2fe506d162705a90901a",
+    "jarFileModificationDate": "2013-10-16T22:14:30-04:00",
+    "location": "C:\\Users\\Steve\\Desktop\\Silk-master\\silk-library\\libs\\httpclientandroidlib-1.1.2.jar",
     "javaRuntime": false
   },
   {
@@ -20,9 +33,9 @@
       "micro": -1,
       "qualifier": ""
     },
-    "jarFileFingerprint": "b50d42b32e1d8a6c2d5f19a846474d5e2199c68e",
-    "jarFileModificationDate": "2012-09-28T18:26:54.820-04:00",
-    "location": "D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-10\\android.jar",
+    "jarFileFingerprint": "92822ec981a4d0a7f002c792e7b3b60f9a1f26fa",
+    "jarFileModificationDate": "2012-09-28T18:23:41.208-04:00",
+    "location": "D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-15\\android.jar",
     "javaRuntime": false
   },
   {
@@ -39,16 +52,16 @@
     "javaRuntime": false
   },
   {
-    "symbolicName": "cardsuilib",
+    "symbolicName": "httpclientandroidlib-1.1.2",
     "version": {
       "major": -1,
       "minor": -1,
       "micro": -1,
       "qualifier": ""
     },
-    "jarFileFingerprint": "68aa4f7a777810d6bb7c4417e4ddea23ce18680f",
-    "jarFileModificationDate": "2013-10-17T21:50:51.847-04:00",
-    "location": "D:\\git\\funwithmusic\\CardsUILib\\bin\\cardsuilib.jar",
+    "jarFileFingerprint": "0f05dbe836328fa9ac4c2fe506d162705a90901a",
+    "jarFileModificationDate": "2013-10-16T22:14:30-04:00",
+    "location": "D:\\git\\funwithmusic\\silk-library\\libs\\httpclientandroidlib-1.1.2.jar",
     "javaRuntime": false
   },
   {
@@ -72,22 +85,22 @@
       "micro": -1,
       "qualifier": ""
     },
-    "jarFileFingerprint": "322db3959c3383f4be9daa75ffa427d1485879ad",
-    "jarFileModificationDate": "2013-07-16T19:11:22.622-04:00",
-    "location": "D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-17\\android.jar",
+    "jarFileFingerprint": "f4f6d0685c8372195356c55b8578565fe2487825",
+    "jarFileModificationDate": "2013-09-19T07:20:37.975-04:00",
+    "location": "D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-18\\android.jar",
     "javaRuntime": false
   },
   {
-    "symbolicName": "android",
+    "symbolicName": "library",
     "version": {
       "major": -1,
       "minor": -1,
       "micro": -1,
       "qualifier": ""
     },
-    "jarFileFingerprint": "f4f6d0685c8372195356c55b8578565fe2487825",
-    "jarFileModificationDate": "2013-09-19T07:20:37.975-04:00",
-    "location": "D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-18\\android.jar",
+    "jarFileFingerprint": "e6b5290173d19498af9ef520f17c042b51ee990d",
+    "jarFileModificationDate": "2013-10-18T18:16:52.423-04:00",
+    "location": "D:\\git\\funwithmusic\\library\\bin\\library.jar",
     "javaRuntime": false
   },
   {
@@ -114,6 +127,84 @@
     "jarFileFingerprint": "c6e23c541c588a486ef827a2bbc1fd166617d84f",
     "jarFileModificationDate": "2013-09-20T21:02:35.746-04:00",
     "location": "D:\\Program Files (x86)\\Android\\android-sdk\\tools\\support\\annotations.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "kryo-2.22-all",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "2d1216ee96837ce58bd2416e4b53a00038a3af53",
+    "jarFileModificationDate": "2013-10-16T22:14:30-04:00",
+    "location": "C:\\Users\\Steve\\Desktop\\Silk-master\\silk-library\\libs\\kryo-2.22-all.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "silk-library",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "099a070586beda98a21b465113d02adb23bc50ca",
+    "jarFileModificationDate": "2013-10-18T18:16:48.492-04:00",
+    "location": "D:\\git\\funwithmusic\\silk-library\\bin\\silk-library.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android-support-v13",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "9ca535b56d84d8aca3e669510e0de03387f6e07e",
+    "jarFileModificationDate": "2013-10-16T22:14:30-04:00",
+    "location": "C:\\Users\\Steve\\Desktop\\Silk-master\\silk-library\\libs\\android-support-v13.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "b50d42b32e1d8a6c2d5f19a846474d5e2199c68e",
+    "jarFileModificationDate": "2012-09-28T18:26:54.820-04:00",
+    "location": "D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-10\\android.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "322db3959c3383f4be9daa75ffa427d1485879ad",
+    "jarFileModificationDate": "2013-07-16T19:11:22.622-04:00",
+    "location": "D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-17\\android.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android-support-v13",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "9ca535b56d84d8aca3e669510e0de03387f6e07e",
+    "jarFileModificationDate": "2013-10-16T22:14:30-04:00",
+    "location": "D:\\git\\funwithmusic\\silk-library\\libs\\android-support-v13.jar",
     "javaRuntime": false
   }
 ]

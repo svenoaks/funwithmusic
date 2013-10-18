@@ -1,0 +1,28 @@
+package com.smp.funwithmusic.objects;
+
+
+public class MusicCard 
+{
+	/*Song song;
+	
+	public Song getSong()
+	{
+		return song;
+	}
+
+	public MusicCard(Song song)
+	{
+		super(song.getTitle());
+		this.song = song;
+	}
+
+	@Override
+	public View getCardContent(Context context)
+	{
+		View view = LayoutInflater.from(context).inflate(R.layout.card_song, null);
+
+		((TextView) view.findViewById(R.id.title)).setText(title);
+
+		return view;*/
+	}
+}

@@ -1,0 +1,8 @@
+package com.smp.funwithmusic.objects;
+
+import com.afollestad.cardsui.Card;
+
+public class SongCard extends Card
+{
+
+}

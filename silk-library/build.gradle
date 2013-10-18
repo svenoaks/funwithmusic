@@ -1,0 +1,32 @@
+apply plugin: 'android-library'
+
+dependencies {
+//	compile 'com.android.support:support-v4:18.0.+'
+    compile 'com.android.support:support-v13:18.0.+'
+    compile files('libs/httpclientandroidlib-1.1.2.jar')
+    compile files('libs/kryo-2.22-all.jar')
+}
+
+android {
+    compileSdkVersion 18
+    buildToolsVersion "18.0.1"
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+    }
+}
+
+apply plugin: 'maven'
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository url: 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+        }
+    }
+}
+task install(dependsOn: uploadArchives)
