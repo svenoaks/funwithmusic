@@ -50,14 +50,14 @@ public class Event implements Parcelable
 		return venueUri;
 	}
 	
-	private String type;
-	private Uri mainUri;
-	private String displayName;
-	private String start;
-	private List<Performance> performances;
-	private String location;
-	private String venueDisplayName;
-	private Uri venueUri;
+	String type;
+	Uri mainUri;
+	String displayName;
+	String start;
+	List<Performance> performances;
+	String location;
+	String venueDisplayName;
+	Uri venueUri;
 
 	public static class Builder
 	{
