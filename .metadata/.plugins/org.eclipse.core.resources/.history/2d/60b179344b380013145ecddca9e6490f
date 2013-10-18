@@ -16,7 +16,6 @@ import com.smp.funwithmusic.R.id;
 import com.smp.funwithmusic.R.layout;
 import com.smp.funwithmusic.objects.Song;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -65,12 +64,13 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		registerReceiver(receiver, filter);
 	}
 
-	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_steve);
+		getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.holo_green_dark)));
+        getActionBar().setDisplayShowHomeEnabled(false);
 		cardsAdapter = new CardAdapter<Card>(this)
 				.setAccentColorRes(android.R.color.holo_blue_dark)
 				.setPopupMenu(R.menu.card_popup, this); // the popup menu

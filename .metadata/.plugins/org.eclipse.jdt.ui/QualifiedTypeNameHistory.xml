@@ -35,4 +35,5 @@
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="com.smp.funwithmusic.objects.Event"/>
 <fullyQualifiedTypeName name="com.afollestad.cardsui.Card"/>
+<fullyQualifiedTypeName name="android.R.color"/>
 </qualifiedTypeNameHistroy>

@@ -71,6 +71,8 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_steve);
+		getActionBar().setBackgroundDrawable(new ColorDrawable(669900));
+        getActionBar().setDisplayShowHomeEnabled(false);
 		cardsAdapter = new CardAdapter<Card>(this)
 				.setAccentColorRes(android.R.color.holo_blue_dark)
 				.setPopupMenu(R.menu.card_popup, this); // the popup menu

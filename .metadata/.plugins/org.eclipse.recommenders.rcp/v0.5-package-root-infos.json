@@ -39,19 +39,6 @@
     "javaRuntime": false
   },
   {
-    "symbolicName": "com.nineoldandroids.library",
-    "version": {
-      "major": 2,
-      "minor": 4,
-      "micro": 0,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "59f19e43354d32de831379c23ce03bb259a4c2b7",
-    "jarFileModificationDate": "2013-08-27T04:37:36-04:00",
-    "location": "D:\\git\\funwithmusic\\CardsUILib\\libs\\nineoldandroids-2.4.0.jar",
-    "javaRuntime": false
-  },
-  {
     "symbolicName": "httpclientandroidlib-1.1.2",
     "version": {
       "major": -1,
@@ -98,8 +85,8 @@
       "micro": -1,
       "qualifier": ""
     },
-    "jarFileFingerprint": "e6b5290173d19498af9ef520f17c042b51ee990d",
-    "jarFileModificationDate": "2013-10-18T18:16:52.423-04:00",
+    "jarFileFingerprint": "dabef14ff82a52710f186c38d34807e0a2be6aee",
+    "jarFileModificationDate": "2013-10-18T19:02:42.011-04:00",
     "location": "D:\\git\\funwithmusic\\library\\bin\\library.jar",
     "javaRuntime": false
   },
@@ -150,8 +137,8 @@
       "micro": -1,
       "qualifier": ""
     },
-    "jarFileFingerprint": "099a070586beda98a21b465113d02adb23bc50ca",
-    "jarFileModificationDate": "2013-10-18T18:16:48.492-04:00",
+    "jarFileFingerprint": "76ac07531999b280a652b0c1866f77b0c64b5368",
+    "jarFileModificationDate": "2013-10-18T19:02:38.037-04:00",
     "location": "D:\\git\\funwithmusic\\silk-library\\bin\\silk-library.jar",
     "javaRuntime": false
   },
