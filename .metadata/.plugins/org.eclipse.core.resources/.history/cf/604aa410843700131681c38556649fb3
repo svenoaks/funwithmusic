@@ -1,0 +1,45 @@
+package com.smp.funwithmusic.objects;
+
+public class Performance
+{
+	private String displayName;
+	private int billingIndex;
+	private String billing;
+	
+	public Performance(String displayName, int billingIndex, String billing)
+	{
+		this.displayName = displayName;
+		this.billingIndex = billingIndex;
+		this.billing = billing;
+	}
+
+	public String getDisplayName()
+	{
+		return displayName;
+	}
+
+	public int getBillingIndex()
+	{
+		return billingIndex;
+	}
+
+	public String getBilling()
+	{
+		return billing;
+	}
+
+	public void setDisplayName(String displayName)
+	{
+		this.displayName = displayName;
+	}
+
+	public void setBillingIndex(int billingIndex)
+	{
+		this.billingIndex = billingIndex;
+	}
+
+	public void setBilling(String billing)
+	{
+		this.billing = billing;
+	}
+}

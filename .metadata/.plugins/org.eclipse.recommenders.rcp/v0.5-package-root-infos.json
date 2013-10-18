@@ -1,5 +1,31 @@
 [
   {
+    "symbolicName": "visualizer",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "3ff8ad0033cec261043b06fb04975df70af13359",
+    "jarFileModificationDate": "2013-10-17T21:50:52.041-04:00",
+    "location": "D:\\git\\funwithmusic\\Visualizer\\bin\\visualizer.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "b50d42b32e1d8a6c2d5f19a846474d5e2199c68e",
+    "jarFileModificationDate": "2012-09-28T18:26:54.820-04:00",
+    "location": "D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-10\\android.jar",
+    "javaRuntime": false
+  },
+  {
     "symbolicName": "com.nineoldandroids.library",
     "version": {
       "major": 2,
@@ -20,8 +46,8 @@
       "micro": -1,
       "qualifier": ""
     },
-    "jarFileFingerprint": "0ace93dd851e04a89dffbff862eb5fe9b6cd92d2",
-    "jarFileModificationDate": "2013-10-16T20:53:13.939-04:00",
+    "jarFileFingerprint": "68aa4f7a777810d6bb7c4417e4ddea23ce18680f",
+    "jarFileModificationDate": "2013-10-17T21:50:51.847-04:00",
     "location": "D:\\git\\funwithmusic\\CardsUILib\\bin\\cardsuilib.jar",
     "javaRuntime": false
   },
@@ -75,6 +101,19 @@
     "jarFileFingerprint": "47ffff881d2fe54d5c646fcc3a646bf291008448",
     "jarFileModificationDate": "2012-12-31T20:05:27.027-05:00",
     "location": "D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-16\\android.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "annotations",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "c6e23c541c588a486ef827a2bbc1fd166617d84f",
+    "jarFileModificationDate": "2013-09-20T21:02:35.746-04:00",
+    "location": "D:\\Program Files (x86)\\Android\\android-sdk\\tools\\support\\annotations.jar",
     "javaRuntime": false
   }
 ]

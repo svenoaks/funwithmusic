@@ -1,0 +1,14 @@
+package com.smp.funwithmusic.objects;
+
+import java.util.List;
+
+public class EventInfo
+{
+	private String artist;
+	
+	private int numberOfEvents;
+	
+	private List<Event> eventList;
+	
+	
+}

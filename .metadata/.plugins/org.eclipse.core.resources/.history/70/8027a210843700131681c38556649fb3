@@ -1,0 +1,15 @@
+package com.smp.funwithmusic.objects;
+
+import java.util.Date;
+import java.util.List;
+
+import android.net.Uri;
+
+public class Event
+{
+	String type;
+	Uri uri;
+	String displayName;
+	Date start;
+	List<Performance> performances;
+}

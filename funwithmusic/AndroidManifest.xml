@@ -3,11 +3,11 @@
     package="com.smp.funwithmusic"
     android:versionCode="1"
     android:versionName="1.0" >
-
+	
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
-
+	 
     <application
         android:allowBackup="true"
         android:enabled="true"
@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.smp.funwithmusic.MainActivity"
+            android:name="com.smp.funwithmusic.activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,14 +25,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.smp.funwithmusic.JohnActivity"
+            android:name="com.smp.funwithmusic.activities.EventActivity"
             android:label="@string/johns_activity" />
         <activity
-            android:name="com.smp.funwithmusic.SteveActivity"
+            android:name="com.smp.funwithmusic.activities.FlowActivity"
             android:label="@string/steves_activity" />
 
         <receiver
-            android:name="com.smp.funwithmusic.SongReceiver"
+            android:name="com.smp.funwithmusic.receivers.SongReceiver"
             android:enabled="true"
             android:exported="true" >
             <intent-filter>
