@@ -1,10 +1,16 @@
 package com.smp.funwithmusic.adapters;
 
+import org.json.JSONObject;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.smp.funwithmusic.R;
+import com.smp.funwithmusic.apiclient.ItunesClient;
+import com.smp.funwithmusic.objects.Song;
 import com.smp.funwithmusic.objects.SongCard;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageView;
@@ -17,7 +23,7 @@ import com.afollestad.cardsui.CardBase;
 import com.afollestad.silk.images.SilkImageManager;
 import com.afollestad.silk.views.image.SilkImageView;
 
-public class SongCardAdapter extends CardAdapter<Card>
+public class SongCardAdapter<SongCard> extends CardAdapter<Card>
 
 {
 	private Context mContext;
@@ -31,23 +37,40 @@ public class SongCardAdapter extends CardAdapter<Card>
 	}
 
 	@Override
-	protected boolean onProcessThumbnail(ImageView icon, Card card)
+	protected boolean onProcessThumbnail(final ImageView icon, Card card)
 	{
 		// Optional, you can modify properties of the icon ImageView here.
 		// In this case, this view is a SilkImageView in the card_larger.xml
 		// layout.
+		@SuppressWarnings("unchecked")
 		SongCard songCard = (SongCard) card;
-		if (getScrollState() == AbsListView.OnScrollListener.SCROLL_STATE_FLING)
+		final Song song = ((com.smp.funwithmusic.objects.SongCard) songCard).getSong();
+		icon.setImageDrawable(null);
+		if (song.hasAlbumUrl())
 		{
-			// If the list is being scrolled quickly, don't load the thumbnail
-			// (scroll state is reported from CardListView because it extends
-			// SilkListView)
-			icon.setImageDrawable(null);
+			Picasso.with(mContext).load(song.getAlbumUrl()).into(icon);
 		}
 		else
-		{
-			Picasso.with(mContext).load("http://a1.mzstatic.com/us/r30/Music/93/61/ea/mzi.hrkjflqr.100x100-75.jpg").into(icon);
+		{																																									
+			ItunesClient.get(song.getAlbum(), new JsonHttpResponseHandler()
+			{
+				public void onSuccess(JSONObject obj)
+				{
+					String url =
+							ItunesClient.getImageUrl(obj, song.getArtist());
+					
+						song.setAlbumUrl(url);
+						Picasso.with(mContext).load(url)
+								
+								.error(R.drawable.ic_launcher)
+								.into(icon);
+				
+					
+
+				}
+			});
 		}
+
 		return true;
 	}
 

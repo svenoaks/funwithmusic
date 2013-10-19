@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.content.BroadcastReceiver"/>
-<fullyQualifiedTypeName name="android.content.IntentFilter"/>
-<fullyQualifiedTypeName name="java.io.Serializable"/>
-<fullyQualifiedTypeName name="com.fima.cardsui.objects.Card"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="com.smp.funwithmusic.objects.EventInfo.Builder"/>
 <fullyQualifiedTypeName name="com.smp.funwithmusic.objects.Performance"/>
@@ -20,7 +16,6 @@
 <fullyQualifiedTypeName name="com.loopj.android.http.RequestParams"/>
 <fullyQualifiedTypeName name="com.loopj.android.http.AsyncHttpResponseHandler"/>
 <fullyQualifiedTypeName name="org.json.JSONArray"/>
-<fullyQualifiedTypeName name="org.json.JSONObject"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="com.smp.funwithmusic.objects.SongCard"/>
 <fullyQualifiedTypeName name="com.smp.funwithmusic.utilities.URLParamEncoder"/>
@@ -30,7 +25,6 @@
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="java.io.InputStream"/>
 <fullyQualifiedTypeName name="java.net.MalformedURLException"/>
-<fullyQualifiedTypeName name="android.widget.ImageView"/>
 <fullyQualifiedTypeName name="android.os.Handler"/>
 <fullyQualifiedTypeName name="android.os.Message"/>
 <fullyQualifiedTypeName name="ch.boye.httpclientandroidlib.impl.client.DefaultHttpClient"/>
@@ -43,7 +37,6 @@
 <fullyQualifiedTypeName name="com.afollestad.silk.images.SilkImageManager.ImageListener"/>
 <fullyQualifiedTypeName name="android.graphics.drawable.BitmapDrawable"/>
 <fullyQualifiedTypeName name="com.smp.funwithmusic.R.drawable"/>
-<fullyQualifiedTypeName name="android.net.Uri"/>
 <fullyQualifiedTypeName name="android.os.ParcelFileDescriptor"/>
 <fullyQualifiedTypeName name="java.io.FileDescriptor"/>
 <fullyQualifiedTypeName name="android.content.ContentUris"/>
@@ -60,4 +53,11 @@
 <fullyQualifiedTypeName name="android.R"/>
 <fullyQualifiedTypeName name="android.R.layout"/>
 <fullyQualifiedTypeName name="com.squareup.picasso.Picasso"/>
+<fullyQualifiedTypeName name="android.widget.ImageView"/>
+<fullyQualifiedTypeName name="android.os.AsyncTask"/>
+<fullyQualifiedTypeName name="com.smp.funwithmusic.apiclient.ItunesClient"/>
+<fullyQualifiedTypeName name="com.loopj.android.http.JsonHttpResponseHandler"/>
+<fullyQualifiedTypeName name="org.json.JSONObject"/>
+<fullyQualifiedTypeName name="com.smp.funwithmusic.objects.Song"/>
+<fullyQualifiedTypeName name="android.net.Uri"/>
 </qualifiedTypeNameHistroy>

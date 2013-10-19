@@ -12,7 +12,16 @@ public class Song implements Serializable
 	String title;
 	String artist;
 	String album;
+	String albumUrl;
 	
+	public String getAlbumUrl()
+	{
+		return albumUrl;
+	}
+	public void setAlbumUrl(String albumUrl)
+	{
+		this.albumUrl = albumUrl;
+	}
 	public Song(String title, String artist, String album)
 	{
 		this.title = title;
@@ -60,5 +69,9 @@ public class Song implements Serializable
 	public void setAlbum(String album)
 	{
 		this.album = album;
+	}
+	public boolean hasAlbumUrl()
+	{
+		return !(albumUrl == null);
 	}
 }

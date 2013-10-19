@@ -1,0 +1,20 @@
+package com.smp.funwithmusic.asynctask;
+
+import android.os.AsyncTask;
+import android.widget.ImageView;
+
+public class AlbumArtUrlAsyncTask extends AsyncTask<ImageView, Void, String>
+{
+	ImageView icon;
+	 protected String doInBackground(ImageView... icon) {
+		 this.icon = icon[0];
+		
+       
+     }
+
+
+
+     protected void onPostExecute(String result) {
+         showDialog("Downloaded " + result + " bytes");
+     }
+}

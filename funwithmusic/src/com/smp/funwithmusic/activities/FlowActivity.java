@@ -50,7 +50,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	ArrayList<String> songs;
 	private IntentFilter filter;
 	private UpdateActivityReceiver receiver;
-	SongCardAdapter cardsAdapter;
+	SongCardAdapter<SongCard> cardsAdapter;
 	String lastArtist;
 
 	private class UpdateActivityReceiver extends BroadcastReceiver
@@ -86,7 +86,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_steve);
-		cardsAdapter = new SongCardAdapter(this);
+		cardsAdapter = new SongCardAdapter<SongCard>(this);
 				cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
 				cardsAdapter.setPopupMenu(R.menu.card_popup, this); // the popup menu
 														// callback is this
