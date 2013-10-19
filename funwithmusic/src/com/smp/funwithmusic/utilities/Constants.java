@@ -9,4 +9,6 @@ public class Constants
 	public static final String EVENT_NAME = "com.smp.funwithmusic.EVENT_NAME";
 	
 	public static final String DASH = " - ";
+	
+	public static final String ECHO_NEST_API_KEY = "YYTOE4TOBBVSD1FMG";
 }

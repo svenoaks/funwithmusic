@@ -1,0 +1,39 @@
+package com.smp.funwithmusic.objects;
+
+import org.json.JSONObject;
+
+import android.content.Context;
+import android.util.Log;
+
+import com.afollestad.cardsui.Card;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.smp.funwithmusic.apiclient.*;
+
+public class SongCard extends Card
+{
+	private static final long serialVersionUID = 889236084780166774L;
+
+	private Song song;
+
+	public Song getSong()
+	{
+		return song;
+	}
+	
+	
+	public SongCard(final Song song, Context context)
+	{
+		super(song.getTitle(), song.getAlbum());
+		this.song = song;
+		ItunesClient.get(song.getAlbum(), new JsonHttpResponseHandler() {
+			@Override
+		    public void onSuccess(JSONObject obj) {
+		       String url = ItunesClient.getImageUrl(obj, song.getArtist());
+		       Log.i("URL", url);
+		    }
+		});
+	}
+	
+	
+	
+}

@@ -22,6 +22,21 @@
   "D:\\git\\funwithmusic\\library\\bin\\library.jar": {
     "location": "D:\\git\\funwithmusic\\library\\bin\\library.jar",
     "status": "UNRESOLVED",
-    "error": "No call model found for \u0027D:\\git\\funwithmusic\\library\\bin\\library.jar\u0027. Neither fingerprint \u0027f7e8f1307674becce3d20429b0860d290ecbc6c4\u0027 nor symbolic name \u0027library\u0027 are known."
+    "error": "No call model found for \u0027D:\\git\\funwithmusic\\library\\bin\\library.jar\u0027. Neither fingerprint \u0027370246a072dd078a8b9d715cf7384f8189e7e2d2\u0027 nor symbolic name \u0027library\u0027 are known."
+  },
+  "D:\\git\\funwithmusic\\funwithmusic\\libs\\android-async-http-1.4.3.jar": {
+    "location": "D:\\git\\funwithmusic\\funwithmusic\\libs\\android-async-http-1.4.3.jar",
+    "status": "UNRESOLVED",
+    "error": "No call model found for \u0027D:\\git\\funwithmusic\\funwithmusic\\libs\\android-async-http-1.4.3.jar\u0027. Neither fingerprint \u0027f70e680861fdf9449819003e7799a4e9aca047f8\u0027 nor symbolic name \u0027android-async-http-1.4.3\u0027 are known."
+  },
+  "D:\\git\\funwithmusic\\silk-library\\bin\\silk-library.jar": {
+    "location": "D:\\git\\funwithmusic\\silk-library\\bin\\silk-library.jar",
+    "status": "UNRESOLVED",
+    "error": "No call model found for \u0027D:\\git\\funwithmusic\\silk-library\\bin\\silk-library.jar\u0027. Neither fingerprint \u00275506796daf6ae92e39273daa10e5d4b6e650c6b7\u0027 nor symbolic name \u0027silk-library\u0027 are known."
+  },
+  "D:\\git\\funwithmusic\\funwithmusic\\gen": {
+    "location": "D:\\git\\funwithmusic\\funwithmusic\\gen",
+    "status": "UNRESOLVED",
+    "error": "No class path info available for \u0027D:\\git\\funwithmusic\\funwithmusic\\gen\u0027. Skipped."
   }
 }

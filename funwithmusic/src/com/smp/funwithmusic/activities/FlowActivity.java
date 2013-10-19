@@ -4,6 +4,9 @@ import static com.smp.funwithmusic.utilities.Constants.*;
 import static com.smp.funwithmusic.utilities.UtilityMethods.*;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONObject;
 
 import com.afollestad.cardsui.Card;
 import com.afollestad.cardsui.Card.CardMenuListener;
@@ -11,10 +14,19 @@ import com.afollestad.cardsui.CardAdapter;
 import com.afollestad.cardsui.CardBase;
 import com.afollestad.cardsui.CardHeader;
 import com.afollestad.cardsui.CardListView;
+import com.afollestad.silk.images.SilkImageManager;
+import com.echonest.api.v4.Artist;
+import com.echonest.api.v4.EchoNestAPI;
+import com.echonest.api.v4.EchoNestException;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.R.id;
 import com.smp.funwithmusic.R.layout;
+import com.smp.funwithmusic.apiclient.ItunesClient;
 import com.smp.funwithmusic.objects.Song;
+import com.smp.funwithmusic.objects.SongCard;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -25,6 +37,7 @@ import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,6 +45,7 @@ import android.widget.Toast;
 
 public class FlowActivity extends Activity implements CardMenuListener<Card>
 {
+	SilkImageManager imageManager;
 	ArrayList<String> songs;
 	private IntentFilter filter;
 	private UpdateActivityReceiver receiver;
@@ -53,7 +67,6 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	protected void onPause()
 	{
 		super.onPause();
-
 		unregisterReceiver(receiver);
 	}
 
@@ -64,7 +77,8 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		addCardsFromList();
 		registerReceiver(receiver, filter);
 	}
-
+	
+	//need to make old OS friendly
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -96,8 +110,11 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
-
-		// TestCards();
+		
+		imageManager = new SilkImageManager(this);
+		imageManager.setCacheDirectory(getCacheDir());
+		//imageManager.setFallbackImage(R.drawable.ic_launcher);
+		
 	}
 
 	private void addCardsFromList()
@@ -116,11 +133,11 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 
 	// Adds to same stack if the artist is the same.
 
-	private void addCard(Song song)
+	private void addCard(final Song song)
 	{
 		if (lastArtist != null && lastArtist.equals(song.getArtist()))
 		{
-			cardsAdapter.add(new Card(song.getAlbum(), song.getTitle()));
+			cardsAdapter.add(new SongCard(song, this, imageManager));
 			return;
 		}
 		lastArtist = song.getArtist();
@@ -134,7 +151,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 						Toast.makeText(getApplicationContext(), header.getActionTitle(), Toast.LENGTH_SHORT).show();
 					}
 				}));
-		cardsAdapter.add(new Card(song.getAlbum(), song.getTitle()));
+		cardsAdapter.add(new SongCard(song, this, imageManager));
 	}
 
 	@Override

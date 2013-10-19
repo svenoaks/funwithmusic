@@ -13,16 +13,16 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="EventInfo" key="selection"/>
+		<item value="getBitmapFromExternal" key="selection"/>
 		<list key="findhistory">
+			<item value="getbitmapfromexternal"/>
+			<item value="silkimagemanager"/>
+			<item value="processThumb"/>
+			<item value="process"/>
+			<item value="ImageView"/>
+			<item value="thumbnail"/>
+			<item value="setThumbnail"/>
 			<item value="Performance"/>
-			<item value="3"/>
-			<item value="swipe"/>
-			<item value="slop"/>
-			<item value="getLast"/>
-			<item value="getStac"/>
-			<item value="card_large"/>
-			<item value="card_ex"/>
 		</list>
 		<list key="replacehistory">
 			<item value="EventInfo"/>

@@ -1,0 +1,6 @@
+package com.smp.funwithmusic.apiclient;
+
+public class URLParamEncoder
+{
+
+}

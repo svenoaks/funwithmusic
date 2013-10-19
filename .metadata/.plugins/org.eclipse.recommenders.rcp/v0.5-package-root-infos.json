@@ -1,5 +1,18 @@
 [
   {
+    "symbolicName": "jEN",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "66f06bffb65dfc4b7c9ffb1b2e59131294a888e3",
+    "jarFileModificationDate": "2013-10-18T21:00:50.669-04:00",
+    "location": "D:\\git\\funwithmusic\\funwithmusic\\libs\\jEN.jar",
+    "javaRuntime": false
+  },
+  {
     "symbolicName": "kryo-2.22-all",
     "version": {
       "major": -1,
@@ -85,9 +98,22 @@
       "micro": -1,
       "qualifier": ""
     },
-    "jarFileFingerprint": "f7e8f1307674becce3d20429b0860d290ecbc6c4",
-    "jarFileModificationDate": "2013-10-18T20:43:50.230-04:00",
+    "jarFileFingerprint": "370246a072dd078a8b9d715cf7384f8189e7e2d2",
+    "jarFileModificationDate": "2013-10-18T23:12:16.859-04:00",
     "location": "D:\\git\\funwithmusic\\library\\bin\\library.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "com.squareup.picasso.picasso",
+    "version": {
+      "major": 2,
+      "minor": 1,
+      "micro": 1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "ab19bfb23f641f189b6dca9a4d393f8dc291103a",
+    "jarFileModificationDate": "2013-10-18T22:36:19.594-04:00",
+    "location": "D:\\git\\funwithmusic\\funwithmusic\\libs\\picasso-2.1.1.jar",
     "javaRuntime": false
   },
   {
@@ -137,9 +163,22 @@
       "micro": -1,
       "qualifier": ""
     },
-    "jarFileFingerprint": "40bd67c936c467ba0fec2b34857aa5bb24d006dc",
-    "jarFileModificationDate": "2013-10-18T20:43:46.257-04:00",
+    "jarFileFingerprint": "5506796daf6ae92e39273daa10e5d4b6e650c6b7",
+    "jarFileModificationDate": "2013-10-18T23:12:12.850-04:00",
     "location": "D:\\git\\funwithmusic\\silk-library\\bin\\silk-library.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android-async-http-1.4.3",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "f70e680861fdf9449819003e7799a4e9aca047f8",
+    "jarFileModificationDate": "2013-10-18T21:23:46.558-04:00",
+    "location": "D:\\git\\funwithmusic\\funwithmusic\\libs\\android-async-http-1.4.3.jar",
     "javaRuntime": false
   },
   {
