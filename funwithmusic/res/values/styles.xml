@@ -16,5 +16,10 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    <style name="card_thumbnail_large" parent="@style/card_thumbnail">
+        <item name="android:layout_width">@dimen/card_thumbnail_large</item>
+        <item name="android:layout_height">@dimen/card_thumbnail_large</item>
+        </style>
 
 </resources>

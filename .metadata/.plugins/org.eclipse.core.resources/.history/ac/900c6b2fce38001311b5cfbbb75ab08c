@@ -1,0 +1,18 @@
+package com.smp.funwithmusic.objects;
+
+import android.content.Context;
+
+import com.afollestad.cardsui.CardAdapter;
+import com.afollestad.cardsui.CardBase;
+
+public class SongCardAdapter<ItemType extends CardBase<ItemType>> extends CardAdapter<ItemType>
+
+{
+
+	public SongCardAdapter(Context context)
+	{
+		super(context);
+		// TODO Auto-generated constructor stub
+	}
+
+}

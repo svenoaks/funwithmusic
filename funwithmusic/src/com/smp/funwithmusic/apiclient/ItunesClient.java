@@ -42,14 +42,16 @@ public class ItunesClient
 			{
 				JSONObject res = results.getJSONObject(i);
 				String candidate = res.optString("artistName");
-				Log.i("URL", candidate);
-				Log.i("URL", artist);
+				//Log.i("URL", candidate);
+				//Log.i("URL", artist);
 				if (artist != null && artist.toUpperCase().equals(candidate.toUpperCase()))
 				{
 					//Log.i("URL", artist);
 					result = res.optString("artworkUrl100");
-					if (result != null)
+					if (result == null)
 						result = res.optString("artworkUrl60");
+					
+					if (result != null ) break;
 				}
 			}
 		}

@@ -24,6 +24,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.R.id;
 import com.smp.funwithmusic.R.layout;
+import com.smp.funwithmusic.adapters.SongCardAdapter;
 import com.smp.funwithmusic.apiclient.ItunesClient;
 import com.smp.funwithmusic.objects.Song;
 import com.smp.funwithmusic.objects.SongCard;
@@ -49,7 +50,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	ArrayList<String> songs;
 	private IntentFilter filter;
 	private UpdateActivityReceiver receiver;
-	CardAdapter<Card> cardsAdapter;
+	SongCardAdapter cardsAdapter;
 	String lastArtist;
 
 	private class UpdateActivityReceiver extends BroadcastReceiver
@@ -85,9 +86,9 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_steve);
-		cardsAdapter = new CardAdapter<Card>(this)
-				.setAccentColorRes(android.R.color.holo_blue_dark)
-				.setPopupMenu(R.menu.card_popup, this); // the popup menu
+		cardsAdapter = new SongCardAdapter(this);
+				cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
+				cardsAdapter.setPopupMenu(R.menu.card_popup, this); // the popup menu
 														// callback is this
 														// activity
 
