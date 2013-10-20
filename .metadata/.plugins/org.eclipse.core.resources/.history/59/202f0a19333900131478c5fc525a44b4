@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 public class SongReceiver extends BroadcastReceiver
 {
-
+	
 	public String mAlbum;
 	public String mArtist;
 	public Context mContext;
@@ -29,18 +29,15 @@ public class SongReceiver extends BroadcastReceiver
 	public void onReceive(Context context, Intent intent)
 	{
 		setSongInfo(context, intent);
-		if (mAlbum != null && mArtist != null && mTitle != null)
-		{
-			Song song = new Song(mTitle, mArtist, mAlbum);
-			writeNewSong(context, song);
+		Song song = new Song(mTitle, mArtist, mAlbum);
+		writeNewSong(context, song);
 
-			Intent send = new Intent();
-			send.setAction(SONG_ACTION)
-					.addCategory(Intent.CATEGORY_DEFAULT);
-			context.sendBroadcast(send);
+		Intent send = new Intent();
+		send.setAction(SONG_ACTION)
+				.addCategory(Intent.CATEGORY_DEFAULT);
+		context.sendBroadcast(send);
 
-			Log.i("SONG", mArtist + " " + mTitle + " " + mAlbum);
-		}
+		Log.i("SONG", mArtist + " " + mTitle + " " + mAlbum);
 
 	}
 

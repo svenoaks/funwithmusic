@@ -55,7 +55,7 @@ public class SongCardAdapter<SongCard> extends CardAdapter<Card>
 		if (song.hasAlbumUrl())
 		{
 			Picasso.with(mContext).load(song.getAlbumUrl())
-					.error(R.drawable.flow)
+					.error(R.drawable.ic_launcher)
 					.into(icon);
 		}
 		else if (!song.isCantGetAlbumUrl())

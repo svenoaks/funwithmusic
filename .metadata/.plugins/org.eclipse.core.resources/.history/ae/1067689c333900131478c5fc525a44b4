@@ -14,7 +14,7 @@ import com.smp.funwithmusic.utilities.URLParamEncoder;
 
 public class ItunesClient
 {
-	private static final String BASE_URL = "http://itunes.apple.com/search?";
+	private static final String BASE_URL = "http://itunes.apple.com/search?media=music&attribute=albumTerm&";
 
 	private static AsyncHttpClient client = new AsyncHttpClient();
 
