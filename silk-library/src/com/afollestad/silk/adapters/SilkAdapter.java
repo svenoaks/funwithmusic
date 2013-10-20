@@ -47,8 +47,9 @@ public abstract class SilkAdapter<ItemType extends SilkComparable> extends BaseA
      * @param index    The index of the inflated view.
      * @param recycled The layout with views to be filled (e.g. text views).
      * @param item     The item at the current index of the adapter.
+     * @param parent 
      */
-    public abstract View onViewCreated(int index, View recycled, ItemType item);
+    public abstract View onViewCreated(int index, View recycled, ItemType item, ViewGroup parent);
 
     /**
      * Gets the context passed in the constructor, that's used for inflating views.
@@ -232,12 +233,12 @@ public abstract class SilkAdapter<ItemType extends SilkComparable> extends BaseA
     protected abstract long getItemId(ItemType item);
 
     @Override
-    public final View getView(int i, View view, ViewGroup viewGroup) {
-        if (view == null) {
+    public final View getView(int i, View view, ViewGroup parent) {
+        if (view == null) {   
             int type = getItemViewType(i);
             view = LayoutInflater.from(context).inflate(getLayout(i, type), null);
         }
-        return onViewCreated(i, view, getItem(i));
+        return onViewCreated(i, view, getItem(i), parent);
     }
 
     /**

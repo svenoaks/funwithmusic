@@ -2,6 +2,7 @@ package com.afollestad.cardsuisample;
 
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +22,7 @@ public class CustomCardAdapter extends CardAdapter<Card> {
     }
 
     @Override
-    protected boolean onProcessThumbnail(ImageView icon, Card card) {
+    protected boolean onProcessThumbnail(ImageView icon, Card card, ViewGroup parent) {
         // Optional, you can modify properties of the icon ImageView here.
         // In this case, this view is a SilkImageView in the card_larger.xml layout.
         SilkImageView silkIcon = (SilkImageView) icon;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -211,7 +212,7 @@ public class CardAdapter<ItemType extends CardBase<ItemType>> extends SilkAdapte
     }
 
     @Override
-    public View onViewCreated(int index, View recycled, ItemType item) {
+    public View onViewCreated(int index, View recycled, ItemType item, ViewGroup parent) {
         if (item.isHeader()) {
             setupHeader(item, recycled);
             return recycled;
@@ -223,7 +224,7 @@ public class CardAdapter<ItemType extends CardBase<ItemType>> extends SilkAdapte
         if (content != null) onProcessContent(content, item);
         ImageView icon = (ImageView) recycled.findViewById(android.R.id.icon);
         if (icon != null) {
-            if (onProcessThumbnail(icon, item)) {
+            if (onProcessThumbnail(icon, item, parent)) {
                 icon.setVisibility(View.VISIBLE);
             } else {
                 icon.setVisibility(View.GONE);
@@ -273,7 +274,7 @@ public class CardAdapter<ItemType extends CardBase<ItemType>> extends SilkAdapte
         return true;
     }
 
-    protected boolean onProcessThumbnail(ImageView icon, ItemType card) {
+    protected boolean onProcessThumbnail(ImageView icon, ItemType card, ViewGroup parent) {
         if (icon == null) return false;
         if (card.getThumbnail() == null) return false;
         icon.setImageDrawable(card.getThumbnail());

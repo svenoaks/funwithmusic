@@ -13,16 +13,16 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="onViewCreated" key="selection"/>
+		<item value="getView" key="selection"/>
 		<list key="findhistory">
-			<item value="onViewCreated"/>
 			<item value="getView"/>
-			<item value="getbitmapfromexternal"/>
-			<item value="silkimagemanager"/>
-			<item value="processThumb"/>
-			<item value="process"/>
-			<item value="ImageView"/>
-			<item value="thumbnail"/>
+			<item value="onprocessthumbnail"/>
+			<item value="onviewcreated"/>
+			<item value="getListView"/>
+			<item value="parent"/>
+			<item value="getList"/>
+			<item value="notify"/>
+			<item value="get"/>
 		</list>
 		<list key="replacehistory">
 			<item value="EventInfo"/>

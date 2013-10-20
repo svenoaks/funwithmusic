@@ -91,19 +91,6 @@
     "javaRuntime": false
   },
   {
-    "symbolicName": "library",
-    "version": {
-      "major": -1,
-      "minor": -1,
-      "micro": -1,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "114dcf0aa2e8d2c6ba1f3f952562e6fa8d76ffe7",
-    "jarFileModificationDate": "2013-10-19T12:23:06.441-04:00",
-    "location": "D:\\git\\funwithmusic\\library\\bin\\library.jar",
-    "javaRuntime": false
-  },
-  {
     "symbolicName": "com.squareup.picasso.picasso",
     "version": {
       "major": 2,
@@ -163,8 +150,8 @@
       "micro": -1,
       "qualifier": ""
     },
-    "jarFileFingerprint": "2d0495fec64df2e8b14aca16dca1e3eb6f120e1b",
-    "jarFileModificationDate": "2013-10-19T12:23:02.341-04:00",
+    "jarFileFingerprint": "5df215ad8993c31ab0a98601c6c5f7c4e43be412",
+    "jarFileModificationDate": "2013-10-19T18:09:38.361-04:00",
     "location": "D:\\git\\funwithmusic\\silk-library\\bin\\silk-library.jar",
     "javaRuntime": false
   },

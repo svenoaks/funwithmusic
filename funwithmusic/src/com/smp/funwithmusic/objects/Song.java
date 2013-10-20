@@ -14,6 +14,18 @@ public class Song implements Serializable
 	String album;
 	String albumUrl;
 	
+	private boolean cantGetAlbumUrl;
+	
+	
+	
+	public boolean isCantGetAlbumUrl()
+	{
+		return cantGetAlbumUrl;
+	}
+	public void setCantGetAlbumUrl(boolean cantGetAlbumUrl)
+	{
+		this.cantGetAlbumUrl = cantGetAlbumUrl;
+	}
 	public String getAlbumUrl()
 	{
 		return albumUrl;

@@ -1,5 +1,7 @@
 package com.smp.funwithmusic.adapters;
 
+import java.util.List;
+
 import org.json.JSONObject;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -12,8 +14,10 @@ import com.squareup.picasso.Picasso;
 import android.content.Context;
 import android.net.Uri;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.afollestad.cardsui.Card;
@@ -37,38 +41,51 @@ public class SongCardAdapter<SongCard> extends CardAdapter<Card>
 	}
 
 	@Override
-	protected boolean onProcessThumbnail(final ImageView icon, Card card)
+	protected boolean onProcessThumbnail(final ImageView icon, final Card card, final ViewGroup parent)
 	{
 		// Optional, you can modify properties of the icon ImageView here.
 		// In this case, this view is a SilkImageView in the card_larger.xml
 		// layout.
-		@SuppressWarnings("unchecked")
-		SongCard songCard = (SongCard) card;
+
+		final SongCard songCard = (SongCard) card;
 		final Song song = ((com.smp.funwithmusic.objects.SongCard) songCard).getSong();
-		icon.setImageDrawable(null);
+		
+		//icon.setImageDrawable(null);
+		icon.setImageDrawable(mContext.getResources().getDrawable( R.drawable.flow ));
 		if (song.hasAlbumUrl())
 		{
-			Picasso.with(mContext).load(song.getAlbumUrl()).into(icon);
+			Picasso.with(mContext).load(song.getAlbumUrl())
+					.error(R.drawable.ic_launcher)
+					.into(icon);
 		}
-		else
-		{																																									
+		else if (!song.isCantGetAlbumUrl())
+		{
+
 			ItunesClient.get(song.getAlbum(), new JsonHttpResponseHandler()
 			{
 				public void onSuccess(JSONObject obj)
 				{
 					String url =
 							ItunesClient.getImageUrl(obj, song.getArtist());
-					
-						song.setAlbumUrl(url);
-						Picasso.with(mContext).load(url)
-								
-								.error(R.drawable.ic_launcher)
-								.into(icon);
-				
-					
 
+					song.setAlbumUrl(url);
+					ListView list = (ListView) parent;
+					int start = list.getFirstVisiblePosition();
+					for (int i = start, j = list.getLastVisiblePosition(); i <= j; i++)
+						if (card == list.getItemAtPosition(i))
+						{
+							View view = list.getChildAt(i - start);
+							list.getAdapter().getView(i, view, list);
+							break;
+						}
 				}
 			});
+			song.setCantGetAlbumUrl(true);
+		}
+		else
+		{
+			// icon.setImageDrawable(mContext.getResources().getDrawable(
+			// R.drawable.flow));
 		}
 
 		return true;
@@ -89,10 +106,10 @@ public class SongCardAdapter<SongCard> extends CardAdapter<Card>
 	}
 
 	@Override
-	public View onViewCreated(int index, View recycled, Card item)
+	public View onViewCreated(int index, View recycled, Card item, ViewGroup parent)
 	{
 		// Optional, you can modify properties of other views that you add to
 		// the card layout that aren't the icon, title, content...
-		return super.onViewCreated(index, recycled, item);
+		return super.onViewCreated(index, recycled, item, parent);
 	}
 }

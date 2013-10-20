@@ -46,7 +46,6 @@ import android.widget.Toast;
 
 public class FlowActivity extends Activity implements CardMenuListener<Card>
 {
-	SilkImageManager imageManager;
 	ArrayList<String> songs;
 	private IntentFilter filter;
 	private UpdateActivityReceiver receiver;
@@ -60,6 +59,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		public void onReceive(Context context, Intent intent)
 		{
 			addCardsFromList();
+			getAlbumUrls();
 		}
 
 	}
@@ -76,6 +76,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	{
 		super.onResume();
 		addCardsFromList();
+		getAlbumUrls();
 		registerReceiver(receiver, filter);
 	}
 	
@@ -112,9 +113,12 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 
 		receiver = new UpdateActivityReceiver();
 		
-		imageManager = new SilkImageManager(this);
-		imageManager.setCacheDirectory(getCacheDir());
-		//imageManager.setFallbackImage(R.drawable.ic_launcher);
+		
+		
+	}
+
+	private void getAlbumUrls()
+	{
 		
 	}
 
@@ -138,7 +142,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	{
 		if (lastArtist != null && lastArtist.equals(song.getArtist()))
 		{
-			cardsAdapter.add(new SongCard(song, this, imageManager));
+			cardsAdapter.add(new SongCard(song, this));
 			return;
 		}
 		lastArtist = song.getArtist();
@@ -152,7 +156,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 						Toast.makeText(getApplicationContext(), header.getActionTitle(), Toast.LENGTH_SHORT).show();
 					}
 				}));
-		cardsAdapter.add(new SongCard(song, this, imageManager));
+		cardsAdapter.add(new SongCard(song, this));
 	}
 
 	@Override

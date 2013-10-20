@@ -22,7 +22,7 @@
   "D:\\git\\funwithmusic\\library\\bin\\library.jar": {
     "location": "D:\\git\\funwithmusic\\library\\bin\\library.jar",
     "status": "UNRESOLVED",
-    "error": "No call model found for \u0027D:\\git\\funwithmusic\\library\\bin\\library.jar\u0027. Neither fingerprint \u00279f21c9b714a66a7cf07cb351249538b4c21001da\u0027 nor symbolic name \u0027library\u0027 are known."
+    "error": "No call model found for \u0027D:\\git\\funwithmusic\\library\\bin\\library.jar\u0027. Neither fingerprint \u0027288437278c763c88b5e801e293d080e6a5863877\u0027 nor symbolic name \u0027library\u0027 are known."
   },
   "D:\\git\\funwithmusic\\funwithmusic\\libs\\android-async-http-1.4.3.jar": {
     "location": "D:\\git\\funwithmusic\\funwithmusic\\libs\\android-async-http-1.4.3.jar",

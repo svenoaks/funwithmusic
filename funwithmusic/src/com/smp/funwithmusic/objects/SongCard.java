@@ -39,7 +39,7 @@ public class SongCard extends Card implements ImageListener
 		return song;
 	}
 
-	public SongCard(final Song song, final Context context, final SilkImageManager mgr)
+	public SongCard(final Song song, final Context context)
 	{
 		super(song.getTitle(), song.getAlbum());
 		this.song = song;

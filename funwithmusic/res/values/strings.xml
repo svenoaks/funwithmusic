@@ -8,5 +8,6 @@
     <string name="steves_activity">Lyrics Flow</string>
      <string name="todo">TODO</string>
      <string name="artist_info">Get Artist Info</string>
+     <string name="loading_flow">Loading Flow&#8230;</string>
 
 </resources>
