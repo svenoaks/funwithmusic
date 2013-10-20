@@ -47,12 +47,13 @@ public class SongCardAdapter<SongCard> extends CardAdapter<Card>
 		final SongCard songCard = (SongCard) card;
 		final Song song = ((com.smp.funwithmusic.dataobjects.SongCard) songCard).getSong();
 
-		
+		// icon.setImageDrawable(null);
 		Picasso.with(mContext).load(song.getAlbumUrl())
 				.placeholder(R.drawable.flow)
 				.error(R.drawable.flow)
 				.into(icon);
-		
+		// icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.flow));
+
 		if (!song.isCantGetAlbumUrl())
 		{
 
