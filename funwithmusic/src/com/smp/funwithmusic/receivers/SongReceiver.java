@@ -3,7 +3,7 @@ package com.smp.funwithmusic.receivers;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.smp.funwithmusic.objects.Song;
+import com.smp.funwithmusic.dataobjects.Song;
 
 import android.content.BroadcastReceiver;
 import static com.smp.funwithmusic.utilities.Constants.*;

@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.smp.funwithmusic.R;
-import com.smp.funwithmusic.objects.Event;
-import com.smp.funwithmusic.objects.EventInfo;
-import com.smp.funwithmusic.objects.Performance;
+import com.smp.funwithmusic.dataobjects.Event;
+import com.smp.funwithmusic.dataobjects.EventInfo;
+import com.smp.funwithmusic.dataobjects.Performance;
+
 import static com.smp.funwithmusic.utilities.Constants.*;
 import static com.smp.funwithmusic.utilities.UtilityMethods.*;
 

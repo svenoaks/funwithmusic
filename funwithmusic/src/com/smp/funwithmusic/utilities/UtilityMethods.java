@@ -8,8 +8,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import com.smp.funwithmusic.activities.EventActivity;
-import com.smp.funwithmusic.objects.EventInfo;
-import com.smp.funwithmusic.objects.Song;
+import com.smp.funwithmusic.dataobjects.EventInfo;
+import com.smp.funwithmusic.dataobjects.Song;
 
 import android.content.Context;
 import android.content.Intent;

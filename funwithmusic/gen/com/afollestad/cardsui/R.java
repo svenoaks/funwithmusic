@@ -53,11 +53,11 @@ public final class R {
 		public static final int unpressed_background = 0x7f02000c;
 	}
 	public static final class id {
-		public static final int day = 0x7f0a0006;
+		public static final int day = 0x7f0a0007;
 		public static final int inner_frame = 0x7f0a0001;
-		public static final int month = 0x7f0a0005;
+		public static final int month = 0x7f0a0006;
 		public static final int titleFrame = 0x7f0a0002;
-		public static final int year = 0x7f0a0007;
+		public static final int year = 0x7f0a0008;
 	}
 	public static final class layout {
 		public static final int fragment_list = 0x7f030005;
@@ -73,11 +73,12 @@ public final class R {
 	}
 	public static final class style {
 		public static final int card_content = 0x7f080008;
-		public static final int card_header_inner = 0x7f08000a;
-		public static final int card_header_outer = 0x7f080009;
-		public static final int card_header_summary = 0x7f08000c;
-		public static final int card_header_title = 0x7f08000b;
+		public static final int card_header_inner = 0x7f08000b;
+		public static final int card_header_outer = 0x7f08000a;
+		public static final int card_header_summary = 0x7f08000d;
+		public static final int card_header_title = 0x7f08000c;
 		public static final int card_inner = 0x7f080004;
+		public static final int card_lyrics = 0x7f080009;
 		public static final int card_outer = 0x7f080003;
 		public static final int card_popup_anchor = 0x7f080001;
 		public static final int card_shadow = 0x7f080002;

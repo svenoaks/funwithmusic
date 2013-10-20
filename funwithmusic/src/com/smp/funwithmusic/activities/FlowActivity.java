@@ -26,8 +26,8 @@ import com.smp.funwithmusic.R.id;
 import com.smp.funwithmusic.R.layout;
 import com.smp.funwithmusic.adapters.SongCardAdapter;
 import com.smp.funwithmusic.apiclient.ItunesClient;
-import com.smp.funwithmusic.objects.Song;
-import com.smp.funwithmusic.objects.SongCard;
+import com.smp.funwithmusic.dataobjects.Song;
+import com.smp.funwithmusic.dataobjects.SongCard;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
