@@ -9,15 +9,41 @@ public class Song implements Serializable
 	 */
 	private static final long serialVersionUID = 6925090966913539997L;
 	
-	String title;
-	String artist;
-	String album;
-	String albumUrl;
-	
+	private String title;
+	private String artist;
+	private String album;
+	private String albumUrl;
+	private String shortLyrics;
+	private String fullLyricsUrl;
 	private boolean cantGetAlbumUrl;
+	private boolean cantGetLyrics;
 	
 	
-	
+	public boolean isCantGetLyrics()
+	{
+		return cantGetLyrics;
+	}
+	public void setCantGetLyrics(boolean cantGetLyrics)
+	{
+		this.cantGetLyrics = cantGetLyrics;
+	}
+	public String getFullLyricsUrl()
+	{
+		return fullLyricsUrl;
+	}
+	public void setFullLyricsUrl(String fullLyricsUrl)
+	{
+		this.fullLyricsUrl = fullLyricsUrl;
+	}
+	public String getShortLyrics()
+	{
+		return shortLyrics;
+	}
+	public void setShortLyrics(String shortLyrics)
+	{
+		this.shortLyrics = shortLyrics;
+	}
+
 	public boolean isCantGetAlbumUrl()
 	{
 		return cantGetAlbumUrl;
@@ -85,5 +111,9 @@ public class Song implements Serializable
 	public boolean hasAlbumUrl()
 	{
 		return !(albumUrl == null);
+	}
+	public boolean hasLyrics()
+	{
+		return !(shortLyrics == null || fullLyricsUrl == null);
 	}
 }

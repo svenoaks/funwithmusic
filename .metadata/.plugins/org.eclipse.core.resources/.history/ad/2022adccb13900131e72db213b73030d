@@ -1,0 +1,37 @@
+package com.smp.funwithmusic.activities;
+
+import com.smp.funwithmusic.R;
+import android.app.Activity;
+import android.os.Bundle;
+import android.webkit.WebView;
+
+public class WebActivity extends Activity
+{
+	WebView webView;
+	
+	@Override
+	protected void onPause()
+	{
+		// TODO Auto-generated method stub
+		super.onPause();
+	}
+
+	@Override
+	protected void onResume()
+	{
+		// TODO Auto-generated method stub
+		super.onResume();
+	}
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_web);
+		
+		webView = findViewById(R.id.webview);
+		
+	}
+
+	
+	
+}

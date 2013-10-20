@@ -1,3 +1,13 @@
 1382229071948	Delete element
 1382229554572	Delete element
 1382239818053	Rename package 'com.smp.funwithmusic.objects'
+1382284861829	Encapsulate field 'fullLyricsUrl'
+1382284903529	Encapsulate field 'cantGetLyrics'
+1382291423734	Rename resource 'activity_steve.xml'
+1382297850193	Delete element
+1382298022705	Delete element
+1382298025906	Delete element
+1382298028617	Delete element
+1382298348740	Delete element
+1382298350757	Delete element
+1382298352853	Delete element

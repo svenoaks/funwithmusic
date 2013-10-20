@@ -86,7 +86,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_steve);
+		setContentView(R.layout.activity_flow);
 		cardsAdapter = new SongCardAdapter<SongCard>(this);
 				cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
 				cardsAdapter.setPopupMenu(R.menu.card_popup, this); // the popup menu
@@ -97,23 +97,27 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		cardsList.setAdapter(cardsAdapter);
 		cardsList.setOnCardClickListener(new CardListView.CardClickListener()
 		{
+			@SuppressWarnings("rawtypes")
 			@Override
 			public void onCardClick(int index, CardBase card, View view)
 			{
-				if (index == 0)
-				{
-					// startActivity(new Intent(MainActivity.this,
-					// CustomActivity.class));
-				}
+				
+					SongCard songCard = (SongCard) card;
+					Song song = songCard.getSong();
+					if (song.hasLyrics())
+					{
+						Intent intent = new Intent(FlowActivity.this, WebActivity.class);
+						intent.putExtra(WEB_URL, song.getFullLyricsUrl());
+						startActivity(intent);
+					}
+				
 			}
 		});
 
 		filter = new IntentFilter(SONG_ACTION);
-		filter.addCategory(Intent.CATEGORY_DEFAULT);
+		//filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
-		
-		
 		
 	}
 

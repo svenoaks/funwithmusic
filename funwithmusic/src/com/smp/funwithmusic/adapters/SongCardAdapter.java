@@ -1,33 +1,32 @@
 package com.smp.funwithmusic.adapters;
 
-import java.util.List;
+import java.util.Locale;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+import static com.smp.funwithmusic.utilities.Constants.*;
 
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.apiclient.ItunesClient;
+import com.smp.funwithmusic.apiclient.LyricWikiClient;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.dataobjects.SongCard;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
-import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.afollestad.cardsui.Card;
 import com.afollestad.cardsui.CardAdapter;
-import com.afollestad.cardsui.CardBase;
 
-import com.afollestad.silk.images.SilkImageManager;
-import com.afollestad.silk.views.image.SilkImageView;
-
-public class SongCardAdapter<SongCard> extends CardAdapter<Card>
+public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 
 {
 	private Context mContext;
@@ -43,16 +42,13 @@ public class SongCardAdapter<SongCard> extends CardAdapter<Card>
 	@Override
 	protected boolean onProcessThumbnail(final ImageView icon, final Card card, final ViewGroup parent)
 	{
+		final Song song = ((SongCard) card).getSong();
 
-		final SongCard songCard = (SongCard) card;
-		final Song song = ((com.smp.funwithmusic.dataobjects.SongCard) songCard).getSong();
-
-		
 		Picasso.with(mContext).load(song.getAlbumUrl())
 				.placeholder(R.drawable.flow)
 				.error(R.drawable.flow)
 				.into(icon);
-		
+
 		if (!song.isCantGetAlbumUrl())
 		{
 
@@ -91,6 +87,7 @@ public class SongCardAdapter<SongCard> extends CardAdapter<Card>
 	protected boolean onProcessTitle(TextView title, Card card, int accentColor)
 	{
 		// Optional, you can modify properties of the title textview here.
+
 		return super.onProcessTitle(title, card, accentColor);
 	}
 
@@ -101,12 +98,69 @@ public class SongCardAdapter<SongCard> extends CardAdapter<Card>
 		return super.onProcessContent(content, card);
 	}
 
+	protected boolean onProcessLyrics(TextView lyrics, final Card card, final ViewGroup parent)
+	{
+		final Song song = ((SongCard) card).getSong();
+
+		if (song.hasLyrics())
+		{
+			lyrics.setText(song.getShortLyrics());
+		}
+		else
+		{
+			lyrics.setText(LYRICS_LOADING);
+		}
+
+		if (!song.isCantGetLyrics())
+		{
+			//Log.d("LYRICS", "in if");
+			LyricWikiClient.get(song.getTitle(), song.getArtist(), new AsyncHttpResponseHandler()
+			{
+				@Override
+				public void onSuccess(String text)
+				{
+					//Log.d("LYRICS", text);
+					text = text.replace("song = ", "");
+
+					JSONObject obj = null;
+					try
+					{
+						obj = new JSONObject(text);
+					}
+					catch (JSONException e)
+					{
+						e.printStackTrace();
+					}
+					if (obj != null)
+					{
+						//Log.d("LYRICS", "in obj");
+						Locale locale = Locale.getDefault();
+						String shortLyrics = LyricWikiClient.getShortLyric(obj);
+						//Log.d("LYRICS", shortLyrics.toUpperCase(locale) + " " + NOT_FOUND.toUpperCase(locale) );
+						if (shortLyrics.toUpperCase(locale).equals(NOT_FOUND.toUpperCase(locale)))
+						{
+							shortLyrics += CLICK_TO_ADD;
+						}
+						song.setShortLyrics(shortLyrics);
+						song.setFullLyricsUrl(LyricWikiClient.getFullLyricsUrl(obj));
+						updateSingleView(parent, card);
+					}
+
+				}
+			});
+			song.setCantGetLyrics(true);
+		}
+
+		return true;
+	}
+
 	@Override
 	public View onViewCreated(int index, View recycled, Card item, ViewGroup parent)
 	{
 		TextView lyrics = (TextView) recycled.findViewById(R.id.lyrics);
 		if (lyrics != null)
-			lyrics.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla metus libero, iaculis non feugiat nec, tempus vitae mi.");
+			onProcessLyrics(lyrics, item, parent);
+
 		return super.onViewCreated(index, recycled, item, parent);
 	}
 }

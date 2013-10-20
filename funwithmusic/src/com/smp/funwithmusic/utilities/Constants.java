@@ -11,4 +11,14 @@ public class Constants
 	public static final String DASH = " - ";
 	
 	public static final String ECHO_NEST_API_KEY = "YYTOE4TOBBVSD1FMG";
+	
+	public static final String ESCAPED_SPACE = "%20";
+	public static final String ITUNES_TERMS_CONNECTOR = "+";
+	public static final String LYRICS_WIKI_TERMS_CONNECTOR = "_";
+	
+	public static final String LYRICS_LOADING = "Lyrics loading...";
+	public static final String NOT_FOUND = "Not found";
+	public static final String CLICK_TO_ADD = " - click to add";
+	
+	public static final String WEB_URL = "com.smp.funwithmusic.WEB_URL";
 }

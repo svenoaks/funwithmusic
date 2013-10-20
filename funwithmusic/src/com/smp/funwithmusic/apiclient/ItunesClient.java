@@ -6,21 +6,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.smp.funwithmusic.utilities.URLParamEncoder;
+import static com.smp.funwithmusic.utilities.Constants.*;
 
 public class ItunesClient
 {
 	public static final String BASE_URL = "http://itunes.apple.com/search?";
 	
-	public static final String ESCAPED_SPACE = "%20";
-	public static final String TERMS_CONNECTOR = "+";
-
 	private static AsyncHttpClient client = new AsyncHttpClient();
 
 	public static void get(String album, JsonHttpResponseHandler responseHandler)
@@ -28,7 +23,7 @@ public class ItunesClient
 		RequestParams params = new RequestParams();
 
 		params.put("term", URLParamEncoder.encode(removeAlbumVariations(album))
-				.replace(ESCAPED_SPACE, TERMS_CONNECTOR));
+				.replace(ESCAPED_SPACE, ITUNES_TERMS_CONNECTOR));
 
 		params.put("media", "music");
 		params.put("attribute", "albumTerm");
