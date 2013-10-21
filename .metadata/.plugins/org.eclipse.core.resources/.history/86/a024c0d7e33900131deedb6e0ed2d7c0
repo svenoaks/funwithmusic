@@ -42,7 +42,7 @@ public class SongReceiver extends BroadcastReceiver
 
 			Log.i("SONG", mArtist + " " + mTitle + " " + mAlbum);
 		}
-		result.finish();
+		//result.finish();
 
 	}
 

@@ -46,7 +46,7 @@ public class WebActivity extends Activity
 		url = intent.getStringExtra(WEB_URL);
 
 		webView.getSettings().setJavaScriptEnabled(true);
-		webView.getSettings().setBuiltInZoomControls(true);
+		//webView.getSettings().setBuiltInZoomControls(true);
 		
 		final Activity activity = this;
 		webView.setWebChromeClient(new WebChromeClient()

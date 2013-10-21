@@ -28,7 +28,6 @@ public class SongReceiver extends BroadcastReceiver
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
-		PendingResult result = goAsync();
 		setSongInfo(context, intent);
 		if (mAlbum != null && mArtist != null && mTitle != null)
 		{
@@ -42,7 +41,6 @@ public class SongReceiver extends BroadcastReceiver
 
 			Log.i("SONG", mArtist + " " + mTitle + " " + mAlbum);
 		}
-		result.finish();
 
 	}
 

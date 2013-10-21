@@ -1,7 +1,6 @@
 package com.smp.funwithmusic.apiclient;
 
 import java.util.Locale;
-import java.util.regex.Pattern;
 
 import org.json.JSONArray;
 import org.json.JSONException;
