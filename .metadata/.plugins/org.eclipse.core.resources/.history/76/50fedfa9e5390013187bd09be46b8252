@@ -58,6 +58,7 @@ public class SongReceiver extends BroadcastReceiver
 				result.finish();
 				
 				return null;
+	       
 	     }
 	}
 	@Override
