@@ -26,40 +26,41 @@ public class SongReceiver extends BroadcastReceiver
 	public Context mContext;
 	public Intent mIntent;
 	public String mTitle;
-	
+
 	private class SongReceiverAsyncTask extends AsyncTask<Void, Void, Void>
 	{
 		Context context;
 		Intent intent;
 		PendingResult result;
-		
+
 		public SongReceiverAsyncTask(Context context, Intent intent, PendingResult result)
 		{
 			this.context = context;
 			this.intent = intent;
 			this.result = result;
 		}
-		
-		 protected Void doInBackground(Void... blah) {
-			
-			 setSongInfo(context, intent);
-				if (mAlbum != null && mArtist != null && mTitle != null)
-				{
-					Song song = new Song(mTitle, mArtist, mAlbum);
-					writeNewSong(context, song);
 
-					Intent send = new Intent();
-					send.setAction(SONG_ACTION)
-							.addCategory(Intent.CATEGORY_DEFAULT);
-					context.sendBroadcast(send);
+		protected Void doInBackground(Void... blah)
+		{
+			setSongInfo(context, intent);
+			if (mAlbum != null && mArtist != null && mTitle != null)
+			{
+				Song song = new Song(mTitle, mArtist, mAlbum);
+				writeNewSong(context, song);
 
-					Log.i("SONG", mArtist + " " + mTitle + " " + mAlbum);
-				}
-				result.finish();
-				
-				return null;
-	     }
+				Intent send = new Intent();
+				send.setAction(SONG_ACTION)
+						.addCategory(Intent.CATEGORY_DEFAULT);
+				context.sendBroadcast(send);
+
+				//Log.i("SONG", mArtist + " " + mTitle + " " + mAlbum);
+			}
+			result.finish();
+
+			return null;
+		}
 	}
+
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{

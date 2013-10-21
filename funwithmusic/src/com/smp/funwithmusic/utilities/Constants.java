@@ -18,7 +18,8 @@ public class Constants
 	
 	public static final String LYRICS_LOADING = "Lyrics loading...";
 	public static final String NOT_FOUND = "Not found";
-	public static final String CLICK_TO_ADD = " - click to add";
+	public static final String NOT_FOUND_WITH_ADD = "Not found - tap to add";
+	public static final String COULDNT_FIND_LYRICS = "Lyrics couldn't be found";
 	
 	public static final String WEB_URL = "com.smp.funwithmusic.WEB_URL";
 }

@@ -46,7 +46,8 @@ import android.widget.Toast;
 
 public class FlowActivity extends Activity implements CardMenuListener<Card>
 {
-	ArrayList<String> songs;
+	// ArrayList<String> songs;
+	List<Song> songs;
 	private IntentFilter filter;
 	private UpdateActivityReceiver receiver;
 	SongCardAdapter<SongCard> cardsAdapter;
@@ -54,12 +55,10 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 
 	private class UpdateActivityReceiver extends BroadcastReceiver
 	{
-
 		@Override
 		public void onReceive(Context context, Intent intent)
 		{
 			addCardsFromList();
-			getAlbumUrls();
 		}
 
 	}
@@ -69,6 +68,20 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	{
 		super.onPause();
 		unregisterReceiver(receiver);
+		saveSongs();
+	}
+
+	// reseting the imageUrl and lryics will allow the program to attempt to
+	// find them the next time.
+	// Song object determines if they should be reset internally.
+	private void saveSongs()
+	{
+		for (Song song : songs)
+		{
+			song.resetImageUrl();
+			song.resetLyrics();
+		}
+		writeObjectToFile(this, SONG_FILE_NAME, songs);
 	}
 
 	@Override
@@ -76,11 +89,10 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	{
 		super.onResume();
 		addCardsFromList();
-		getAlbumUrls();
 		registerReceiver(receiver, filter);
 	}
-	
-	//need to make old OS friendly
+
+	// need to make old OS friendly
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -88,10 +100,10 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_flow);
 		cardsAdapter = new SongCardAdapter<SongCard>(this);
-				cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
-				cardsAdapter.setPopupMenu(R.menu.card_popup, this); // the popup menu
-														// callback is this
-														// activity
+		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
+		cardsAdapter.setPopupMenu(R.menu.card_popup, this); // the popup menu
+		// callback is this
+		// activity
 
 		CardListView cardsList = (CardListView) findViewById(R.id.cardsList);
 		cardsList.setAdapter(cardsAdapter);
@@ -101,16 +113,22 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 			@Override
 			public void onCardClick(int index, CardBase card, View view)
 			{
-				
-					SongCard songCard = (SongCard) card;
-					Song song = songCard.getSong();
-					if (song.hasLyrics())
-					{
-						Intent intent = new Intent(FlowActivity.this, WebActivity.class);
-						intent.putExtra(WEB_URL, song.getFullLyricsUrl());
-						startActivity(intent);
-					}
-				
+
+				SongCard songCard = (SongCard) card;
+				Song song = songCard.getSong();
+				if (song.hasLyrics())
+				{
+
+					Intent intent = new Intent(FlowActivity.this, WebActivity.class);
+					intent.putExtra(WEB_URL, song.getFullLyricsUrl());
+					startActivity(intent);
+					/*
+					 * Uri uri = Uri.parse(song.getFullLyricsUrl()); Intent
+					 * intent = new Intent(Intent.ACTION_VIEW, uri);
+					 * startActivity(intent);
+					 */
+				}
+
 			}
 		});
 
@@ -118,19 +136,15 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
-		
-	}
 
-	private void getAlbumUrls()
-	{
-		
 	}
 
 	private void addCardsFromList()
 	{
-		ArrayList<Song> songs = getSongList(this);
-		if (this.songs == null || this.songs.size() != songs.size())
-		{	
+		// songs never is null
+		songs = getSongList(this);
+		if (cardsAdapter.getCount() != songs.size())
+		{
 			cardsAdapter.clear();
 			cardsAdapter.notifyDataSetChanged();
 			for (Song song : songs)
@@ -138,6 +152,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 				addCard(song);
 			}
 		}
+
 	}
 
 	// Adds to same stack if the artist is the same.
@@ -160,6 +175,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 						Toast.makeText(getApplicationContext(), header.getActionTitle(), Toast.LENGTH_SHORT).show();
 					}
 				}));
+
 		cardsAdapter.add(new SongCard(song, this));
 	}
 

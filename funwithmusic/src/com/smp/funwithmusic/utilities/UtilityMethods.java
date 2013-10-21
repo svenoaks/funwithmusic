@@ -26,7 +26,7 @@ public class UtilityMethods
 		//int mode = android.os.Build.VERSION.SDK_INT >= 11 ? Context.MODE_MULTI_PROCESS : Context.MODE_PRIVATE;
 		return context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
 	}
-	public static Object readObjectFromFile(Context context, String fileName)
+	public static synchronized Object readObjectFromFile(Context context, String fileName)
 	{
 		Object result = null;
 		FileInputStream fis = null;
@@ -60,7 +60,7 @@ public class UtilityMethods
 		return result;
 	}
 
-	public static void writeObjectToFile(Context context, String fileName, Object obj)
+	public static synchronized void writeObjectToFile(Context context, String fileName, Object obj)
 	{
 		FileOutputStream fos = null;
 		try

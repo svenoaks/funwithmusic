@@ -2,7 +2,7 @@ package com.smp.funwithmusic.asynctask;
 
 import android.os.AsyncTask;
 import android.widget.ImageView;
-
+//unused
 public class AlbumArtUrlAsyncTask extends AsyncTask<ImageView, Void, String>
 {
 	

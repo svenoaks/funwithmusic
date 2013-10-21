@@ -16,7 +16,6 @@ import com.smp.funwithmusic.dataobjects.SongCard;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -49,7 +48,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 				.error(R.drawable.flow)
 				.into(icon);
 
-		if (!song.isCantGetAlbumUrl())
+		if (!song.hasAlbumUrl() && !song.isCantGetAlbumUrl())
 		{
 
 			ItunesClient.get(song.getAlbum(), new JsonHttpResponseHandler()
@@ -113,13 +112,13 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 
 		if (!song.isCantGetLyrics())
 		{
-			//Log.d("LYRICS", "in if");
+			// Log.d("LYRICS", "in if");
 			LyricWikiClient.get(song.getTitle(), song.getArtist(), new AsyncHttpResponseHandler()
 			{
 				@Override
 				public void onSuccess(String text)
 				{
-					//Log.d("LYRICS", text);
+					// Log.d("LYRICS", text);
 					text = text.replace("song = ", "");
 
 					JSONObject obj = null;
@@ -133,13 +132,14 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 					}
 					if (obj != null)
 					{
-						//Log.d("LYRICS", "in obj");
+						// Log.d("LYRICS", "in obj");
 						Locale locale = Locale.getDefault();
 						String shortLyrics = LyricWikiClient.getShortLyric(obj);
-						//Log.d("LYRICS", shortLyrics.toUpperCase(locale) + " " + NOT_FOUND.toUpperCase(locale) );
+						// Log.d("LYRICS", shortLyrics.toUpperCase(locale) + " "
+						// + NOT_FOUND.toUpperCase(locale) );
 						if (shortLyrics.toUpperCase(locale).equals(NOT_FOUND.toUpperCase(locale)))
 						{
-							shortLyrics += CLICK_TO_ADD;
+							shortLyrics = NOT_FOUND_WITH_ADD;
 						}
 						song.setShortLyrics(shortLyrics);
 						song.setFullLyricsUrl(LyricWikiClient.getFullLyricsUrl(obj));
@@ -149,6 +149,10 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 				}
 			});
 			song.setCantGetLyrics(true);
+		}
+		else if (!song.hasLyrics())
+		{
+			lyrics.setText(COULDNT_FIND_LYRICS);
 		}
 
 		return true;
