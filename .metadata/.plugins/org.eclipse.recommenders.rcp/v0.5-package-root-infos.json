@@ -1,18 +1,5 @@
 [
   {
-    "symbolicName": "httpclientandroidlib-1.1.2",
-    "version": {
-      "major": -1,
-      "minor": -1,
-      "micro": -1,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "0f05dbe836328fa9ac4c2fe506d162705a90901a",
-    "jarFileModificationDate": "2013-10-16T22:14:30-04:00",
-    "location": "C:\\Users\\Steve\\Desktop\\Silk-master\\silk-library\\libs\\httpclientandroidlib-1.1.2.jar",
-    "javaRuntime": false
-  },
-  {
     "symbolicName": "jre",
     "version": {
       "major": 1,
@@ -24,6 +11,19 @@
     "jarFileModificationDate": "2013-03-15T14:44:38.806-04:00",
     "location": "C:\\Program Files\\Java\\jre7\\lib\\jsse.jar",
     "javaRuntime": true
+  },
+  {
+    "symbolicName": "httpclientandroidlib-1.1.2",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "0f05dbe836328fa9ac4c2fe506d162705a90901a",
+    "jarFileModificationDate": "2013-10-16T22:14:30-04:00",
+    "location": "C:\\Users\\Steve\\Desktop\\Silk-master\\silk-library\\libs\\httpclientandroidlib-1.1.2.jar",
+    "javaRuntime": false
   },
   {
     "symbolicName": "android",
@@ -46,9 +46,9 @@
       "micro": 0,
       "qualifier": ""
     },
-    "jarFileFingerprint": "d23c2b5fb8da30209350f4e905a73fab3094787f",
-    "jarFileModificationDate": "2013-03-15T14:44:34.352-04:00",
-    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\zipfs.jar",
+    "jarFileFingerprint": "f260fdc7514244e0059af49afe328d452ddf26cd",
+    "jarFileModificationDate": "2013-03-15T14:44:34.246-04:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\access-bridge-64.jar",
     "javaRuntime": true
   },
   {
@@ -59,9 +59,9 @@
       "micro": 0,
       "qualifier": ""
     },
-    "jarFileFingerprint": "f260fdc7514244e0059af49afe328d452ddf26cd",
-    "jarFileModificationDate": "2013-03-15T14:44:34.246-04:00",
-    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\access-bridge-64.jar",
+    "jarFileFingerprint": "d23c2b5fb8da30209350f4e905a73fab3094787f",
+    "jarFileModificationDate": "2013-03-15T14:44:34.352-04:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\zipfs.jar",
     "javaRuntime": true
   },
   {
@@ -137,22 +137,9 @@
       "micro": -1,
       "qualifier": ""
     },
-    "jarFileFingerprint": "757dc997041b606dff048d5559f9942167b84d74",
-    "jarFileModificationDate": "2013-10-21T21:36:58.549-04:00",
+    "jarFileFingerprint": "af99b1cdc6942674e2e2d87f0256cb7833906621",
+    "jarFileModificationDate": "2013-10-22T18:35:41.674-04:00",
     "location": "D:\\git\\funwithmusic\\library\\bin\\library.jar",
-    "javaRuntime": false
-  },
-  {
-    "symbolicName": "android",
-    "version": {
-      "major": -1,
-      "minor": -1,
-      "micro": -1,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "47ffff881d2fe54d5c646fcc3a646bf291008448",
-    "jarFileModificationDate": "2012-12-31T20:05:27.027-05:00",
-    "location": "D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-16\\android.jar",
     "javaRuntime": false
   },
   {
@@ -166,6 +153,19 @@
     "jarFileFingerprint": "ab19bfb23f641f189b6dca9a4d393f8dc291103a",
     "jarFileModificationDate": "2013-10-18T22:36:19.594-04:00",
     "location": "D:\\git\\funwithmusic\\funwithmusic\\libs\\picasso-2.1.1.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "47ffff881d2fe54d5c646fcc3a646bf291008448",
+    "jarFileModificationDate": "2012-12-31T20:05:27.027-05:00",
+    "location": "D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-16\\android.jar",
     "javaRuntime": false
   },
   {
@@ -319,8 +319,8 @@
       "micro": -1,
       "qualifier": ""
     },
-    "jarFileFingerprint": "2d72e973de7f21707abf6f8ff3f938bd16de9464",
-    "jarFileModificationDate": "2013-10-21T21:36:53.668-04:00",
+    "jarFileFingerprint": "762876132980ea64d05303983246597f7899777c",
+    "jarFileModificationDate": "2013-10-22T18:35:37.244-04:00",
     "location": "D:\\git\\funwithmusic\\silk-library\\bin\\silk-library.jar",
     "javaRuntime": false
   },
@@ -338,19 +338,6 @@
     "javaRuntime": false
   },
   {
-    "symbolicName": "jre",
-    "version": {
-      "major": 1,
-      "minor": 0,
-      "micro": 0,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "e40d113f2ecae484f1a654eb167796609d706748",
-    "jarFileModificationDate": "2013-03-15T14:44:34.293-04:00",
-    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\jaccess.jar",
-    "javaRuntime": true
-  },
-  {
     "symbolicName": "android-support-v13",
     "version": {
       "major": -1,
@@ -362,6 +349,19 @@
     "jarFileModificationDate": "2013-10-16T22:14:30-04:00",
     "location": "C:\\Users\\Steve\\Desktop\\Silk-master\\silk-library\\libs\\android-support-v13.jar",
     "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "e40d113f2ecae484f1a654eb167796609d706748",
+    "jarFileModificationDate": "2013-03-15T14:44:34.293-04:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\jaccess.jar",
+    "javaRuntime": true
   },
   {
     "symbolicName": "android",
@@ -390,19 +390,6 @@
     "javaRuntime": true
   },
   {
-    "symbolicName": "android",
-    "version": {
-      "major": -1,
-      "minor": -1,
-      "micro": -1,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "322db3959c3383f4be9daa75ffa427d1485879ad",
-    "jarFileModificationDate": "2013-07-16T19:11:22.622-04:00",
-    "location": "D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-17\\android.jar",
-    "javaRuntime": false
-  },
-  {
     "symbolicName": "jre",
     "version": {
       "major": 1,
@@ -414,5 +401,18 @@
     "jarFileModificationDate": "2013-03-15T14:44:34.448-04:00",
     "location": "C:\\Program Files\\Java\\jre7\\lib\\resources.jar",
     "javaRuntime": true
+  },
+  {
+    "symbolicName": "android",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "322db3959c3383f4be9daa75ffa427d1485879ad",
+    "jarFileModificationDate": "2013-07-16T19:11:22.622-04:00",
+    "location": "D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-17\\android.jar",
+    "javaRuntime": false
   }
 ]

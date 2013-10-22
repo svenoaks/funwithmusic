@@ -23,23 +23,14 @@ public class SongReceiver extends BroadcastReceiver
 
 	public String mAlbum;
 	public String mArtist;
-	public Context mContext;
-	public Intent mIntent;
+	public Context context;
+	public Intent intent;
 	public String mTitle;
+	private PendingResult result;
 
 	private class SongReceiverAsyncTask extends AsyncTask<Void, Void, Void>
 	{
-		Context context;
-		Intent intent;
-		PendingResult result;
-
-		public SongReceiverAsyncTask(Context context, Intent intent, PendingResult result)
-		{
-			this.context = context;
-			this.intent = intent;
-			this.result = result;
-		}
-
+		
 		protected Void doInBackground(Void... blah)
 		{
 			setSongInfo(context, intent);
@@ -64,15 +55,16 @@ public class SongReceiver extends BroadcastReceiver
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
-		PendingResult result = goAsync();
-		new SongReceiverAsyncTask(context, intent, result).execute();
+		this.context = context;
+		this.intent = intent;
+		result = goAsync();
+		new SongReceiverAsyncTask().execute();
 	}
 
 	private void setSongInfo(Context context, Intent intent)
 	{
 		Log.d("SONG", "BLAH");
-		mContext = context;
-		mIntent = intent;
+		
 		try
 		{
 			if ((intent.getAction().equals("com.htc.music.playstatechanged")) || (intent.getAction().equals("com.htc.music.metachanged")))
