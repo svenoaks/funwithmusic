@@ -18,6 +18,8 @@ public class ItunesClient
 	public static final String BASE_URL = "http://itunes.apple.com/search?";
 	
 	private static AsyncHttpClient client = new AsyncHttpClient();
+	
+	private static Pattern pattern = Pattern.compile ("\\s*[(\\[\\(].*[(\\]\\()]\\s*\\z");
 
 	public static void get(String album, JsonHttpResponseHandler responseHandler)
 	{
@@ -40,7 +42,8 @@ public class ItunesClient
 
 	private static String removeAlbumVariations(String album)
 	{
-		return album;
+		return pattern.matcher(album)
+				.replaceAll("");
 	}
 
 	public static String getImageUrl(JSONObject json, String artist)

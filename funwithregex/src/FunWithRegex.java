@@ -6,16 +6,16 @@ public class FunWithRegex
 	
 	public static void main(String[] args)
 	{
-		String withSteve = "This is a sentence with Steve in it";
+		String withSteve = "Music (Digital Version)";
 		
 		String withoutSteve = steveBeGone(withSteve);
 		
-		System.out.println(withoutSteve);
+		System.out.println(withoutSteve + "L");
 	}
 	
 	public static String steveBeGone(String withSteve)
 	{
-		Pattern pattern = Pattern.compile("Steve");
+		Pattern pattern = Pattern.compile ("\\s*[(\\[\\(].*[(\\]\\()]\\s*\\z");
 		
 		return pattern.matcher(withSteve)
 				.replaceAll("");

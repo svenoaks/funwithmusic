@@ -72,7 +72,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	}
 
 	// reseting the imageUrl and lryics will allow the program to attempt to
-	// find them the next time.
+	// find them the next time if it couldn't this time.
 	// Song object determines if they should be reset internally.
 	private void saveSongs()
 	{
