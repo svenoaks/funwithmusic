@@ -1,0 +1,22 @@
+import java.util.regex.Pattern;
+
+
+public class FunWithRegex
+{	
+	
+	public static void main(String[] args)
+	{
+		String withSteve = "This is a sentence with Steve in it";
+		String withoutSteve = steveBeGone(withSteve);
+		System.out.println(withoutSteve);
+	}
+	
+	public static String steveBeGone(String withSteve)
+	{
+		Pattern pattern = Pattern.compile("Steve");
+		
+		return pattern.matcher(withSteve)
+				.replaceAll("");
+	}
+	
+}

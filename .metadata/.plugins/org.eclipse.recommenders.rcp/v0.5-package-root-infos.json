@@ -1,31 +1,5 @@
 [
   {
-    "symbolicName": "jEN",
-    "version": {
-      "major": -1,
-      "minor": -1,
-      "micro": -1,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "66f06bffb65dfc4b7c9ffb1b2e59131294a888e3",
-    "jarFileModificationDate": "2013-10-18T21:00:50.669-04:00",
-    "location": "D:\\git\\funwithmusic\\funwithmusic\\libs\\jEN.jar",
-    "javaRuntime": false
-  },
-  {
-    "symbolicName": "kryo-2.22-all",
-    "version": {
-      "major": -1,
-      "minor": -1,
-      "micro": -1,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "2d1216ee96837ce58bd2416e4b53a00038a3af53",
-    "jarFileModificationDate": "2013-10-16T22:14:30-04:00",
-    "location": "D:\\git\\funwithmusic\\silk-library\\libs\\kryo-2.22-all.jar",
-    "javaRuntime": false
-  },
-  {
     "symbolicName": "httpclientandroidlib-1.1.2",
     "version": {
       "major": -1,
@@ -37,6 +11,19 @@
     "jarFileModificationDate": "2013-10-16T22:14:30-04:00",
     "location": "C:\\Users\\Steve\\Desktop\\Silk-master\\silk-library\\libs\\httpclientandroidlib-1.1.2.jar",
     "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "9c68b78520343cc2b7f2ab666a7b3a380c815e26",
+    "jarFileModificationDate": "2013-03-15T14:44:38.806-04:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\jsse.jar",
+    "javaRuntime": true
   },
   {
     "symbolicName": "android",
@@ -52,6 +39,32 @@
     "javaRuntime": false
   },
   {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "d23c2b5fb8da30209350f4e905a73fab3094787f",
+    "jarFileModificationDate": "2013-03-15T14:44:34.352-04:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\zipfs.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "f260fdc7514244e0059af49afe328d452ddf26cd",
+    "jarFileModificationDate": "2013-03-15T14:44:34.246-04:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\access-bridge-64.jar",
+    "javaRuntime": true
+  },
+  {
     "symbolicName": "httpclientandroidlib-1.1.2",
     "version": {
       "major": -1,
@@ -63,6 +76,32 @@
     "jarFileModificationDate": "2013-10-16T22:14:30-04:00",
     "location": "D:\\git\\funwithmusic\\silk-library\\libs\\httpclientandroidlib-1.1.2.jar",
     "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "897ecb2d138ab49c876adef82fb24c6b8843d4d1",
+    "jarFileModificationDate": "2013-03-15T14:44:39.105-04:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\localedata.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "7963b640909c134149d1d2ace8eabc5a8d8da6a5",
+    "jarFileModificationDate": "2013-03-15T14:44:34.254-04:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\dnsns.jar",
+    "javaRuntime": true
   },
   {
     "symbolicName": "android-support-v4",
@@ -98,22 +137,9 @@
       "micro": -1,
       "qualifier": ""
     },
-    "jarFileFingerprint": "527c73da9a6fec8fe23c384c9de4ab90861331a7",
-    "jarFileModificationDate": "2013-10-21T17:57:51.405-04:00",
+    "jarFileFingerprint": "757dc997041b606dff048d5559f9942167b84d74",
+    "jarFileModificationDate": "2013-10-21T21:36:58.549-04:00",
     "location": "D:\\git\\funwithmusic\\library\\bin\\library.jar",
-    "javaRuntime": false
-  },
-  {
-    "symbolicName": "com.squareup.picasso.picasso",
-    "version": {
-      "major": 2,
-      "minor": 1,
-      "micro": 1,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "ab19bfb23f641f189b6dca9a4d393f8dc291103a",
-    "jarFileModificationDate": "2013-10-18T22:36:19.594-04:00",
-    "location": "D:\\git\\funwithmusic\\funwithmusic\\libs\\picasso-2.1.1.jar",
     "javaRuntime": false
   },
   {
@@ -127,6 +153,19 @@
     "jarFileFingerprint": "47ffff881d2fe54d5c646fcc3a646bf291008448",
     "jarFileModificationDate": "2012-12-31T20:05:27.027-05:00",
     "location": "D:\\Program Files (x86)\\Android\\android-sdk\\platforms\\android-16\\android.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "com.squareup.picasso.picasso",
+    "version": {
+      "major": 2,
+      "minor": 1,
+      "micro": 1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "ab19bfb23f641f189b6dca9a4d393f8dc291103a",
+    "jarFileModificationDate": "2013-10-18T22:36:19.594-04:00",
+    "location": "D:\\git\\funwithmusic\\funwithmusic\\libs\\picasso-2.1.1.jar",
     "javaRuntime": false
   },
   {
@@ -156,6 +195,123 @@
     "javaRuntime": false
   },
   {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "00c00544a1e6e75a41391d512e7ed3cc2fda9da5",
+    "jarFileModificationDate": "2013-03-15T14:44:34.396-04:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\jfr.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "5da320e46f1c616986563b2e788b5a0569cad088",
+    "jarFileModificationDate": "2013-03-15T14:44:34.320-04:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\sunjce_provider.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "android-support-v13",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "9ca535b56d84d8aca3e669510e0de03387f6e07e",
+    "jarFileModificationDate": "2013-10-16T22:14:30-04:00",
+    "location": "D:\\git\\funwithmusic\\silk-library\\libs\\android-support-v13.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jEN",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "66f06bffb65dfc4b7c9ffb1b2e59131294a888e3",
+    "jarFileModificationDate": "2013-10-18T21:00:50.669-04:00",
+    "location": "D:\\git\\funwithmusic\\funwithmusic\\libs\\jEN.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "kryo-2.22-all",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "2d1216ee96837ce58bd2416e4b53a00038a3af53",
+    "jarFileModificationDate": "2013-10-16T22:14:30-04:00",
+    "location": "D:\\git\\funwithmusic\\silk-library\\libs\\kryo-2.22-all.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "c4c7923b11e98bc8d1d32bfd2ff6363d212ead80",
+    "jarFileModificationDate": "2013-03-15T14:44:34.318-04:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\sunec.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "f831655c50b92c41e366442d09511ea84270c45e",
+    "jarFileModificationDate": "2013-03-15T14:44:34.395-04:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\jce.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "a3d1a9689f1c8e36ab64fb669df92076771c42f2",
+    "jarFileModificationDate": "2013-03-15T14:44:34.350-04:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\sunmscapi.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "1063d0e05cf48a501206fb426e31b47c0512893a",
+    "jarFileModificationDate": "2013-03-15T14:44:37.514-04:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\charsets.jar",
+    "javaRuntime": true
+  },
+  {
     "symbolicName": "silk-library",
     "version": {
       "major": -1,
@@ -163,8 +319,8 @@
       "micro": -1,
       "qualifier": ""
     },
-    "jarFileFingerprint": "335a3805a698e97fb59f4120615d0b28c9658e38",
-    "jarFileModificationDate": "2013-10-21T17:57:47.136-04:00",
+    "jarFileFingerprint": "2d72e973de7f21707abf6f8ff3f938bd16de9464",
+    "jarFileModificationDate": "2013-10-21T21:36:53.668-04:00",
     "location": "D:\\git\\funwithmusic\\silk-library\\bin\\silk-library.jar",
     "javaRuntime": false
   },
@@ -180,6 +336,19 @@
     "jarFileModificationDate": "2013-10-18T21:23:46.558-04:00",
     "location": "D:\\git\\funwithmusic\\funwithmusic\\libs\\android-async-http-1.4.3.jar",
     "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "e40d113f2ecae484f1a654eb167796609d706748",
+    "jarFileModificationDate": "2013-03-15T14:44:34.293-04:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\jaccess.jar",
+    "javaRuntime": true
   },
   {
     "symbolicName": "android-support-v13",
@@ -208,6 +377,19 @@
     "javaRuntime": false
   },
   {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "50a3135bda3ceab9b0e58b795e6452b601fccfdf",
+    "jarFileModificationDate": "2013-03-15T14:44:37.181-04:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\rt.jar",
+    "javaRuntime": true
+  },
+  {
     "symbolicName": "android",
     "version": {
       "major": -1,
@@ -221,16 +403,16 @@
     "javaRuntime": false
   },
   {
-    "symbolicName": "android-support-v13",
+    "symbolicName": "jre",
     "version": {
-      "major": -1,
-      "minor": -1,
-      "micro": -1,
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
       "qualifier": ""
     },
-    "jarFileFingerprint": "9ca535b56d84d8aca3e669510e0de03387f6e07e",
-    "jarFileModificationDate": "2013-10-16T22:14:30-04:00",
-    "location": "D:\\git\\funwithmusic\\silk-library\\libs\\android-support-v13.jar",
-    "javaRuntime": false
+    "jarFileFingerprint": "66754a0437bc63ff9536e04386b6d873f5d0a907",
+    "jarFileModificationDate": "2013-03-15T14:44:34.448-04:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\resources.jar",
+    "javaRuntime": true
   }
 ]

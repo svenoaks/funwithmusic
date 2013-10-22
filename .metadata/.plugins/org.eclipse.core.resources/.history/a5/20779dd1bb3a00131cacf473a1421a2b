@@ -1,0 +1,17 @@
+import java.util.regex.Pattern;
+
+
+public class FunWithRegex
+{
+	private static Pattern pattern = Pattern.compile("Steve");
+	
+	public static void main(String[] args)
+	{
+		
+	}
+	public static String (String withSteve)
+	{
+		
+	}
+	
+}
