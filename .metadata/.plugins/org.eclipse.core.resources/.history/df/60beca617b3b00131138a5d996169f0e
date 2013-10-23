@@ -21,11 +21,11 @@ import android.widget.Toast;
 public class SongReceiver extends BroadcastReceiver
 {
 
-	private String mAlbum;
-	private String mArtist;
-	private Context context;
-	private Intent intent;
-	private String mTitle;
+	public String mAlbum;
+	public String mArtist;
+	public Context context;
+	public Intent intent;
+	public String mTitle;
 	private PendingResult result;
 
 	private class SongReceiverAsyncTask extends AsyncTask<Void, Void, Void>
