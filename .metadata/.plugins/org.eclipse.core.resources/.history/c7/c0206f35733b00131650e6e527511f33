@@ -1,49 +1,70 @@
-package com.smp.funwithmusic;
+package com.smp.funwithmusic.receivers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.smp.funwithmusic.dataobjects.Song;
+
 import android.content.BroadcastReceiver;
-import static com.smp.funwithmusic.Constants.*;
-import static com.smp.funwithmusic.UtilityMethods.*;
+import static com.smp.funwithmusic.utilities.Constants.*;
+import static com.smp.funwithmusic.utilities.UtilityMethods.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class SongReceiver extends BroadcastReceiver
 {
-	public static final String DASH = " - ";
+
 	public String mAlbum;
 	public String mArtist;
-	public Context mContext;
-	public Intent mIntent;
+	public Context context;
+	public Intent intent;
 	public String mTitle;
+	private PendingResult result;
+
+	private class SongReceiverAsyncTask extends AsyncTask<Void, Void, Void>
+	{
+		
+		protected Void doInBackground(Void... blah)
+		{
+			setSongInfo(context, intent);
+			if (mAlbum != null && mArtist != null && mTitle != null)
+			{
+				Song song = new Song(mTitle, mArtist, mAlbum);
+				writeNewSong(context, song);
+
+				Intent send = new Intent();
+				send.setAction(SONG_ACTION)
+						.addCategory(Intent.CATEGORY_DEFAULT);
+				context.sendBroadcast(send);
+
+				//Log.i("SONG", mArtist + " " + mTitle + " " + mAlbum);
+			}
+			result.finish();
+
+			return null;
+		}
+	}
 
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
-		setSongInfo(context, intent);
-		String songInfo = mArtist + DASH + mTitle + DASH + mAlbum;
-		writeNewSong(context, songInfo);
-
-		Intent send = new Intent();
-		send.setAction(SONG_ACTION)
-				.addCategory(Intent.CATEGORY_DEFAULT);
-		context.sendBroadcast(send);
-
-		Log.i("SONG", mArtist + " " + mTitle + " " + mAlbum);
-
+		this.context = context;
+		this.intent = intent;
+		result = goAsync();
+		new SongReceiverAsyncTask().execute();
 	}
 
 	private void setSongInfo(Context context, Intent intent)
 	{
 		Log.d("SONG", "BLAH");
-		mContext = context;
-		mIntent = intent;
+		
 		try
 		{
 			if ((intent.getAction().equals("com.htc.music.playstatechanged")) || (intent.getAction().equals("com.htc.music.metachanged")))
@@ -55,7 +76,7 @@ public class SongReceiver extends BroadcastReceiver
 
 			}
 
-			if (intent.getAction().equals("com.htc.music.playbackcomplete"))
+			else if (intent.getAction().equals("com.htc.music.playbackcomplete"))
 			{
 
 			}
@@ -187,22 +208,13 @@ public class SongReceiver extends BroadcastReceiver
 
 	}
 
-	@SuppressWarnings("unchecked")
-	private void writeNewSong(Context context, String songTitle)
+	private void writeNewSong(Context context, Song song)
 	{
-		ArrayList<String> songs;
-		
-		Object obj = readObjectFromFile(context, SONG_FILE_NAME);
-		if (obj != null)
-			songs = (ArrayList<String>) obj;
-		else
-			songs = new ArrayList<String>();
-		
-		if (!songs.contains(songTitle))
+		ArrayList<Song> songs = getSongList(context);
+		if (song != null && !songs.contains(song))
 		{
-			songs.add(songTitle);
+			songs.add(song);
 			writeObjectToFile(context, SONG_FILE_NAME, songs);
 		}
 	}
-
 }

@@ -30,25 +30,37 @@ public class SongReceiver extends BroadcastReceiver
 
 	private class SongReceiverAsyncTask extends AsyncTask<Void, Void, Void>
 	{
-		
+
 		protected Void doInBackground(Void... blah)
 		{
 			setSongInfo(context, intent);
-			if (mAlbum != null && mArtist != null && mTitle != null)
+
+			Song song = new Song(mTitle, mArtist, mAlbum);
+
+			if (song.validate())
 			{
-				Song song = new Song(mTitle, mArtist, mAlbum);
 				writeNewSong(context, song);
 
 				Intent send = new Intent();
 				send.setAction(SONG_ACTION)
 						.addCategory(Intent.CATEGORY_DEFAULT);
 				context.sendBroadcast(send);
-
-				//Log.i("SONG", mArtist + " " + mTitle + " " + mAlbum);
 			}
+			// Log.i("SONG", mArtist + " " + mTitle + " " + mAlbum);
+
 			result.finish();
 
 			return null;
+		}
+	}
+
+	private void writeNewSong(Context context, Song song)
+	{
+		ArrayList<Song> songs = getSongList(context);
+		if (song != null && !songs.contains(song))
+		{
+			songs.add(song);
+			writeObjectToFile(context, SONG_FILE_NAME, songs);
 		}
 	}
 
@@ -64,7 +76,7 @@ public class SongReceiver extends BroadcastReceiver
 	private void setSongInfo(Context context, Intent intent)
 	{
 		Log.d("SONG", "BLAH");
-		
+
 		try
 		{
 			if ((intent.getAction().equals("com.htc.music.playstatechanged")) || (intent.getAction().equals("com.htc.music.metachanged")))
@@ -208,13 +220,4 @@ public class SongReceiver extends BroadcastReceiver
 
 	}
 
-	private void writeNewSong(Context context, Song song)
-	{
-		ArrayList<Song> songs = getSongList(context);
-		if (song != null && !songs.contains(song))
-		{
-			songs.add(song);
-			writeObjectToFile(context, SONG_FILE_NAME, songs);
-		}
-	}
 }

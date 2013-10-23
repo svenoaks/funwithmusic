@@ -144,15 +144,4 @@ public class Song implements Serializable
 		if (albumUrl == null)
 			cantGetAlbumUrl = false;
 	}
-	
-	//Returns whether this Song is a valid song that should be added to the list.
-	//A song is not aware of the list it is being added to, so further validation
-	//must be handled by the caller.
-	
-	public boolean validate()
-	{
-		boolean valid = artist !=null && title != null && album != null;
-		
-		return valid;
-	}
 }

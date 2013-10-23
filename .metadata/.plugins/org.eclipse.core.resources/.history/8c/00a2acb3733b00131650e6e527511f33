@@ -6,7 +6,7 @@ public class FunWithRegex
 	
 	public static void main(String[] args)
 	{
-		String withSteve = "Music [DigitalVersion]";
+		String withSteve = "Music (Digital Version)";
 		
 		String withoutSteve = steveBeGone(withSteve);
 		
@@ -15,7 +15,7 @@ public class FunWithRegex
 	
 	public static String steveBeGone(String withSteve)
 	{
-		Pattern pattern = Pattern.compile ( "(\\[.*?\\])|(\\(.*?\\))" );
+		Pattern pattern = Pattern.compile ("\\s*[(\\[\\(].*[(\\]\\()]\\s*\\z");
 		
 		return pattern.matcher(withSteve)
 				.replaceAll("");

@@ -89,7 +89,16 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	{
 		super.onResume();
 		addCardsFromList();
+		scrollToBottomOfList();
 		registerReceiver(receiver, filter);
+	}
+	
+	//Scrolls the view so that last item is at the bottom of the screen.
+	//
+	private void scrollToBottomOfList()
+	{
+		
+		
 	}
 
 	// need to make old OS friendly

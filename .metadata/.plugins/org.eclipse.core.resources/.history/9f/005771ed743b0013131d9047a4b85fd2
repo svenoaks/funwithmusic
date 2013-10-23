@@ -15,7 +15,7 @@ public class FunWithRegex
 	
 	public static String steveBeGone(String withSteve)
 	{
-		Pattern pattern = Pattern.compile ( "(\\[.*?\\])|(\\(.*?\\))" );
+		Pattern pattern = Pattern.compile ( "(\\[.*?\\]) | (\\(.*?\\))" );
 		
 		return pattern.matcher(withSteve)
 				.replaceAll("");
