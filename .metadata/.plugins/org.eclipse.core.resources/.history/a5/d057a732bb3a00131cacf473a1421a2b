@@ -1,9 +1,0 @@
-
-public class FunWithRegex
-{
-	public static void main(String[] args)
-	{
-		System.out.println("BLAHBLAH");
-	}
-	
-}
