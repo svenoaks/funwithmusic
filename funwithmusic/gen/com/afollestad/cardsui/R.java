@@ -63,10 +63,10 @@ public final class R {
 		public static final int fragment_list = 0x7f030007;
 		public static final int list_item_card = 0x7f030009;
 		public static final int list_item_card_nocontent = 0x7f03000a;
-		public static final int list_item_header = 0x7f03000b;
-		public static final int silk_date_picker = 0x7f03000e;
-		public static final int spinner_item = 0x7f030010;
-		public static final int spinner_item_dropdown = 0x7f030011;
+		public static final int list_item_header = 0x7f03000c;
+		public static final int silk_date_picker = 0x7f03000f;
+		public static final int spinner_item = 0x7f030011;
+		public static final int spinner_item_dropdown = 0x7f030012;
 	}
 	public static final class string {
 		public static final int see_more = 0x7f070000;

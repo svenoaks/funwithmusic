@@ -129,6 +129,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int card_pressed=0x7f040001;
         public static final int dark_gray=0x7f040000;
         public static final int header_button_default=0x7f040002;
+        public static final int info_0=0x7f040005;
+        public static final int info_1=0x7f040006;
+        public static final int info_2=0x7f040007;
+        public static final int info_3=0x7f040008;
+        public static final int info_4=0x7f040009;
         public static final int light_blue=0x7f040004;
     }
     public static final class dimen {
@@ -224,16 +229,17 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int content_frame=0x7f030005;
         public static final int dialog_loading=0x7f030006;
         public static final int fragment_list=0x7f030007;
-        public static final int list=0x7f030008;
+        public static final int list_artist_info=0x7f030008;
         public static final int list_item_card=0x7f030009;
         public static final int list_item_card_nocontent=0x7f03000a;
-        public static final int list_item_header=0x7f03000b;
-        public static final int menu_frame=0x7f03000c;
-        public static final int row=0x7f03000d;
-        public static final int silk_date_picker=0x7f03000e;
-        public static final int slidingmenumain=0x7f03000f;
-        public static final int spinner_item=0x7f030010;
-        public static final int spinner_item_dropdown=0x7f030011;
+        public static final int list_item_event=0x7f03000b;
+        public static final int list_item_header=0x7f03000c;
+        public static final int menu_frame=0x7f03000d;
+        public static final int row=0x7f03000e;
+        public static final int silk_date_picker=0x7f03000f;
+        public static final int slidingmenumain=0x7f030010;
+        public static final int spinner_item=0x7f030011;
+        public static final int spinner_item_dropdown=0x7f030012;
     }
     public static final class menu {
         public static final int card_popup=0x7f0b0000;

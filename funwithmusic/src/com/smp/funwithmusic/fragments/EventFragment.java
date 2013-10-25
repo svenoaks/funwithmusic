@@ -17,7 +17,7 @@ import android.widget.TextView;
 public class EventFragment extends ListFragment
 {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.list, null);
+		return inflater.inflate(R.layout.list_artist_info, null);
 	}
 
 	public void onActivityCreated(Bundle savedInstanceState) {

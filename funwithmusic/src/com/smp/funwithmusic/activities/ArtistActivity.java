@@ -8,7 +8,7 @@ import com.smp.funwithmusic.R.layout;
 import com.smp.funwithmusic.dataobjects.Event;
 import com.smp.funwithmusic.dataobjects.EventInfo;
 import com.smp.funwithmusic.fragments.ColorFragment;
-import com.smp.funwithmusic.fragments.ColorMenuFragment;
+import com.smp.funwithmusic.fragments.ArtistMenuFragment;
 
 import static com.smp.funwithmusic.utilities.Constants.*;
 import static com.smp.funwithmusic.utilities.UtilityMethods.*;
@@ -65,7 +65,7 @@ public class ArtistActivity extends BaseActivity
 		setBehindContentView(R.layout.menu_frame);
 		getSupportFragmentManager()
 				.beginTransaction()
-				.replace(R.id.menu_frame, new ColorMenuFragment())
+				.replace(R.id.menu_frame, new ArtistMenuFragment())
 				.commit();
 
 		// customize the SlidingMenu

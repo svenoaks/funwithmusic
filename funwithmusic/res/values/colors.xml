@@ -3,5 +3,11 @@
 
     <color name="light_blue">#e2f4fb</color>
     
+    
+    <color name="info_0">#0099cc</color>
+    <color name="info_1">#9933cc</color>
+    <color name="info_2">#669900</color>
+    <color name="info_3">#ff8a00</color>
+    <color name="info_4">#cc0000</color>
 
 </resources>
