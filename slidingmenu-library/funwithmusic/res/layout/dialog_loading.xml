@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/card_outer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" >
+
+        <LinearLayout
+            style="@style/card_inner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/light_blue"
+            android:orientation="vertical" >
+
+            <com.afollestad.silk.views.text.SilkTextView
+                android:id="@+id/progress_text"
+                style="@style/card_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/loading_flow"
+                android:visibility="visible" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <ImageView style="@style/card_shadow" />
+    </LinearLayout>

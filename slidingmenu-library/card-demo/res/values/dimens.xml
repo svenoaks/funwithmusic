@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="card_thumbnail_large">90dp</dimen>
+    <dimen name="card_title_large">24sp</dimen>
+    <dimen name="card_content_large">19sp</dimen>
+
+</resources>
