@@ -16,14 +16,18 @@ public class ColorFragment extends Fragment {
 	private int mColorRes = -1;
 	
 	public ColorFragment() { 
-		this(R.color.card_gray);
-	}
-	
-	public ColorFragment(int colorRes) {
-		mColorRes = colorRes;
+		
 		setRetainInstance(true);
 	}
-
+	
+	public static final ColorFragment newInstance(int color)
+	{
+	    ColorFragment fragment = new ColorFragment();
+	    Bundle bundle = new Bundle();
+	    bundle.putInt("testKey", color);
+	    fragment.setArguments(bundle);
+	    return fragment ;
+	}
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (savedInstanceState != null)
@@ -31,10 +35,16 @@ public class ColorFragment extends Fragment {
 		int color = getResources().getColor(mColorRes);
 		// construct the RelativeLayout
 		RelativeLayout v = new RelativeLayout(getActivity());
-		v.setBackgroundColor(color);		
+		v.setBackgroundColor(color);	
+		
 		return v;
 	}
-	
+	@Override
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		mColorRes = getArguments().getInt("testKey");
+	}
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);

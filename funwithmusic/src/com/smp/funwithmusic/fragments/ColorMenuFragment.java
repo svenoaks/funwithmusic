@@ -34,25 +34,35 @@ public class ColorMenuFragment extends ListFragment
 	@Override
 	public void onListItemClick(ListView lv, View v, int position, long id)
 	{
-		Fragment newContent = null;
+		
+		Bundle args = new Bundle();
+		int color = 0;
+		
 		switch (position)
 		{
 			case 0:
-				newContent = new ColorFragment(R.color.card_gray);
+				color = R.color.card_gray;
+				
 				break;
 			case 1:
-				newContent = new ColorFragment(R.color.card_pressed);
+				color = R.color.card_pressed;
+				
 				break;
 			case 2:
-				newContent = new ColorFragment(R.color.light_blue);
+				color = R.color.light_blue;
+				
 				break;
 			case 3:
-				newContent = new ColorFragment(android.R.color.white);
+				color = android.R.color.white;
+				
 				break;
 			case 4:
-				newContent = new ColorFragment(android.R.color.black);
+				color = android.R.color.black;
+				
 				break;
 		}
+		
+		Fragment newContent = ColorFragment.newInstance(color);
 		if (newContent != null)
 			switchFragment(newContent);
 	}
