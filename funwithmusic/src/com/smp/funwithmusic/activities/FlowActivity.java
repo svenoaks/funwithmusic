@@ -108,8 +108,6 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 			@Override
 			public void run()
 			{
-				CardListView cardsList = (CardListView) findViewById(R.id.cardsList);
-
 				// Select the last row so it will scroll into view
 				cardsList.setSelection(cardsAdapter.getCount() - 1);
 			}
