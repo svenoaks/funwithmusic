@@ -129,6 +129,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int card_pressed=0x7f040001;
         public static final int dark_gray=0x7f040000;
         public static final int header_button_default=0x7f040002;
+        public static final int info_0=0x7f040005;
+        public static final int info_1=0x7f040006;
+        public static final int info_2=0x7f040007;
+        public static final int info_3=0x7f040008;
+        public static final int info_4=0x7f040009;
         public static final int light_blue=0x7f040004;
     }
     public static final class dimen {
@@ -182,20 +187,25 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int ic_menu_moreoverflow_card_dark_pressed=0x7f020008;
         public static final int indicator=0x7f020009;
         public static final int list_focused=0x7f02000a;
-        public static final int new_indicator=0x7f02000b;
-        public static final int play=0x7f02000c;
-        public static final int pressed_background=0x7f02000d;
-        public static final int shadow=0x7f02000e;
-        public static final int unpressed_background=0x7f02000f;
+        public static final int microphone=0x7f02000b;
+        public static final int new_indicator=0x7f02000c;
+        public static final int play=0x7f02000d;
+        public static final int pressed_background=0x7f02000e;
+        public static final int shadow=0x7f02000f;
+        public static final int unpressed_background=0x7f020010;
     }
     public static final class id {
-        public static final int action_settings=0x7f090015;
+        public static final int action_settings=0x7f090017;
         public static final int cardsList=0x7f090005;
+        public static final int clear=0x7f090016;
         public static final int content_frame=0x7f09000a;
         public static final int day=0x7f090011;
         public static final int fullscreen=0x7f090003;
+        public static final int help=0x7f090018;
         public static final int inner_frame=0x7f090007;
         public static final int left=0x7f090000;
+        public static final int licenses=0x7f090019;
+        public static final int listen=0x7f090015;
         public static final int lyrics=0x7f090009;
         public static final int margin=0x7f090002;
         public static final int menu_frame=0x7f09000d;
@@ -224,42 +234,50 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int content_frame=0x7f030005;
         public static final int dialog_loading=0x7f030006;
         public static final int fragment_list=0x7f030007;
-        public static final int list=0x7f030008;
-        public static final int list_item_card=0x7f030009;
-        public static final int list_item_card_nocontent=0x7f03000a;
-        public static final int list_item_header=0x7f03000b;
-        public static final int menu_frame=0x7f03000c;
-        public static final int row=0x7f03000d;
-        public static final int silk_date_picker=0x7f03000e;
-        public static final int slidingmenumain=0x7f03000f;
-        public static final int spinner_item=0x7f030010;
-        public static final int spinner_item_dropdown=0x7f030011;
+        public static final int list_artist_info=0x7f030008;
+        public static final int list_item_artist_info=0x7f030009;
+        public static final int list_item_card=0x7f03000a;
+        public static final int list_item_card_nocontent=0x7f03000b;
+        public static final int list_item_event=0x7f03000c;
+        public static final int list_item_header=0x7f03000d;
+        public static final int menu_frame=0x7f03000e;
+        public static final int row=0x7f03000f;
+        public static final int silk_date_picker=0x7f030010;
+        public static final int slidingmenumain=0x7f030011;
+        public static final int spinner_item=0x7f030012;
+        public static final int spinner_item_dropdown=0x7f030013;
     }
     public static final class menu {
         public static final int card_popup=0x7f0b0000;
         public static final int main=0x7f0b0001;
     }
     public static final class string {
+        public static final int action_clear=0x7f070004;
+        public static final int action_help=0x7f070005;
+        public static final int action_licenses=0x7f070006;
+        public static final int action_listen=0x7f070003;
         public static final int action_settings=0x7f070002;
         public static final int app_name=0x7f070001;
-        public static final int artist=0x7f070009;
-        public static final int artist_info=0x7f070007;
-        public static final int hello_world=0x7f070003;
-        public static final int johns_activity=0x7f070004;
-        public static final int loading_flow=0x7f070008;
+        public static final int artist=0x7f07000d;
+        public static final int artist_info=0x7f07000b;
+        public static final int hello_world=0x7f070007;
+        public static final int johns_activity=0x7f070008;
+        public static final int loading_flow=0x7f07000c;
         public static final int see_more=0x7f070000;
-        public static final int steves_activity=0x7f070005;
-        public static final int todo=0x7f070006;
+        public static final int steves_activity=0x7f070009;
+        public static final int todo=0x7f07000a;
     }
     public static final class style {
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
     
 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
+
         
 
         Base application theme for API 11+. This theme completely replaces

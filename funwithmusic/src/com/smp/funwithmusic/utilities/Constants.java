@@ -22,4 +22,8 @@ public class Constants
 	public static final String COULDNT_FIND_LYRICS = "Lyrics couldn't be found";
 	
 	public static final String WEB_URL = "com.smp.funwithmusic.WEB_URL";
+	
+	public static final String ARTIST_NAME = "com.smp.funwithmusic.ARTIST_NAME";
+	
+	
 }

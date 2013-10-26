@@ -8,14 +8,16 @@ import com.smp.funwithmusic.R.layout;
 import com.smp.funwithmusic.dataobjects.Event;
 import com.smp.funwithmusic.dataobjects.EventInfo;
 import com.smp.funwithmusic.fragments.ColorFragment;
-import com.smp.funwithmusic.fragments.ColorMenuFragment;
+import com.smp.funwithmusic.fragments.ArtistMenuFragment;
 
 import static com.smp.funwithmusic.utilities.Constants.*;
 import static com.smp.funwithmusic.utilities.UtilityMethods.*;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 
 public class ArtistActivity extends BaseActivity
 {
-
+	private String artist;
 	private Fragment mContent;
 
 	public ArtistActivity()
@@ -47,7 +49,7 @@ public class ArtistActivity extends BaseActivity
 		if (mContent == null)
 		{
 			Bundle args = new Bundle();
-			args.putInt("testKey", android.R.color.black);
+			args.putInt("testKey", R.color.card_gray);
 
 			mContent = new ColorFragment();
 			mContent.setArguments(args);
@@ -65,11 +67,18 @@ public class ArtistActivity extends BaseActivity
 		setBehindContentView(R.layout.menu_frame);
 		getSupportFragmentManager()
 				.beginTransaction()
-				.replace(R.id.menu_frame, new ColorMenuFragment())
+				.replace(R.id.menu_frame, new ArtistMenuFragment())
 				.commit();
 
 		// customize the SlidingMenu
 		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		
+		getActionBar().setIcon(
+				   new ColorDrawable(getResources().getColor(android.R.color.transparent))); 
+		
+		artist = getIntent().getStringExtra(ARTIST_NAME);
+		
+		setTitle(artist);
 	}
 
 	@Override

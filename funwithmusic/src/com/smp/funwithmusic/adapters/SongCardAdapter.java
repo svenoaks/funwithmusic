@@ -97,7 +97,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		return super.onProcessContent(content, card);
 	}
 
-	protected boolean onProcessLyrics(TextView lyrics, final Card card, final ViewGroup parent)
+	protected boolean onProcessLyrics(final TextView lyrics, final Card card, final ViewGroup parent)
 	{
 		final Song song = ((SongCard) card).getSong();
 
@@ -145,16 +145,16 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 						song.setFullLyricsUrl(LyricWikiClient.getFullLyricsUrl(obj));
 						updateSingleView(parent, card);
 					}
-
+				}
+				@Override
+				public void onFailure(Throwable ex, String message)
+				{
+					lyrics.setText(COULDNT_FIND_LYRICS);
 				}
 			});
 			song.setCantGetLyrics(true);
 		}
-		else if (!song.hasLyrics())
-		{
-			lyrics.setText(COULDNT_FIND_LYRICS);
-		}
-
+	
 		return true;
 	}
 

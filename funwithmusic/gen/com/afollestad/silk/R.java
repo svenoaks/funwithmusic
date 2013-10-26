@@ -24,8 +24,8 @@ public final class R {
 	}
 	public static final class layout {
 		public static final int fragment_list = 0x7f030007;
-		public static final int silk_date_picker = 0x7f03000e;
-		public static final int spinner_item = 0x7f030010;
-		public static final int spinner_item_dropdown = 0x7f030011;
+		public static final int silk_date_picker = 0x7f030010;
+		public static final int spinner_item = 0x7f030012;
+		public static final int spinner_item_dropdown = 0x7f030013;
 	}
 }

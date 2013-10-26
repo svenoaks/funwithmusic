@@ -100,6 +100,8 @@ public class UtilityMethods
 
 	}
 	
+	
+	
 	//Method to start an activity with a single Parceable, could be expanded with variable arguments
 	
 	public static <T extends Parcelable> void startNewActivityWithObject(Context context, Class<?> cls, T info, String name)
