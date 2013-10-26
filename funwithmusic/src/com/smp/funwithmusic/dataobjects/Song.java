@@ -75,6 +75,10 @@ public class Song implements Serializable
 		this.artist = artist;
 		this.album = album;
 	}
+	public Song()
+	{
+		
+	}
 
 	@Override
 	final public boolean equals(Object other)

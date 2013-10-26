@@ -88,7 +88,7 @@ public class SongReceiver extends BroadcastReceiver
 			if (intent.getAction().equals(ID_ACTION))
 			{
 				mArtist = intent.getStringExtra("artist");
-				mTitle = intent.getStringExtra("track");
+				mTitle = intent.getStringExtra("title");
 				mAlbum = intent.getStringExtra("album");
 			}
 			else if ((intent.getAction().equals("com.htc.music.playstatechanged")) || (intent.getAction().equals("com.htc.music.metachanged")))
