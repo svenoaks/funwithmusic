@@ -31,7 +31,7 @@ public class ArtistMenuFragment extends ListFragment
 		super.onActivityCreated(savedInstanceState);
 		String[] info = {"Events", "News", "Biographies", "Blogs", "Images", "Videos", "More" };
 		ArrayAdapter<String> adapter=new ArrayAdapter<String>(
-	            getActivity(),android.R.layout.simple_list_item_1, info){
+	            getActivity(),R.layout.list_item_artist_info, info){
 
 	        @Override
 	        public View getView(int position, View convertView,
@@ -40,7 +40,7 @@ public class ArtistMenuFragment extends ListFragment
 
 	            TextView textView=(TextView) view.findViewById(android.R.id.text1);
 
-	            switch (position % NO_OF_COLORS)
+	            switch (position)
 	            {
 	            	case 0:
 	            		textView.setTextColor(getResources().getColor(R.color.info_0));
@@ -56,6 +56,12 @@ public class ArtistMenuFragment extends ListFragment
 	            		break;
 	            	case 4:
 	            		textView.setTextColor(getResources().getColor(R.color.info_4));
+	            		break;
+	            	case 5:
+	            		textView.setTextColor(getResources().getColor(R.color.info_0));
+	            		break;
+	            	case 6:
+	            		textView.setTextColor(getResources().getColor(R.color.info_1));
 	            		break;
 	            }
 	            
@@ -80,19 +86,19 @@ public class ArtistMenuFragment extends ListFragment
 				
 				break;
 			case 1:
-				color = R.color.card_pressed;
+				color = R.color.card_gray;
 				
 				break;
 			case 2:
-				color = R.color.light_blue;
+				color = R.color.card_gray;
 				
 				break;
 			case 3:
-				color = android.R.color.white;
+				color = R.color.card_gray;
 				
 				break;
 			case 4:
-				color = android.R.color.black;
+				color = R.color.card_gray;
 				
 				break;
 		}

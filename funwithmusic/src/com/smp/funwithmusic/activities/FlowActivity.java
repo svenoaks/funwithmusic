@@ -47,12 +47,12 @@ import android.widget.Toast;
 
 public class FlowActivity extends Activity implements CardMenuListener<Card>
 {
-	// ArrayList<String> songs;
-	List<Song> songs;
+	private List<Song> songs;
 	private IntentFilter filter;
 	private UpdateActivityReceiver receiver;
-	SongCardAdapter<SongCard> cardsAdapter;
-	String lastArtist;
+	private SongCardAdapter<SongCard> cardsAdapter;
+	private CardListView cardsList;
+	private String lastArtist;
 
 	private class UpdateActivityReceiver extends BroadcastReceiver
 	{
@@ -63,13 +63,17 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		}
 
 	}
-
+	private void reset()
+	{
+		lastArtist = null;
+	}
 	@Override
 	protected void onPause()
 	{
 		super.onPause();
 		unregisterReceiver(receiver);
 		saveSongs();
+		reset();
 	}
 
 	// reseting the imageUrl and lryics will allow the program to attempt to
@@ -93,13 +97,24 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		scrollToBottomOfList();
 		registerReceiver(receiver, filter);
 	}
-	
-	//Scrolls the view so that last item is at the bottom of the screen.
+
+	// Scrolls the view so that last item is at the bottom of the screen.
 	//
 	private void scrollToBottomOfList()
 	{
-		
-		
+
+		cardsList.post(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				CardListView cardsList = (CardListView) findViewById(R.id.cardsList);
+
+				// Select the last row so it will scroll into view
+				cardsList.setSelection(cardsAdapter.getCount() - 1);
+			}
+		});
+
 	}
 
 	// need to make old OS friendly
@@ -115,7 +130,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		// callback is this
 		// activity
 
-		CardListView cardsList = (CardListView) findViewById(R.id.cardsList);
+		cardsList = (CardListView) findViewById(R.id.cardsList);
 		cardsList.setAdapter(cardsAdapter);
 		cardsList.setOnCardClickListener(new CardListView.CardClickListener()
 		{
@@ -153,23 +168,22 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	{
 		// songs never is null
 		songs = getSongList(this);
-		if (cardsAdapter.getCount() != songs.size())
+		cardsAdapter.clear();
+		cardsAdapter.notifyDataSetChanged();
+		for (Song song : songs)
 		{
-			cardsAdapter.clear();
-			cardsAdapter.notifyDataSetChanged();
-			for (Song song : songs)
-			{
-				addCard(song);
-			}
+			addCard(song);
 		}
-
 	}
 
 	// Adds to same stack if the artist is the same.
 
 	private void addCard(final Song song)
 	{
-		if (lastArtist != null && lastArtist.equals(song.getArtist()))
+		//lastArtist null check probably not necessary here.
+		
+		if (cardsAdapter.getCount() != 0 && lastArtist != null 
+				&& lastArtist.equals(song.getArtist()))
 		{
 			cardsAdapter.add(new SongCard(song, this));
 			return;
@@ -183,19 +197,36 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 					public void onClick(CardHeader header)
 					{
 						Intent intent = new Intent(FlowActivity.this, ArtistActivity.class);
-						//intent.putExtra(WEB_URL, song.getFullLyricsUrl());
+						intent.putExtra(ARTIST_NAME, song.getArtist());
 						startActivity(intent);
 					}
 				}));
 
 		cardsAdapter.add(new SongCard(song, this));
 	}
-
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId())
+		{
+			case R.id.clear:
+				deleteFlow();
+				addCardsFromList();
+				break;
+			default:
+				return false;
+		}
+		return true;
+	}
 	@Override
 	public void onMenuItemClick(Card card, MenuItem item)
 	{
-		// TODO Auto-generated method stub
+		
 
+	}
+	public void deleteFlow()
+	{
+		deleteFile(SONG_FILE_NAME);
+		reset();
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
