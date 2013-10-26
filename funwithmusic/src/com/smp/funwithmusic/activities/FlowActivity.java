@@ -63,10 +63,10 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		@Override
 		public void onReceive(Context context, Intent intent)
 		{
-			if (intent.getBooleanExtra(FROM_ID, false))
+			if (intent.getAction().equals(ACTION_REMOVE_IDENTIFY))
 				idDialog.setVisibility(View.GONE);
-			
-			addCardsFromList();
+			else if (intent.getAction().equals(ACTION_ADD_SONG))
+				addCardsFromList();
 		}
 
 	}
@@ -169,7 +169,9 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 			}
 		});
 
-		filter = new IntentFilter(SONG_ACTION);
+		filter = new IntentFilter();
+		filter.addAction(ACTION_ADD_SONG);
+		filter.addAction(ACTION_REMOVE_IDENTIFY);
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();

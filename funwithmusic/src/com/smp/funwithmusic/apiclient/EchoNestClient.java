@@ -7,6 +7,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import android.util.Log;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -36,13 +38,15 @@ public class EchoNestClient
 		
 		client.get(BASE_URL + IDENTIFY_URL, params, responseHandler);
 	}
+	
 	public static Song parseIdentify(JSONObject json)
 	{
 		Song result = new Song();
 		
 		try
 		{
-			JSONArray songs = json.getJSONArray("songs");
+			JSONObject response = json.getJSONObject("response");
+			JSONArray songs = response.getJSONArray("songs");
 			JSONObject song = songs.getJSONObject(0);
 			result.setArtist(song.getString("artist_name"));
 			result.setTitle(song.getString("title"));

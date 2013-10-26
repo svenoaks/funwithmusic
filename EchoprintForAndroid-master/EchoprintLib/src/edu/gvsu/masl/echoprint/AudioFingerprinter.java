@@ -153,177 +153,168 @@ public class AudioFingerprinter implements Runnable
 	 * Records audio and generates the audio fingerprint, then it queries the
 	 * server for a match and forwards the results to the listener.
 	 */
-	public void run()
+	public void run() 
 	{
-		String code = null;
 		this.isRunning = true;
-		try
-		{
+		try 
+		{			
 			// create the audio buffer
 			// get the minimum buffer size
 			int minBufferSize = AudioRecord.getMinBufferSize(FREQUENCY, CHANNEL, ENCODING);
-
+			
 			// and the actual buffer size for the audio to record
 			// frequency * seconds to record.
 			bufferSize = Math.max(minBufferSize, this.FREQUENCY * this.secondsToRecord);
-
+						
 			audioData = new short[bufferSize];
-
+						
 			// start recorder
 			mRecordInstance = new AudioRecord(
-					MediaRecorder.AudioSource.MIC,
-					FREQUENCY, CHANNEL,
-					ENCODING, minBufferSize);
-
+								MediaRecorder.AudioSource.MIC,
+								FREQUENCY, CHANNEL, 
+								ENCODING, minBufferSize);
+						
 			willStartListening();
-
+			
 			mRecordInstance.startRecording();
 			boolean firstRun = true;
-			do
-			{
+			do 
+			{		
 				try
 				{
 					willStartListeningPass();
-
+					
 					long time = System.currentTimeMillis();
 					// fill audio buffer with mic data.
 					int samplesIn = 0;
-					do
-					{
+					do 
+					{					
 						samplesIn += mRecordInstance.read(audioData, samplesIn, bufferSize - samplesIn);
-
-						if (mRecordInstance.getRecordingState() == AudioRecord.RECORDSTATE_STOPPED)
+						
+						if(mRecordInstance.getRecordingState() == AudioRecord.RECORDSTATE_STOPPED)
 							break;
-					}
-					while (samplesIn < bufferSize);
+					} 
+					while (samplesIn < bufferSize);				
 					Log.d("Fingerprinter", "Audio recorded: " + (System.currentTimeMillis() - time) + " millis");
-
+										
 					// see if the process was stopped.
-					if (mRecordInstance.getRecordingState() == AudioRecord.RECORDSTATE_STOPPED || (!firstRun && !this.continuous))
+					if(mRecordInstance.getRecordingState() == AudioRecord.RECORDSTATE_STOPPED || (!firstRun && !this.continuous))
 						break;
-
+					
 					// create an echoprint codegen wrapper and get the code
 					time = System.currentTimeMillis();
 					Codegen codegen = new Codegen();
-					code = codegen.generate(audioData, samplesIn);
-					Log.d("Fingerprinter", "Codegen created in: " + (System.currentTimeMillis() - time) + " millis");
-
-					if (code.length() == 0)
-					{
-						// no code?
-						// not enough audio data?
+	    			String code = codegen.generate(audioData, samplesIn);
+	    			Log.d("Fingerprinter", "Codegen created in: " + (System.currentTimeMillis() - time) + " millis");
+	    			
+	    			if(code.length() == 0)
+	    			{
+	    				// no code?
+	    				// not enough audio data?
 						continue;
-					}
-
-					
-					/*
-					 * // fetch data from echonest time =
-					 * System.currentTimeMillis();
-					 * 
-					 * String urlstr = SERVER_URL + code; HttpClient client =
-					 * new DefaultHttpClient(); HttpGet get = new
-					 * HttpGet(urlstr);
-					 * 
-					 * // get response HttpResponse response =
-					 * client.execute(get); // Examine the response status
-					 * Log.d(
-					 * "Fingerprinter",response.getStatusLine().toString());
-					 * 
-					 * // Get hold of the response entity HttpEntity entity =
-					 * response.getEntity(); // If the response does not enclose
-					 * an entity, there is no need // to worry about connection
-					 * release
-					 * 
-					 * String result = ""; if (entity != null) { // A Simple
-					 * JSON Response Read InputStream instream =
-					 * entity.getContent(); result=
-					 * convertStreamToString(instream); // now you have the
-					 * string representation of the HTML request
-					 * instream.close(); } Log.d("Fingerprinter",
-					 * "Results fetched in: " + (System.currentTimeMillis() -
-					 * time) + " millis");
-					 * 
-					 * Log.d("Fingerprinter", "THE RESULT IS " + result); //
-					 * parse JSON JSONObject jobj = new JSONObject(result);
-					 * 
-					 * if(jobj.has("code")) Log.d("Fingerprinter",
-					 * "Response code:" + jobj.getInt("code") + " (" +
-					 * this.messageForCode(jobj.getInt("code")) + ")");
-					 * 
-					 * if(jobj.has("match")) { if(jobj.getBoolean("match")) {
-					 * Hashtable<String, String> match = new Hashtable<String,
-					 * String>(); match.put(SCORE_KEY, jobj.getDouble(SCORE_KEY)
-					 * + ""); match.put(TRACK_ID_KEY,
-					 * jobj.getString(TRACK_ID_KEY));
-					 * 
-					 * // the metadata dictionary IS NOT included by default in
-					 * the API demo server // replace line 66/67 in API.py with:
-					 * // return
-					 * json.dumps({"ok":True,"message":response.message(),
-					 * "match":response.match(), "score":response.score, \ //
-					 * "qtime":response.qtime, "track_id":response.TRID,
-					 * "total_time":response.total_time,
-					 * "metadata":response.metadata}) if(jobj.has("metadata")) {
-					 * JSONObject metadata = jobj.getJSONObject("metadata");
-					 * 
-					 * if(metadata.has(SCORE_KEY)) match.put(META_SCORE_KEY,
-					 * metadata.getDouble(SCORE_KEY) + "");
-					 * if(metadata.has(TITLE_KEY)) match.put(TITLE_KEY,
-					 * metadata.getString(TITLE_KEY));
-					 * if(metadata.has(ARTIST_KEY)) match.put(ARTIST_KEY,
-					 * metadata.getString(ARTIST_KEY));
-					 * if(metadata.has(ALBUM_KEY)) match.put(ALBUM_KEY,
-					 * metadata.getString(ALBUM_KEY)); }
-					 * 
-					 * didFindMatchForCode(match, code); } else
-					 * didNotFindMatchForCode(code); } else {
-					 * didFailWithException(new Exception("Unknown error")); }
-					 */
-					firstRun = false;
-
-					didFinishListeningPass();
+	    			}
+	    			
+	    			didGenerateFingerprintCode(code);
+	    			
+	    			// fetch data from echonest
+	    			time = System.currentTimeMillis();
+	    			
+					String urlstr = SERVER_URL + code;			
+					HttpClient client = new DefaultHttpClient();
+	    			HttpGet get = new HttpGet(urlstr);
+	    			
+	    			// get response
+	    			HttpResponse response = client.execute(get);                
+	    			// Examine the response status
+	    	        Log.d("Fingerprinter",response.getStatusLine().toString());
+	
+	    	        // Get hold of the response entity
+	    	        HttpEntity entity = response.getEntity();
+	    	        // If the response does not enclose an entity, there is no need
+	    	        // to worry about connection release
+	
+	    	        String result = "";
+	    	        if (entity != null) 
+	    	        {
+	    	            // A Simple JSON Response Read
+	    	            InputStream instream = entity.getContent();
+	    	            result= convertStreamToString(instream);
+	    	            // now you have the string representation of the HTML request
+	    	            instream.close();
+	    	        }
+	     			Log.d("Fingerprinter", "Results fetched in: " + (System.currentTimeMillis() - time) + " millis");
+	    			
+	     			Log.d("Fingerprinter", "THE RESULT IS " + result);
+	    			// parse JSON
+		    		JSONObject jobj = new JSONObject(result);
+		    		
+		    		if(jobj.has("code"))
+		    			Log.d("Fingerprinter", "Response code:" + jobj.getInt("code") + " (" + this.messageForCode(jobj.getInt("code")) + ")");
+		    		
+		    		if(jobj.has("match"))
+		    		{
+		    			if(jobj.getBoolean("match"))
+		    			{
+		    				Hashtable<String, String> match = new Hashtable<String, String>();
+		    				match.put(SCORE_KEY, jobj.getDouble(SCORE_KEY) + "");
+		    				match.put(TRACK_ID_KEY, jobj.getString(TRACK_ID_KEY));
+		    				
+		    				// the metadata dictionary IS NOT included by default in the API demo server
+		    				// replace line 66/67 in API.py with:
+		    				// return json.dumps({"ok":True,"message":response.message(), "match":response.match(), "score":response.score, \
+	                        // "qtime":response.qtime, "track_id":response.TRID, "total_time":response.total_time, "metadata":response.metadata})
+		    				if(jobj.has("metadata"))
+		    				{
+		    					JSONObject metadata = jobj.getJSONObject("metadata");
+			    						    				
+			    				if(metadata.has(SCORE_KEY)) match.put(META_SCORE_KEY, metadata.getDouble(SCORE_KEY) + "");
+			    				if(metadata.has(TITLE_KEY)) match.put(TITLE_KEY, metadata.getString(TITLE_KEY));
+			    				if(metadata.has(ARTIST_KEY)) match.put(ARTIST_KEY, metadata.getString(ARTIST_KEY));
+			    				if(metadata.has(ALBUM_KEY)) match.put(ALBUM_KEY, metadata.getString(ALBUM_KEY));
+		    				}
+		    				
+		    				didFindMatchForCode(match, code);
+		    			}
+	    				else
+	    					didNotFindMatchForCode(code);	    			
+		    		}	    		
+		    		else
+		    		{
+		    			didFailWithException(new Exception("Unknown error"));
+		    		}
+		    		
+		    		firstRun = false;
+				
+		    		didFinishListeningPass();
 				}
-				catch (Exception e)
+				catch(Exception e)
 				{
 					e.printStackTrace();
 					Log.e("Fingerprinter", e.getLocalizedMessage());
-
+					
 					didFailWithException(e);
 				}
 			}
 			while (this.continuous);
-		}
-		catch (Exception e)
+		} 
+		catch (Exception e) 
 		{
 			e.printStackTrace();
 			Log.e("Fingerprinter", e.getLocalizedMessage());
-
+			
 			didFailWithException(e);
 		}
-		try
+		
+		if(mRecordInstance != null)
 		{
-			if (mRecordInstance != null)
-			{
-				mRecordInstance.stop();
-			}
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			Log.e("Fingerprinter", e.getLocalizedMessage());
-
-			didFailWithException(e);
-		}
-		finally
-		{
+			mRecordInstance.stop();
 			mRecordInstance.release();
 			mRecordInstance = null;
-			this.isRunning = false;
 		}
-		didGenerateFingerprintCode(code);
+		this.isRunning = false;
+		
 		didFinishListening();
 	}
-
 	private static String convertStreamToString(InputStream is)
 	{
 		/*
