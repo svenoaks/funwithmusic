@@ -35,7 +35,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+		<service android:name="com.smp.funwithmusic.services.IdentifyMusicService" />
         <receiver
             android:name="com.smp.funwithmusic.receivers.SongReceiver"
             android:enabled="true"

@@ -7,5 +7,9 @@
         android:id="@+id/cardsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <include
+        android:id="@+id/progress"
+        layout="@layout/dialog_loading"
+        android:visibility="gone"/>
 
 </FrameLayout>

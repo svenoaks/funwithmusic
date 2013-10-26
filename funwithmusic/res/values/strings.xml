@@ -14,5 +14,6 @@
     <string name="artist_info">Get Artist Info</string>
     <string name="loading_flow">Loading Flow&#8230;</string>
     <string name="artist">Artist</string>
+    <string name="identify">Identifying&#8230;</string>
 
 </resources>

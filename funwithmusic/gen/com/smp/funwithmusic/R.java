@@ -195,32 +195,33 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int unpressed_background=0x7f020010;
     }
     public static final class id {
-        public static final int action_settings=0x7f090017;
+        public static final int action_settings=0x7f090018;
         public static final int cardsList=0x7f090005;
-        public static final int clear=0x7f090016;
-        public static final int content_frame=0x7f09000a;
-        public static final int day=0x7f090011;
+        public static final int clear=0x7f090017;
+        public static final int content_frame=0x7f09000b;
+        public static final int day=0x7f090012;
         public static final int fullscreen=0x7f090003;
-        public static final int help=0x7f090018;
-        public static final int inner_frame=0x7f090007;
+        public static final int help=0x7f090019;
+        public static final int inner_frame=0x7f090008;
         public static final int left=0x7f090000;
-        public static final int licenses=0x7f090019;
-        public static final int listen=0x7f090015;
-        public static final int lyrics=0x7f090009;
+        public static final int licenses=0x7f09001a;
+        public static final int listen=0x7f090016;
+        public static final int lyrics=0x7f09000a;
         public static final int margin=0x7f090002;
-        public static final int menu_frame=0x7f09000d;
-        public static final int month=0x7f090010;
-        public static final int progress_bar=0x7f09000c;
-        public static final int progress_text=0x7f09000b;
+        public static final int menu_frame=0x7f09000e;
+        public static final int month=0x7f090011;
+        public static final int progress=0x7f090006;
+        public static final int progress_bar=0x7f09000d;
+        public static final int progress_text=0x7f09000c;
         public static final int right=0x7f090001;
-        public static final int row_icon=0x7f09000e;
-        public static final int row_title=0x7f09000f;
+        public static final int row_icon=0x7f09000f;
+        public static final int row_title=0x7f090010;
         public static final int selected_view=0x7f090004;
-        public static final int slidingmenumain=0x7f090013;
-        public static final int titleFrame=0x7f090008;
-        public static final int todo=0x7f090014;
-        public static final int webview=0x7f090006;
-        public static final int year=0x7f090012;
+        public static final int slidingmenumain=0x7f090014;
+        public static final int titleFrame=0x7f090009;
+        public static final int todo=0x7f090015;
+        public static final int webview=0x7f090007;
+        public static final int year=0x7f090013;
     }
     public static final class integer {
         public static final int num_cols=0x7f0a0000;
@@ -261,6 +262,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int artist=0x7f07000d;
         public static final int artist_info=0x7f07000b;
         public static final int hello_world=0x7f070007;
+        public static final int identify=0x7f07000e;
         public static final int johns_activity=0x7f070008;
         public static final int loading_flow=0x7f07000c;
         public static final int see_more=0x7f070000;

@@ -28,6 +28,7 @@ import com.smp.funwithmusic.adapters.SongCardAdapter;
 import com.smp.funwithmusic.apiclient.ItunesClient;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.dataobjects.SongCard;
+import com.smp.funwithmusic.services.IdentifyMusicService;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -38,11 +39,13 @@ import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class FlowActivity extends Activity implements CardMenuListener<Card>
@@ -53,6 +56,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	private SongCardAdapter<SongCard> cardsAdapter;
 	private CardListView cardsList;
 	private String lastArtist;
+	private View idDialog;
 
 	private class UpdateActivityReceiver extends BroadcastReceiver
 	{
@@ -71,7 +75,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	protected void onPause()
 	{
 		super.onPause();
-		unregisterReceiver(receiver);
+		LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
 		saveSongs();
 		reset();
 	}
@@ -95,7 +99,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		super.onResume();
 		addCardsFromList();
 		scrollToBottomOfList();
-		registerReceiver(receiver, filter);
+		LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
 	}
 
 	// Scrolls the view so that last item is at the bottom of the screen.
@@ -127,10 +131,18 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		cardsAdapter.setPopupMenu(R.menu.card_popup, this); // the popup menu
 		// callback is this
 		// activity
-
+		
+		TextView progressText = (TextView) findViewById(R.id.progress_text);
+		progressText.setText(getResources().getText(R.string.identify));
+		
+		idDialog = (View) findViewById(R.id.progress);
+		
+		
 		cardsList = (CardListView) findViewById(R.id.cardsList);
 		cardsList.setAdapter(cardsAdapter);
 		cardsList.setOnCardClickListener(new CardListView.CardClickListener()
+		
+		
 		{
 			@SuppressWarnings("rawtypes")
 			@Override
@@ -209,6 +221,11 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 			case R.id.clear:
 				deleteFlow();
 				addCardsFromList();
+				break;
+			case R.id.listen:
+				idDialog.setVisibility(View.VISIBLE);
+				Intent intent = new Intent(this, IdentifyMusicService.class);
+				startService(intent);
 				break;
 			default:
 				return false;

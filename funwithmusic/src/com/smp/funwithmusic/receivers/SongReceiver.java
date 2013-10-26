@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -44,7 +45,7 @@ public class SongReceiver extends BroadcastReceiver
 				Intent send = new Intent();
 				send.setAction(SONG_ACTION)
 						.addCategory(Intent.CATEGORY_DEFAULT);
-				context.sendBroadcast(send);
+				LocalBroadcastManager.getInstance(context).sendBroadcast(send);
 			}
 			// Log.i("SONG", mArtist + " " + mTitle + " " + mAlbum);
 
@@ -79,7 +80,13 @@ public class SongReceiver extends BroadcastReceiver
 
 		try
 		{
-			if ((intent.getAction().equals("com.htc.music.playstatechanged")) || (intent.getAction().equals("com.htc.music.metachanged")))
+			if (intent.getAction().equals(ID_ACTION))
+			{
+				mArtist = intent.getStringExtra("artist");
+				mTitle = intent.getStringExtra("track");
+				mAlbum = intent.getStringExtra("album");
+			}
+			else if ((intent.getAction().equals("com.htc.music.playstatechanged")) || (intent.getAction().equals("com.htc.music.metachanged")))
 			{
 				boolean bool1 = intent.getBooleanExtra("isplaying", false);
 				mArtist = intent.getStringExtra("artist");

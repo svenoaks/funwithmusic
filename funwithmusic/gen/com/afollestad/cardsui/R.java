@@ -53,11 +53,11 @@ public final class R {
 		public static final int unpressed_background = 0x7f020010;
 	}
 	public static final class id {
-		public static final int day = 0x7f090011;
-		public static final int inner_frame = 0x7f090007;
-		public static final int month = 0x7f090010;
-		public static final int titleFrame = 0x7f090008;
-		public static final int year = 0x7f090012;
+		public static final int day = 0x7f090012;
+		public static final int inner_frame = 0x7f090008;
+		public static final int month = 0x7f090011;
+		public static final int titleFrame = 0x7f090009;
+		public static final int year = 0x7f090013;
 	}
 	public static final class layout {
 		public static final int fragment_list = 0x7f030007;

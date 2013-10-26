@@ -3,6 +3,8 @@ package com.smp.funwithmusic.utilities;
 public class Constants
 {
 	public static final String SONG_ACTION = "com.smp.funwithmusic.SONG_ACTION";
+	public static final String ID_ACTION = "com.smp.funwithmusic.ID_ACTION";
+	
 	public static final String SHARED_PREF_NAME = "com.smp.funwithmusic.PREFS";
 	public static final String SONG_FILE_NAME = "songlist.bin";
 	
