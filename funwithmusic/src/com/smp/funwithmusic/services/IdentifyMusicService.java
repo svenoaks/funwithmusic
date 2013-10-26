@@ -12,6 +12,8 @@ public class IdentifyMusicService extends IntentService
 {
 
 
+	
+
 	public IdentifyMusicService()
 	{
 		super("identify");
@@ -27,6 +29,7 @@ public class IdentifyMusicService extends IntentService
 		send.putExtra("artist", "TEST");
 		send.putExtra("track", "TESTtitle");
 		send.putExtra("album", "albumtestttt");
+		send.putExtra(FROM_ID, true);
 		sendBroadcast(send);		
 	}
 

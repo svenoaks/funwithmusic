@@ -63,14 +63,19 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		@Override
 		public void onReceive(Context context, Intent intent)
 		{
+			if (intent.getBooleanExtra(FROM_ID, false))
+				idDialog.setVisibility(View.GONE);
+			
 			addCardsFromList();
 		}
 
 	}
+
 	private void reset()
 	{
 		lastArtist = null;
 	}
+
 	@Override
 	protected void onPause()
 	{
@@ -106,7 +111,6 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	//
 	private void scrollToBottomOfList()
 	{
-
 		cardsList.post(new Runnable()
 		{
 			@Override
@@ -131,18 +135,16 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		cardsAdapter.setPopupMenu(R.menu.card_popup, this); // the popup menu
 		// callback is this
 		// activity
-		
+
 		TextView progressText = (TextView) findViewById(R.id.progress_text);
 		progressText.setText(getResources().getText(R.string.identify));
-		
+
 		idDialog = (View) findViewById(R.id.progress);
-		
-		
+
 		cardsList = (CardListView) findViewById(R.id.cardsList);
 		cardsList.setAdapter(cardsAdapter);
 		cardsList.setOnCardClickListener(new CardListView.CardClickListener()
-		
-		
+
 		{
 			@SuppressWarnings("rawtypes")
 			@Override
@@ -190,9 +192,9 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 
 	private void addCard(final Song song)
 	{
-		//lastArtist null check probably not necessary here.
-		
-		if (cardsAdapter.getCount() != 0 && lastArtist != null 
+		// lastArtist null check probably not necessary here.
+
+		if (cardsAdapter.getCount() != 0 && lastArtist != null
 				&& lastArtist.equals(song.getArtist()))
 		{
 			cardsAdapter.add(new SongCard(song, this));
@@ -214,8 +216,10 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 
 		cardsAdapter.add(new SongCard(song, this));
 	}
+
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
 		switch (item.getItemId())
 		{
 			case R.id.clear:
@@ -232,17 +236,19 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		}
 		return true;
 	}
+
 	@Override
 	public void onMenuItemClick(Card card, MenuItem item)
 	{
-		
 
 	}
+
 	public void deleteFlow()
 	{
 		deleteFile(SONG_FILE_NAME);
 		reset();
 	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{

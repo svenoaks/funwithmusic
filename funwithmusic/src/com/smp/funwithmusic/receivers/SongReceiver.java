@@ -45,6 +45,11 @@ public class SongReceiver extends BroadcastReceiver
 				Intent send = new Intent();
 				send.setAction(SONG_ACTION)
 						.addCategory(Intent.CATEGORY_DEFAULT);
+				
+				if (intent.getBooleanExtra(FROM_ID, false))
+				{
+					send.putExtra(FROM_ID, true);
+				}
 				LocalBroadcastManager.getInstance(context).sendBroadcast(send);
 			}
 			// Log.i("SONG", mArtist + " " + mTitle + " " + mAlbum);
