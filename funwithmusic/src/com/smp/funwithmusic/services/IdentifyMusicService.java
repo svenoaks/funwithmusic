@@ -8,6 +8,7 @@ import java.util.concurrent.CountDownLatch;
 import org.json.JSONObject;
 
 import com.gracenote.mmid.MobileSDK.GNConfig;
+import com.gracenote.mmid.MobileSDK.GNCoverArt;
 import com.gracenote.mmid.MobileSDK.GNOperations;
 import com.gracenote.mmid.MobileSDK.GNSearchResponse;
 import com.gracenote.mmid.MobileSDK.GNSearchResult;
@@ -79,9 +80,14 @@ public class IdentifyMusicService extends IntentService implements AudioFingerpr
 				artist = response.getArtist();
 				title = response.getTrackTitle();
 				album = response.getAlbumTitle();
+				String imageUrl = null;
+				GNCoverArt art = response.getCoverArt();
+				if (art != null)
+					imageUrl = art.getUrl();
 				send.putExtra("artist", artist);
 				send.putExtra("title", title);
 				send.putExtra("album", album);
+				send.putExtra("imageUrl", imageUrl);
 				sendBroadcast(send);
 				latch.countDown();
 			}
@@ -94,6 +100,7 @@ public class IdentifyMusicService extends IntentService implements AudioFingerpr
 		latch = new CountDownLatch(1);
 		successful = false;
 		config = GNConfig.init(API_KEY_GRACENOTE, this.getApplicationContext());
+		config.setProperty("content.coverArt", "1");
 		RecognizeFromMic task = new RecognizeFromMic();
 		task.doFingerprint();
 		// AudioFingerprinter fingerprinter = new AudioFingerprinter(this);

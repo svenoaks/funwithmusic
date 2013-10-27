@@ -25,6 +25,7 @@ public class SongReceiver extends BroadcastReceiver
 
 	private String mAlbum;
 	private String mArtist;
+	private String mImageUrl;
 	private Context context;
 	private Intent intent;
 	private String mTitle;
@@ -38,6 +39,7 @@ public class SongReceiver extends BroadcastReceiver
 			setSongInfo(context, intent);
 
 			Song song = new Song(mTitle, mArtist, mAlbum);
+			song.setAlbumUrl(mImageUrl);
 
 			if (song.validate())
 			{
@@ -86,6 +88,7 @@ public class SongReceiver extends BroadcastReceiver
 				mArtist = intent.getStringExtra("artist");
 				mTitle = intent.getStringExtra("title");
 				mAlbum = intent.getStringExtra("album");
+				mImageUrl = intent.getStringExtra("imageUrl");
 			}
 			else if ((intent.getAction().equals("com.htc.music.playstatechanged")) || (intent.getAction().equals("com.htc.music.metachanged")))
 			{
