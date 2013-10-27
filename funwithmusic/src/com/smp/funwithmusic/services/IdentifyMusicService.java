@@ -20,15 +20,12 @@ import com.smp.funwithmusic.apiclient.EchoNestClient;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.receivers.SongReceiver;
 
-import edu.gvsu.masl.echoprint.AudioFingerprinter;
-import edu.gvsu.masl.echoprint.AudioFingerprinter.AudioFingerprinterListener;
-
 import android.app.IntentService;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-public class IdentifyMusicService extends IntentService implements AudioFingerprinterListener
+public class IdentifyMusicService extends IntentService 
 {
 	private static final int TIME_TO_LISTEN = 20;
 
@@ -129,7 +126,7 @@ public class IdentifyMusicService extends IntentService implements AudioFingerpr
 	
 	
 	
-	
+	/*
 	@Override
 	public void didGenerateFingerprintCode(String code)
 	{
@@ -219,5 +216,5 @@ public class IdentifyMusicService extends IntentService implements AudioFingerpr
 		// TODO Auto-generated method stub
 
 	}
-
+*/
 }
