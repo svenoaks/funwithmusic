@@ -3,6 +3,7 @@ package com.smp.funwithmusic.receivers;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.smp.funwithmusic.activities.FlowActivity;
 import com.smp.funwithmusic.dataobjects.Song;
 
 import android.content.BroadcastReceiver;
@@ -14,6 +15,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,61 +23,74 @@ import android.widget.Toast;
 public class SongReceiver extends BroadcastReceiver
 {
 
-	public String mAlbum;
-	public String mArtist;
-	public Context mContext;
-	public Intent mIntent;
-	public String mTitle;
+	private String mAlbum;
+	private String mArtist;
+	private String mImageUrl;
+	private Context context;
+	private Intent intent;
+	private String mTitle;
+	private PendingResult result;
 
 	private class SongReceiverAsyncTask extends AsyncTask<Void, Void, Void>
 	{
-		Context context;
-		Intent intent;
-		PendingResult result;
-
-		public SongReceiverAsyncTask(Context context, Intent intent, PendingResult result)
-		{
-			this.context = context;
-			this.intent = intent;
-			this.result = result;
-		}
 
 		protected Void doInBackground(Void... blah)
 		{
 			setSongInfo(context, intent);
-			if (mAlbum != null && mArtist != null && mTitle != null)
+
+			Song song = new Song(mTitle, mArtist, mAlbum);
+			song.setAlbumUrl(mImageUrl);
+
+			if (song.validate())
 			{
-				Song song = new Song(mTitle, mArtist, mAlbum);
 				writeNewSong(context, song);
 
-				Intent send = new Intent();
-				send.setAction(SONG_ACTION)
-						.addCategory(Intent.CATEGORY_DEFAULT);
-				context.sendBroadcast(send);
-
-				//Log.i("SONG", mArtist + " " + mTitle + " " + mAlbum);
+				Intent send = new Intent(context, FlowActivity.class);
+				send.setAction(ACTION_ADD_SONG);
+				
+				LocalBroadcastManager.getInstance(context).sendBroadcast(send);
 			}
+			// Log.i("SONG", mArtist + " " + mTitle + " " + mAlbum);
+
 			result.finish();
 
 			return null;
 		}
 	}
 
+	private void writeNewSong(Context context, Song song)
+	{
+		ArrayList<Song> songs = getSongList(context);
+		if (song != null && !songs.contains(song))
+		{
+			songs.add(song);
+			writeObjectToFile(context, SONG_FILE_NAME, songs);
+		}
+	}
+
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
-		PendingResult result = goAsync();
-		new SongReceiverAsyncTask(context, intent, result).execute();
+		this.context = context;
+		this.intent = intent;
+		result = goAsync();
+		new SongReceiverAsyncTask().execute();
 	}
 
 	private void setSongInfo(Context context, Intent intent)
 	{
 		Log.d("SONG", "BLAH");
-		mContext = context;
-		mIntent = intent;
+
 		try
 		{
-			if ((intent.getAction().equals("com.htc.music.playstatechanged")) || (intent.getAction().equals("com.htc.music.metachanged")))
+			if (intent.getAction().equals(ACTION_ID))
+			{
+				mArtist = intent.getStringExtra("artist");
+				mTitle = intent.getStringExtra("title");
+				mAlbum = intent.getStringExtra("album");
+				mImageUrl = intent.getStringExtra("imageUrl");
+			}
+			else if ((intent.getAction().equals("com.htc.music.playstatechanged")) || (intent.getAction().equals("com.htc.music.metachanged")))
 			{
 				boolean bool1 = intent.getBooleanExtra("isplaying", false);
 				mArtist = intent.getStringExtra("artist");
@@ -216,13 +231,4 @@ public class SongReceiver extends BroadcastReceiver
 
 	}
 
-	private void writeNewSong(Context context, Song song)
-	{
-		ArrayList<Song> songs = getSongList(context);
-		if (song != null && !songs.contains(song))
-		{
-			songs.add(song);
-			writeObjectToFile(context, SONG_FILE_NAME, songs);
-		}
-	}
 }
