@@ -9,7 +9,7 @@ package com.smp.funwithmusic;
 
 public final class R {
     public static final class array {
-        public static final int months=0x7f060000;
+        public static final int months=0x7f070000;
     }
     public static final class attr {
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
@@ -125,16 +125,16 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int viewBehind=0x7f010002;
     }
     public static final class color {
-        public static final int card_gray=0x7f040003;
-        public static final int card_pressed=0x7f040001;
-        public static final int dark_gray=0x7f040000;
-        public static final int header_button_default=0x7f040002;
-        public static final int info_0=0x7f040005;
-        public static final int info_1=0x7f040006;
-        public static final int info_2=0x7f040007;
-        public static final int info_3=0x7f040008;
-        public static final int info_4=0x7f040009;
-        public static final int light_blue=0x7f040004;
+        public static final int card_gray=0x7f050003;
+        public static final int card_pressed=0x7f050001;
+        public static final int dark_gray=0x7f050000;
+        public static final int header_button_default=0x7f050002;
+        public static final int info_0=0x7f050005;
+        public static final int info_1=0x7f050006;
+        public static final int info_2=0x7f050007;
+        public static final int info_3=0x7f050008;
+        public static final int info_4=0x7f050009;
+        public static final int light_blue=0x7f050004;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -143,37 +143,37 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f050017;
-        public static final int activity_vertical_margin=0x7f050018;
-        public static final int card_content=0x7f05000d;
-        public static final int card_header=0x7f05000f;
-        public static final int card_header_button_margin_left=0x7f050016;
-        public static final int card_header_button_padding_side=0x7f050014;
-        public static final int card_header_button_padding_top=0x7f050015;
-        public static final int card_header_button_text=0x7f050013;
-        public static final int card_header_padding_horizontal=0x7f050012;
-        public static final int card_header_padding_top=0x7f050011;
-        public static final int card_inner_padding_left=0x7f050007;
-        public static final int card_inner_padding_right=0x7f050008;
-        public static final int card_inner_padding_vertical=0x7f050006;
-        public static final int card_outer_padding_bottom=0x7f050004;
-        public static final int card_outer_padding_firstlast=0x7f050002;
-        public static final int card_outer_padding_horizontal=0x7f050005;
-        public static final int card_outer_padding_top=0x7f050003;
-        public static final int card_shadow=0x7f05000e;
-        public static final int card_subheader=0x7f050010;
-        public static final int card_thumbnail=0x7f050009;
-        public static final int card_thumbnail_large=0x7f050019;
-        public static final int card_thumbnail_margin=0x7f05000a;
-        public static final int card_title=0x7f05000c;
-        public static final int card_title_margin_left=0x7f05000b;
-        public static final int empty_text_size=0x7f050000;
-        public static final int list_padding=0x7f05001b;
-        public static final int shadow_width=0x7f05001c;
+        public static final int activity_horizontal_margin=0x7f060017;
+        public static final int activity_vertical_margin=0x7f060018;
+        public static final int card_content=0x7f06000d;
+        public static final int card_header=0x7f06000f;
+        public static final int card_header_button_margin_left=0x7f060016;
+        public static final int card_header_button_padding_side=0x7f060014;
+        public static final int card_header_button_padding_top=0x7f060015;
+        public static final int card_header_button_text=0x7f060013;
+        public static final int card_header_padding_horizontal=0x7f060012;
+        public static final int card_header_padding_top=0x7f060011;
+        public static final int card_inner_padding_left=0x7f060007;
+        public static final int card_inner_padding_right=0x7f060008;
+        public static final int card_inner_padding_vertical=0x7f060006;
+        public static final int card_outer_padding_bottom=0x7f060004;
+        public static final int card_outer_padding_firstlast=0x7f060002;
+        public static final int card_outer_padding_horizontal=0x7f060005;
+        public static final int card_outer_padding_top=0x7f060003;
+        public static final int card_shadow=0x7f06000e;
+        public static final int card_subheader=0x7f060010;
+        public static final int card_thumbnail=0x7f060009;
+        public static final int card_thumbnail_large=0x7f060019;
+        public static final int card_thumbnail_margin=0x7f06000a;
+        public static final int card_title=0x7f06000c;
+        public static final int card_title_margin_left=0x7f06000b;
+        public static final int empty_text_size=0x7f060000;
+        public static final int list_padding=0x7f06001b;
+        public static final int shadow_width=0x7f06001c;
         /**      Slidingmenu dimen 
          */
-        public static final int slidingmenu_offset=0x7f05001a;
-        public static final int spinner_item_text=0x7f050001;
+        public static final int slidingmenu_offset=0x7f06001a;
+        public static final int spinner_item_text=0x7f060001;
     }
     public static final class drawable {
         public static final int assem=0x7f020000;
@@ -185,42 +185,44 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int ic_launcher=0x7f020006;
         public static final int ic_menu_moreoverflow_card_dark_normal=0x7f020007;
         public static final int ic_menu_moreoverflow_card_dark_pressed=0x7f020008;
-        public static final int indicator=0x7f020009;
-        public static final int list_focused=0x7f02000a;
-        public static final int microphone=0x7f02000b;
-        public static final int new_indicator=0x7f02000c;
-        public static final int play=0x7f02000d;
-        public static final int pressed_background=0x7f02000e;
-        public static final int shadow=0x7f02000f;
-        public static final int unpressed_background=0x7f020010;
+        public static final int icon=0x7f020009;
+        public static final int indicator=0x7f02000a;
+        public static final int list_focused=0x7f02000b;
+        public static final int microphone=0x7f02000c;
+        public static final int new_indicator=0x7f02000d;
+        public static final int play=0x7f02000e;
+        public static final int pressed_background=0x7f02000f;
+        public static final int shadow=0x7f020010;
+        public static final int unpressed_background=0x7f020011;
     }
     public static final class id {
-        public static final int action_settings=0x7f090017;
+        public static final int action_settings=0x7f090018;
         public static final int cardsList=0x7f090005;
-        public static final int clear=0x7f090016;
-        public static final int content_frame=0x7f09000a;
-        public static final int day=0x7f090011;
+        public static final int clear=0x7f090017;
+        public static final int content_frame=0x7f09000b;
+        public static final int day=0x7f090012;
         public static final int fullscreen=0x7f090003;
-        public static final int help=0x7f090018;
-        public static final int inner_frame=0x7f090007;
+        public static final int help=0x7f090019;
+        public static final int inner_frame=0x7f090008;
         public static final int left=0x7f090000;
-        public static final int licenses=0x7f090019;
-        public static final int listen=0x7f090015;
-        public static final int lyrics=0x7f090009;
+        public static final int licenses=0x7f09001a;
+        public static final int listen=0x7f090016;
+        public static final int lyrics=0x7f09000a;
         public static final int margin=0x7f090002;
-        public static final int menu_frame=0x7f09000d;
-        public static final int month=0x7f090010;
-        public static final int progress_bar=0x7f09000c;
-        public static final int progress_text=0x7f09000b;
+        public static final int menu_frame=0x7f09000e;
+        public static final int month=0x7f090011;
+        public static final int progress=0x7f090006;
+        public static final int progress_bar=0x7f09000d;
+        public static final int progress_text=0x7f09000c;
         public static final int right=0x7f090001;
-        public static final int row_icon=0x7f09000e;
-        public static final int row_title=0x7f09000f;
+        public static final int row_icon=0x7f09000f;
+        public static final int row_title=0x7f090010;
         public static final int selected_view=0x7f090004;
-        public static final int slidingmenumain=0x7f090013;
-        public static final int titleFrame=0x7f090008;
-        public static final int todo=0x7f090014;
-        public static final int webview=0x7f090006;
-        public static final int year=0x7f090012;
+        public static final int slidingmenumain=0x7f090014;
+        public static final int titleFrame=0x7f090009;
+        public static final int todo=0x7f090015;
+        public static final int webview=0x7f090007;
+        public static final int year=0x7f090013;
     }
     public static final class integer {
         public static final int num_cols=0x7f0a0000;
@@ -240,32 +242,35 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int list_item_card_nocontent=0x7f03000b;
         public static final int list_item_event=0x7f03000c;
         public static final int list_item_header=0x7f03000d;
-        public static final int menu_frame=0x7f03000e;
-        public static final int row=0x7f03000f;
-        public static final int silk_date_picker=0x7f030010;
-        public static final int slidingmenumain=0x7f030011;
-        public static final int spinner_item=0x7f030012;
-        public static final int spinner_item_dropdown=0x7f030013;
+        public static final int main=0x7f03000e;
+        public static final int menu_frame=0x7f03000f;
+        public static final int row=0x7f030010;
+        public static final int silk_date_picker=0x7f030011;
+        public static final int slidingmenumain=0x7f030012;
+        public static final int spinner_item=0x7f030013;
+        public static final int spinner_item_dropdown=0x7f030014;
     }
     public static final class menu {
         public static final int card_popup=0x7f0b0000;
         public static final int main=0x7f0b0001;
     }
     public static final class string {
-        public static final int action_clear=0x7f070004;
-        public static final int action_help=0x7f070005;
-        public static final int action_licenses=0x7f070006;
-        public static final int action_listen=0x7f070003;
-        public static final int action_settings=0x7f070002;
-        public static final int app_name=0x7f070001;
-        public static final int artist=0x7f07000d;
-        public static final int artist_info=0x7f07000b;
-        public static final int hello_world=0x7f070007;
-        public static final int johns_activity=0x7f070008;
-        public static final int loading_flow=0x7f07000c;
-        public static final int see_more=0x7f070000;
-        public static final int steves_activity=0x7f070009;
-        public static final int todo=0x7f07000a;
+        public static final int action_clear=0x7f040005;
+        public static final int action_help=0x7f040006;
+        public static final int action_licenses=0x7f040007;
+        public static final int action_listen=0x7f040004;
+        public static final int action_settings=0x7f040003;
+        public static final int app_name=0x7f040001;
+        public static final int artist=0x7f04000e;
+        public static final int artist_info=0x7f04000c;
+        public static final int hello=0x7f040000;
+        public static final int hello_world=0x7f040008;
+        public static final int identify=0x7f04000f;
+        public static final int johns_activity=0x7f040009;
+        public static final int loading_flow=0x7f04000d;
+        public static final int see_more=0x7f040002;
+        public static final int steves_activity=0x7f04000a;
+        public static final int todo=0x7f04000b;
     }
     public static final class style {
         /** 

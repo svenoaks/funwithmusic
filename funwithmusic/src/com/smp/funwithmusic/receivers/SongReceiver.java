@@ -3,6 +3,7 @@ package com.smp.funwithmusic.receivers;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.smp.funwithmusic.activities.FlowActivity;
 import com.smp.funwithmusic.dataobjects.Song;
 
 import android.content.BroadcastReceiver;
@@ -14,6 +15,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -41,10 +43,10 @@ public class SongReceiver extends BroadcastReceiver
 			{
 				writeNewSong(context, song);
 
-				Intent send = new Intent();
-				send.setAction(SONG_ACTION)
-						.addCategory(Intent.CATEGORY_DEFAULT);
-				context.sendBroadcast(send);
+				Intent send = new Intent(context, FlowActivity.class);
+				send.setAction(ACTION_ADD_SONG);
+				
+				LocalBroadcastManager.getInstance(context).sendBroadcast(send);
 			}
 			// Log.i("SONG", mArtist + " " + mTitle + " " + mAlbum);
 
@@ -79,7 +81,13 @@ public class SongReceiver extends BroadcastReceiver
 
 		try
 		{
-			if ((intent.getAction().equals("com.htc.music.playstatechanged")) || (intent.getAction().equals("com.htc.music.metachanged")))
+			if (intent.getAction().equals(ACTION_ID))
+			{
+				mArtist = intent.getStringExtra("artist");
+				mTitle = intent.getStringExtra("title");
+				mAlbum = intent.getStringExtra("album");
+			}
+			else if ((intent.getAction().equals("com.htc.music.playstatechanged")) || (intent.getAction().equals("com.htc.music.metachanged")))
 			{
 				boolean bool1 = intent.getBooleanExtra("isplaying", false);
 				mArtist = intent.getStringExtra("artist");

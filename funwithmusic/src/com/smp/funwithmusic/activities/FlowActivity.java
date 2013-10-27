@@ -28,6 +28,7 @@ import com.smp.funwithmusic.adapters.SongCardAdapter;
 import com.smp.funwithmusic.apiclient.ItunesClient;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.dataobjects.SongCard;
+import com.smp.funwithmusic.services.IdentifyMusicService;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -38,40 +39,60 @@ import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class FlowActivity extends Activity implements CardMenuListener<Card>
 {
+	
+	
 	private List<Song> songs;
 	private IntentFilter filter;
 	private UpdateActivityReceiver receiver;
 	private SongCardAdapter<SongCard> cardsAdapter;
 	private CardListView cardsList;
 	private String lastArtist;
+	private View idDialog;
 
 	private class UpdateActivityReceiver extends BroadcastReceiver
 	{
 		@Override
 		public void onReceive(Context context, Intent intent)
 		{
-			addCardsFromList();
+			if (intent.getAction().equals(ACTION_REMOVE_IDENTIFY))
+			{
+				viewGone(idDialog);
+				if (intent.getBooleanExtra(LISTEN_SUCCESSFUL, false))
+				{
+					scrollToBottomOfList();
+				}
+					
+			}
+				
+			else if (intent.getAction().equals(ACTION_ADD_SONG))
+			{
+				addCardsFromList();
+			}		
 		}
 
 	}
+
 	private void reset()
 	{
 		lastArtist = null;
 	}
+
 	@Override
 	protected void onPause()
 	{
 		super.onPause();
-		unregisterReceiver(receiver);
+		LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
 		saveSongs();
 		reset();
 	}
@@ -95,15 +116,18 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		super.onResume();
 		addCardsFromList();
 		scrollToBottomOfList();
-		registerReceiver(receiver, filter);
+		LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
+		if (isMyServiceRunning(this, IdentifyMusicService.class))
+		{
+			viewVisible(idDialog);
+		}
 	}
 
 	// Scrolls the view so that last item is at the bottom of the screen.
 	//
 	private void scrollToBottomOfList()
 	{
-
-		cardsList.post(new Runnable()
+		cardsList.postDelayed(new Runnable()
 		{
 			@Override
 			public void run()
@@ -111,7 +135,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 				// Select the last row so it will scroll into view
 				cardsList.setSelection(cardsAdapter.getCount() - 1);
 			}
-		});
+		}, DELAY_FOR_ADD_SONG);
 
 	}
 
@@ -128,9 +152,15 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		// callback is this
 		// activity
 
+		TextView progressText = (TextView) findViewById(R.id.progress_text);
+		progressText.setText(getResources().getText(R.string.identify));
+
+		idDialog = (View) findViewById(R.id.progress);
+
 		cardsList = (CardListView) findViewById(R.id.cardsList);
 		cardsList.setAdapter(cardsAdapter);
 		cardsList.setOnCardClickListener(new CardListView.CardClickListener()
+
 		{
 			@SuppressWarnings("rawtypes")
 			@Override
@@ -155,8 +185,10 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 			}
 		});
 
-		filter = new IntentFilter(SONG_ACTION);
-		filter.addCategory(Intent.CATEGORY_DEFAULT);
+		filter = new IntentFilter();
+		filter.addAction(ACTION_ADD_SONG);
+		filter.addAction(ACTION_REMOVE_IDENTIFY);
+		//filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
 
@@ -178,9 +210,9 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 
 	private void addCard(final Song song)
 	{
-		//lastArtist null check probably not necessary here.
-		
-		if (cardsAdapter.getCount() != 0 && lastArtist != null 
+		// lastArtist null check probably not necessary here.
+
+		if (cardsAdapter.getCount() != 0 && lastArtist != null
 				&& lastArtist.equals(song.getArtist()))
 		{
 			cardsAdapter.add(new SongCard(song, this));
@@ -202,30 +234,61 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 
 		cardsAdapter.add(new SongCard(song, this));
 	}
+
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
 		switch (item.getItemId())
 		{
 			case R.id.clear:
-				deleteFlow();
+				doDeleteFlow(this);
+				reset();
 				addCardsFromList();
+				break;
+			case R.id.listen:
+				doListen(this, idDialog);
 				break;
 			default:
 				return false;
 		}
 		return true;
 	}
+	public static void doListen(Context context, final View idDialog)
+	{
+		viewVisible(idDialog);
+		Intent intent = new Intent(context, IdentifyMusicService.class);
+		context.startService(intent);
+	}
+	public static void viewVisible(final View view)
+	{
+		view.post(new Runnable() {
+			@Override
+			public void run()
+			{
+				view.setVisibility(View.VISIBLE);
+			}});
+	}
+	public static void viewGone(final View view)
+	{
+		view.post(new Runnable() {
+			@Override
+			public void run()
+			{
+				view.setVisibility(View.GONE);
+			}});
+	}
+	public static void doDeleteFlow(Context context)
+	{
+		context.deleteFile(SONG_FILE_NAME);
+	}
 	@Override
 	public void onMenuItemClick(Card card, MenuItem item)
 	{
-		
 
 	}
-	public void deleteFlow()
-	{
-		deleteFile(SONG_FILE_NAME);
-		reset();
-	}
+
+	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
