@@ -3,6 +3,7 @@ package com.smp.funwithmusic.receivers;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.smp.funwithmusic.activities.FlowActivity;
 import com.smp.funwithmusic.dataobjects.Song;
 
 import android.content.BroadcastReceiver;
@@ -42,9 +43,8 @@ public class SongReceiver extends BroadcastReceiver
 			{
 				writeNewSong(context, song);
 
-				Intent send = new Intent();
-				send.setAction(ACTION_ADD_SONG)
-						.addCategory(Intent.CATEGORY_DEFAULT);
+				Intent send = new Intent(context, FlowActivity.class);
+				send.setAction(ACTION_ADD_SONG);
 				
 				LocalBroadcastManager.getInstance(context).sendBroadcast(send);
 			}

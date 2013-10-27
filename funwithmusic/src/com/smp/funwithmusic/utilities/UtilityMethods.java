@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import com.smp.funwithmusic.dataobjects.EventInfo;
 import com.smp.funwithmusic.dataobjects.Song;
 
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,7 +23,18 @@ import static com.smp.funwithmusic.utilities.UtilityMethods.readObjectFromFile;
 
 public class UtilityMethods
 {
-	
+	public static boolean isMyServiceRunning(Context context, Class<? extends Service> myService)
+    {
+            ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
+            {
+                    if (myService.getName().equals(service.service.getClassName()))
+                    {
+                            return true;
+                    }
+            }
+            return false;
+    }
 	public static SharedPreferences getPref(Context context)
 	{
 		//int mode = android.os.Build.VERSION.SDK_INT >= 11 ? Context.MODE_MULTI_PROCESS : Context.MODE_PRIVATE;

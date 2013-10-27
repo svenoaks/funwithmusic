@@ -50,6 +50,8 @@ import android.widget.Toast;
 
 public class FlowActivity extends Activity implements CardMenuListener<Card>
 {
+	
+	
 	private List<Song> songs;
 	private IntentFilter filter;
 	private UpdateActivityReceiver receiver;
@@ -64,9 +66,19 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		public void onReceive(Context context, Intent intent)
 		{
 			if (intent.getAction().equals(ACTION_REMOVE_IDENTIFY))
-				idDialog.setVisibility(View.GONE);
+			{
+				viewGone(idDialog);
+				if (intent.getBooleanExtra(LISTEN_SUCCESSFUL, false))
+				{
+					scrollToBottomOfList();
+				}
+					
+			}
+				
 			else if (intent.getAction().equals(ACTION_ADD_SONG))
+			{
 				addCardsFromList();
+			}		
 		}
 
 	}
@@ -105,13 +117,17 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		addCardsFromList();
 		scrollToBottomOfList();
 		LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
+		if (isMyServiceRunning(this, IdentifyMusicService.class))
+		{
+			viewVisible(idDialog);
+		}
 	}
 
 	// Scrolls the view so that last item is at the bottom of the screen.
 	//
 	private void scrollToBottomOfList()
 	{
-		cardsList.post(new Runnable()
+		cardsList.postDelayed(new Runnable()
 		{
 			@Override
 			public void run()
@@ -119,7 +135,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 				// Select the last row so it will scroll into view
 				cardsList.setSelection(cardsAdapter.getCount() - 1);
 			}
-		});
+		}, DELAY_FOR_ADD_SONG);
 
 	}
 
@@ -172,7 +188,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		filter = new IntentFilter();
 		filter.addAction(ACTION_ADD_SONG);
 		filter.addAction(ACTION_REMOVE_IDENTIFY);
-		filter.addCategory(Intent.CATEGORY_DEFAULT);
+		//filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
 
@@ -225,31 +241,53 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		switch (item.getItemId())
 		{
 			case R.id.clear:
-				deleteFlow();
+				doDeleteFlow(this);
+				reset();
 				addCardsFromList();
 				break;
 			case R.id.listen:
-				idDialog.setVisibility(View.VISIBLE);
-				Intent intent = new Intent(this, IdentifyMusicService.class);
-				startService(intent);
+				doListen(this, idDialog);
 				break;
 			default:
 				return false;
 		}
 		return true;
 	}
-
+	public static void doListen(Context context, final View idDialog)
+	{
+		viewVisible(idDialog);
+		Intent intent = new Intent(context, IdentifyMusicService.class);
+		context.startService(intent);
+	}
+	public static void viewVisible(final View view)
+	{
+		view.post(new Runnable() {
+			@Override
+			public void run()
+			{
+				view.setVisibility(View.VISIBLE);
+			}});
+	}
+	public static void viewGone(final View view)
+	{
+		view.post(new Runnable() {
+			@Override
+			public void run()
+			{
+				view.setVisibility(View.GONE);
+			}});
+	}
+	public static void doDeleteFlow(Context context)
+	{
+		context.deleteFile(SONG_FILE_NAME);
+	}
 	@Override
 	public void onMenuItemClick(Card card, MenuItem item)
 	{
 
 	}
 
-	public void deleteFlow()
-	{
-		deleteFile(SONG_FILE_NAME);
-		reset();
-	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)

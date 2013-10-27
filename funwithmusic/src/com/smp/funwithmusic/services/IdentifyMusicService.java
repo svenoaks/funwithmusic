@@ -37,13 +37,15 @@ public class IdentifyMusicService extends IntentService implements AudioFingerpr
 		super("identify");
 	}
 
-	private void sendIntent()
+	private void sendFinishedIntent()
 	{
-
 		Intent remove = new Intent(this, FlowActivity.class);
-		remove.setAction(ACTION_REMOVE_IDENTIFY)
-				.addCategory(Intent.CATEGORY_DEFAULT);
-		sendBroadcast(remove);
+		remove.setAction(ACTION_REMOVE_IDENTIFY);
+		if (artist != null & album != null && title != null)
+		{
+			remove.putExtra(LISTEN_SUCCESSFUL, true);
+		}
+		LocalBroadcastManager.getInstance(this).sendBroadcast(remove);
 	}
 
 	@Override
@@ -64,7 +66,7 @@ public class IdentifyMusicService extends IntentService implements AudioFingerpr
 			e.printStackTrace();
 		}
 
-		sendIntent();
+		sendFinishedIntent();
 	}
 
 	@Override
@@ -85,9 +87,12 @@ public class IdentifyMusicService extends IntentService implements AudioFingerpr
 					Intent send = new Intent(IdentifyMusicService.this, SongReceiver.class);
 					send.setAction(ACTION_ID);
 					// .addCategory(Intent.CATEGORY_DEFAULT);
-					send.putExtra("artist", result.getArtist());
-					send.putExtra("title", result.getTitle());
-					send.putExtra("album", "Fake Album");
+					artist = result.getArtist();
+					title = result.getTitle();
+					album = "Fake Album";
+					send.putExtra("artist", artist);
+					send.putExtra("title", title);
+					send.putExtra("album", album);
 					sendBroadcast(send);
 
 				}

@@ -6,6 +6,8 @@ public class Constants
 	public static final String ACTION_ID = "com.smp.funwithmusic.ID_ACTION";
 	public static final String ACTION_REMOVE_IDENTIFY = "com.smp.funwithmusic.ACTION_REMOVE_IDENTIFY";
 	
+	public static final String LISTEN_SUCCESSFUL = "com.smp.funwithmusic.LISTEN_SUCCESSFUL";
+	
 	//public static final String FROM_ID = "com.smp.funwithmusic.FROM_ID";
 	
 	public static final String SHARED_PREF_NAME = "com.smp.funwithmusic.PREFS";
@@ -29,6 +31,8 @@ public class Constants
 	public static final String WEB_URL = "com.smp.funwithmusic.WEB_URL";
 	
 	public static final String ARTIST_NAME = "com.smp.funwithmusic.ARTIST_NAME";
+	
+	public static final int DELAY_FOR_ADD_SONG = 100;
 	
 	
 }
