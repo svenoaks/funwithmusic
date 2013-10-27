@@ -17,7 +17,8 @@ public class Constants
 	
 	public static final String DASH = " - ";
 	
-	public static final String ECHO_NEST_API_KEY = "YYTOE4TOBBVSD1FMG";
+	public static final String API_KEY_ECHO_NEST = "YYTOE4TOBBVSD1FMG";
+	public static final String API_KEY_GRACENOTE = "319488-635BB867F4A29641894975ACAED21413";
 	
 	public static final String ESCAPED_SPACE = "%20";
 	public static final String ITUNES_TERMS_CONNECTOR = "+";

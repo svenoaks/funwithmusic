@@ -30,7 +30,7 @@ public class EchoNestClient
 	{
 		RequestParams params = new RequestParams();
 		
-		params.put("api_key", ECHO_NEST_API_KEY);
+		params.put("api_key", API_KEY_ECHO_NEST);
 		params.put("version", ECHOPRINT_VERSION);
 		params.put("code", code);
 		

@@ -7,6 +7,11 @@ import java.util.concurrent.CountDownLatch;
 
 import org.json.JSONObject;
 
+import com.gracenote.mmid.MobileSDK.GNConfig;
+import com.gracenote.mmid.MobileSDK.GNOperations;
+import com.gracenote.mmid.MobileSDK.GNSearchResponse;
+import com.gracenote.mmid.MobileSDK.GNSearchResult;
+import com.gracenote.mmid.MobileSDK.GNSearchResultReady;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.smp.funwithmusic.activities.FlowActivity;
@@ -25,12 +30,14 @@ import android.util.Log;
 public class IdentifyMusicService extends IntentService implements AudioFingerprinterListener
 {
 	private static final int TIME_TO_LISTEN = 20;
-	private volatile boolean successful;
-	private CountDownLatch latch;
 
+	private CountDownLatch latch;
+	private volatile boolean successful;
 	private volatile String artist;
 	private volatile String album;
 	private volatile String title;
+
+	private GNConfig config;
 
 	public IdentifyMusicService()
 	{
@@ -48,15 +55,49 @@ public class IdentifyMusicService extends IntentService implements AudioFingerpr
 		LocalBroadcastManager.getInstance(this).sendBroadcast(remove);
 	}
 
+	private class RecognizeFromMic implements GNSearchResultReady
+	{
+		void doFingerprint()
+		{
+			GNOperations.recognizeMIDStreamFromMic(this, config);
+		}
+
+		public void GNResultReady(GNSearchResult result)
+		{
+
+			if (result.isFingerprintSearchNoMatchStatus())
+			{
+				latch.countDown();
+			}
+			else
+			{
+				successful = true;
+				GNSearchResponse response = result.getBestResponse();
+				Intent send = new Intent(IdentifyMusicService.this, SongReceiver.class);
+				send.setAction(ACTION_ID);
+				// .addCategory(Intent.CATEGORY_DEFAULT);
+				artist = response.getArtist();
+				title = response.getTrackTitle();
+				album = response.getAlbumTitle();
+				send.putExtra("artist", artist);
+				send.putExtra("title", title);
+				send.putExtra("album", album);
+				sendBroadcast(send);
+				latch.countDown();
+			}
+		}
+	}
+
 	@Override
 	protected void onHandleIntent(Intent intent)
 	{
-		successful = false;
-
 		latch = new CountDownLatch(1);
-
-		AudioFingerprinter fingerprinter = new AudioFingerprinter(this);
-		fingerprinter.fingerprint(TIME_TO_LISTEN);
+		successful = false;
+		config = GNConfig.init(API_KEY_GRACENOTE, this.getApplicationContext());
+		RecognizeFromMic task = new RecognizeFromMic();
+		task.doFingerprint();
+		// AudioFingerprinter fingerprinter = new AudioFingerprinter(this);
+		// fingerprinter.fingerprint(TIME_TO_LISTEN);
 		try
 		{
 			latch.await();
@@ -69,6 +110,19 @@ public class IdentifyMusicService extends IntentService implements AudioFingerpr
 		sendFinishedIntent();
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public void didGenerateFingerprintCode(String code)
 	{

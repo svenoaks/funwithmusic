@@ -5,12 +5,14 @@ import android.support.v4.app.FragmentActivity;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
-public class AttachExample extends FragmentActivity {
+public class AttachExample extends FragmentActivity
+{
 
 	private SlidingMenu menu;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 
 		setTitle(R.string.attach);
@@ -18,9 +20,9 @@ public class AttachExample extends FragmentActivity {
 		// set the Above View
 		setContentView(R.layout.content_frame);
 		getSupportFragmentManager()
-		.beginTransaction()
-		.replace(R.id.content_frame, new SampleListFragment())
-		.commit();
+				.beginTransaction()
+				.replace(R.id.content_frame, new SampleListFragment())
+				.commit();
 
 		// configure the SlidingMenu
 		menu = new SlidingMenu(this);
@@ -32,16 +34,20 @@ public class AttachExample extends FragmentActivity {
 		menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
 		menu.setMenu(R.layout.menu_frame);
 		getSupportFragmentManager()
-		.beginTransaction()
-		.replace(R.id.menu_frame, new SampleListFragment())
-		.commit();
+				.beginTransaction()
+				.replace(R.id.menu_frame, new SampleListFragment())
+				.commit();
 	}
 
 	@Override
-	public void onBackPressed() {
-		if (menu.isMenuShowing()) {
+	public void onBackPressed()
+	{
+		if (menu.isMenuShowing())
+		{
 			menu.showContent();
-		} else {
+		}
+		else
+		{
 			super.onBackPressed();
 		}
 	}

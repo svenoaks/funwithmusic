@@ -16,30 +16,36 @@ import com.actionbarsherlock.view.MenuItem;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
-public class BaseActivity extends SlidingFragmentActivity {
+public class BaseActivity extends SlidingFragmentActivity
+{
 
 	private int mTitleRes;
 	protected ListFragment mFrag;
 
-	public BaseActivity(int titleRes) {
+	public BaseActivity(int titleRes)
+	{
 		mTitleRes = titleRes;
 	}
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 
 		setTitle(mTitleRes);
 
 		// set the Behind View
 		setBehindContentView(R.layout.menu_frame);
-		if (savedInstanceState == null) {
+		if (savedInstanceState == null)
+		{
 			FragmentTransaction t = this.getSupportFragmentManager().beginTransaction();
 			mFrag = new SampleListFragment();
 			t.replace(R.id.menu_frame, mFrag);
 			t.commit();
-		} else {
-			mFrag = (ListFragment)this.getSupportFragmentManager().findFragmentById(R.id.menu_frame);
+		}
+		else
+		{
+			mFrag = (ListFragment) this.getSupportFragmentManager().findFragmentById(R.id.menu_frame);
 		}
 
 		// customize the SlidingMenu
@@ -54,20 +60,23 @@ public class BaseActivity extends SlidingFragmentActivity {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			toggle();
-			return true;
-		case R.id.github:
-			Util.goToGitHub(this);
-			return true;
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case android.R.id.home:
+				toggle();
+				return true;
+			case R.id.github:
+				Util.goToGitHub(this);
+				return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
 		getSupportMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
