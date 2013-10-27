@@ -53,11 +53,11 @@ public final class R {
 		public static final int unpressed_background = 0x7f02001a;
 	}
 	public static final class id {
-		public static final int day = 0x7f0a002f;
+		public static final int day = 0x7f0a0041;
 		public static final int inner_frame = 0x7f0a0012;
-		public static final int month = 0x7f0a002e;
+		public static final int month = 0x7f0a0040;
 		public static final int titleFrame = 0x7f0a0013;
-		public static final int year = 0x7f0a0030;
+		public static final int year = 0x7f0a0042;
 	}
 	public static final class layout {
 		public static final int fragment_list = 0x7f03000a;
@@ -69,7 +69,7 @@ public final class R {
 		public static final int spinner_item_dropdown = 0x7f03001b;
 	}
 	public static final class string {
-		public static final int see_more = 0x7f060002;
+		public static final int see_more = 0x7f060001;
 	}
 	public static final class style {
 		public static final int card_content = 0x7f090008;
