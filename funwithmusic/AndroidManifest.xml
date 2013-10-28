@@ -16,6 +16,7 @@
         android:targetSdkVersion="18" />
 
     <application
+        android:hardwareAccelerated="true"
         android:allowBackup="true"
         android:enabled="true"
         android:exported="true"
