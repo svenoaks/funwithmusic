@@ -25,7 +25,7 @@ import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-public class IdentifyMusicService extends IntentService 
+public class IdentifyMusicService extends IntentService
 {
 	private static final int TIME_TO_LISTEN = 20;
 
@@ -71,21 +71,28 @@ public class IdentifyMusicService extends IntentService
 			{
 				successful = true;
 				GNSearchResponse response = result.getBestResponse();
-				Intent send = new Intent(IdentifyMusicService.this, SongReceiver.class);
-				send.setAction(ACTION_ID);
+
 				// .addCategory(Intent.CATEGORY_DEFAULT);
-				artist = response.getArtist();
-				title = response.getTrackTitle();
-				album = response.getAlbumTitle();
-				String imageUrl = null;
-				GNCoverArt art = response.getCoverArt();
-				if (art != null)
-					imageUrl = art.getUrl();
-				send.putExtra("artist", artist);
-				send.putExtra("title", title);
-				send.putExtra("album", album);
-				send.putExtra("imageUrl", imageUrl);
-				sendBroadcast(send);
+
+				if (response != null)
+				{
+					artist = response.getArtist();
+					title = response.getTrackTitle();
+					album = response.getAlbumTitle();
+					String imageUrl = null;
+					GNCoverArt art = response.getCoverArt();
+					if (art != null)
+						imageUrl = art.getUrl();
+
+					Intent send = new Intent(IdentifyMusicService.this, SongReceiver.class);
+					send.setAction(ACTION_ID);
+					send.putExtra("artist", artist);
+					send.putExtra("title", title);
+					send.putExtra("album", album);
+					send.putExtra("imageUrl", imageUrl);
+					sendBroadcast(send);
+				}
+
 				latch.countDown();
 			}
 		}
@@ -98,6 +105,7 @@ public class IdentifyMusicService extends IntentService
 		successful = false;
 		config = GNConfig.init(API_KEY_GRACENOTE, this.getApplicationContext());
 		config.setProperty("content.coverArt", "1");
+		config.setProperty("content.coverArt.genreCoverArt", "0");
 		RecognizeFromMic task = new RecognizeFromMic();
 		task.doFingerprint();
 		// AudioFingerprinter fingerprinter = new AudioFingerprinter(this);
@@ -114,107 +122,63 @@ public class IdentifyMusicService extends IntentService
 		sendFinishedIntent();
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/*
-	@Override
-	public void didGenerateFingerprintCode(String code)
-	{
-		if (code != null && code.length() != 0)
-		{
-			EchoNestClient.getIdentify(code, new JsonHttpResponseHandler()
-			{
-				@Override
-				public void onSuccess(JSONObject json)
-				{
-
-					// Log.d("IDRESULT", result);
-
-					Song result = EchoNestClient.parseIdentify(json);
-
-					Intent send = new Intent(IdentifyMusicService.this, SongReceiver.class);
-					send.setAction(ACTION_ID);
-					// .addCategory(Intent.CATEGORY_DEFAULT);
-					artist = result.getArtist();
-					title = result.getTitle();
-					album = "Fake Album";
-					send.putExtra("artist", artist);
-					send.putExtra("title", title);
-					send.putExtra("album", album);
-					sendBroadcast(send);
-
-				}
-
-				@Override
-				public void onFailure(Throwable ex, String message)
-				{
-
-				}
-			});
-		}
-		else
-		{
-
-		}
-
-	}
-
-	// useless
-	@Override
-	public void didFailWithException(Exception e)
-	{
-		// latch.countDown();
-	}
-
-	@Override
-	public void didFinishListening()
-	{
-		latch.countDown();
-	}
-
-	@Override
-	public void didFinishListeningPass()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void willStartListening()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void willStartListeningPass()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void didFindMatchForCode(Hashtable<String, String> table, String code)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void didNotFindMatchForCode(String code)
-	{
-		// TODO Auto-generated method stub
-
-	}
-*/
+	 * @Override public void didGenerateFingerprintCode(String code) { if (code
+	 * != null && code.length() != 0) { EchoNestClient.getIdentify(code, new
+	 * JsonHttpResponseHandler() {
+	 * 
+	 * @Override public void onSuccess(JSONObject json) {
+	 * 
+	 * // Log.d("IDRESULT", result);
+	 * 
+	 * Song result = EchoNestClient.parseIdentify(json);
+	 * 
+	 * Intent send = new Intent(IdentifyMusicService.this, SongReceiver.class);
+	 * send.setAction(ACTION_ID); // .addCategory(Intent.CATEGORY_DEFAULT);
+	 * artist = result.getArtist(); title = result.getTitle(); album =
+	 * "Fake Album"; send.putExtra("artist", artist); send.putExtra("title",
+	 * title); send.putExtra("album", album); sendBroadcast(send);
+	 * 
+	 * }
+	 * 
+	 * @Override public void onFailure(Throwable ex, String message) {
+	 * 
+	 * } }); } else {
+	 * 
+	 * }
+	 * 
+	 * }
+	 * 
+	 * // useless
+	 * 
+	 * @Override public void didFailWithException(Exception e) { //
+	 * latch.countDown(); }
+	 * 
+	 * @Override public void didFinishListening() { latch.countDown(); }
+	 * 
+	 * @Override public void didFinishListeningPass() { // TODO Auto-generated
+	 * method stub
+	 * 
+	 * }
+	 * 
+	 * @Override public void willStartListening() { // TODO Auto-generated
+	 * method stub
+	 * 
+	 * }
+	 * 
+	 * @Override public void willStartListeningPass() { // TODO Auto-generated
+	 * method stub
+	 * 
+	 * }
+	 * 
+	 * @Override public void didFindMatchForCode(Hashtable<String, String>
+	 * table, String code) { // TODO Auto-generated method stub
+	 * 
+	 * }
+	 * 
+	 * @Override public void didNotFindMatchForCode(String code) { // TODO
+	 * Auto-generated method stub
+	 * 
+	 * }
+	 */
 }

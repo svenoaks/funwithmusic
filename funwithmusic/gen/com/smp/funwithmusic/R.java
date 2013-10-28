@@ -179,32 +179,34 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class drawable {
         public static final int assem=0x7f020000;
-        public static final int card_header_selector=0x7f020001;
-        public static final int card_menu_button=0x7f020002;
-        public static final int card_selector=0x7f020003;
-        public static final int card_shadow=0x7f020004;
-        public static final int flow=0x7f020005;
-        public static final int gracenote_header_tile=0x7f020006;
-        public static final int gracenote_logo_320=0x7f020007;
-        public static final int gracenote_logo_tile=0x7f020008;
-        public static final int gracenote_logo_tile_transparent=0x7f020009;
-        public static final int headertile=0x7f02000a;
-        public static final int ic_launcher=0x7f02000b;
-        public static final int ic_menu_moreoverflow_card_dark_normal=0x7f02000c;
-        public static final int ic_menu_moreoverflow_card_dark_pressed=0x7f02000d;
-        public static final int icon=0x7f02000e;
-        public static final int indicator=0x7f02000f;
-        public static final int list_focused=0x7f020010;
-        public static final int loading=0x7f020011;
-        public static final int microphone=0x7f020012;
-        public static final int new_indicator=0x7f020013;
-        public static final int no_cover_art=0x7f020014;
-        public static final int no_metadata=0x7f020015;
-        public static final int pindown=0x7f020016;
-        public static final int play=0x7f020017;
-        public static final int pressed_background=0x7f020018;
-        public static final int shadow=0x7f020019;
-        public static final int unpressed_background=0x7f02001a;
+        public static final int background_shadow=0x7f020001;
+        public static final int card_header_selector=0x7f020002;
+        public static final int card_menu_button=0x7f020003;
+        public static final int card_selector=0x7f020004;
+        public static final int card_shadow=0x7f020005;
+        public static final int flow=0x7f020006;
+        public static final int gracenote_header_tile=0x7f020007;
+        public static final int gracenote_logo_320=0x7f020008;
+        public static final int gracenote_logo_tile=0x7f020009;
+        public static final int gracenote_logo_tile_transparent=0x7f02000a;
+        public static final int headertile=0x7f02000b;
+        public static final int ic_launcher=0x7f02000c;
+        public static final int ic_menu_moreoverflow_card_dark_normal=0x7f02000d;
+        public static final int ic_menu_moreoverflow_card_dark_pressed=0x7f02000e;
+        public static final int icon=0x7f02000f;
+        public static final int indicator=0x7f020010;
+        public static final int list_focused=0x7f020011;
+        public static final int loading=0x7f020012;
+        public static final int microphone=0x7f020013;
+        public static final int new_indicator=0x7f020014;
+        public static final int no_cover_art=0x7f020015;
+        public static final int no_metadata=0x7f020016;
+        public static final int pindown=0x7f020017;
+        public static final int play=0x7f020018;
+        public static final int pressed_background=0x7f020019;
+        public static final int shadow=0x7f02001a;
+        public static final int shadow_black=0x7f02001b;
+        public static final int unpressed_background=0x7f02001c;
     }
     public static final class id {
         public static final int AlbumTextView=0x7f0a000d;
@@ -230,7 +232,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int TextView01=0x7f0a0010;
         public static final int TrackList=0x7f0a004b;
         public static final int TrackTextView=0x7f0a000b;
-        public static final int action_settings=0x7f0a004f;
+        public static final int action_settings=0x7f0a004d;
         public static final int albumName=0x7f0a001d;
         public static final int artistName=0x7f0a001e;
         public static final int artist_name=0x7f0a0018;
@@ -247,7 +249,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int cardsList=0x7f0a0005;
         public static final int checkboxDebug=0x7f0a002e;
         public static final int checkboxSpacer=0x7f0a002d;
-        public static final int clear=0x7f0a004e;
+        public static final int clear=0x7f0a0051;
         public static final int content_frame=0x7f0a0015;
         public static final int coverArtImage=0x7f0a001b;
         public static final int coverartBtn=0x7f0a0021;
@@ -258,13 +260,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int debugTopBorder=0x7f0a0031;
         public static final int fullscreen=0x7f0a0003;
         public static final int gracenoteLogo=0x7f0a002c;
-        public static final int help=0x7f0a0050;
+        public static final int help=0x7f0a004e;
         public static final int home_container=0x7f0a002b;
         public static final int inner_frame=0x7f0a0012;
         public static final int layout_root=0x7f0a0016;
         public static final int left=0x7f0a0000;
-        public static final int licenses=0x7f0a0051;
-        public static final int listen=0x7f0a004d;
+        public static final int licenses=0x7f0a004f;
+        public static final int listen=0x7f0a0050;
         public static final int lyric_fragment_search_container=0x7f0a0026;
         public static final int lyrics=0x7f0a0014;
         public static final int margin=0x7f0a0002;
@@ -328,7 +330,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class menu {
         public static final int card_popup=0x7f0c0000;
-        public static final int main=0x7f0c0001;
+        public static final int menu_artist=0x7f0c0001;
+        public static final int menu_flow=0x7f0c0002;
     }
     public static final class raw {
         public static final int bundle161=0x7f040000;
