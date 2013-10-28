@@ -61,7 +61,8 @@ public class SongReceiver extends BroadcastReceiver
 	private void writeNewSong(Context context, Song song)
 	{
 		ArrayList<Song> songs = getSongList(context);
-		if (song != null && !songs.contains(song))
+		if (song != null && 
+				(songs.size() == 0 || !songs.get(songs.size()-1).equals(song)))
 		{
 			songs.add(song);
 			writeObjectToFile(context, SONG_FILE_NAME, songs);
