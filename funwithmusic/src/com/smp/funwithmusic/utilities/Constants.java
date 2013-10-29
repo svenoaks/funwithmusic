@@ -6,7 +6,8 @@ public class Constants
 	public static final String ACTION_ID = "com.smp.funwithmusic.ID_ACTION";
 	public static final String ACTION_REMOVE_IDENTIFY = "com.smp.funwithmusic.ACTION_REMOVE_IDENTIFY";
 	
-	public static final String LISTEN_SUCCESSFUL = "com.smp.funwithmusic.LISTEN_SUCCESSFUL";
+	public static final String EXTRA_FROM_ID = "com.smp.funwithmusic.EXTRA_FROM_ID";
+	public static final String EXTRA_LISTEN_SUCCESSFUL = "com.smp.funwithmusic.LISTEN_SUCCESSFUL";
 	
 	//public static final String FROM_ID = "com.smp.funwithmusic.FROM_ID";
 	

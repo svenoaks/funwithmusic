@@ -24,11 +24,13 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
 
 public class IdentifyMusicService extends IntentService
 {
-	private static final int TIME_TO_LISTEN = 20;
+	
 
+	private static final int TIME_TO_LISTEN = 20;
 	private CountDownLatch latch;
 	private volatile boolean successful;
 	private volatile String artist;
@@ -41,14 +43,27 @@ public class IdentifyMusicService extends IntentService
 	{
 		super("identify");
 	}
-
+	@Override
+	public void onDestroy()
+	{
+		if (successful)
+		{
+			Toast.makeText(this, TOAST_ID_SUCCESSFUL, Toast.LENGTH_SHORT).show();
+		}
+		else
+		{
+			Toast.makeText(this, TOAST_ID_FAILURE, Toast.LENGTH_SHORT).show();
+		}
+			
+		super.onDestroy();
+	}
 	private void sendFinishedIntent()
 	{
 		Intent remove = new Intent(this, FlowActivity.class);
 		remove.setAction(ACTION_REMOVE_IDENTIFY);
 		if (artist != null & album != null && title != null)
 		{
-			remove.putExtra(LISTEN_SUCCESSFUL, true);
+			remove.putExtra(EXTRA_LISTEN_SUCCESSFUL, true);
 		}
 		LocalBroadcastManager.getInstance(this).sendBroadcast(remove);
 	}
@@ -65,11 +80,12 @@ public class IdentifyMusicService extends IntentService
 
 			if (result.isFingerprintSearchNoMatchStatus())
 			{
+				successful = false;
 				latch.countDown();
 			}
 			else
 			{
-				successful = true;
+				
 				GNSearchResponse response = result.getBestResponse();
 
 				// .addCategory(Intent.CATEGORY_DEFAULT);
@@ -90,6 +106,7 @@ public class IdentifyMusicService extends IntentService
 					send.putExtra("title", title);
 					send.putExtra("album", album);
 					send.putExtra("imageUrl", imageUrl);
+					successful = true;
 					sendBroadcast(send);
 				}
 

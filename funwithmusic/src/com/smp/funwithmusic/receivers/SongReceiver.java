@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 public class SongReceiver extends BroadcastReceiver
 {
-
+	boolean fromId;
 	private String mAlbum;
 	private String mArtist;
 	private String mImageUrl;
@@ -33,7 +33,7 @@ public class SongReceiver extends BroadcastReceiver
 
 	private class SongReceiverAsyncTask extends AsyncTask<Void, Void, Void>
 	{
-
+		
 		protected Void doInBackground(Void... blah)
 		{
 			setSongInfo(context, intent);
@@ -47,6 +47,7 @@ public class SongReceiver extends BroadcastReceiver
 
 				Intent send = new Intent(context, FlowActivity.class);
 				send.setAction(ACTION_ADD_SONG);
+				send.putExtra(EXTRA_FROM_ID, fromId);
 				
 				LocalBroadcastManager.getInstance(context).sendBroadcast(send);
 			}
@@ -72,6 +73,7 @@ public class SongReceiver extends BroadcastReceiver
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
+		fromId = false;
 		this.context = context;
 		this.intent = intent;
 		result = goAsync();
@@ -86,6 +88,7 @@ public class SongReceiver extends BroadcastReceiver
 		{
 			if (intent.getAction().equals(ACTION_ID))
 			{
+				fromId = true;
 				mArtist = intent.getStringExtra("artist");
 				mTitle = intent.getStringExtra("title");
 				mAlbum = intent.getStringExtra("album");

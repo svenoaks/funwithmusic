@@ -105,13 +105,11 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		{
 			lyrics.setText(song.getShortLyrics());
 		}
-		else
+		
+		else if (!song.isCantGetLyrics())
 		{
+			song.setCantGetLyrics(true);
 			lyrics.setText(LYRICS_LOADING);
-		}
-
-		if (!song.isCantGetLyrics())
-		{
 			// Log.d("LYRICS", "in if");
 			LyricWikiClient.get(song.getTitle(), song.getArtist(), new AsyncHttpResponseHandler()
 			{
@@ -152,7 +150,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 					lyrics.setText(COULDNT_FIND_LYRICS);
 				}
 			});
-			song.setCantGetLyrics(true);
+			
 		}
 	
 		return true;

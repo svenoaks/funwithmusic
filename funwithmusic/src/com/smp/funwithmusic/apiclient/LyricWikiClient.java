@@ -17,7 +17,7 @@ public class LyricWikiClient
 	public static final String BASE_URL = "http://lyrics.wikia.com/api.php?";
 	
 	private static AsyncHttpClient client = new AsyncHttpClient();
-
+	
 	public static void get(String title, String artist, AsyncHttpResponseHandler responseHandler)
 	{
 		RequestParams params = new RequestParams();
@@ -29,7 +29,6 @@ public class LyricWikiClient
 				.replace(ESCAPED_SPACE, LYRICS_WIKI_TERMS_CONNECTOR));
 		params.put("fmt", "json");
 		//Log.d("Lyrics", AsyncHttpClient.getUrlWithQueryString(BASE_URL, params));
-		
 		client.get(BASE_URL, params, responseHandler);
 	}
 

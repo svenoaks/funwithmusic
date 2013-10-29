@@ -69,21 +69,12 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 			if (intent.getAction().equals(ACTION_REMOVE_IDENTIFY))
 			{
 				viewGone(idDialog);
-				if (intent.getBooleanExtra(LISTEN_SUCCESSFUL, false))
-				{
-					scrollToBottomOfList();
-					Toast.makeText(context, TOAST_ID_SUCCESSFUL, Toast.LENGTH_SHORT).show();
-				}
-				else
-				{
-					Toast.makeText(context, TOAST_ID_FAILURE, Toast.LENGTH_SHORT).show();
-				}
-					
-			}
-				
+			}	
 			else if (intent.getAction().equals(ACTION_ADD_SONG))
 			{
 				addCardsFromList();
+				if (intent.getBooleanExtra(EXTRA_FROM_ID, false)) 
+					scrollToBottomOfList();
 			}		
 		}
 
@@ -137,7 +128,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	//
 	private void scrollToBottomOfList()
 	{
-		cardsList.postDelayed(new Runnable()
+		cardsList.post(new Runnable()
 		{
 			@Override
 			public void run()
@@ -145,7 +136,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 				// Select the last row so it will scroll into view
 				cardsList.setSelection(cardsAdapter.getCount() - 1);
 			}
-		}, DELAY_FOR_ADD_SONG);
+		});
 
 	}
 
