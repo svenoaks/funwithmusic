@@ -12,16 +12,16 @@ public final class R {
 		public static final int gray = 0x7f050001;
 	}
 	public static final class drawable {
-		public static final int gracenote_header_tile = 0x7f020007;
-		public static final int gracenote_logo_320 = 0x7f020008;
-		public static final int gracenote_logo_tile = 0x7f020009;
-		public static final int gracenote_logo_tile_transparent = 0x7f02000a;
-		public static final int headertile = 0x7f02000b;
-		public static final int icon = 0x7f02000f;
-		public static final int loading = 0x7f020012;
-		public static final int no_cover_art = 0x7f020015;
-		public static final int no_metadata = 0x7f020016;
-		public static final int pindown = 0x7f020017;
+		public static final int gracenote_header_tile = 0x7f020006;
+		public static final int gracenote_logo_320 = 0x7f020007;
+		public static final int gracenote_logo_tile = 0x7f020008;
+		public static final int gracenote_logo_tile_transparent = 0x7f020009;
+		public static final int headertile = 0x7f02000a;
+		public static final int icon = 0x7f02000e;
+		public static final int loading = 0x7f020011;
+		public static final int no_cover_art = 0x7f020014;
+		public static final int no_metadata = 0x7f020015;
+		public static final int pindown = 0x7f020016;
 	}
 	public static final class id {
 		public static final int AlbumTextView = 0x7f0a000d;

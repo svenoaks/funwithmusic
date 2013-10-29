@@ -3,10 +3,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/shadow_black"
-    android:paddingBottom="4dp"
+    android:background="@drawable/shadow"
+    android:paddingBottom="2dp"
     android:paddingLeft="4dp"
-    android:paddingRight="4dp"
+    android:paddingRight="2dp"
     android:paddingTop="4dp" >
 
     <LinearLayout
