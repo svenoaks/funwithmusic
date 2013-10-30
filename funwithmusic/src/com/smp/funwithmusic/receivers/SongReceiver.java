@@ -2,6 +2,7 @@ package com.smp.funwithmusic.receivers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 import com.smp.funwithmusic.activities.FlowActivity;
 import com.smp.funwithmusic.dataobjects.Song;
@@ -22,7 +23,9 @@ import android.widget.Toast;
 
 public class SongReceiver extends BroadcastReceiver
 {
-	boolean fromId;
+	
+	
+	private boolean fromId;
 	private String mAlbum;
 	private String mArtist;
 	private String mImageUrl;
@@ -43,6 +46,7 @@ public class SongReceiver extends BroadcastReceiver
 
 			if (song.validate())
 			{
+				song.removeFeaturing();
 				writeNewSong(context, song);
 
 				Intent send = new Intent(context, FlowActivity.class);

@@ -1,6 +1,9 @@
 package com.smp.funwithmusic.dataobjects;
 
 import java.io.Serializable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static com.smp.funwithmusic.utilities.Constants.*;
 
 public class Song implements Serializable
@@ -8,6 +11,7 @@ public class Song implements Serializable
 	/**
 	 * 
 	 */
+	private static Pattern featuring = Pattern.compile("\\s*\\(?[Ff]eat\\.?.+\\z");
 	private static final long serialVersionUID = 6925090966913539997L;
 
 	private String title;
@@ -157,5 +161,9 @@ public class Song implements Serializable
 	{
 		return artist !=null && title != null && album != null &&
 				! title.equals("Advertisement");
+	}
+	public void removeFeaturing()
+	{
+		artist = featuring.matcher(artist).replaceAll("");
 	}
 }

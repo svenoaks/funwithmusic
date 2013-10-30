@@ -257,7 +257,10 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 				addCardsFromList();
 				break;
 			case R.id.listen:
-				doListen(this, idDialog);
+				if (!isMyServiceRunning(this, IdentifyMusicService.class))
+				{
+					doListen(this, idDialog);
+				}
 				break;
 			default:
 				return false;
