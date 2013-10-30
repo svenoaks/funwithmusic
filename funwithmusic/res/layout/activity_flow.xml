@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+   <include
+       layout="@layout/action_bar_bottom_line"/>
+     
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
@@ -7,13 +14,17 @@
         android:id="@+id/cardsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-     <include
+
+    <include
         android:id="@+id/welcome_screen"
         layout="@layout/card_empty_flow"
-        android:visibility="gone"/>
+        android:visibility="gone" />
+
     <include
         android:id="@+id/progress"
         layout="@layout/dialog_loading"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </FrameLayout>
+
+</LinearLayout>

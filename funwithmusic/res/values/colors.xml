@@ -2,7 +2,7 @@
 <resources>
 
     <color name="light_blue">#e2f4fb</color>
-    
+     <color name="holo_orange">#ff9909</color>
     
     <color name="info_0">#0099cc</color>
     

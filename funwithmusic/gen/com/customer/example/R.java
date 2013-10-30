@@ -81,17 +81,17 @@ public final class R {
 		public static final int trackTitle = 0x7f0a001d;
 	}
 	public static final class layout {
-		public static final int bio_review = 0x7f030004;
-		public static final int custom_dialog = 0x7f030008;
-		public static final int file_meta_data = 0x7f03000a;
-		public static final int histrory_row = 0x7f03000c;
-		public static final int hostory_layout = 0x7f03000d;
-		public static final int location = 0x7f030014;
-		public static final int lyric_fragment_search = 0x7f030015;
-		public static final int main = 0x7f030016;
-		public static final int text_search = 0x7f03001d;
-		public static final int tracklist = 0x7f03001e;
-		public static final int tracklist_row = 0x7f03001f;
+		public static final int bio_review = 0x7f030005;
+		public static final int custom_dialog = 0x7f030009;
+		public static final int file_meta_data = 0x7f03000b;
+		public static final int histrory_row = 0x7f03000d;
+		public static final int hostory_layout = 0x7f03000e;
+		public static final int location = 0x7f030015;
+		public static final int lyric_fragment_search = 0x7f030016;
+		public static final int main = 0x7f030017;
+		public static final int text_search = 0x7f03001e;
+		public static final int tracklist = 0x7f03001f;
+		public static final int tracklist_row = 0x7f030020;
 	}
 	public static final class raw {
 		public static final int bundle161 = 0x7f040000;
