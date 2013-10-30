@@ -26,7 +26,7 @@ public class ItunesClient
 		RequestParams params = new RequestParams();
 
 		params.put("term", URLParamEncoder.encode(removeAlbumVariations(album))
-				.replace(ESCAPED_SPACE, ITUNES_TERMS_CONNECTOR));
+				.replace(ESCAPED_SPACE, ITUNES_TERMS_CONNECTOR).replace(".", ""));
 
 		params.put("media", "music");
 		params.put("attribute", "albumTerm");

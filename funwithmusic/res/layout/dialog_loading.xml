@@ -4,10 +4,10 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="@drawable/shadow"
-    android:paddingBottom="2dp"
-    android:paddingLeft="4dp"
-    android:paddingRight="2dp"
-    android:paddingTop="4dp" >
+    android:paddingBottom="0dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="0dp"
+    android:paddingTop="5dp" >
 
     <LinearLayout
         style="@style/card_inner"

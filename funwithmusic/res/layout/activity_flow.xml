@@ -7,6 +7,10 @@
         android:id="@+id/cardsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+     <include
+        android:id="@+id/welcome_screen"
+        layout="@layout/card_empty_flow"
+        android:visibility="gone"/>
     <include
         android:id="@+id/progress"
         layout="@layout/dialog_loading"

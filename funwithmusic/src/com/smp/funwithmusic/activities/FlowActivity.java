@@ -52,7 +52,6 @@ import android.widget.Toast;
 public class FlowActivity extends Activity implements CardMenuListener<Card>
 {
 	
-	
 	private List<Song> songs;
 	private IntentFilter filter;
 	private UpdateActivityReceiver receiver;
@@ -60,6 +59,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	private CardListView cardsList;
 	private String lastArtist;
 	private View idDialog;
+	private View welcomeScreen;
 
 	private class UpdateActivityReceiver extends BroadcastReceiver
 	{
@@ -80,7 +80,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 
 	}
 
-	private void reset()
+	private void resetArtist()
 	{
 		lastArtist = null;
 	}
@@ -91,7 +91,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		super.onPause();
 		LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
 		saveSongs();
-		reset();
+		resetArtist();
 	}
 
 	// reseting the imageUrl and lryics will allow the program to attempt to
@@ -114,6 +114,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		addCardsFromList();
 		scrollToBottomOfList();
 		LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
+		
 		if (isMyServiceRunning(this, IdentifyMusicService.class))
 		{
 			viewVisible(idDialog);
@@ -156,7 +157,8 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		TextView progressText = (TextView) findViewById(R.id.progress_text);
 		progressText.setText(getResources().getText(R.string.identify));
 
-		idDialog = (View) findViewById(R.id.progress);
+		idDialog = findViewById(R.id.progress);
+		welcomeScreen = findViewById(R.id.welcome_screen);
 
 		cardsList = (CardListView) findViewById(R.id.cardsList);
 		cardsList.setAdapter(cardsAdapter);
@@ -205,6 +207,14 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		{
 			addCard(song);
 		}
+		if (cardsAdapter.getCount() == 0)
+		{
+			viewVisible(welcomeScreen);
+		}
+		else
+		{
+			viewGone(welcomeScreen);
+		}
 	}
 
 	// Adds to same stack if the artist is the same.
@@ -243,7 +253,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		{
 			case R.id.clear:
 				doDeleteFlow(this);
-				reset();
+				resetArtist();
 				addCardsFromList();
 				break;
 			case R.id.listen:
