@@ -5,7 +5,9 @@ import java.util.List;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -16,11 +18,14 @@ public class ImagesAdapter extends BaseAdapter
 {
 	private Context context;
 	private List<String> urls;
+	private int width, height;
 
-	public ImagesAdapter(Context context, List<String> urls)
+	public ImagesAdapter(Context context, List<String> urls, int width, int height)
 	{
 		this.context = context;
 		this.urls = urls;
+		this.width = width;
+		this.height = height;
 	}
 
 	@Override
@@ -51,9 +56,9 @@ public class ImagesAdapter extends BaseAdapter
 		if (convertView == null)
 		{ // if it's not recycled, initialize some attributes
 			imageView = new ImageView(context);
-			imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-			imageView.setPadding(8, 8, 8, 8);
+			imageView.setLayoutParams(new GridView.LayoutParams(width, height));
+			imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+			//imageView.setPadding(8, 8, 8, 8);
 		}
 		else
 		{
@@ -61,11 +66,14 @@ public class ImagesAdapter extends BaseAdapter
 		}
 
 		Picasso.with(context).load(urls.get(position))
-				.resize(90, 90)
+				.resize(width, height)
 				.centerCrop()
 				.into(imageView);
 		Log.d("Images", "In get view  " + urls.get(position));
 		return imageView;
 	}
-
+	private static class ViewHolder
+	{
+		ImageView image;
+	}
 }

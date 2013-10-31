@@ -17,11 +17,14 @@ import com.smp.funwithmusic.fragments.ArtistMenuFragment;
 import static com.smp.funwithmusic.utilities.Constants.*;
 import static com.smp.funwithmusic.utilities.UtilityMethods.*;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.GridView;
@@ -42,8 +45,9 @@ public class ArtistActivity extends BaseActivity
 {
 	private String artist;
 	private Fragment mContent;
-	private GridView gridview;
-
+	private GridView gridView;
+	private float dpHeight, dpWidth;
+	DisplayMetrics outMetrics;
 	public ArtistActivity()
 	{
 		super(R.string.artist);
@@ -56,7 +60,7 @@ public class ArtistActivity extends BaseActivity
 		artist = getIntent().getStringExtra(ARTIST_NAME);
 		// set the Above View
 		if (savedInstanceState != null)
-			mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
+			//mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
 		if (mContent == null)
 		{
 			Bundle args = new Bundle();
@@ -67,13 +71,20 @@ public class ArtistActivity extends BaseActivity
 
 		}
 		
-		
+		Display display = getWindowManager().getDefaultDisplay();
+	    outMetrics = new DisplayMetrics ();
+	    display.getMetrics(outMetrics);
 
+	    float density  = getResources().getDisplayMetrics().density;
+	    dpHeight = outMetrics.heightPixels / density;
+	    dpWidth  = outMetrics.widthPixels / density;
+	   
 		// set the Above View
 		setContentView(R.layout.content_frame);
-		gridview = (GridView) findViewById(R.id.images_view);
+		gridView = (GridView) findViewById(R.id.images_view);
 		EchoNestClient.getArtistInfo(artist, echoNestRequest.IMAGES, new JsonHttpResponseHandler()
 		{
+			
 			@Override
 			public void onSuccess(JSONObject obj)
 			{
@@ -83,8 +94,11 @@ public class ArtistActivity extends BaseActivity
 				{
 					Log.d("Images", url + "\n");
 				}
-				ImagesAdapter adapter = new ImagesAdapter(ArtistActivity.this, urls);
-				gridview.setAdapter(adapter);
+				int width = outMetrics.widthPixels / gridView.getNumColumns();
+				int height = (int)Math.round((width * 1.5));
+				
+				ImagesAdapter adapter = new ImagesAdapter(ArtistActivity.this, urls, width, height);
+				gridView.setAdapter(adapter);
 				//adapter.notifyDataSetChanged();
 				
 			}
@@ -109,13 +123,15 @@ public class ArtistActivity extends BaseActivity
 		
 
 		setTitle(artist);
+		
+		
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
-		getSupportFragmentManager().putFragment(outState, "mContent", mContent);
+		//getSupportFragmentManager().putFragment(outState, "mContent", mContent);
 	}
 
 	public void switchContent(Fragment fragment)
