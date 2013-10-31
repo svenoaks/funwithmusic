@@ -3,8 +3,12 @@ package com.smp.funwithmusic.activities;
 import java.util.List;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.R.layout;
+import com.smp.funwithmusic.adapters.ImagesAdapter;
+import com.smp.funwithmusic.apiclient.EchoNestClient;
+import com.smp.funwithmusic.apiclient.EchoNestClient.echoNestRequest;
 import com.smp.funwithmusic.dataobjects.Event;
 import com.smp.funwithmusic.dataobjects.EventInfo;
 import com.smp.funwithmusic.fragments.ColorFragment;
@@ -17,11 +21,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,6 +42,7 @@ public class ArtistActivity extends BaseActivity
 {
 	private String artist;
 	private Fragment mContent;
+	private GridView gridview;
 
 	public ArtistActivity()
 	{
@@ -44,6 +53,7 @@ public class ArtistActivity extends BaseActivity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		artist = getIntent().getStringExtra(ARTIST_NAME);
 		// set the Above View
 		if (savedInstanceState != null)
 			mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
@@ -56,14 +66,33 @@ public class ArtistActivity extends BaseActivity
 			mContent.setArguments(args);
 
 		}
+		
+		
 
 		// set the Above View
 		setContentView(R.layout.content_frame);
-		getSupportFragmentManager()
-				.beginTransaction()
-				.replace(R.id.content_frame, mContent)
-				.commit();
-
+		gridview = (GridView) findViewById(R.id.images_view);
+		EchoNestClient.getArtistInfo(artist, echoNestRequest.IMAGES, new JsonHttpResponseHandler()
+		{
+			@Override
+			public void onSuccess(JSONObject obj)
+			{
+				//Log.d("Images", "In Success");
+				List<String> urls = EchoNestClient.parseImages(obj);
+				for (String url : urls)
+				{
+					Log.d("Images", url + "\n");
+				}
+				ImagesAdapter adapter = new ImagesAdapter(ArtistActivity.this, urls);
+				gridview.setAdapter(adapter);
+				//adapter.notifyDataSetChanged();
+				
+			}
+		});
+		/*
+		 * getSupportFragmentManager() .beginTransaction()
+		 * .replace(R.id.content_frame, mContent) .commit();
+		 */
 		// set the Behind View
 		setBehindContentView(R.layout.menu_frame);
 		getSupportFragmentManager()
@@ -73,12 +102,12 @@ public class ArtistActivity extends BaseActivity
 
 		// customize the SlidingMenu
 		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-		
+
 		getActionBar().setIcon(
-				   new ColorDrawable(getResources().getColor(android.R.color.transparent))); 
+				new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+
 		
-		artist = getIntent().getStringExtra(ARTIST_NAME);
-		
+
 		setTitle(artist);
 	}
 
@@ -98,16 +127,17 @@ public class ArtistActivity extends BaseActivity
 				.commit();
 		getSlidingMenu().showContent();
 	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		switch (item.getItemId())
 		{
 			case R.id.clear:
-				
+
 				break;
 			case R.id.listen:
-				
+
 				break;
 			default:
 				return false;

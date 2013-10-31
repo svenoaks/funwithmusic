@@ -2,6 +2,10 @@ package com.smp.funwithmusic.apiclient;
 
 import static com.smp.funwithmusic.utilities.Constants.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,13 +23,58 @@ import com.smp.funwithmusic.utilities.URLParamEncoder;
 public class EchoNestClient
 {
 	private final static String BASE_URL = "http://developer.echonest.com/api/v4/";
+	private final static String ARTIST_URL = "artist/";
+	
 	private final static String IDENTIFY_URL = "song/identify?";
 	private final static String ECHOPRINT_VERSION = "4.12";
 	
-	//public enum echoNestRequest { SONG_IDENTIFY };
+	public enum echoNestRequest { BIOGRAPHIES, BLOGS, IMAGES, NEWS, REVIEWS, TWITTER, URLS, VIDEOS, SONGS };
 	
 	private static AsyncHttpClient client = new AsyncHttpClient();
 	
+	public static void getArtistInfo(String artist, echoNestRequest request, JsonHttpResponseHandler responseHandler)
+	{
+		RequestParams params = new RequestParams();
+		
+		params.put("api_key", API_KEY_ECHO_NEST);
+		params.put("name", URLParamEncoder.encode(artist)
+				.replace(ESCAPED_SPACE, ECHO_NEST_TERMS_CONNECTOR));
+		params.put("format", "json");
+		params.put("results", "100");
+		Locale locale = Locale.getDefault();
+		//Log.d("Images",BASE_URL + ARTIST_URL + request.toString().toLowerCase(locale) + "?" );
+		client.get(BASE_URL + ARTIST_URL + request.toString().toLowerCase(locale) + "?", params, responseHandler);
+	}
+	/*
+	public static void parseBiographies(JSONObject json)
+	{
+		
+	}
+	*/
+	public static List<String> parseImages(JSONObject json)
+	{
+		Log.d("Images", "JSON:   " + json.toString());
+		List<String> urls = new ArrayList<String>();
+		try
+		{
+			JSONObject response = json.getJSONObject("response");
+			JSONArray images = response.getJSONArray("images");
+			
+			for(int i = 0; i < images.length(); ++i)
+			{
+				//Log.d("Images", "In parseImages  " + images.getJSONObject(i).getString("url"));
+				urls.add(images.getJSONObject(i).getString("url"));
+				
+			}
+			
+		}
+		catch (JSONException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return urls;
+	}
 	public static void getIdentify(String code, JsonHttpResponseHandler responseHandler)
 	{
 		RequestParams params = new RequestParams();

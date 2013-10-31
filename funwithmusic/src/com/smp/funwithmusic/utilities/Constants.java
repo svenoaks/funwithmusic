@@ -23,6 +23,7 @@ public class Constants
 	
 	public static final String ESCAPED_SPACE = "%20";
 	public static final String ITUNES_TERMS_CONNECTOR = "+";
+	public static final String ECHO_NEST_TERMS_CONNECTOR = "+";
 	public static final String LYRICS_WIKI_TERMS_CONNECTOR = "_";
 	
 	public static final String LYRICS_LOADING = "Lyrics loading...";
