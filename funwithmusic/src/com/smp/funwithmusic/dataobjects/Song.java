@@ -11,8 +11,9 @@ public class Song implements Serializable
 	/**
 	 * 
 	 */
-	private static Pattern featuring = Pattern.compile("\\s*\\(?[Ff]eat\\.?.+\\z");
+	
 	private static final long serialVersionUID = 6925090966913539997L;
+	private static Pattern featuring = Pattern.compile("\\s*\\(?[Ff]eat(\\.|uring).+\\z");
 
 	private String title;
 	private String artist;
