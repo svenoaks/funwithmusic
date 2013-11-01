@@ -82,9 +82,9 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 									if (art != null)
 									{
 										imageUrl = art.getUrl();
-										Log.d("Lyrics", "art not null");
+										//Log.d("Lyrics", "art not null");
 									}
-									Log.d("Lyrics", "TEST" + imageUrl + " " + response.getAlbumArtist() + " " + response.getAlbumTitle());
+									//Log.d("Lyrics", "TEST" + imageUrl + " " + response.getAlbumArtist() + " " + response.getAlbumTitle());
 									song.setAlbumUrl(imageUrl);
 									updateSingleView(parent, card);
 								}
@@ -159,9 +159,6 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 
 	private void getCoverFromGraceNote(ViewGroup parent, Card card, Song song)
 	{
-		config = GNConfig.init(API_KEY_GRACENOTE, mContext.getApplicationContext());
-		config.setProperty("content.coverArt", "1");
-		config.setProperty("content.coverArt.genreCoverArt", "1");
 		TextSearchIntoCard task = new TextSearchIntoCard(parent, card, song);
 		task.doTextSearch(song.getArtist(), song.getAlbum(), song.getTitle());
 	}
