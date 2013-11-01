@@ -23,6 +23,8 @@ public class Song implements Serializable
 	private String fullLyricsUrl;
 	private boolean cantGetAlbumUrl;
 	private boolean cantGetLyrics;
+	private boolean canAddLyrics;
+	private boolean lyricsLoading;
 
 	public boolean isCantGetLyrics()
 	{
@@ -145,6 +147,7 @@ public class Song implements Serializable
 		{
 			shortLyrics = fullLyricsUrl = null;
 			cantGetLyrics = false;
+			canAddLyrics = false;
 		}
 	}
 
@@ -166,5 +169,26 @@ public class Song implements Serializable
 	public void removeFeaturing()
 	{
 		artist = featuring.matcher(artist).replaceAll("");
+	}
+
+	public void setCanAddLyrics(boolean b)
+	{
+		canAddLyrics = b;
+		
+	}
+	public boolean isCanAddLyrics()
+	{
+		return canAddLyrics;
+		
+	}
+
+	public boolean isLyricsLoading()
+	{
+		return lyricsLoading;
+	}
+
+	public void setLyricsLoading(boolean lyricsLoading)
+	{
+		this.lyricsLoading = lyricsLoading;
 	}
 }

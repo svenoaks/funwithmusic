@@ -108,6 +108,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		
 		else if (!song.isCantGetLyrics())
 		{
+			song.setLyricsLoading(true);
 			song.setCantGetLyrics(true);
 			lyrics.setText(LYRICS_LOADING);
 			// Log.d("LYRICS", "in if");
@@ -138,9 +139,11 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 						if (shortLyrics.toUpperCase(locale).equals(NOT_FOUND.toUpperCase(locale)))
 						{
 							shortLyrics = NOT_FOUND_WITH_ADD;
+							song.setCanAddLyrics(true);
 						}
 						song.setShortLyrics(shortLyrics);
 						song.setFullLyricsUrl(LyricWikiClient.getFullLyricsUrl(obj));
+						song.setLyricsLoading(false);
 						updateSingleView(parent, card);
 					}
 				}
@@ -148,11 +151,24 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 				public void onFailure(Throwable ex, String message)
 				{
 					lyrics.setText(COULDNT_FIND_LYRICS);
+					song.setLyricsLoading(false);
+					updateSingleView(parent, card);
 				}
 			});
 			
 		}
-	
+		else if (song.isLyricsLoading())
+        {
+                lyrics.setText(LYRICS_LOADING);
+        }
+		else if (song.isCanAddLyrics())
+		{
+			lyrics.setText(NOT_FOUND_WITH_ADD);
+		}
+		else
+		{
+			lyrics.setText(COULDNT_FIND_LYRICS);
+		}
 		return true;
 	}
 
