@@ -2,6 +2,7 @@ package com.smp.funwithmusic.adapters;
 
 import java.util.List;
 
+import com.smp.funwithmusic.R;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
@@ -68,6 +69,8 @@ public class ImagesAdapter extends BaseAdapter
 		Picasso.with(context).load(urls.get(position))
 				.resize(width, height)
 				.centerCrop()
+				.placeholder(R.drawable.placeholder)
+				.error(R.drawable.placeholder)
 				.into(imageView);
 		Log.d("Images", "In get view  " + urls.get(position));
 		return imageView;

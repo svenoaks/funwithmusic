@@ -78,9 +78,10 @@ int drawable new_indicator 0x7f020013
 int drawable no_cover_art 0x7f020014
 int drawable no_metadata 0x7f020015
 int drawable pindown 0x7f020016
-int drawable pressed_background 0x7f020017
-int drawable slidingmenu_shadow 0x7f020018
-int drawable unpressed_background 0x7f020019
+int drawable placeholder 0x7f020017
+int drawable pressed_background 0x7f020018
+int drawable slidingmenu_shadow 0x7f020019
+int drawable unpressed_background 0x7f02001a
 int id AlbumTextView 0x7f0a000e
 int id ArtistTextView 0x7f0a000d
 int id CoverArtImage 0x7f0a000a

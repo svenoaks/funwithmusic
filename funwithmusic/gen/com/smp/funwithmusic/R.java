@@ -202,9 +202,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int no_cover_art=0x7f020014;
         public static final int no_metadata=0x7f020015;
         public static final int pindown=0x7f020016;
-        public static final int pressed_background=0x7f020017;
-        public static final int slidingmenu_shadow=0x7f020018;
-        public static final int unpressed_background=0x7f020019;
+        public static final int placeholder=0x7f020017;
+        public static final int pressed_background=0x7f020018;
+        public static final int slidingmenu_shadow=0x7f020019;
+        public static final int unpressed_background=0x7f02001a;
     }
     public static final class id {
         public static final int AlbumTextView=0x7f0a000e;

@@ -2,6 +2,7 @@ package com.smp.funwithmusic.fragments;
 
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.activities.ArtistActivity;
+import com.smp.funwithmusic.adapters.ArtistMenuAdapter;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,7 +17,8 @@ import android.widget.TextView;
 
 public class ArtistMenuFragment extends ListFragment
 {
-
+	enum info 
+		{ Events, News, Biographies, Blogs, Images, Videos, More }
 	private static final int NO_OF_COLORS = 5;
 
 	@Override
@@ -29,48 +31,9 @@ public class ArtistMenuFragment extends ListFragment
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-		String[] info =
-		{ "Events", "News", "Biographies", "Blogs", "Images", "Videos", "More" };
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-				getActivity(), R.layout.list_item_artist_info, info)
-		{
-
-			@Override
-			public View getView(int position, View convertView,
-					ViewGroup parent)
-			{
-				View view = super.getView(position, convertView, parent);
-
-				TextView textView = (TextView) view.findViewById(android.R.id.text1);
-
-				switch (position)
-				{
-					case 0:
-						textView.setTextColor(getResources().getColor(R.color.info_0));
-						break;
-					case 1:
-						textView.setTextColor(getResources().getColor(R.color.info_1));
-						break;
-					case 2:
-						textView.setTextColor(getResources().getColor(R.color.info_2));
-						break;
-					case 3:
-						textView.setTextColor(getResources().getColor(R.color.info_3));
-						break;
-					case 4:
-						textView.setTextColor(getResources().getColor(R.color.info_4));
-						break;
-					case 5:
-						textView.setTextColor(getResources().getColor(R.color.info_0));
-						break;
-					case 6:
-						textView.setTextColor(getResources().getColor(R.color.info_1));
-						break;
-				}
-
-				return view;
-			}
-		};
+		
+		ArrayAdapter<info> adapter = new ArtistMenuAdapter<info>(
+				getActivity(), R.layout.list_item_artist_info, info.values());
 		setListAdapter(adapter);
 	}
 
@@ -107,7 +70,7 @@ public class ArtistMenuFragment extends ListFragment
 				color = R.color.card_gray;
 		}
 
-		Fragment newContent = ColorFragment.newInstance(color);
+		Fragment newContent = ImagesFragment.newInstance(color);
 		if (newContent != null)
 			switchFragment(newContent);
 	}

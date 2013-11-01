@@ -11,7 +11,7 @@ import com.smp.funwithmusic.apiclient.EchoNestClient;
 import com.smp.funwithmusic.apiclient.EchoNestClient.echoNestRequest;
 import com.smp.funwithmusic.dataobjects.Event;
 import com.smp.funwithmusic.dataobjects.EventInfo;
-import com.smp.funwithmusic.fragments.ColorFragment;
+import com.smp.funwithmusic.fragments.ImagesFragment;
 import com.smp.funwithmusic.fragments.ArtistMenuFragment;
 
 import static com.smp.funwithmusic.utilities.Constants.*;
@@ -66,7 +66,7 @@ public class ArtistActivity extends BaseActivity
 			Bundle args = new Bundle();
 			args.putInt("testKey", R.color.card_gray);
 
-			mContent = new ColorFragment();
+			mContent = new ImagesFragment();
 			mContent.setArguments(args);
 
 		}
