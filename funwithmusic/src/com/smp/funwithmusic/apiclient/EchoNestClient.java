@@ -31,7 +31,10 @@ public class EchoNestClient
 	public enum echoNestRequest { BIOGRAPHIES, BLOGS, IMAGES, NEWS, REVIEWS, TWITTER, URLS, VIDEOS, SONGS };
 	
 	private static AsyncHttpClient client = new AsyncHttpClient();
-	
+	static 
+	{
+		client.setMaxRetriesAndTimeout(5, 5000);
+	}
 	public static void getArtistInfo(String artist, echoNestRequest request, JsonHttpResponseHandler responseHandler)
 	{
 		RequestParams params = new RequestParams();

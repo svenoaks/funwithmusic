@@ -148,6 +148,7 @@ public class Song implements Serializable
 			shortLyrics = fullLyricsUrl = null;
 			cantGetLyrics = false;
 			canAddLyrics = false;
+			lyricsLoading = false;
 		}
 	}
 

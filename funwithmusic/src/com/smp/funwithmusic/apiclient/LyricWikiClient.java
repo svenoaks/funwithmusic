@@ -18,6 +18,10 @@ public class LyricWikiClient
 	
 	private static AsyncHttpClient client = new AsyncHttpClient();
 	
+	static 
+	{
+		client.setMaxRetriesAndTimeout(5, 5000);
+	}
 	public static void get(String title, String artist, AsyncHttpResponseHandler responseHandler)
 	{
 		RequestParams params = new RequestParams();

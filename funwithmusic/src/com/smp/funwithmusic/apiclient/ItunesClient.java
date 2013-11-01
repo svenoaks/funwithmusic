@@ -18,7 +18,10 @@ public class ItunesClient
 	public static final String BASE_URL = "http://itunes.apple.com/search?";
 	
 	private static AsyncHttpClient client = new AsyncHttpClient();
-	
+	static 
+	{
+		client.setMaxRetriesAndTimeout(5, 5000);
+	}
 	private static Pattern pattern = Pattern.compile ("\\s*[(\\[].*[)\\]]\\s*\\z");
 
 	public static void get(String album, JsonHttpResponseHandler responseHandler)

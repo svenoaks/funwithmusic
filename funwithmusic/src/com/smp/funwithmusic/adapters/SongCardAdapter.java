@@ -6,6 +6,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import static com.smp.funwithmusic.utilities.Constants.*;
 
+import com.gracenote.mmid.MobileSDK.GNConfig;
+import com.gracenote.mmid.MobileSDK.GNCoverArt;
+import com.gracenote.mmid.MobileSDK.GNOperations;
+import com.gracenote.mmid.MobileSDK.GNSearchResponse;
+import com.gracenote.mmid.MobileSDK.GNSearchResult;
+import com.gracenote.mmid.MobileSDK.GNSearchResultReady;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.smp.funwithmusic.R;
@@ -13,9 +19,13 @@ import com.smp.funwithmusic.apiclient.ItunesClient;
 import com.smp.funwithmusic.apiclient.LyricWikiClient;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.dataobjects.SongCard;
+import com.smp.funwithmusic.receivers.SongReceiver;
+import com.smp.funwithmusic.services.IdentifyMusicService;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -28,7 +38,71 @@ import com.afollestad.cardsui.CardAdapter;
 public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 
 {
+	private class TextSearchIntoCard implements GNSearchResultReady
+	{
+		ViewGroup parent;
+		Card card;
+		Song song;
+
+		TextSearchIntoCard(ViewGroup parent, Card card, Song song)
+		{
+			this.parent = parent;
+			this.card = card;
+			this.song = song;
+		}
+
+		void doTextSearch(String artist, String album, String title)
+		{
+			GNOperations.searchByText(this, config, artist, album, null);
+		}
+
+		@Override
+		public void GNResultReady(GNSearchResult result)
+		{
+			if (!result.isTextSearchNoMatchStatus())
+			{
+				// Log.d("Lyrics", "ResultREAdy" + " " + song.getTitle());
+				GNSearchResponse response = result.getBestResponse();
+				if (response != null)
+				{
+					GNOperations.fetchByAlbumId(new GNSearchResultReady()
+					{
+
+						@Override
+						public void GNResultReady(GNSearchResult result)
+						{
+							GNSearchResponse response = result.getBestResponse();
+							if (response != null)
+							{
+								if (!result.isTextSearchNoMatchStatus())
+								{
+									String imageUrl = null;
+									GNCoverArt art = response.getCoverArt();
+									response.getAlbumId();
+									if (art != null)
+									{
+										imageUrl = art.getUrl();
+										Log.d("Lyrics", "art not null");
+									}
+									Log.d("Lyrics", "TEST" + imageUrl + " " + response.getAlbumArtist() + " " + response.getAlbumTitle());
+									song.setAlbumUrl(imageUrl);
+									updateSingleView(parent, card);
+								}
+							}
+						}
+
+					}, config, response.getAlbumId());
+
+				}
+			}
+		}
+	}
+
 	private Context mContext;
+	private GNConfig config;
+	{
+
+	}
 
 	public SongCardAdapter(Context context)
 	{
@@ -36,6 +110,9 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 											// to the super constructor instead
 											// of every individual card
 		mContext = context;
+		config = GNConfig.init(API_KEY_GRACENOTE, mContext.getApplicationContext());
+		config.setProperty("content.coverArt", "1");
+		config.setProperty("content.coverArt.genreCoverArt", "1");
 	}
 
 	@Override
@@ -60,13 +137,33 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 							ItunesClient.getImageUrl(obj, song.getArtist());
 
 					song.setAlbumUrl(url);
-					updateSingleView(parent, card);
+					//url=null;
+					if (url != null)
+						updateSingleView(parent, card);
+					else
+						getCoverFromGraceNote(parent, card, song);
+				}
+
+				@Override
+				public void onFailure(Throwable ex, JSONObject obj)
+				{
+					// Log.d("Lyrics", "Onfailure" + " " + song.getTitle());
+					getCoverFromGraceNote(parent, card, song);
 				}
 			});
 			song.setCantGetAlbumUrl(true);
 		}
 
 		return true;
+	}
+
+	private void getCoverFromGraceNote(ViewGroup parent, Card card, Song song)
+	{
+		config = GNConfig.init(API_KEY_GRACENOTE, mContext.getApplicationContext());
+		config.setProperty("content.coverArt", "1");
+		config.setProperty("content.coverArt.genreCoverArt", "1");
+		TextSearchIntoCard task = new TextSearchIntoCard(parent, card, song);
+		task.doTextSearch(song.getArtist(), song.getAlbum(), song.getTitle());
 	}
 
 	public void updateSingleView(ViewGroup parent, Card card)
@@ -105,19 +202,19 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		{
 			lyrics.setText(song.getShortLyrics());
 		}
-		
+
 		else if (!song.isCantGetLyrics())
 		{
 			song.setLyricsLoading(true);
 			song.setCantGetLyrics(true);
 			lyrics.setText(LYRICS_LOADING);
-			// Log.d("LYRICS", "in if");
+
 			LyricWikiClient.get(song.getTitle(), song.getArtist(), new AsyncHttpResponseHandler()
 			{
 				@Override
 				public void onSuccess(String text)
 				{
-					// Log.d("LYRICS", text);
+					// Log.d("Lyrics", "OnSuccess" + " " + song.getTitle());
 					text = text.replace("song = ", "");
 
 					JSONObject obj = null;
@@ -131,11 +228,9 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 					}
 					if (obj != null)
 					{
-						// Log.d("LYRICS", "in obj");
 						Locale locale = Locale.getDefault();
 						String shortLyrics = LyricWikiClient.getShortLyric(obj);
-						// Log.d("LYRICS", shortLyrics.toUpperCase(locale) + " "
-						// + NOT_FOUND.toUpperCase(locale) );
+
 						if (shortLyrics.toUpperCase(locale).equals(NOT_FOUND.toUpperCase(locale)))
 						{
 							shortLyrics = NOT_FOUND_WITH_ADD;
@@ -147,20 +242,21 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 						updateSingleView(parent, card);
 					}
 				}
+
 				@Override
 				public void onFailure(Throwable ex, String message)
 				{
-					lyrics.setText(COULDNT_FIND_LYRICS);
+					Log.d("Lyrics", "Onfailure" + " " + song.getTitle());
 					song.setLyricsLoading(false);
 					updateSingleView(parent, card);
 				}
 			});
-			
+
 		}
 		else if (song.isLyricsLoading())
-        {
-                lyrics.setText(LYRICS_LOADING);
-        }
+		{
+			lyrics.setText(LYRICS_LOADING);
+		}
 		else if (song.isCanAddLyrics())
 		{
 			lyrics.setText(NOT_FOUND_WITH_ADD);
