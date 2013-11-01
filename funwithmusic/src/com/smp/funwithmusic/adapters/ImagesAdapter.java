@@ -52,17 +52,17 @@ public class ImagesAdapter extends BaseAdapter
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-		ImageView imageView;
+		AImageView imageView;
 		if (convertView == null)
 		{ // if it's not recycled, initialize some attributes
-			imageView = new ImageView(context);
-			imageView.setLayoutParams(new GridView.LayoutParams(width, height));
-			imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+			imageView = new AImageView(context);
+			//imageView.setLayoutParams(new GridView.LayoutParams(width, height));
+			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 			imageView.setPadding(0, 0, 0, 0);
 		}
 		else
 		{
-			imageView = (ImageView) convertView;
+			imageView = (AImageView) convertView;
 		}
 
 		Picasso.with(context).load(urls.get(position))
