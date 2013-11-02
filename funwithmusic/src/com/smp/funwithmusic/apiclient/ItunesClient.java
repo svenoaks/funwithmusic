@@ -16,13 +16,13 @@ import static com.smp.funwithmusic.utilities.Constants.*;
 public class ItunesClient
 {
 	public static final String BASE_URL = "http://itunes.apple.com/search?";
-	
+
 	private static AsyncHttpClient client = new AsyncHttpClient();
-	static 
+	static
 	{
 		client.setMaxRetriesAndTimeout(5, 5000);
 	}
-	private static Pattern pattern = Pattern.compile ("\\s*[(\\[].*[)\\]]\\s*\\z");
+	private static Pattern pattern = Pattern.compile("\\s*[(\\[].*[)\\]]\\s*\\z");
 
 	public static void get(String album, JsonHttpResponseHandler responseHandler)
 	{
@@ -35,7 +35,7 @@ public class ItunesClient
 		params.put("attribute", "albumTerm");
 		params.put("entity", "album");
 		params.put("limit", "200");
-		
+
 		client.get(BASE_URL, params, responseHandler);
 	}
 
@@ -70,7 +70,7 @@ public class ItunesClient
 				{
 					// Log.i("URL", artist);
 					result = res.optString("artworkUrl100");
-					
+
 					if (result == null)
 						result = res.optString("artworkUrl60");
 

@@ -11,7 +11,7 @@ public class Song implements Serializable
 	/**
 	 * 
 	 */
-	
+
 	private static final long serialVersionUID = 6925090966913539997L;
 	private static Pattern featuring = Pattern.compile("\\s*\\(?[Ff]eat(\\.|uring).+\\z");
 
@@ -82,9 +82,10 @@ public class Song implements Serializable
 		this.artist = artist;
 		this.album = album;
 	}
+
 	public Song()
 	{
-		
+
 	}
 
 	@Override
@@ -157,16 +158,19 @@ public class Song implements Serializable
 		if (albumUrl == null)
 			cantGetAlbumUrl = false;
 	}
-	
-	//Returns whether this Song is a valid song that should be added to the list.
-	//A song is not aware of the list it is being added to, so further validation
-	//must be handled by the caller.
-	
+
+	// Returns whether this Song is a valid song that should be added to the
+	// list.
+	// A song is not aware of the list it is being added to, so further
+	// validation
+	// must be handled by the caller.
+
 	public boolean validate()
 	{
-		return artist !=null && title != null && album != null &&
-				! title.equals("Advertisement");
+		return artist != null && title != null && album != null &&
+				!title.equals("Advertisement");
 	}
+
 	public void removeFeaturing()
 	{
 		artist = featuring.matcher(artist).replaceAll("");
@@ -175,12 +179,13 @@ public class Song implements Serializable
 	public void setCanAddLyrics(boolean b)
 	{
 		canAddLyrics = b;
-		
+
 	}
+
 	public boolean isCanAddLyrics()
 	{
 		return canAddLyrics;
-		
+
 	}
 
 	public boolean isLyricsLoading()

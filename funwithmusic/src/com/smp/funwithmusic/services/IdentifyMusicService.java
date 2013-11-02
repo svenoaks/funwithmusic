@@ -28,7 +28,6 @@ import android.widget.Toast;
 
 public class IdentifyMusicService extends IntentService
 {
-	
 
 	private static final int TIME_TO_LISTEN = 20;
 	private CountDownLatch latch;
@@ -43,6 +42,7 @@ public class IdentifyMusicService extends IntentService
 	{
 		super("identify");
 	}
+
 	@Override
 	public void onDestroy()
 	{
@@ -54,9 +54,10 @@ public class IdentifyMusicService extends IntentService
 		{
 			Toast.makeText(this, TOAST_ID_FAILURE, Toast.LENGTH_SHORT).show();
 		}
-			
+
 		super.onDestroy();
 	}
+
 	private void sendFinishedIntent()
 	{
 		Intent remove = new Intent(this, FlowActivity.class);
@@ -85,7 +86,7 @@ public class IdentifyMusicService extends IntentService
 			}
 			else
 			{
-				
+
 				GNSearchResponse response = result.getBestResponse();
 
 				// .addCategory(Intent.CATEGORY_DEFAULT);

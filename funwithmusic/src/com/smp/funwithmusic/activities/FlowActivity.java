@@ -51,7 +51,7 @@ import android.widget.Toast;
 
 public class FlowActivity extends Activity implements CardMenuListener<Card>
 {
-	
+
 	private List<Song> songs;
 	private IntentFilter filter;
 	private UpdateActivityReceiver receiver;
@@ -69,13 +69,13 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 			if (intent.getAction().equals(ACTION_REMOVE_IDENTIFY))
 			{
 				viewGone(idDialog);
-			}	
+			}
 			else if (intent.getAction().equals(ACTION_ADD_SONG))
 			{
 				addCardsFromList();
-				if (intent.getBooleanExtra(EXTRA_FROM_ID, false)) 
+				if (intent.getBooleanExtra(EXTRA_FROM_ID, false))
 					scrollToBottomOfList();
-			}		
+			}
 		}
 
 	}
@@ -114,7 +114,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		addCardsFromList();
 		scrollToBottomOfList();
 		LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
-		
+
 		if (isMyServiceRunning(this, IdentifyMusicService.class))
 		{
 			viewVisible(idDialog);
@@ -191,7 +191,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		filter = new IntentFilter();
 		filter.addAction(ACTION_ADD_SONG);
 		filter.addAction(ACTION_REMOVE_IDENTIFY);
-		//filter.addCategory(Intent.CATEGORY_DEFAULT);
+		// filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
 
@@ -267,42 +267,49 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		}
 		return true;
 	}
+
 	public static void doListen(Context context, final View idDialog)
 	{
 		viewVisible(idDialog);
 		Intent intent = new Intent(context, IdentifyMusicService.class);
 		context.startService(intent);
 	}
+
 	public static void viewVisible(final View view)
 	{
-		view.post(new Runnable() {
+		view.post(new Runnable()
+		{
 			@Override
 			public void run()
 			{
 				view.setVisibility(View.VISIBLE);
-			}});
+			}
+		});
 	}
+
 	public static void viewGone(final View view)
 	{
-		view.post(new Runnable() {
+		view.post(new Runnable()
+		{
 			@Override
 			public void run()
 			{
 				view.setVisibility(View.GONE);
-			}});
+			}
+		});
 	}
+
 	public static void doDeleteFlow(Context context)
 	{
 		context.deleteFile(SONG_FILE_NAME);
 		Toast.makeText(context, TOAST_FLOW_DELETED, Toast.LENGTH_SHORT).show();
 	}
+
 	@Override
 	public void onMenuItemClick(Card card, MenuItem item)
 	{
 
 	}
-
-	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)

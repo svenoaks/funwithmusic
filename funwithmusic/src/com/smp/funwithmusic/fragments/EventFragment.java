@@ -1,7 +1,5 @@
 package com.smp.funwithmusic.fragments;
 
-
-
 import com.smp.funwithmusic.R;
 
 import android.content.Context;
@@ -16,36 +14,46 @@ import android.widget.TextView;
 
 public class EventFragment extends ListFragment
 {
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	{
 		return inflater.inflate(R.layout.list_artist_info, null);
 	}
 
-	public void onActivityCreated(Bundle savedInstanceState) {
+	public void onActivityCreated(Bundle savedInstanceState)
+	{
 		super.onActivityCreated(savedInstanceState);
 		SampleAdapter adapter = new SampleAdapter(getActivity());
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 20; i++)
+		{
 			adapter.add(new SampleItem("Sample List", android.R.drawable.ic_menu_search));
 		}
 		setListAdapter(adapter);
 	}
 
-	private class SampleItem {
+	private class SampleItem
+	{
 		public String tag;
 		public int iconRes;
-		public SampleItem(String tag, int iconRes) {
-			this.tag = tag; 
+
+		public SampleItem(String tag, int iconRes)
+		{
+			this.tag = tag;
 			this.iconRes = iconRes;
 		}
 	}
 
-	public class SampleAdapter extends ArrayAdapter<SampleItem> {
+	public class SampleAdapter extends ArrayAdapter<SampleItem>
+	{
 
-		public SampleAdapter(Context context) {
+		public SampleAdapter(Context context)
+		{
 			super(context, 0);
 		}
 
-		public View getView(int position, View convertView, ViewGroup parent) {
-			if (convertView == null) {
+		public View getView(int position, View convertView, ViewGroup parent)
+		{
+			if (convertView == null)
+			{
 				convertView = LayoutInflater.from(getContext()).inflate(R.layout.row, null);
 			}
 			ImageView icon = (ImageView) convertView.findViewById(R.id.row_icon);

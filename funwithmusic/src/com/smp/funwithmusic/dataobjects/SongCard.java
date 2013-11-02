@@ -46,24 +46,17 @@ public class SongCard extends Card implements ImageListener
 		this.context = context;
 		// setThumbnail(new BitmapDrawable(context.getResources(),
 		// getAlbumart((long) getAlbumId(song))));
-		//Drawable myIcon = context.getResources().getDrawable( R.drawable.assem );
-		//setThumbnail(myIcon);
+		// Drawable myIcon = context.getResources().getDrawable(
+		// R.drawable.assem );
+		// setThumbnail(myIcon);
 		/*
-		ItunesClient.get(song.getAlbum(), new JsonHttpResponseHandler()
-		{
-			public void onSuccess(JSONObject obj)
-			{
-				String url =
-						ItunesClient.getImageUrl(obj, song.getArtist());
-				if (url != null)
-				{
-					mgr.get(url, SongCard.this, null, false);
-					Log.i("URL", url);
-				}
-
-			}
-		});
-		*/
+		 * ItunesClient.get(song.getAlbum(), new JsonHttpResponseHandler() {
+		 * public void onSuccess(JSONObject obj) { String url =
+		 * ItunesClient.getImageUrl(obj, song.getArtist()); if (url != null) {
+		 * mgr.get(url, SongCard.this, null, false); Log.i("URL", url); }
+		 * 
+		 * } });
+		 */
 	}
 
 	public Bitmap getAlbumart(Long album_id)
@@ -127,8 +120,9 @@ public class SongCard extends Card implements ImageListener
 	@Override
 	public void onImageReceived(String source, Bitmap bitmap)
 	{
-		//Drawable myIcon = context.getResources().getDrawable( R.drawable.assem );
-		//setThumbnail(myIcon);
+		// Drawable myIcon = context.getResources().getDrawable(
+		// R.drawable.assem );
+		// setThumbnail(myIcon);
 		setThumbnail(context, bitmap);
 	}
 

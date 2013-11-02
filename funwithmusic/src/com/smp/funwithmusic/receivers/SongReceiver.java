@@ -23,8 +23,7 @@ import android.widget.Toast;
 
 public class SongReceiver extends BroadcastReceiver
 {
-	
-	
+
 	private boolean fromId;
 	private String mAlbum;
 	private String mArtist;
@@ -36,7 +35,7 @@ public class SongReceiver extends BroadcastReceiver
 
 	private class SongReceiverAsyncTask extends AsyncTask<Void, Void, Void>
 	{
-		
+
 		protected Void doInBackground(Void... blah)
 		{
 			setSongInfo(context, intent);
@@ -52,7 +51,7 @@ public class SongReceiver extends BroadcastReceiver
 				Intent send = new Intent(context, FlowActivity.class);
 				send.setAction(ACTION_ADD_SONG);
 				send.putExtra(EXTRA_FROM_ID, fromId);
-				
+
 				LocalBroadcastManager.getInstance(context).sendBroadcast(send);
 			}
 			// Log.i("SONG", mArtist + " " + mTitle + " " + mAlbum);
@@ -66,8 +65,8 @@ public class SongReceiver extends BroadcastReceiver
 	private void writeNewSong(Context context, Song song)
 	{
 		ArrayList<Song> songs = getSongList(context);
-		if (song != null && 
-				(songs.size() == 0 || !songs.get(songs.size()-1).equals(song)))
+		if (song != null &&
+				(songs.size() == 0 || !songs.get(songs.size() - 1).equals(song)))
 		{
 			songs.add(song);
 			writeObjectToFile(context, SONG_FILE_NAME, songs);

@@ -17,8 +17,11 @@ import android.widget.TextView;
 
 public class ArtistMenuFragment extends ListFragment
 {
-	enum info 
-		{ Events, News, Biographies, Blogs, Images, Videos, More }
+	enum info
+	{
+		Events, News, Biographies, Blogs, Images, Videos, More
+	}
+
 	private static final int NO_OF_COLORS = 5;
 
 	@Override
@@ -31,7 +34,7 @@ public class ArtistMenuFragment extends ListFragment
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-		
+
 		ArrayAdapter<info> adapter = new ArtistMenuAdapter<info>(
 				getActivity(), R.layout.list_item_artist_info, info.values());
 		setListAdapter(adapter);
@@ -70,7 +73,7 @@ public class ArtistMenuFragment extends ListFragment
 				color = R.color.card_gray;
 		}
 
-		Fragment newContent = ImagesFragment.newInstance(color);
+		Fragment newContent = ImagesFragment.newInstance();
 		if (newContent != null)
 			switchFragment(newContent);
 	}

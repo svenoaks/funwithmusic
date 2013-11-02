@@ -57,7 +57,8 @@ public class ImagesAdapter extends BaseAdapter
 		if (convertView == null)
 		{ // if it's not recycled, initialize some attributes
 			imageView = new AImageView(context);
-			//imageView.setLayoutParams(new GridView.LayoutParams(width, height));
+			// imageView.setLayoutParams(new GridView.LayoutParams(width,
+			// height));
 			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 			imageView.setPadding(0, 0, 0, 0);
 		}
@@ -75,6 +76,7 @@ public class ImagesAdapter extends BaseAdapter
 		Log.d("Images", "In get view  " + urls.get(position));
 		return imageView;
 	}
+
 	private static class ViewHolder
 	{
 		ImageView image;

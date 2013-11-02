@@ -82,9 +82,11 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 									if (art != null)
 									{
 										imageUrl = art.getUrl();
-										//Log.d("Lyrics", "art not null");
+										// Log.d("Lyrics", "art not null");
 									}
-									//Log.d("Lyrics", "TEST" + imageUrl + " " + response.getAlbumArtist() + " " + response.getAlbumTitle());
+									// Log.d("Lyrics", "TEST" + imageUrl + " " +
+									// response.getAlbumArtist() + " " +
+									// response.getAlbumTitle());
 									song.setAlbumUrl(imageUrl);
 									updateSingleView(parent, card);
 								}
@@ -137,7 +139,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 							ItunesClient.getImageUrl(obj, song.getArtist());
 
 					song.setAlbumUrl(url);
-					//url=null;
+					// url=null;
 					if (url != null)
 						updateSingleView(parent, card);
 					else

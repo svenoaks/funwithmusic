@@ -3,6 +3,7 @@ package com.smp.funwithmusic.activities;
 import java.util.List;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.R.layout;
@@ -25,6 +26,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.GridView;
@@ -41,74 +43,47 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 
-public class ArtistActivity extends BaseActivity
+public class ArtistActivity extends SlidingFragmentActivity
 {
+	
 	private String artist;
+
+	public String getArtist()
+	{
+		return artist;
+	}
+
 	private Fragment mContent;
 	private GridView gridView;
 	private float dpHeight, dpWidth;
 	DisplayMetrics outMetrics;
-	public ArtistActivity()
-	{
-		super(R.string.artist);
-	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.dummy_frame);
 		artist = getIntent().getStringExtra(ARTIST_NAME);
-		// set the Above View
+		setTitle(artist);
+
 		if (savedInstanceState != null)
-			//mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
+
+			mContent =
+					getSupportFragmentManager().getFragment(savedInstanceState,
+							BUNDLE_FRAGMENT);
+		
 		if (mContent == null)
 		{
-			Bundle args = new Bundle();
-			args.putInt("testKey", R.color.card_gray);
-
-			mContent = new ImagesFragment();
-			mContent.setArguments(args);
-
+			mContent = ImagesFragment.newInstance();
 		}
-		
-		Display display = getWindowManager().getDefaultDisplay();
-	    outMetrics = new DisplayMetrics ();
-	    display.getMetrics(outMetrics);
 
-	    float density  = getResources().getDisplayMetrics().density;
-	    dpHeight = outMetrics.heightPixels / density;
-	    dpWidth  = outMetrics.widthPixels / density;
-	   
-		// set the Above View
-		setContentView(R.layout.content_frame);
-		gridView = (GridView) findViewById(R.id.images_view);
-		EchoNestClient.getArtistInfo(artist, echoNestRequest.IMAGES, new JsonHttpResponseHandler()
-		{
-			
-			@Override
-			public void onSuccess(JSONObject obj)
-			{
-				//Log.d("Images", "In Success");
-				List<String> urls = EchoNestClient.parseImages(obj);
-				for (String url : urls)
-				{
-					Log.d("Images", url + "\n");
-				}
-				int width = outMetrics.widthPixels / gridView.getNumColumns();
-				int height = (int)Math.round((width * 1.5));
-				
-				ImagesAdapter adapter = new ImagesAdapter(ArtistActivity.this, urls, width, height);
-				gridView.setAdapter(adapter);
-				//adapter.notifyDataSetChanged();
-				
-			}
-		});
-		/*
-		 * getSupportFragmentManager() .beginTransaction()
-		 * .replace(R.id.content_frame, mContent) .commit();
-		 */
+		configureSlidingMenu();
+
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.content_frame, mContent)
+				.commit();
 		// set the Behind View
-		setBehindContentView(R.layout.menu_frame);
+		setBehindContentView(R.layout.dummy_menu_frame);
 		getSupportFragmentManager()
 				.beginTransaction()
 				.replace(R.id.menu_frame, new ArtistMenuFragment())
@@ -119,19 +94,26 @@ public class ArtistActivity extends BaseActivity
 
 		getActionBar().setIcon(
 				new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 
-		
+	}
 
-		setTitle(artist);
-		
-		
+	private void configureSlidingMenu()
+	{
+		SlidingMenu sm = getSlidingMenu();
+		sm.setShadowWidthRes(R.dimen.shadow_width);
+		sm.setShadowDrawable(R.drawable.slidingmenu_shadow);
+		sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+		sm.setFadeDegree(0.35f);
+		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
-		//getSupportFragmentManager().putFragment(outState, "mContent", mContent);
+		getSupportFragmentManager().putFragment(outState, BUNDLE_FRAGMENT,
+				mContent);
 	}
 
 	public void switchContent(Fragment fragment)
@@ -149,6 +131,9 @@ public class ArtistActivity extends BaseActivity
 	{
 		switch (item.getItemId())
 		{
+			case android.R.id.home:
+				toggle();
+				break;
 			case R.id.clear:
 
 				break;
@@ -160,5 +145,10 @@ public class ArtistActivity extends BaseActivity
 		}
 		return true;
 	}
-
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+            getMenuInflater().inflate(R.menu.menu_artist, menu);
+            return true;
+    }
 }
