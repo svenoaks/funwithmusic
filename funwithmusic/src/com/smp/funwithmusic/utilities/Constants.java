@@ -5,12 +5,15 @@ public class Constants
 	public static final String ACTION_ADD_SONG = "com.smp.funwithmusic.SONG_ACTION";
 	public static final String ACTION_ID = "com.smp.funwithmusic.ID_ACTION";
 	public static final String ACTION_REMOVE_IDENTIFY = "com.smp.funwithmusic.ACTION_REMOVE_IDENTIFY";
-	
+
 	public static final String BUNDLE_FRAGMENT = "com.smp.funwithmusic.BUNDLE_FRAGMENT";
 	public static final String BUNDLE_IMAGE_URLS = "com.smp.funwithmusic.BUNDLE_IMAGE_URLS";
-	
+
 	public static final String EXTRA_FROM_ID = "com.smp.funwithmusic.EXTRA_FROM_ID";
 	public static final String EXTRA_LISTEN_SUCCESSFUL = "com.smp.funwithmusic.LISTEN_SUCCESSFUL";
+
+	public static final int HTTP_RETRIES = 7;
+	public static final int HTTP_TIMEOUT = 5000;
 
 	// public static final String FROM_ID = "com.smp.funwithmusic.FROM_ID";
 

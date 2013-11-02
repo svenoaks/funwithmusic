@@ -2,6 +2,7 @@ package com.smp.funwithmusic.apiclient;
 
 import static com.smp.funwithmusic.utilities.Constants.*;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -27,6 +28,8 @@ public class EchoNestClient
 	private final static String IDENTIFY_URL = "song/identify?";
 	private final static String ECHOPRINT_VERSION = "4.12";
 
+	// private final static String NON_ASCII = "[^\\p{ASCII}]";
+
 	public enum echoNestRequest
 	{
 		BIOGRAPHIES, BLOGS, IMAGES, NEWS, REVIEWS, TWITTER, URLS, VIDEOS, SONGS
@@ -35,13 +38,16 @@ public class EchoNestClient
 	private static AsyncHttpClient client = new AsyncHttpClient();
 	static
 	{
-		client.setMaxRetriesAndTimeout(5, 5000);
+		client.setMaxRetriesAndTimeout(HTTP_RETRIES, HTTP_TIMEOUT);
 	}
 
 	public static void getArtistInfo(String artist, echoNestRequest request, JsonHttpResponseHandler responseHandler)
 	{
 		RequestParams params = new RequestParams();
-
+		// Log.d("artist", Normalizer.normalize(artist,
+		// Normalizer.Form.NFD).replaceAll(NON_ASCII, "") + " " + artist);
+		// String nString = Normalizer.normalize(artist,
+		// Normalizer.Form.NFD).replaceAll(NON_ASCII, "");
 		params.put("api_key", API_KEY_ECHO_NEST);
 		params.put("name", URLParamEncoder.encode(artist)
 				.replace(ESCAPED_SPACE, ECHO_NEST_TERMS_CONNECTOR));

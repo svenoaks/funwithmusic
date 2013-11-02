@@ -45,7 +45,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 
 public class ArtistActivity extends SlidingFragmentActivity
 {
-	
+
 	private String artist;
 
 	public String getArtist()
@@ -71,7 +71,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 			mContent =
 					getSupportFragmentManager().getFragment(savedInstanceState,
 							BUNDLE_FRAGMENT);
-		
+
 		if (mContent == null)
 		{
 			mContent = ImagesFragment.newInstance();
@@ -145,10 +145,11 @@ public class ArtistActivity extends SlidingFragmentActivity
 		}
 		return true;
 	}
+
 	@Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-            getMenuInflater().inflate(R.menu.menu_artist, menu);
-            return true;
-    }
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		getMenuInflater().inflate(R.menu.menu_artist, menu);
+		return true;
+	}
 }

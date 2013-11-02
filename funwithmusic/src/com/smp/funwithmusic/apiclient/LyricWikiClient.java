@@ -20,7 +20,7 @@ public class LyricWikiClient
 
 	static
 	{
-		client.setMaxRetriesAndTimeout(5, 5000);
+		client.setMaxRetriesAndTimeout(HTTP_RETRIES, HTTP_TIMEOUT);
 	}
 
 	public static void get(String title, String artist, AsyncHttpResponseHandler responseHandler)
@@ -40,20 +40,11 @@ public class LyricWikiClient
 
 	public static String getShortLyric(JSONObject json)
 	{
-		String result = null;
-
-		result = json.optString("lyrics");
-		// Log.d("LYRICS", "JKDJKKJ");
-
-		return result;
+		return json.optString("lyrics");
 	}
 
 	public static String getFullLyricsUrl(JSONObject json)
 	{
-		String result = null;
-
-		result = json.optString("url");
-
-		return result;
+		return json.optString("url");
 	}
 }

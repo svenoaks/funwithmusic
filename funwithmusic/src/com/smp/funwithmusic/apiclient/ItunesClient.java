@@ -20,7 +20,7 @@ public class ItunesClient
 	private static AsyncHttpClient client = new AsyncHttpClient();
 	static
 	{
-		client.setMaxRetriesAndTimeout(5, 5000);
+		client.setMaxRetriesAndTimeout(HTTP_RETRIES, HTTP_TIMEOUT);
 	}
 	private static Pattern pattern = Pattern.compile("\\s*[(\\[].*[)\\]]\\s*\\z");
 

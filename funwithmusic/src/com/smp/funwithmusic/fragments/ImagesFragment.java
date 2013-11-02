@@ -66,6 +66,7 @@ public class ImagesFragment extends Fragment
 		}
 		return layout;
 	}
+
 	private void getUrls()
 	{
 		Display display = getActivity().getWindowManager().getDefaultDisplay();
@@ -79,18 +80,19 @@ public class ImagesFragment extends Fragment
 			public void onSuccess(JSONObject obj)
 			{
 				// Log.d("Images", "In Success");
-				urls = (ArrayList<String>)EchoNestClient.parseImages(obj);
-				
+				urls = (ArrayList<String>) EchoNestClient.parseImages(obj);
+
 				width = outMetrics.widthPixels / gridView.getNumColumns();
 				height = (int) Math.round((width * 1.5));
 				makeAdapter();
 			}
 		});
 	}
+
 	private void makeAdapter()
 	{
 		ImagesAdapter adapter = new ImagesAdapter(getActivity(), urls, width, height);
-		gridView.setAdapter(adapter);	
+		gridView.setAdapter(adapter);
 	}
 
 	@Override
@@ -100,7 +102,6 @@ public class ImagesFragment extends Fragment
 
 		artist = ((ArtistActivity) getActivity()).getArtist();
 
-		
 	}
 
 	@Override
@@ -109,6 +110,5 @@ public class ImagesFragment extends Fragment
 		super.onSaveInstanceState(outState);
 		outState.putStringArrayList(BUNDLE_IMAGE_URLS, urls);
 	}
-	
 
 }

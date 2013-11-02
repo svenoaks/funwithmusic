@@ -25,7 +25,10 @@ import com.squareup.picasso.Picasso;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -102,6 +105,8 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 
 	private Context mContext;
 	private GNConfig config;
+	private final int THUMBNAIL_SIZE_IN_PIXELS;
+	private final int THUMBNAIL_SIZE_IN_DP = 56;
 	{
 
 	}
@@ -114,7 +119,11 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		mContext = context;
 		config = GNConfig.init(API_KEY_GRACENOTE, mContext.getApplicationContext());
 		config.setProperty("content.coverArt", "1");
+		config.setProperty("content.coverArt.sizePreference", "MEDIUM");
 		config.setProperty("content.coverArt.genreCoverArt", "1");
+
+		THUMBNAIL_SIZE_IN_PIXELS = (int) Math.ceil(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 
+				THUMBNAIL_SIZE_IN_DP, context.getResources().getDisplayMetrics()));	
 	}
 
 	@Override
@@ -123,6 +132,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		final Song song = ((SongCard) card).getSong();
 
 		Picasso.with(mContext).load(song.getAlbumUrl())
+		.resize(THUMBNAIL_SIZE_IN_PIXELS, THUMBNAIL_SIZE_IN_PIXELS)
 				.placeholder(R.drawable.flow)
 				.error(R.drawable.flow)
 				.into(icon);
@@ -192,6 +202,8 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		// Optional, you can modify properties of the content textview here.
 		return super.onProcessContent(content, card);
 	}
+
+	// should refactor to use an enum lyricsState within each song.
 
 	protected boolean onProcessLyrics(final TextView lyrics, final Card card, final ViewGroup parent)
 	{
