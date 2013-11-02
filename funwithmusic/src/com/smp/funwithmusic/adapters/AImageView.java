@@ -28,7 +28,7 @@ public class AImageView extends ImageView
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
 	{
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		setMeasuredDimension(getMeasuredWidth(), (int)(getMeasuredWidth() * 1.5));
+		setMeasuredDimension(getMeasuredWidth(), (int) (getMeasuredWidth() * 1.5));
 
 	}
 }

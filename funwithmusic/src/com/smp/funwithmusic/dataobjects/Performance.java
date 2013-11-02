@@ -19,7 +19,7 @@ public class Performance implements Parcelable
 	{
 		return billing;
 	}
-	
+
 	private String displayName;
 	private int billingIndex;
 	private String billing;
@@ -29,12 +29,12 @@ public class Performance implements Parcelable
 		private String displayName;
 		private int billingIndex;
 		private String billing;
-		
+
 		public Builder(String displayName)
 		{
 			this.displayName = displayName;
 		}
-		
+
 		public Builder billingIndex(int billingIndex)
 		{
 			this.billingIndex = billingIndex;

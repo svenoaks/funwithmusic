@@ -28,10 +28,8 @@ import android.widget.Toast;
 
 public class IdentifyMusicService extends IntentService
 {
-	
-
-	private static final int TIME_TO_LISTEN = 20;
 	private CountDownLatch latch;
+	
 	private volatile boolean successful;
 	private volatile String artist;
 	private volatile String album;
@@ -43,6 +41,7 @@ public class IdentifyMusicService extends IntentService
 	{
 		super("identify");
 	}
+
 	@Override
 	public void onDestroy()
 	{
@@ -54,9 +53,10 @@ public class IdentifyMusicService extends IntentService
 		{
 			Toast.makeText(this, TOAST_ID_FAILURE, Toast.LENGTH_SHORT).show();
 		}
-			
+
 		super.onDestroy();
 	}
+
 	private void sendFinishedIntent()
 	{
 		Intent remove = new Intent(this, FlowActivity.class);
@@ -85,7 +85,7 @@ public class IdentifyMusicService extends IntentService
 			}
 			else
 			{
-				
+
 				GNSearchResponse response = result.getBestResponse();
 
 				// .addCategory(Intent.CATEGORY_DEFAULT);
@@ -123,6 +123,7 @@ public class IdentifyMusicService extends IntentService
 		config = GNConfig.init(API_KEY_GRACENOTE, this.getApplicationContext());
 		config.setProperty("content.coverArt", "1");
 		config.setProperty("content.coverArt.genreCoverArt", "0");
+		config.setProperty("content.coverArt.sizePreference", "MEDIUM");
 		RecognizeFromMic task = new RecognizeFromMic();
 		task.doFingerprint();
 		// AudioFingerprinter fingerprinter = new AudioFingerprinter(this);

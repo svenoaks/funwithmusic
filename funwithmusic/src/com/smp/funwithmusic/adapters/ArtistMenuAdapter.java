@@ -13,12 +13,13 @@ import android.widget.TextView;
 public class ArtistMenuAdapter<T> extends ArrayAdapter<T>
 {
 	Context context;
+
 	public ArtistMenuAdapter(Context context, int resource, T[] info)
 	{
 		super(context, resource, info);
 		this.context = context;
 	}
-	
+
 	@Override
 	public View getView(int position, View convertView,
 			ViewGroup parent)

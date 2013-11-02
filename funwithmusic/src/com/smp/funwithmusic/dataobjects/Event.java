@@ -49,7 +49,7 @@ public class Event implements Parcelable
 	{
 		return venueUri;
 	}
-	
+
 	private String type;
 	private Uri mainUri;
 	private String displayName;
@@ -70,11 +70,11 @@ public class Event implements Parcelable
 		private String venueDisplayName;
 		private Uri venueUri;
 
-		public Builder (String displayName)
+		public Builder(String displayName)
 		{
 			this.displayName = displayName;
 		}
-		
+
 		public Builder type(String type)
 		{
 			this.type = type;
@@ -147,6 +147,7 @@ public class Event implements Parcelable
 			return new Event[size];
 		}
 	};
+
 	@Override
 	public void writeToParcel(Parcel out, int flags)
 	{
@@ -157,7 +158,7 @@ public class Event implements Parcelable
 		out.writeList(performances);
 		out.writeString(location);
 		out.writeString(venueDisplayName);
-		out.writeParcelable(venueUri, 0);	
+		out.writeParcelable(venueUri, 0);
 	}
 
 	private Event(Parcel in)

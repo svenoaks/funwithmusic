@@ -7,7 +7,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-
 import com.smp.funwithmusic.dataobjects.EventInfo;
 import com.smp.funwithmusic.dataobjects.Song;
 
@@ -23,38 +22,27 @@ import static com.smp.funwithmusic.utilities.UtilityMethods.readObjectFromFile;
 
 public class UtilityMethods
 {
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public static boolean isMyServiceRunning(Context context, Class<? extends Service> myService)
-    {
-            ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-            for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
-            {
-                    if (myService.getName().equals(service.service.getClassName()))
-                    {
-                            return true;
-                    }
-            }
-            return false;
-    }
+	{
+		ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+		for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
+		{
+			if (myService.getName().equals(service.service.getClassName()))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static SharedPreferences getPref(Context context)
 	{
-		//int mode = android.os.Build.VERSION.SDK_INT >= 11 ? Context.MODE_MULTI_PROCESS : Context.MODE_PRIVATE;
+		// int mode = android.os.Build.VERSION.SDK_INT >= 11 ?
+		// Context.MODE_MULTI_PROCESS : Context.MODE_PRIVATE;
 		return context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
 	}
+
 	public static synchronized Object readObjectFromFile(Context context, String fileName)
 	{
 		Object result = null;
@@ -114,6 +102,7 @@ public class UtilityMethods
 			}
 		}
 	}
+
 	@SuppressWarnings("unchecked")
 	public static ArrayList<Song> getSongList(Context context)
 	{
@@ -128,11 +117,10 @@ public class UtilityMethods
 		return songs;
 
 	}
-	
-	
-	
-	//Method to start an activity with a single Parceable, could be expanded with variable arguments
-	
+
+	// Method to start an activity with a single Parceable, could be expanded
+	// with variable arguments
+
 	public static <T extends Parcelable> void startNewActivityWithObject(Context context, Class<?> cls, T info, String name)
 	{
 		Intent intent = new Intent(context, cls);
