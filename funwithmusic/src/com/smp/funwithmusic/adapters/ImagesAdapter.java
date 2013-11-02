@@ -73,7 +73,7 @@ public class ImagesAdapter extends BaseAdapter
 				.placeholder(R.drawable.placeholder)
 				.error(R.drawable.placeholder)
 				.into(imageView);
-		Log.d("Images", "In get view  " + urls.get(position));
+		//Log.d("Images", "In get view  " + urls.get(position));
 		return imageView;
 	}
 

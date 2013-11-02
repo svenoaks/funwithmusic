@@ -66,7 +66,7 @@ public class EchoNestClient
 	 */
 	public static List<String> parseImages(JSONObject json)
 	{
-		Log.d("Images", "JSON:   " + json.toString());
+		//Log.d("Images", "JSON:   " + json.toString());
 		List<String> urls = new ArrayList<String>();
 		try
 		{
