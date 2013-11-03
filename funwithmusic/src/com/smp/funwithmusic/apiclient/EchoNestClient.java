@@ -63,28 +63,49 @@ public class EchoNestClient
 	public static List<Biography> parseBiographies(JSONObject json)
 	{
 		List<Biography> result = new ArrayList<Biography>();
-		
+
 		try
 		{
 			JSONObject response = json.getJSONObject("response");
 			JSONArray bios = response.getJSONArray("biographies");
-			
+
 			for (int i = 0; i < bios.length(); ++i)
 			{
 				JSONObject bioJ = bios.getJSONObject(i);
-				String text = bioJ.getString("text");
-				int tl = text.length() > 300 ? 300 : text.length();
-				if (!text.equals("")) text = text.substring(0, tl);
+
 				String site = bioJ.getString("site");
 				String url = bioJ.getString("url");
-				
-				Biography bio = new Biography.Builder()
-								.withText(text)
-								.withSite(site)
-								.withUrl(url)
-								.build();
-				
-				result.add(bio);
+
+				String text = bioJ.getString("text");
+
+				// if (!site.equals("last.fm") && !text.equals(""))
+				// {
+				if (!text.equals(""))
+				{
+					int tl = text.length() > 300 ? 300 : text.length();
+					text = text.substring(0, tl);
+				}
+
+				// }
+				if (text.length() >= 3 &&
+						!text.substring(text.length() - 3).equals("..."))
+				{
+					text += "...";
+				}
+
+				if (site.equals("wikipedia") || (site.equals("last.fm")
+						|| site.equals("itunes")) || site.equals("amazon"))
+
+				{
+
+					Biography bio = new Biography.Builder()
+							.withText(text)
+							.withSite(site)
+							.withUrl(url)
+							.build();
+
+					result.add(bio);
+				}
 			}
 		}
 		catch (JSONException e)
@@ -92,7 +113,7 @@ public class EchoNestClient
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return result;
 	}
 
