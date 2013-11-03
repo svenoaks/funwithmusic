@@ -27,7 +27,8 @@ public class ArtistMenuAdapter<T> extends ArrayAdapter<T>
 		View view = super.getView(position, convertView, parent);
 
 		TextView textView = (TextView) view.findViewById(android.R.id.text1);
-
+		textView.setTextColor(context.getResources().getColor(R.color.list_gray));
+		/*
 		switch (position)
 		{
 			case 0:
@@ -52,7 +53,7 @@ public class ArtistMenuAdapter<T> extends ArrayAdapter<T>
 				textView.setTextColor(context.getResources().getColor(R.color.info_1));
 				break;
 		}
-
+		*/
 		return view;
 	}
 

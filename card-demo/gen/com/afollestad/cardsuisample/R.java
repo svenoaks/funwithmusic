@@ -94,22 +94,23 @@ public final class R {
     }
     public static final class style {
         public static final int card_content=0x7f080008;
-        public static final int card_content_large=0x7f080011;
-        public static final int card_header_inner=0x7f08000b;
-        public static final int card_header_outer=0x7f08000a;
-        public static final int card_header_summary=0x7f08000d;
-        public static final int card_header_title=0x7f08000c;
+        public static final int card_content_flow=0x7f080009;
+        public static final int card_content_large=0x7f080012;
+        public static final int card_header_inner=0x7f08000c;
+        public static final int card_header_outer=0x7f08000b;
+        public static final int card_header_summary=0x7f08000e;
+        public static final int card_header_title=0x7f08000d;
         public static final int card_inner=0x7f080004;
-        public static final int card_inner_large=0x7f08000e;
-        public static final int card_lyrics=0x7f080009;
+        public static final int card_inner_large=0x7f08000f;
+        public static final int card_lyrics=0x7f08000a;
         public static final int card_outer=0x7f080003;
         public static final int card_popup_anchor=0x7f080001;
         public static final int card_shadow=0x7f080002;
         public static final int card_thumbnail=0x7f080005;
-        public static final int card_thumbnail_large=0x7f08000f;
+        public static final int card_thumbnail_large=0x7f080010;
         public static final int card_title=0x7f080007;
         public static final int card_title_frame=0x7f080006;
-        public static final int card_title_large=0x7f080010;
+        public static final int card_title_large=0x7f080011;
         public static final int header_button=0x7f080000;
     }
 }

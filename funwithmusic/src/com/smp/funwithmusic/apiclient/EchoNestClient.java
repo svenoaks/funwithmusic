@@ -17,6 +17,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.smp.funwithmusic.dataobjects.Biography;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.utilities.URLParamEncoder;
 
@@ -59,14 +60,45 @@ public class EchoNestClient
 		client.get(BASE_URL + ARTIST_URL + request.toString().toLowerCase(locale) + "?", params, responseHandler);
 	}
 
-	/*
-	 * public static void parseBiographies(JSONObject json) {
-	 * 
-	 * }
-	 */
+	public static List<Biography> parseBiographies(JSONObject json)
+	{
+		List<Biography> result = new ArrayList<Biography>();
+		
+		try
+		{
+			JSONObject response = json.getJSONObject("response");
+			JSONArray bios = response.getJSONArray("biographies");
+			
+			for (int i = 0; i < bios.length(); ++i)
+			{
+				JSONObject bioJ = bios.getJSONObject(i);
+				String text = bioJ.getString("text");
+				int tl = text.length() > 300 ? 300 : text.length();
+				if (!text.equals("")) text = text.substring(0, tl);
+				String site = bioJ.getString("site");
+				String url = bioJ.getString("url");
+				
+				Biography bio = new Biography.Builder()
+								.withText(text)
+								.withSite(site)
+								.withUrl(url)
+								.build();
+				
+				result.add(bio);
+			}
+		}
+		catch (JSONException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
 	public static List<String> parseImages(JSONObject json)
 	{
-		//Log.d("Images", "JSON:   " + json.toString());
+		// Log.d("Images", "JSON:   " + json.toString());
 		List<String> urls = new ArrayList<String>();
 		try
 		{

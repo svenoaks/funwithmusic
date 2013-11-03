@@ -26,7 +26,6 @@ import android.widget.RelativeLayout;
 
 public class ImagesFragment extends Fragment
 {
-
 	private String artist;
 	private GridView gridView;
 	private ArrayList<String> urls;
@@ -34,7 +33,6 @@ public class ImagesFragment extends Fragment
 
 	public ImagesFragment()
 	{
-
 		setRetainInstance(true);
 	}
 

@@ -76,9 +76,4 @@ public class ImagesAdapter extends BaseAdapter
 		//Log.d("Images", "In get view  " + urls.get(position));
 		return imageView;
 	}
-
-	private static class ViewHolder
-	{
-		ImageView image;
-	}
 }

@@ -3,30 +3,16 @@ package com.smp.funwithmusic.activities;
 import static com.smp.funwithmusic.utilities.Constants.*;
 import static com.smp.funwithmusic.utilities.UtilityMethods.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import org.json.JSONObject;
-
 import com.afollestad.cardsui.Card;
 import com.afollestad.cardsui.Card.CardMenuListener;
-import com.afollestad.cardsui.CardAdapter;
 import com.afollestad.cardsui.CardBase;
 import com.afollestad.cardsui.CardHeader;
 import com.afollestad.cardsui.CardListView;
-import com.afollestad.silk.images.SilkImageManager;
-import com.echonest.api.v4.Artist;
-import com.echonest.api.v4.EchoNestAPI;
-import com.echonest.api.v4.EchoNestException;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.smp.funwithmusic.R;
-import com.smp.funwithmusic.R.id;
-import com.smp.funwithmusic.R.layout;
 import com.smp.funwithmusic.adapters.SongCardAdapter;
-import com.smp.funwithmusic.apiclient.ItunesClient;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.dataobjects.SongCard;
 import com.smp.funwithmusic.services.IdentifyMusicService;
@@ -37,15 +23,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 

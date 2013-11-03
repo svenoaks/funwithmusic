@@ -53,32 +53,33 @@ public final class R {
 		public static final int unpressed_background = 0x7f02001a;
 	}
 	public static final class id {
-		public static final int day = 0x7f0a0043;
+		public static final int day = 0x7f0a0044;
 		public static final int inner_frame = 0x7f0a0013;
-		public static final int month = 0x7f0a0042;
+		public static final int month = 0x7f0a0043;
 		public static final int titleFrame = 0x7f0a0014;
-		public static final int year = 0x7f0a0044;
+		public static final int year = 0x7f0a0045;
 	}
 	public static final class layout {
-		public static final int fragment_list = 0x7f03000e;
-		public static final int list_item_card = 0x7f030013;
-		public static final int list_item_card_nocontent = 0x7f030014;
-		public static final int list_item_header = 0x7f030016;
-		public static final int silk_date_picker = 0x7f03001b;
-		public static final int spinner_item = 0x7f03001d;
-		public static final int spinner_item_dropdown = 0x7f03001e;
+		public static final int fragment_list = 0x7f030010;
+		public static final int list_item_card = 0x7f030016;
+		public static final int list_item_card_nocontent = 0x7f030017;
+		public static final int list_item_header = 0x7f030019;
+		public static final int silk_date_picker = 0x7f03001e;
+		public static final int spinner_item = 0x7f030020;
+		public static final int spinner_item_dropdown = 0x7f030021;
 	}
 	public static final class string {
 		public static final int see_more = 0x7f060001;
 	}
 	public static final class style {
 		public static final int card_content = 0x7f090008;
-		public static final int card_header_inner = 0x7f09000b;
-		public static final int card_header_outer = 0x7f09000a;
-		public static final int card_header_summary = 0x7f09000d;
-		public static final int card_header_title = 0x7f09000c;
+		public static final int card_content_flow = 0x7f090009;
+		public static final int card_header_inner = 0x7f09000c;
+		public static final int card_header_outer = 0x7f09000b;
+		public static final int card_header_summary = 0x7f09000e;
+		public static final int card_header_title = 0x7f09000d;
 		public static final int card_inner = 0x7f090004;
-		public static final int card_lyrics = 0x7f090009;
+		public static final int card_lyrics = 0x7f09000a;
 		public static final int card_outer = 0x7f090003;
 		public static final int card_popup_anchor = 0x7f090001;
 		public static final int card_shadow = 0x7f090002;

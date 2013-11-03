@@ -16,7 +16,7 @@
 
         </RelativeLayout>
 		
-        <com.afollestad.silk.views.text.SilkTextView android:id="@+android:id/content" style="@style/card_content"/>
+        <com.afollestad.silk.views.text.SilkTextView android:id="@+android:id/content" style="@style/card_content_flow"/>
         
 <!--         <View -->
 <!--             android:id="@+id/divider" -->
