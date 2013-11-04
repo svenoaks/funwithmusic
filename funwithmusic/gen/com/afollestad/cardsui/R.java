@@ -53,20 +53,20 @@ public final class R {
 		public static final int unpressed_background = 0x7f02001a;
 	}
 	public static final class id {
-		public static final int day = 0x7f0a0044;
-		public static final int inner_frame = 0x7f0a0013;
-		public static final int month = 0x7f0a0043;
-		public static final int titleFrame = 0x7f0a0014;
-		public static final int year = 0x7f0a0045;
+		public static final int day = 0x7f0a0045;
+		public static final int inner_frame = 0x7f0a0014;
+		public static final int month = 0x7f0a0044;
+		public static final int titleFrame = 0x7f0a0015;
+		public static final int year = 0x7f0a0046;
 	}
 	public static final class layout {
-		public static final int fragment_list = 0x7f030010;
-		public static final int list_item_card = 0x7f030016;
-		public static final int list_item_card_nocontent = 0x7f030017;
-		public static final int list_item_header = 0x7f030019;
-		public static final int silk_date_picker = 0x7f03001e;
-		public static final int spinner_item = 0x7f030020;
-		public static final int spinner_item_dropdown = 0x7f030021;
+		public static final int fragment_list = 0x7f030011;
+		public static final int list_item_card = 0x7f030017;
+		public static final int list_item_card_nocontent = 0x7f030018;
+		public static final int list_item_header = 0x7f03001a;
+		public static final int silk_date_picker = 0x7f03001f;
+		public static final int spinner_item = 0x7f030021;
+		public static final int spinner_item_dropdown = 0x7f030022;
 	}
 	public static final class string {
 		public static final int see_more = 0x7f060001;

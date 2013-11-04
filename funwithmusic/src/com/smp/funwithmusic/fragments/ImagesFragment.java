@@ -12,6 +12,7 @@ import com.smp.funwithmusic.apiclient.EchoNestClient;
 import com.smp.funwithmusic.apiclient.EchoNestClient.echoNestRequest;
 import com.smp.funwithmusic.R;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -20,6 +21,8 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -54,6 +57,17 @@ public class ImagesFragment extends Fragment
 		}
 		LinearLayout layout = (LinearLayout) (inflater.inflate(R.layout.fragment_images, null));
 		gridView = (GridView) layout.findViewById(R.id.images_view);
+		gridView.setOnItemClickListener(new OnItemClickListener()
+		{
+			@Override
+			public void onItemClick(AdapterView<?> parent, View v,
+					int position, long id)
+			{
+				Intent intent = new Intent(getActivity(), WebActivity.class);
+				intent.putExtra(WEB_URL, urls.get(position));
+				startActivity(intent);
+			}
+		});
 		if (urls == null)
 		{
 			getUrls();

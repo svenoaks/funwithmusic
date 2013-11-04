@@ -28,7 +28,19 @@ public class EchoNestClient
 
 	private final static String IDENTIFY_URL = "song/identify?";
 	private final static String ECHOPRINT_VERSION = "4.12";
-
+	
+	private final static String RAW_WIKIPEDIA = "Wikipedia";
+	private final static String CORRECT_WIKIPEDIA = "WikipediA";
+	
+	private final static String RAW_LAST_FM = "last.fm";
+	private final static String CORRECT_LAST_FM = "last.fm";
+	
+	private final static String RAW_AMAZON = "amazon";
+	private final static String CORRECT_AMAZON = "Amazon";
+	
+	private final static String RAW_ITUNES = "itunes";
+	private final static String CORRECT_ITUNES = "iTunes";
+	
 	// private final static String NON_ASCII = "[^\\p{ASCII}]";
 
 	public enum echoNestRequest
@@ -75,29 +87,15 @@ public class EchoNestClient
 
 				String site = bioJ.getString("site");
 				String url = bioJ.getString("url");
-
 				String text = bioJ.getString("text");
 
-				// if (!site.equals("last.fm") && !text.equals(""))
-				// {
-				if (!text.equals(""))
-				{
-					int tl = text.length() > 300 ? 300 : text.length();
-					text = text.substring(0, tl);
-				}
+				text = processText(text);
+				site = processSite(site);
 
-				// }
-				if (text.length() >= 3 &&
-						!text.substring(text.length() - 3).equals("..."))
-				{
-					text += "...";
-				}
-
-				if (site.equals("wikipedia") || (site.equals("last.fm")
-						|| site.equals("itunes")) || site.equals("amazon"))
+				if (site.equals(CORRECT_WIKIPEDIA) || (site.equals(CORRECT_LAST_FM)
+						|| site.equals(CORRECT_ITUNES)) || site.equals(CORRECT_AMAZON))
 
 				{
-
 					Biography bio = new Biography.Builder()
 							.withText(text)
 							.withSite(site)
@@ -116,7 +114,39 @@ public class EchoNestClient
 
 		return result;
 	}
+	private static String processSite(String site)
+	{
+		if (site.equals(RAW_WIKIPEDIA))
+			site = CORRECT_WIKIPEDIA;
+		else if (site.equals(RAW_LAST_FM))
+			site = CORRECT_LAST_FM;
+		else if (site.equals(RAW_ITUNES))
+			site = CORRECT_ITUNES;
+		else if (site.equals(RAW_AMAZON))
+			site = CORRECT_AMAZON;
+		
+		return site;
+	}
 
+	private static String processText(String text)
+	{
+		final int MAX_CHARS = 300;
+		final int LONG_ENOUGH = 3;
+		final String ELLIPSES = "...";
+		
+		if (!text.equals(""))
+		{
+			int tl = text.length() > MAX_CHARS ? MAX_CHARS : text.length();
+			text = text.substring(0, tl);
+		}
+
+		if (text.length() >= LONG_ENOUGH &&
+				!text.substring(text.length() - LONG_ENOUGH).equals( ELLIPSES))
+		{
+			text += "...";
+		}
+		return text;
+	}
 	public static List<String> parseImages(JSONObject json)
 	{
 		// Log.d("Images", "JSON:   " + json.toString());
