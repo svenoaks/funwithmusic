@@ -18,13 +18,13 @@ public final class R {
 		public static final int spinner_item_text = 0x7f070001;
 	}
 	public static final class id {
-		public static final int day = 0x7f0a0044;
-		public static final int month = 0x7f0a0043;
-		public static final int year = 0x7f0a0045;
+		public static final int day = 0x7f0a0045;
+		public static final int month = 0x7f0a0044;
+		public static final int year = 0x7f0a0046;
 	}
 	public static final class layout {
-		public static final int fragment_list = 0x7f030010;
-		public static final int silk_date_picker = 0x7f03001e;
+		public static final int fragment_list = 0x7f030011;
+		public static final int silk_date_picker = 0x7f03001f;
 		public static final int spinner_item = 0x7f030021;
 		public static final int spinner_item_dropdown = 0x7f030022;
 	}

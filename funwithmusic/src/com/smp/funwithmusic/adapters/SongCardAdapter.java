@@ -1,7 +1,7 @@
 package com.smp.funwithmusic.adapters;
 
 import java.util.Locale;
-import org.json.JSONArray;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import static com.smp.funwithmusic.utilities.Constants.*;
@@ -122,31 +122,29 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		config.setProperty("content.coverArt.sizePreference", "MEDIUM");
 		config.setProperty("content.coverArt.genreCoverArt", "1");
 
-		THUMBNAIL_SIZE_IN_PIXELS = (int) Math.ceil(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-				THUMBNAIL_SIZE_IN_DP, context.getResources().getDisplayMetrics()));
+		THUMBNAIL_SIZE_IN_PIXELS = (int) Math.ceil(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 
+				THUMBNAIL_SIZE_IN_DP, context.getResources().getDisplayMetrics()));	
 	}
 
 	@Override
 	protected boolean onProcessThumbnail(final ImageView icon, final Card card, final ViewGroup parent)
 	{
-		///test/test/test
 		final Song song = ((SongCard) card).getSong();
-		
+
 		Picasso.with(mContext).load(song.getAlbumUrl())
-				.resize(THUMBNAIL_SIZE_IN_PIXELS, THUMBNAIL_SIZE_IN_PIXELS)
+		.resize(THUMBNAIL_SIZE_IN_PIXELS, THUMBNAIL_SIZE_IN_PIXELS)
 				.placeholder(R.drawable.flow)
 				.error(R.drawable.flow)
 				.into(icon);
 
 		if (!song.hasAlbumUrl() && !song.isCantGetAlbumUrl())
 		{
-			Log.d("Lyrics", "OnProcess" + " " + song.getTitle());
+
 			ItunesClient.get(song.getAlbum(), new JsonHttpResponseHandler()
 			{
 				@Override
 				public void onSuccess(JSONObject obj)
 				{
-					Log.d("Lyrics", "OnSuccess" + " " + song.getTitle());
 					String url =
 							ItunesClient.getImageUrl(obj, song.getArtist());
 
@@ -159,30 +157,9 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 				}
 
 				@Override
-				public void onFailure(Throwable e)
-				{
-					Log.d("Lyrics", "Onfailure" + " " + song.getTitle());
-					getCoverFromGraceNote(parent, card, song);
-				}
-
-				@Override
-				public void onFailure(Throwable e, String response)
-				{
-					Log.d("Lyrics", "Onfailure" + " " + song.getTitle());
-					getCoverFromGraceNote(parent, card, song);
-				}
-
-				@Override
-				public void onFailure(Throwable e, JSONArray errorResponse)
-				{
-					Log.d("Lyrics", "Onfailure" + " " + song.getTitle());
-					getCoverFromGraceNote(parent, card, song);
-				}
-
-				@Override
 				public void onFailure(Throwable ex, JSONObject obj)
 				{
-					Log.d("Lyrics", "Onfailure" + " " + song.getTitle());
+					// Log.d("Lyrics", "Onfailure" + " " + song.getTitle());
 					getCoverFromGraceNote(parent, card, song);
 				}
 			});
@@ -198,19 +175,17 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		task.doTextSearch(song.getArtist(), song.getAlbum(), song.getTitle());
 	}
 
-	public void updateSingleView(ViewGroup parent, final Card card)
+	public void updateSingleView(ViewGroup parent, Card card)
 	{
-		final ListView list = (ListView) parent;
-	
-				int start = list.getFirstVisiblePosition();
-				for (int i = start, j = list.getLastVisiblePosition(); i <= j; i++)
-					if (card == list.getItemAtPosition(i))
-					{
-						View view = list.getChildAt(i - start);
-						list.getAdapter().getView(i, view, list);
-					}
-		
-
+		ListView list = (ListView) parent;
+		int start = list.getFirstVisiblePosition();
+		for (int i = start, j = list.getLastVisiblePosition(); i <= j; i++)
+			if (card == list.getItemAtPosition(i))
+			{
+				View view = list.getChildAt(i - start);
+				list.getAdapter().getView(i, view, list);
+				break;
+			}
 	}
 
 	@Override

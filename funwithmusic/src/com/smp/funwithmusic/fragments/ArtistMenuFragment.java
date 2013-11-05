@@ -25,7 +25,7 @@ public class ArtistMenuFragment extends ListFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		return inflater.inflate(R.layout.list_menu_artist_info, null);
+		return inflater.inflate(R.layout.list_artist_info, null);
 	}
 
 	@Override
