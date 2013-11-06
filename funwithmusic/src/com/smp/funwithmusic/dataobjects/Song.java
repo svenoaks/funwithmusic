@@ -18,7 +18,7 @@ public class Song implements Serializable
 	private String title;
 	private String artist;
 	private String album;
-	private String albumUrl;
+	private volatile String albumUrl;
 	private String shortLyrics;
 	private String fullLyricsUrl;
 	private boolean cantGetAlbumUrl;
