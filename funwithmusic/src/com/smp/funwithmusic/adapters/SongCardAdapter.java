@@ -37,6 +37,9 @@ import android.widget.TextView;
 
 import com.afollestad.cardsui.Card;
 import com.afollestad.cardsui.CardAdapter;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 
 public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 
@@ -105,25 +108,28 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 
 	private Context mContext;
 	private GNConfig config;
+	private RequestQueue queue;
 	private final int THUMBNAIL_SIZE_IN_PIXELS;
 	private final int THUMBNAIL_SIZE_IN_DP = 56;
 	{
 
 	}
 
-	public SongCardAdapter(Context context)
+	public SongCardAdapter(Context context, RequestQueue queue)
 	{
 		super(context, R.layout.card_song); // the custom card layout is passed
 											// to the super constructor instead
-											// of every individual card
+
+		this.queue = queue; // of every individual card
 		mContext = context;
 		config = GNConfig.init(API_KEY_GRACENOTE, mContext.getApplicationContext());
 		config.setProperty("content.coverArt", "1");
 		config.setProperty("content.coverArt.sizePreference", "MEDIUM");
 		config.setProperty("content.coverArt.genreCoverArt", "1");
 
-		THUMBNAIL_SIZE_IN_PIXELS = (int) Math.ceil(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 
-				THUMBNAIL_SIZE_IN_DP, context.getResources().getDisplayMetrics()));	
+		THUMBNAIL_SIZE_IN_PIXELS = (int) Math.ceil(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+				THUMBNAIL_SIZE_IN_DP, context.getResources().getDisplayMetrics()));
+		this.queue = queue;
 	}
 
 	@Override
@@ -132,7 +138,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		final Song song = ((SongCard) card).getSong();
 
 		Picasso.with(mContext).load(song.getAlbumUrl())
-		.resize(THUMBNAIL_SIZE_IN_PIXELS, THUMBNAIL_SIZE_IN_PIXELS)
+				.resize(THUMBNAIL_SIZE_IN_PIXELS, THUMBNAIL_SIZE_IN_PIXELS)
 				.placeholder(R.drawable.flow)
 				.error(R.drawable.flow)
 				.into(icon);
@@ -140,11 +146,13 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		if (!song.hasAlbumUrl() && !song.isCantGetAlbumUrl())
 		{
 
-			ItunesClient.get(song.getAlbum(), new JsonHttpResponseHandler()
+			ItunesClient.get(queue, song.getAlbum(), new Response.Listener<JSONObject>()
 			{
+
 				@Override
-				public void onSuccess(JSONObject obj)
+				public void onResponse(JSONObject obj)
 				{
+					// TODO Auto-generated method stub
 					String url =
 							ItunesClient.getImageUrl(obj, song.getArtist());
 
@@ -156,13 +164,17 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 						getCoverFromGraceNote(parent, card, song);
 				}
 
+			}, new Response.ErrorListener()
+			{
 				@Override
-				public void onFailure(Throwable ex, JSONObject obj)
+				public void onErrorResponse(VolleyError error)
 				{
 					// Log.d("Lyrics", "Onfailure" + " " + song.getTitle());
 					getCoverFromGraceNote(parent, card, song);
 				}
+
 			});
+
 			song.setCantGetAlbumUrl(true);
 		}
 
@@ -208,7 +220,6 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 	protected boolean onProcessLyrics(final TextView lyrics, final Card card, final ViewGroup parent)
 	{
 		final Song song = ((SongCard) card).getSong();
-		
 
 		if (song.hasLyrics())
 		{

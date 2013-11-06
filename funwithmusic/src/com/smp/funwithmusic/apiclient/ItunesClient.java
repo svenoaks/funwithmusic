@@ -7,6 +7,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -16,16 +21,33 @@ import static com.smp.funwithmusic.utilities.Constants.*;
 public class ItunesClient
 {
 	public static final String BASE_URL = "http://itunes.apple.com/search?";
-
-	private static AsyncHttpClient client = new AsyncHttpClient();
+	
+	//private static AsyncHttpClient client = new AsyncHttpClient();
 	static
 	{
+		//queue = Volley.newRequestQueue(this);
+		/*
 		client.setMaxRetriesAndTimeout(HTTP_RETRIES, HTTP_TIMEOUT);
+		client.setMaxConnections(100);
+		*/
 	}
 	private static Pattern pattern = Pattern.compile("\\s*[(\\[].*[)\\]]\\s*\\z");
 
-	public static void get(String album, JsonHttpResponseHandler responseHandler)
+	public static void get(RequestQueue queue, String album, 
+			Response.Listener<JSONObject> responseHandler, Response.ErrorListener errorHandler)
 	{
+		String params = "term=" + URLParamEncoder.encode(removeAlbumVariations(album))
+				.replace(ESCAPED_SPACE, ITUNES_TERMS_CONNECTOR)
+				+ "&media=music"
+				+ "&attribute=albumTerm" 
+				+ "&entity=album" 
+				+ "&limit=200";
+		
+		JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, 
+				BASE_URL + params, null, responseHandler, errorHandler);
+		
+		queue.add(jsObjRequest);
+		/*
 		RequestParams params = new RequestParams();
 
 		params.put("term", URLParamEncoder.encode(removeAlbumVariations(album))
@@ -37,6 +59,7 @@ public class ItunesClient
 		params.put("limit", "200");
 
 		client.get(BASE_URL, params, responseHandler);
+		*/
 	}
 
 	// This function will remove variations from the album name. For example,

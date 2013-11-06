@@ -52,6 +52,7 @@ public class EchoNestClient
 	static
 	{
 		client.setMaxRetriesAndTimeout(HTTP_RETRIES, HTTP_TIMEOUT);
+		client.setMaxConnections(100);
 	}
 
 	public static void getArtistInfo(String artist, echoNestRequest request, JsonHttpResponseHandler responseHandler)

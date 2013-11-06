@@ -11,6 +11,7 @@ import com.afollestad.cardsui.Card.CardMenuListener;
 import com.afollestad.cardsui.CardBase;
 import com.afollestad.cardsui.CardHeader;
 import com.afollestad.cardsui.CardListView;
+import com.android.volley.toolbox.Volley;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.adapters.SongCardAdapter;
 import com.smp.funwithmusic.dataobjects.Song;
@@ -130,7 +131,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_flow);
-		cardsAdapter = new SongCardAdapter<SongCard>(this);
+		cardsAdapter = new SongCardAdapter<SongCard>(this, Volley.newRequestQueue(this));
 		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
 		cardsAdapter.setPopupMenu(R.menu.card_popup, this); // the popup menu
 		// callback is this

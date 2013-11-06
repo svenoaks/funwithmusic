@@ -21,6 +21,7 @@ public class LyricWikiClient
 	static
 	{
 		client.setMaxRetriesAndTimeout(HTTP_RETRIES, HTTP_TIMEOUT);
+		client.setMaxConnections(100);
 	}
 
 	public static void get(String title, String artist, AsyncHttpResponseHandler responseHandler)
