@@ -28,7 +28,6 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.widget.GridView;
 import android.widget.Toast;
@@ -58,16 +57,12 @@ public class ArtistActivity extends SlidingFragmentActivity
 	private GridView gridView;
 	private float dpHeight, dpWidth;
 	DisplayMetrics outMetrics;
-	private View idDialog;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_artist);
-		
-		idDialog = findViewById(R.id.progress);
-		idDialog.setVisibility(View.VISIBLE);
 		artist = getIntent().getStringExtra(ARTIST_NAME);
 		setTitle(artist);
 
@@ -88,7 +83,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 				.replace(R.id.content_frame, mContent)
 				.commit();
 		// set the Behind View
-		setBehindContentView(R.layout.sliding_menu_content);
+		setBehindContentView(R.layout.list_menu_artist);
 		getSupportFragmentManager()
 				.beginTransaction()
 				.replace(R.id.menu_frame, new ArtistMenuFragment())

@@ -53,10 +53,10 @@ public class ImagesAdapter extends BaseAdapter
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-		CustomImageView imageView;
+		ArtistImageView imageView;
 		if (convertView == null)
 		{ // if it's not recycled, initialize some attributes
-			imageView = new CustomImageView(context);
+			imageView = new ArtistImageView(context);
 			// imageView.setLayoutParams(new GridView.LayoutParams(width,
 			// height));
 			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -64,7 +64,7 @@ public class ImagesAdapter extends BaseAdapter
 		}
 		else
 		{
-			imageView = (CustomImageView) convertView;
+			imageView = (ArtistImageView) convertView;
 		}
 
 		Picasso.with(context).load(urls.get(position))
