@@ -232,10 +232,10 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 			song.setCantGetLyrics(true);
 			lyrics.setText(LYRICS_LOADING);
 
-			LyricWikiClient.get(song.getTitle(), song.getArtist(), new AsyncHttpResponseHandler()
+			LyricWikiClient.get(queue, song.getTitle(), song.getArtist(), new Response.Listener<String>()
 			{
 				@Override
-				public void onSuccess(String text)
+				public void onResponse(String text)
 				{
 					// Log.d("Lyrics", "OnSuccess" + " " + song.getTitle());
 					text = text.replace("song = ", "");
@@ -265,16 +265,17 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 						updateSingleView(parent, card);
 					}
 				}
-
+			}, new Response.ErrorListener()
+			{
 				@Override
-				public void onFailure(Throwable ex, String message)
+				public void onErrorResponse(VolleyError error)
 				{
 					Log.d("Lyrics", "Onfailure" + " " + song.getTitle());
 					song.setLyricsLoading(false);
 					updateSingleView(parent, card);
+
 				}
 			});
-
 		}
 		else if (song.isLyricsLoading())
 		{
