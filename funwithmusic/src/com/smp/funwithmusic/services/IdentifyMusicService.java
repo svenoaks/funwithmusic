@@ -59,12 +59,12 @@ public class IdentifyMusicService extends IntentService
 
 	private void sendFinishedIntent()
 	{
-		Intent remove = new Intent(this, FlowActivity.class);
+		Intent remove = new Intent();
 		remove.setAction(ACTION_REMOVE_IDENTIFY);
-		if (artist != null & album != null && title != null)
-		{
-			remove.putExtra(EXTRA_LISTEN_SUCCESSFUL, true);
-		}
+
+		remove.putExtra(EXTRA_LISTEN_SUCCESSFUL, successful);
+
+		remove.addCategory(Intent.CATEGORY_DEFAULT);
 		LocalBroadcastManager.getInstance(this).sendBroadcast(remove);
 	}
 
@@ -77,7 +77,6 @@ public class IdentifyMusicService extends IntentService
 
 		public void GNResultReady(GNSearchResult result)
 		{
-
 			if (result.isFingerprintSearchNoMatchStatus())
 			{
 				successful = false;

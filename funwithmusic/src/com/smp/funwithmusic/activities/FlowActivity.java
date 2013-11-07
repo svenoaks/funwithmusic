@@ -174,7 +174,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		filter = new IntentFilter();
 		filter.addAction(ACTION_ADD_SONG);
 		filter.addAction(ACTION_REMOVE_IDENTIFY);
-		// filter.addCategory(Intent.CATEGORY_DEFAULT);
+		filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
 

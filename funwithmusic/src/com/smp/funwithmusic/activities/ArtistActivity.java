@@ -12,15 +12,20 @@ import com.smp.funwithmusic.apiclient.EchoNestClient;
 import com.smp.funwithmusic.apiclient.EchoNestClient.echoNestRequest;
 import com.smp.funwithmusic.dataobjects.Event;
 import com.smp.funwithmusic.dataobjects.EventInfo;
+import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.fragments.ImagesFragment;
 import com.smp.funwithmusic.fragments.ArtistMenuFragment;
+import com.smp.funwithmusic.services.IdentifyMusicService;
 
 import static com.smp.funwithmusic.utilities.Constants.*;
 import static com.smp.funwithmusic.utilities.UtilityMethods.*;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -28,8 +33,10 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -40,11 +47,27 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 
 public class ArtistActivity extends SlidingFragmentActivity
 {
+	private class UpdateActivityReceiver extends BroadcastReceiver
+	{
+		@Override
+		public void onReceive(Context context, Intent intent)
+		{
+			if (intent.getAction().equals(ACTION_REMOVE_IDENTIFY))
+			{
+				FlowActivity.viewGone(loadingDialog);
+				boolean successful = intent.getBooleanExtra(EXTRA_LISTEN_SUCCESSFUL, false);
+				if (successful) 
+					ArtistActivity.this.startActivity(new Intent(ArtistActivity.this, FlowActivity.class));
+			}
+		}
+
+	}
 
 	private String artist;
 
@@ -52,18 +75,46 @@ public class ArtistActivity extends SlidingFragmentActivity
 	{
 		return artist;
 	}
-
+	private IntentFilter filter;
+	private UpdateActivityReceiver receiver;
 	private Fragment mContent;
-	private GridView gridView;
-	private float dpHeight, dpWidth;
 	DisplayMetrics outMetrics;
+	private View loadingDialog;
+	TextView progressText;
+	
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);	
+	}
 
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		
+		LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
+
+		if (isMyServiceRunning(this, IdentifyMusicService.class))
+		{
+			FlowActivity.viewVisible(loadingDialog);
+		}
+		else
+		{
+			FlowActivity.viewGone(loadingDialog);
+		}
+	}
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_artist);
 		artist = getIntent().getStringExtra(ARTIST_NAME);
+		loadingDialog = findViewById(R.id.progress);
+		progressText = (TextView) findViewById(R.id.progress_text);
+		
+		//FlowActivity.viewVisible(loadingDialog);
 		setTitle(artist);
 
 		if (savedInstanceState != null)
@@ -80,7 +131,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 		configureSlidingMenu();
 
 		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.content_frame, mContent)
+				.replace(R.id.fragment_frame, mContent)
 				.commit();
 		// set the Behind View
 		setBehindContentView(R.layout.list_menu_artist);
@@ -95,6 +146,13 @@ public class ArtistActivity extends SlidingFragmentActivity
 		getActionBar().setIcon(
 				new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		filter = new IntentFilter();
+		filter.addAction(ACTION_ADD_SONG);
+		filter.addAction(ACTION_REMOVE_IDENTIFY);
+		filter.addCategory(Intent.CATEGORY_DEFAULT);
+
+		receiver = new UpdateActivityReceiver();
 
 	}
 
@@ -122,7 +180,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 		mContent = fragment;
 		getSupportFragmentManager()
 				.beginTransaction()
-				.replace(R.id.content_frame, fragment)
+				.replace(R.id.fragment_frame, fragment)
 				.commit();
 		getSlidingMenu().showContent();
 	}
@@ -136,10 +194,14 @@ public class ArtistActivity extends SlidingFragmentActivity
 				toggle();
 				break;
 			case R.id.clear:
-
+				FlowActivity.doDeleteFlow(this);
 				break;
 			case R.id.listen:
-
+				if (!isMyServiceRunning(this, IdentifyMusicService.class))
+				{
+					progressText.setText(getResources().getText(R.string.identify));
+					FlowActivity.doListen(this, loadingDialog);
+				}
 				break;
 			default:
 				return false;
