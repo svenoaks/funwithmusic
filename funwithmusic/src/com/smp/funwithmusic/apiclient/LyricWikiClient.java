@@ -21,41 +21,40 @@ public class LyricWikiClient
 {
 	public static final String BASE_URL = "http://lyrics.wikia.com/api.php?";
 
-	//private static AsyncHttpClient client = new AsyncHttpClient();
+	// private static AsyncHttpClient client = new AsyncHttpClient();
 
 	static
 	{
-		//client.setMaxRetriesAndTimeout(HTTP_RETRIES, HTTP_TIMEOUT);
-		//client.setMaxConnections(100);
+		// client.setMaxRetriesAndTimeout(HTTP_RETRIES, HTTP_TIMEOUT);
+		// client.setMaxConnections(100);
 	}
 
-	public static void get(RequestQueue queue, String title, String artist, 
+	public static void get(RequestQueue queue, String title, String artist,
 			Response.Listener<String> responseHandler, Response.ErrorListener errorHandler)
 	{
 		String params = "func=getSong&"
 				+ "&song=" + URLParamEncoder.encode(title)
-				.replace(ESCAPED_SPACE, LYRICS_WIKI_TERMS_CONNECTOR)
+						.replace(ESCAPED_SPACE, LYRICS_WIKI_TERMS_CONNECTOR)
 				+ "&artist=" + URLParamEncoder.encode(artist)
-				.replace(ESCAPED_SPACE, LYRICS_WIKI_TERMS_CONNECTOR)
+						.replace(ESCAPED_SPACE, LYRICS_WIKI_TERMS_CONNECTOR)
 				+ "&fmt=json";
-		
-		StringRequest stringRequest = new StringRequest(Request.Method.GET, 
+
+		StringRequest stringRequest = new StringRequest(Request.Method.GET,
 				BASE_URL + params, responseHandler, errorHandler);
-		
+
 		queue.add(stringRequest);
 		/*
-		RequestParams params = new RequestParams();
-
-		params.put("func", "getSong");
-		params.put("song", URLParamEncoder.encode(title)
-				.replace(ESCAPED_SPACE, LYRICS_WIKI_TERMS_CONNECTOR));
-		params.put("artist", URLParamEncoder.encode(artist)
-				.replace(ESCAPED_SPACE, LYRICS_WIKI_TERMS_CONNECTOR));
-		params.put("fmt", "json");
-		*/
+		 * RequestParams params = new RequestParams();
+		 * 
+		 * params.put("func", "getSong"); params.put("song",
+		 * URLParamEncoder.encode(title) .replace(ESCAPED_SPACE,
+		 * LYRICS_WIKI_TERMS_CONNECTOR)); params.put("artist",
+		 * URLParamEncoder.encode(artist) .replace(ESCAPED_SPACE,
+		 * LYRICS_WIKI_TERMS_CONNECTOR)); params.put("fmt", "json");
+		 */
 		// Log.d("Lyrics", AsyncHttpClient.getUrlWithQueryString(BASE_URL,
 		// params));
-		//client.get(BASE_URL, params, responseHandler);
+		// client.get(BASE_URL, params, responseHandler);
 	}
 
 	public static String getShortLyric(JSONObject json)

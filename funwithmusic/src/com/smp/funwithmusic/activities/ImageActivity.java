@@ -19,10 +19,10 @@ public class ImageActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_image);
-		
+
 		Intent intent = getIntent();
 		String url = intent.getStringExtra(WEB_URL);
-		
+
 		ImageView imageView = (ImageView) findViewById(R.id.image);
 		Picasso.with(this).load(url).into(imageView);
 		new PhotoViewAttacher(imageView);

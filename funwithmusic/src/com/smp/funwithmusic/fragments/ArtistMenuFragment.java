@@ -63,14 +63,13 @@ public class ArtistMenuFragment extends ListFragment
 
 				break;
 			case 4:
-				 newContent = ImagesFragment.newInstance();
+				newContent = ImagesFragment.newInstance();
 				break;
 			default:
 				color = R.color.card_gray;
 		}
 
-		
-			switchFragment(newContent);
+		switchFragment(newContent);
 	}
 
 	// the meat of switching the above fragment

@@ -29,31 +29,23 @@ public class ArtistMenuAdapter<T> extends ArrayAdapter<T>
 		TextView textView = (TextView) view.findViewById(android.R.id.text1);
 		textView.setTextColor(context.getResources().getColor(R.color.list_gray));
 		/*
-		switch (position)
-		{
-			case 0:
-				textView.setTextColor(context.getResources().getColor(R.color.info_0));
-				break;
-			case 1:
-				textView.setTextColor(context.getResources().getColor(R.color.info_1));
-				break;
-			case 2:
-				textView.setTextColor(context.getResources().getColor(R.color.info_2));
-				break;
-			case 3:
-				textView.setTextColor(context.getResources().getColor(R.color.info_3));
-				break;
-			case 4:
-				textView.setTextColor(context.getResources().getColor(R.color.info_4));
-				break;
-			case 5:
-				textView.setTextColor(context.getResources().getColor(R.color.info_0));
-				break;
-			case 6:
-				textView.setTextColor(context.getResources().getColor(R.color.info_1));
-				break;
-		}
-		*/
+		 * switch (position) { case 0:
+		 * textView.setTextColor(context.getResources
+		 * ().getColor(R.color.info_0)); break; case 1:
+		 * textView.setTextColor(context
+		 * .getResources().getColor(R.color.info_1)); break; case 2:
+		 * textView.setTextColor
+		 * (context.getResources().getColor(R.color.info_2)); break; case 3:
+		 * textView
+		 * .setTextColor(context.getResources().getColor(R.color.info_3));
+		 * break; case 4:
+		 * textView.setTextColor(context.getResources().getColor(R
+		 * .color.info_4)); break; case 5:
+		 * textView.setTextColor(context.getResources
+		 * ().getColor(R.color.info_0)); break; case 6:
+		 * textView.setTextColor(context
+		 * .getResources().getColor(R.color.info_1)); break; }
+		 */
 		return view;
 	}
 

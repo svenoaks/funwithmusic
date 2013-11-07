@@ -11,6 +11,9 @@ import com.afollestad.cardsui.CardAdapter;
 import com.afollestad.cardsui.CardBase;
 import com.afollestad.cardsui.CardHeader;
 import com.afollestad.cardsui.CardListView;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.smp.funwithmusic.activities.*;
 import com.smp.funwithmusic.adapters.BiographiesAdapter;
@@ -75,16 +78,15 @@ public class BiographiesFragment extends Fragment
 			{
 				final int CORRECT_FOR_HEADER = 1;
 				/*
-				  String bioUrl = bios.get(index -
-				  CORRECT_FOR_HEADER).getUrl(); Intent intent = new
-				  Intent(getActivity(), WebActivity.class);
-				  intent.putExtra(WEB_URL, bioUrl); startActivity(intent);
-				*/
+				 * String bioUrl = bios.get(index -
+				 * CORRECT_FOR_HEADER).getUrl(); Intent intent = new
+				 * Intent(getActivity(), WebActivity.class);
+				 * intent.putExtra(WEB_URL, bioUrl); startActivity(intent);
+				 */
 				String bioUrl = bios.get(index - CORRECT_FOR_HEADER).getUrl();
 				Uri uri = Uri.parse(bioUrl);
 				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 				startActivity(intent);
-				
 
 			}
 		});
@@ -102,19 +104,26 @@ public class BiographiesFragment extends Fragment
 
 	private void getBios()
 	{
+		EchoNestClient.getArtistInfo(Volley.newRequestQueue(getActivity()), artist,
+				echoNestRequest.BIOGRAPHIES, new Response.Listener<JSONObject>()
+				{
+					@Override
+					public void onResponse(JSONObject obj)
+					{
+						// Log.d("Images", "In Success");
+						bios = (ArrayList<Biography>) EchoNestClient.parseBiographies(obj);
 
-		EchoNestClient.getArtistInfo(artist, echoNestRequest.BIOGRAPHIES, new JsonHttpResponseHandler()
-		{
+						makeAdapter();
+					}
+				}, new Response.ErrorListener()
+				{
+					@Override
+					public void onErrorResponse(VolleyError error)
+					{
+						// TODO Auto-generated method stub
 
-			@Override
-			public void onSuccess(JSONObject obj)
-			{
-				// Log.d("Images", "In Success");
-				bios = (ArrayList<Biography>) EchoNestClient.parseBiographies(obj);
-
-				makeAdapter();
-			}
-		});
+					}
+				});
 	}
 
 	private void makeAdapter()

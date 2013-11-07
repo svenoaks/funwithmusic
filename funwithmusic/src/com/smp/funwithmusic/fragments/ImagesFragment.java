@@ -5,6 +5,9 @@ import java.util.List;
 import static com.smp.funwithmusic.utilities.Constants.*;
 import org.json.JSONObject;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.smp.funwithmusic.activities.*;
 import com.smp.funwithmusic.adapters.ImagesAdapter;
@@ -84,21 +87,29 @@ public class ImagesFragment extends Fragment
 		Display display = getActivity().getWindowManager().getDefaultDisplay();
 		final DisplayMetrics outMetrics = new DisplayMetrics();
 		display.getMetrics(outMetrics);
+		EchoNestClient.getArtistInfo(Volley.newRequestQueue(getActivity()), artist,
+				echoNestRequest.IMAGES, new Response.Listener<JSONObject>()
+				{
+					@Override
+					public void onResponse(JSONObject obj)
+					{
+						// Log.d("Images", "In Success");
+						urls = (ArrayList<String>) EchoNestClient.parseImages(obj);
 
-		EchoNestClient.getArtistInfo(artist, echoNestRequest.IMAGES, new JsonHttpResponseHandler()
-		{
+						width = outMetrics.widthPixels / gridView.getNumColumns();
+						height = (int) Math.round((width * 1.5));
+						makeAdapter();
+					}
+				}, new Response.ErrorListener()
+				{
 
-			@Override
-			public void onSuccess(JSONObject obj)
-			{
-				// Log.d("Images", "In Success");
-				urls = (ArrayList<String>) EchoNestClient.parseImages(obj);
+					@Override
+					public void onErrorResponse(VolleyError error)
+					{
+						// TODO Auto-generated method stub
 
-				width = outMetrics.widthPixels / gridView.getNumColumns();
-				height = (int) Math.round((width * 1.5));
-				makeAdapter();
-			}
-		});
+					}
+				});
 	}
 
 	private void makeAdapter()

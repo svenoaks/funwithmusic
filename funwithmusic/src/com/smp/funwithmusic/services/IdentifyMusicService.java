@@ -29,7 +29,7 @@ import android.widget.Toast;
 public class IdentifyMusicService extends IntentService
 {
 	private CountDownLatch latch;
-	
+
 	private volatile boolean successful;
 	private volatile String artist;
 	private volatile String album;

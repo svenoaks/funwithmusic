@@ -23,30 +23,30 @@ public class BiographiesAdapter extends BaseAdapter
 	{
 		this.context = context;
 		bios = objects;
-		inflater = (LayoutInflater)context.getSystemService
-			      (Context.LAYOUT_INFLATER_SERVICE);
+		inflater = (LayoutInflater) context.getSystemService
+				(Context.LAYOUT_INFLATER_SERVICE);
 	}
-	
-	 @Override
-     public View getView(int position, View convertView, ViewGroup parent)
-     {
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent)
+	{
 		if (convertView == null)
 		{
 			convertView = inflater.inflate(R.layout.list_item_biographies, parent, false);
 		}
-		
-		 TextView text1 = (TextView) convertView.findViewById(android.R.id.text1);
-         TextView text2 = (TextView) convertView.findViewById(android.R.id.text2);
-         TextView text3 = (TextView) convertView.findViewById(R.id.text3);
-         
-         Biography bio = bios.get(position);
-         
-         text1.setText(bio.getSite());
-         text2.setText(bio.getText());
-         text3.setText(bio.getUrl());
-		 
-         return convertView;
-     }
+
+		TextView text1 = (TextView) convertView.findViewById(android.R.id.text1);
+		TextView text2 = (TextView) convertView.findViewById(android.R.id.text2);
+		TextView text3 = (TextView) convertView.findViewById(R.id.text3);
+
+		Biography bio = bios.get(position);
+
+		text1.setText(bio.getSite());
+		text2.setText(bio.getText());
+		text3.setText(bio.getUrl());
+
+		return convertView;
+	}
 
 	@Override
 	public int getCount()
