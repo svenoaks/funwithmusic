@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ProgressWheel="http://schemas.android.com/apk/res/com.smp.funwithmusic"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
@@ -23,11 +24,19 @@
             android:layout_height="match_parent"
             android:text="@string/loading_flow" />
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center" />
+        <com.smp.funwithmusic.adapters.ProgressWheel
+            android:id="@+id/pw_spinner"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_gravity="center"
+            ProgressWheel:barColor="#0099cc"
+            ProgressWheel:barLength="60dp"
+            ProgressWheel:barWidth="5dp"
+            ProgressWheel:rimColor="@color/holo_orange"
+            ProgressWheel:rimWidth="2dp"
+            ProgressWheel:text=""
+            ProgressWheel:textColor="#222"
+            ProgressWheel:textSize="14sp" />
     </LinearLayout>
 
 </LinearLayout>

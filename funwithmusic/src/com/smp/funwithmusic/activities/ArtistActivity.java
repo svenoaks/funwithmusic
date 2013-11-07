@@ -1,18 +1,8 @@
 package com.smp.funwithmusic.activities;
 
-import java.util.List;
-
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.smp.funwithmusic.R;
-import com.smp.funwithmusic.R.layout;
-import com.smp.funwithmusic.adapters.ImagesAdapter;
-import com.smp.funwithmusic.apiclient.EchoNestClient;
-import com.smp.funwithmusic.apiclient.EchoNestClient.echoNestRequest;
-import com.smp.funwithmusic.dataobjects.Event;
-import com.smp.funwithmusic.dataobjects.EventInfo;
-import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.fragments.ImagesFragment;
 import com.smp.funwithmusic.fragments.ArtistMenuFragment;
 import com.smp.funwithmusic.services.IdentifyMusicService;
@@ -20,8 +10,6 @@ import com.smp.funwithmusic.services.IdentifyMusicService;
 import static com.smp.funwithmusic.utilities.Constants.*;
 import static com.smp.funwithmusic.utilities.UtilityMethods.*;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -29,27 +17,12 @@ import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-
-import org.json.JSONObject;
-
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 
 public class ArtistActivity extends SlidingFragmentActivity
 {
@@ -63,7 +36,8 @@ public class ArtistActivity extends SlidingFragmentActivity
 				FlowActivity.viewGone(loadingDialog);
 				boolean successful = intent.getBooleanExtra(EXTRA_LISTEN_SUCCESSFUL, false);
 				if (successful) 
-					ArtistActivity.this.startActivity(new Intent(ArtistActivity.this, FlowActivity.class));
+					ArtistActivity.this.startActivity(new Intent
+							(ArtistActivity.this, FlowActivity.class));
 			}
 		}
 
