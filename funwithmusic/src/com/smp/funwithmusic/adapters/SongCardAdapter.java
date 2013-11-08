@@ -138,7 +138,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		final Song song = ((SongCard) card).getSong();
 
 		Picasso.with(mContext).load(song.getAlbumUrl())
-				.resize(THUMBNAIL_SIZE_IN_PIXELS, THUMBNAIL_SIZE_IN_PIXELS)
+				.fit()
 				.placeholder(R.drawable.flow)
 				.error(R.drawable.flow)
 				.into(icon);
