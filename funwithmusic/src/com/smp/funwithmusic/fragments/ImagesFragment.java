@@ -15,7 +15,9 @@ import com.smp.funwithmusic.apiclient.EchoNestClient;
 import com.smp.funwithmusic.apiclient.EchoNestClient.echoNestRequest;
 import com.smp.funwithmusic.R;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -24,6 +26,8 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
@@ -32,6 +36,11 @@ import android.widget.RelativeLayout;
 
 public class ImagesFragment extends Fragment
 {
+	private static final String BUNDLE_WIDTH = "com.smp.funwithmusic.BUNDLE_WIDTH";
+	private static final String BUNDLE_HEIGHT = "com.smp.funwithmusic.BUNDLE_HEIGHT";
+
+	private final double HEIGHT_VS_WIDTH = 1.5;
+
 	private String artist;
 	private GridView gridView;
 	private ArrayList<String> urls;
@@ -42,12 +51,13 @@ public class ImagesFragment extends Fragment
 		setRetainInstance(true);
 	}
 
-	public static final ImagesFragment newInstance()
+	public static final ImagesFragment newInstance(SavedState state)
 	{
 		ImagesFragment fragment = new ImagesFragment();
-		Bundle bundle = new Bundle();
+		// Bundle bundle = new Bundle();
+		fragment.setInitialSavedState(state);
 		// bundle.putInt("testKey", color);
-		fragment.setArguments(bundle);
+		// fragment.setArguments(bundle);
 		return fragment;
 	}
 
@@ -57,7 +67,10 @@ public class ImagesFragment extends Fragment
 		if (savedInstanceState != null)
 		{
 			urls = savedInstanceState.getStringArrayList(BUNDLE_IMAGE_URLS);
+			width = savedInstanceState.getInt(BUNDLE_WIDTH);
+			height = savedInstanceState.getInt(BUNDLE_HEIGHT);
 		}
+
 		LinearLayout layout = (LinearLayout) (inflater.inflate(R.layout.fragment_images, null));
 		gridView = (GridView) layout.findViewById(R.id.images_view);
 		gridView.setOnItemClickListener(new OnItemClickListener()
@@ -71,22 +84,43 @@ public class ImagesFragment extends Fragment
 				startActivity(intent);
 			}
 		});
-		if (urls == null)
+		ViewTreeObserver observer = gridView.getViewTreeObserver();
+		observer.addOnGlobalLayoutListener(new OnGlobalLayoutListener()
 		{
-			getUrls();
-		}
-		else
-		{
-			makeAdapter();
-		}
+			@SuppressLint("NewApi")
+			@Override
+			public void onGlobalLayout()
+			{
+				final DisplayMetrics outMetrics = new DisplayMetrics();
+
+				Display display = getActivity().getWindowManager().getDefaultDisplay();
+				display.getMetrics(outMetrics);
+
+				width = outMetrics.widthPixels / gridView.getNumColumns();
+				height = (int) Math.round((width * HEIGHT_VS_WIDTH));
+				Log.d("MEASURE", width + " " + height);
+				ViewTreeObserver obs = gridView.getViewTreeObserver();
+
+		        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+		            obs.removeOnGlobalLayoutListener(this);
+		        } else {
+		            obs.removeGlobalOnLayoutListener(this);
+		        }
+		        if (urls == null)
+				{
+					getUrls();
+				}
+				else
+				{
+					makeAdapter();
+				}
+			}
+		});
 		return layout;
 	}
 
 	private void getUrls()
 	{
-		Display display = getActivity().getWindowManager().getDefaultDisplay();
-		final DisplayMetrics outMetrics = new DisplayMetrics();
-		display.getMetrics(outMetrics);
 		EchoNestClient.getArtistInfo(Volley.newRequestQueue(getActivity()), artist,
 				echoNestRequest.IMAGES, new Response.Listener<JSONObject>()
 				{
@@ -96,8 +130,6 @@ public class ImagesFragment extends Fragment
 						// Log.d("Images", "In Success");
 						urls = (ArrayList<String>) EchoNestClient.parseImages(obj);
 
-						width = outMetrics.widthPixels / gridView.getNumColumns();
-						height = (int) Math.round((width * 1.5));
 						makeAdapter();
 					}
 				}, new Response.ErrorListener()
@@ -132,6 +164,20 @@ public class ImagesFragment extends Fragment
 	{
 		super.onSaveInstanceState(outState);
 		outState.putStringArrayList(BUNDLE_IMAGE_URLS, urls);
+		outState.putInt(BUNDLE_WIDTH, width);
+		outState.putInt(BUNDLE_HEIGHT, height);
+	}
+
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState)
+	{
+		super.onActivityCreated(savedInstanceState);
 	}
 
 }

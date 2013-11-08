@@ -51,12 +51,13 @@ public class BiographiesFragment extends Fragment
 		setRetainInstance(true);
 	}
 
-	public static final BiographiesFragment newInstance()
+	public static final BiographiesFragment newInstance(SavedState state)
 	{
 		BiographiesFragment fragment = new BiographiesFragment();
-		Bundle bundle = new Bundle();
+		fragment.setInitialSavedState(state);
+		//Bundle bundle = new Bundle();
 		// bundle.putInt("testKey", color);
-		fragment.setArguments(bundle);
+		//fragment.setArguments(bundle);
 		return fragment;
 	}
 

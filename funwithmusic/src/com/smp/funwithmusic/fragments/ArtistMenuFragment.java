@@ -41,46 +41,10 @@ public class ArtistMenuFragment extends ListFragment
 	@Override
 	public void onListItemClick(ListView lv, View v, int position, long id)
 	{
-
-		Bundle args = new Bundle();
-		int color = 0;
-		Fragment newContent = null;
-		switch (position)
-		{
-			case 0:
-				color = R.color.card_gray;
-
-				break;
-			case 1:
-				color = R.color.card_gray;
-
-				break;
-			case 2:
-				newContent = BiographiesFragment.newInstance();
-				break;
-			case 3:
-				color = R.color.card_gray;
-
-				break;
-			case 4:
-				newContent = ImagesFragment.newInstance();
-				break;
-			default:
-				color = R.color.card_gray;
-		}
-
-		switchFragment(newContent);
-	}
-
-	// the meat of switching the above fragment
-	private void switchFragment(Fragment fragment)
-	{
 		if (getActivity() == null)
 			return;
 
 		ArtistActivity fca = (ArtistActivity) getActivity();
-		fca.switchContent(fragment);
-
+		fca.switchContent(position);	
 	}
-
 }

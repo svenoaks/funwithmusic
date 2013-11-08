@@ -13,11 +13,11 @@ import com.afollestad.cardsui.CardHeader;
 import com.afollestad.cardsui.CardListView;
 import com.android.volley.toolbox.Volley;
 import com.smp.funwithmusic.R;
-import com.smp.funwithmusic.adapters.ProgressWheel;
 import com.smp.funwithmusic.adapters.SongCardAdapter;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.dataobjects.SongCard;
 import com.smp.funwithmusic.services.IdentifyMusicService;
+import com.smp.funwithmusic.views.ProgressWheel;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -44,7 +44,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	private String lastArtist;
 	private View idDialog;
 	private View welcomeScreen;
-	//ProgressWheel pw;
+	
 
 	private class UpdateActivityReceiver extends BroadcastReceiver
 	{
@@ -144,7 +144,6 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 
 		idDialog = findViewById(R.id.progress);
 		welcomeScreen = findViewById(R.id.welcome_screen);
-		//pw = (ProgressWheel) findViewById(R.id.pw_spinner);
 
 		cardsList = (CardListView) findViewById(R.id.cardsList);
 		cardsList.setAdapter(cardsAdapter);

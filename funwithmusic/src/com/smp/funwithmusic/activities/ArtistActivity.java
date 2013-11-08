@@ -3,6 +3,7 @@ package com.smp.funwithmusic.activities;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.smp.funwithmusic.R;
+import com.smp.funwithmusic.fragments.BiographiesFragment;
 import com.smp.funwithmusic.fragments.ImagesFragment;
 import com.smp.funwithmusic.fragments.ArtistMenuFragment;
 import com.smp.funwithmusic.services.IdentifyMusicService;
@@ -22,6 +23,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.Fragment.SavedState;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
 
 public class ArtistActivity extends SlidingFragmentActivity
@@ -35,7 +38,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 			{
 				FlowActivity.viewGone(loadingDialog);
 				boolean successful = intent.getBooleanExtra(EXTRA_LISTEN_SUCCESSFUL, false);
-				if (successful) 
+				if (successful)
 					ArtistActivity.this.startActivity(new Intent
 							(ArtistActivity.this, FlowActivity.class));
 			}
@@ -49,25 +52,27 @@ public class ArtistActivity extends SlidingFragmentActivity
 	{
 		return artist;
 	}
+
 	private IntentFilter filter;
 	private UpdateActivityReceiver receiver;
 	private Fragment mContent;
 	DisplayMetrics outMetrics;
 	private View loadingDialog;
 	TextView progressText;
-	
+	Bundle savedFrags;
+
 	@Override
 	protected void onPause()
 	{
 		super.onPause();
-		LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);	
+		LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
 	}
 
 	@Override
 	protected void onResume()
 	{
 		super.onResume();
-		
+
 		LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
 
 		if (isMyServiceRunning(this, IdentifyMusicService.class))
@@ -79,6 +84,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 			FlowActivity.viewGone(loadingDialog);
 		}
 	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -87,8 +93,8 @@ public class ArtistActivity extends SlidingFragmentActivity
 		artist = getIntent().getStringExtra(ARTIST_NAME);
 		loadingDialog = findViewById(R.id.progress);
 		progressText = (TextView) findViewById(R.id.progress_text);
-		
-		//FlowActivity.viewVisible(loadingDialog);
+		progressText.setText(getResources().getText(R.string.identify));
+		// FlowActivity.viewVisible(loadingDialog);
 		setTitle(artist);
 
 		if (savedInstanceState != null)
@@ -99,7 +105,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 
 		if (mContent == null)
 		{
-			mContent = ImagesFragment.newInstance();
+			mContent = ImagesFragment.newInstance(null);
 		}
 
 		configureSlidingMenu();
@@ -120,14 +126,18 @@ public class ArtistActivity extends SlidingFragmentActivity
 		getActionBar().setIcon(
 				new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		
+
 		filter = new IntentFilter();
 		filter.addAction(ACTION_ADD_SONG);
 		filter.addAction(ACTION_REMOVE_IDENTIFY);
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
+		savedFrags = new Bundle();
+		if (savedInstanceState != null)
+		{
 
+		}
 	}
 
 	private void configureSlidingMenu()
@@ -149,12 +159,50 @@ public class ArtistActivity extends SlidingFragmentActivity
 				mContent);
 	}
 
-	public void switchContent(Fragment fragment)
+	private void saveCurrentFrag()
 	{
-		mContent = fragment;
-		getSupportFragmentManager()
+		FragmentManager mgr = getSupportFragmentManager();
+		String key = null;
+
+		if (mContent instanceof ImagesFragment)
+			key = BUNDLE_IMAGESFRAGMENT;
+		else if (mContent instanceof BiographiesFragment)
+			key = BUNDLE_BIOSFRAGMENT;
+
+		savedFrags.putParcelable(key, mgr.saveFragmentInstanceState(mContent));
+	}
+
+	public void switchContent(int position)
+	{
+		saveCurrentFrag();
+		FragmentManager mgr = getSupportFragmentManager();
+		SavedState state = null;
+
+		Fragment newContent = null;
+		switch (position)
+		{
+			case 0:
+				break;
+			case 1:
+				break;
+			case 2:
+				state = savedFrags.getParcelable(BUNDLE_BIOSFRAGMENT);
+				newContent = BiographiesFragment.newInstance(state);
+				break;
+			case 3:
+				break;
+			case 4:
+				state = savedFrags.getParcelable(BUNDLE_IMAGESFRAGMENT);
+				newContent = ImagesFragment.newInstance(state);
+				break;
+			default:
+
+		}
+
+		mContent = newContent;
+		mgr
 				.beginTransaction()
-				.replace(R.id.fragment_frame, fragment)
+				.replace(R.id.fragment_frame, mContent)
 				.commit();
 		getSlidingMenu().showContent();
 	}

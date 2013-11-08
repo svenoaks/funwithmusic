@@ -2,6 +2,9 @@ package com.smp.funwithmusic.utilities;
 
 public class Constants
 {
+	public static final String BUNDLE_IMAGESFRAGMENT = "com.smp.funwithmusic.BUNDLE_IMAGESFRAGMENT";
+	public static final String BUNDLE_BIOSFRAGMENT = "com.smp.funwithmusic.BUNDLE_BIOSFRAGMENT";
+	
 	public static final String ACTION_ADD_SONG = "com.smp.funwithmusic.SONG_ACTION";
 	public static final String ACTION_ID = "com.smp.funwithmusic.ID_ACTION";
 	public static final String ACTION_REMOVE_IDENTIFY = "com.smp.funwithmusic.ACTION_REMOVE_IDENTIFY";

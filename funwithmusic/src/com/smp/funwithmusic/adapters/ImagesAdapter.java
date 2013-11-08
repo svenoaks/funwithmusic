@@ -3,6 +3,7 @@ package com.smp.funwithmusic.adapters;
 import java.util.List;
 
 import com.smp.funwithmusic.R;
+import com.smp.funwithmusic.views.ArtistImageView;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;

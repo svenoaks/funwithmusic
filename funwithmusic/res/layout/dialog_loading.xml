@@ -8,7 +8,8 @@
     android:paddingBottom="0dp"
     android:paddingLeft="4dp"
     android:paddingRight="0dp"
-    android:paddingTop="3dp" >
+    android:paddingTop="3dp"
+    android:orientation="vertical" >
 
     <LinearLayout
         style="@style/card_inner"
@@ -22,16 +23,19 @@
             style="@style/card_content"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="4dp"
             android:text="@string/loading_flow" />
 
-        <com.smp.funwithmusic.adapters.ProgressWheel
+        <com.smp.funwithmusic.views.ProgressWheel
             android:id="@+id/pw_spinner"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:layout_gravity="center"
-            ProgressWheel:barColor="#0099cc"
+            ProgressWheel:barColor="#99cc00"
             ProgressWheel:barLength="60dp"
-            ProgressWheel:barWidth="5dp"
+            ProgressWheel:barWidth="4dp"
             ProgressWheel:rimColor="@color/holo_orange"
             ProgressWheel:rimWidth="2dp"
             ProgressWheel:text=""
@@ -40,3 +44,4 @@
     </LinearLayout>
 
 </LinearLayout>
+
