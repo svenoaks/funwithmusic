@@ -17,9 +17,33 @@ import android.widget.TextView;
 
 public class ArtistMenuFragment extends ListFragment
 {
-	private enum info
+	public enum ArtistInfo
 	{
-		Events, News, Biographies, Blogs, Images, Videos, More;
+		EVENTS, NEWS, REVIEWS, BIOGRAPHIES, IMAGES, VIDEOS, MORE;
+		
+		@Override
+		public String toString()
+		{
+			switch (this)
+			{
+				case EVENTS:
+					return "Events";
+				case NEWS:
+					return "News";
+				case REVIEWS:
+					return "Reviews";
+				case BIOGRAPHIES:
+					return "Biographies";
+				case IMAGES:
+					return "Images";
+				case VIDEOS:
+					return "Videos";
+				case MORE:
+					return "More";
+				default:
+					return "";
+			}
+		}
 	}
 
 	@Override
@@ -33,8 +57,8 @@ public class ArtistMenuFragment extends ListFragment
 	{
 		super.onActivityCreated(savedInstanceState);
 
-		ArrayAdapter<info> adapter = new ArtistMenuAdapter<info>(
-				getActivity(), R.layout.list_item_artist_info, info.values());
+		ArrayAdapter<ArtistInfo> adapter = new ArtistMenuAdapter<ArtistInfo>(
+				getActivity(), R.layout.list_item_artist_info, ArtistInfo.values());
 		setListAdapter(adapter);
 	}
 
@@ -45,6 +69,6 @@ public class ArtistMenuFragment extends ListFragment
 			return;
 
 		ArtistActivity fca = (ArtistActivity) getActivity();
-		fca.switchContent(position);	
+		fca.switchContent(ArtistInfo.values()[position]);	
 	}
 }

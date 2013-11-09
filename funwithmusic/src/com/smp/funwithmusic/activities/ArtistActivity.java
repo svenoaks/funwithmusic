@@ -3,6 +3,7 @@ package com.smp.funwithmusic.activities;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.smp.funwithmusic.R;
+import com.smp.funwithmusic.fragments.ArtistMenuFragment.ArtistInfo;
 import com.smp.funwithmusic.fragments.BiographiesFragment;
 import com.smp.funwithmusic.fragments.ImagesFragment;
 import com.smp.funwithmusic.fragments.ArtistMenuFragment;
@@ -88,6 +89,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_artist);
 		artist = getIntent().getStringExtra(ARTIST_NAME);
@@ -172,28 +174,32 @@ public class ArtistActivity extends SlidingFragmentActivity
 		savedFrags.putParcelable(key, mgr.saveFragmentInstanceState(mContent));
 	}
 
-	public void switchContent(int position)
+	public void switchContent(ArtistInfo info)
 	{
 		saveCurrentFrag();
 		FragmentManager mgr = getSupportFragmentManager();
 		SavedState state = null;
 
 		Fragment newContent = null;
-		switch (position)
+		switch (info)
 		{
-			case 0:
+			case EVENTS:
 				break;
-			case 1:
+			case NEWS:
 				break;
-			case 2:
+			case REVIEWS:
+				break;
+			case BIOGRAPHIES:
 				state = savedFrags.getParcelable(BUNDLE_BIOSFRAGMENT);
 				newContent = BiographiesFragment.newInstance(state);
 				break;
-			case 3:
-				break;
-			case 4:
+			case IMAGES:
 				state = savedFrags.getParcelable(BUNDLE_IMAGESFRAGMENT);
 				newContent = ImagesFragment.newInstance(state);
+				break;
+			case VIDEOS:
+				break;
+			case MORE:
 				break;
 			default:
 

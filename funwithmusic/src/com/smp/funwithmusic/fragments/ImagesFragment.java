@@ -36,9 +36,7 @@ import android.widget.RelativeLayout;
 
 public class ImagesFragment extends Fragment
 {
-	private static final String BUNDLE_WIDTH = "com.smp.funwithmusic.BUNDLE_WIDTH";
-	private static final String BUNDLE_HEIGHT = "com.smp.funwithmusic.BUNDLE_HEIGHT";
-
+	
 	private final double HEIGHT_VS_WIDTH = 1.5;
 
 	private String artist;
@@ -54,10 +52,7 @@ public class ImagesFragment extends Fragment
 	public static final ImagesFragment newInstance(SavedState state)
 	{
 		ImagesFragment fragment = new ImagesFragment();
-		// Bundle bundle = new Bundle();
 		fragment.setInitialSavedState(state);
-		// bundle.putInt("testKey", color);
-		// fragment.setArguments(bundle);
 		return fragment;
 	}
 
@@ -66,9 +61,7 @@ public class ImagesFragment extends Fragment
 	{
 		if (savedInstanceState != null)
 		{
-			urls = savedInstanceState.getStringArrayList(BUNDLE_IMAGE_URLS);
-			width = savedInstanceState.getInt(BUNDLE_WIDTH);
-			height = savedInstanceState.getInt(BUNDLE_HEIGHT);
+			urls = savedInstanceState.getStringArrayList(BUNDLE_IMAGE_URLS);	
 		}
 
 		LinearLayout layout = (LinearLayout) (inflater.inflate(R.layout.fragment_images, null));
@@ -84,27 +77,18 @@ public class ImagesFragment extends Fragment
 				startActivity(intent);
 			}
 		});
-		ViewTreeObserver observer = gridView.getViewTreeObserver();
+		final ViewTreeObserver observer = gridView.getViewTreeObserver();
 		observer.addOnGlobalLayoutListener(new OnGlobalLayoutListener()
 		{
 			@SuppressLint("NewApi")
 			@Override
 			public void onGlobalLayout()
 			{
-				final DisplayMetrics outMetrics = new DisplayMetrics();
-
-				Display display = getActivity().getWindowManager().getDefaultDisplay();
-				display.getMetrics(outMetrics);
-
-				width = outMetrics.widthPixels / gridView.getNumColumns();
-				height = (int) Math.round((width * HEIGHT_VS_WIDTH));
-				Log.d("MEASURE", width + " " + height);
-				ViewTreeObserver obs = gridView.getViewTreeObserver();
-
+				final ViewTreeObserver observer = gridView.getViewTreeObserver();
 		        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-		            obs.removeOnGlobalLayoutListener(this);
+		            observer.removeOnGlobalLayoutListener(this);
 		        } else {
-		            obs.removeGlobalOnLayoutListener(this);
+		            observer.removeGlobalOnLayoutListener(this);
 		        }
 		        if (urls == null)
 				{
@@ -146,7 +130,7 @@ public class ImagesFragment extends Fragment
 
 	private void makeAdapter()
 	{
-		ImagesAdapter adapter = new ImagesAdapter(getActivity(), urls, width, height);
+		ImagesAdapter adapter = new ImagesAdapter(getActivity(), urls);
 		gridView.setAdapter(adapter);
 	}
 
@@ -164,8 +148,6 @@ public class ImagesFragment extends Fragment
 	{
 		super.onSaveInstanceState(outState);
 		outState.putStringArrayList(BUNDLE_IMAGE_URLS, urls);
-		outState.putInt(BUNDLE_WIDTH, width);
-		outState.putInt(BUNDLE_HEIGHT, height);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.smp.funwithmusic.adapters;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.smp.funwithmusic.R;
@@ -20,14 +21,11 @@ public class ImagesAdapter extends BaseAdapter
 {
 	private Context context;
 	private List<String> urls;
-	private int width, height;
-
-	public ImagesAdapter(Context context, List<String> urls, int width, int height)
+	
+	public ImagesAdapter(Context context, List<String> urls)
 	{
 		this.context = context;
 		this.urls = urls;
-		this.width = width;
-		this.height = height;
 	}
 
 	@Override
@@ -36,7 +34,7 @@ public class ImagesAdapter extends BaseAdapter
 		// TODO Auto-generated method stub
 		return urls.size();
 	}
-
+	 
 	@Override
 	public Object getItem(int arg0)
 	{
@@ -56,12 +54,8 @@ public class ImagesAdapter extends BaseAdapter
 	{
 		ArtistImageView imageView;
 		if (convertView == null)
-		{ // if it's not recycled, initialize some attributes
-			imageView = new ArtistImageView(context);
-			// imageView.setLayoutParams(new GridView.LayoutParams(width,
-			// height));
-			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-			imageView.setPadding(0, 0, 0, 0);
+		{ 
+			imageView = new ArtistImageView(context);	
 		}
 		else
 		{
@@ -69,10 +63,10 @@ public class ImagesAdapter extends BaseAdapter
 		}
 
 		Picasso.with(context).load(urls.get(position))
-				.fit()
 				.centerCrop()
 				.placeholder(R.drawable.placeholder)
 				.error(R.drawable.placeholder)
+				.fit()
 				.into(imageView);
 		// Log.d("Images", "In get view  " + urls.get(position));
 		return imageView;
