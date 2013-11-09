@@ -135,7 +135,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_flow);
 		queue = Volley.newRequestQueue(this);
-		cardsAdapter = new SongCardAdapter<SongCard>(getApplicationContext(), queue, TAG_VOLLEY);
+		cardsAdapter = new SongCardAdapter<SongCard>(this, queue, TAG_VOLLEY);
 		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
 		cardsAdapter.setPopupMenu(R.menu.card_popup, this); // the popup menu
 		// callback is this
