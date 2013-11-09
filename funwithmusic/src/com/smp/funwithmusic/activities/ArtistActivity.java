@@ -184,11 +184,11 @@ public class ArtistActivity extends SlidingFragmentActivity
 		switch (info)
 		{
 			case EVENTS:
-				break;
+				return;
 			case NEWS:
-				break;
+				return;
 			case REVIEWS:
-				break;
+				return;
 			case BIOGRAPHIES:
 				state = savedFrags.getParcelable(BUNDLE_BIOSFRAGMENT);
 				newContent = BiographiesFragment.newInstance(state);
@@ -198,10 +198,11 @@ public class ArtistActivity extends SlidingFragmentActivity
 				newContent = ImagesFragment.newInstance(state);
 				break;
 			case VIDEOS:
-				break;
+				return;
 			case MORE:
-				break;
+				return;
 			default:
+				return;
 
 		}
 

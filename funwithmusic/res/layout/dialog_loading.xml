@@ -6,38 +6,38 @@
     android:layout_gravity="center"
     android:orientation="vertical" >
 
-<!--     <ImageView android:src="@drawable/card_shadow_reverse" -->
-<!--         android:layout_width="match_parent" -->
-<!--         android:layout_height="@dimen/card_shadow" /> -->
+    <!-- <ImageView android:src="@drawable/card_shadow_reverse" -->
+    <!-- android:layout_width="match_parent" -->
+    <!-- android:layout_height="@dimen/card_shadow" /> -->
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_background"
         android:gravity="center"
+        android:orientation="vertical"
         android:padding="12dp" >
-
-        <com.smp.funwithmusic.views.ProgressWheel
-            android:id="@+id/pw_spinner"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            ProgressWheel:barColor="#0097D6"
-            ProgressWheel:barLength="60dp"
-            ProgressWheel:barWidth="5dp"
-            ProgressWheel:rimColor="#330097D6"
-            ProgressWheel:rimWidth="2dp"
-            ProgressWheel:textColor="#222"
-            ProgressWheel:textSize="14sp" />
 
         <com.afollestad.silk.views.text.SilkTextView
             android:id="@+id/progress_text"
             style="@style/card_content"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/loading_flow"
+            android:layout_marginBottom="7dp" />
+
+        <com.smp.funwithmusic.views.ProgressWheel
+            android:id="@+id/pw_spinner"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
             android:layout_gravity="center"
-            android:text="@string/loading_flow" />
-    </FrameLayout>
+            ProgressWheel:barColor="#0097D6"
+            ProgressWheel:barLength="60dp"
+            ProgressWheel:barWidth="3dp"
+            ProgressWheel:rimColor="#330097D6"
+            ProgressWheel:rimWidth="2dp"
+            />
+    </LinearLayout>
 
     <ImageView style="@style/card_shadow" />
 

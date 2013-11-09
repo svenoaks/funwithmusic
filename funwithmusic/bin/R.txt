@@ -167,8 +167,8 @@ int id metadataListing 0x7f0a003a
 int id month 0x7f0a0045
 int id myMapView1 0x7f0a002b
 int id progress 0x7f0a0007
-int id progress_text 0x7f0a001d
-int id pw_spinner 0x7f0a001c
+int id progress_text 0x7f0a001c
+int id pw_spinner 0x7f0a001d
 int id resultsScroller 0x7f0a0012
 int id reviewBtn 0x7f0a0023
 int id right 0x7f0a0001

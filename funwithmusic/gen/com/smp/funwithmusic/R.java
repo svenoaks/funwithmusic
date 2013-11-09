@@ -393,8 +393,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int month=0x7f0a0045;
         public static final int myMapView1=0x7f0a002b;
         public static final int progress=0x7f0a0007;
-        public static final int progress_text=0x7f0a001d;
-        public static final int pw_spinner=0x7f0a001c;
+        public static final int progress_text=0x7f0a001c;
+        public static final int pw_spinner=0x7f0a001d;
         public static final int resultsScroller=0x7f0a0012;
         public static final int reviewBtn=0x7f0a0023;
         public static final int right=0x7f0a0001;
