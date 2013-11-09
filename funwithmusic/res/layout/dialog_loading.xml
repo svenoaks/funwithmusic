@@ -4,19 +4,31 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/dialog_shadow"
-    android:paddingBottom="0dp"
-    android:paddingLeft="4dp"
-    android:paddingRight="0dp"
-    android:paddingTop="3dp"
     android:orientation="vertical" >
 
-    <LinearLayout
-        style="@style/card_inner"
+<!--     <ImageView android:src="@drawable/card_shadow_reverse" -->
+<!--         android:layout_width="match_parent" -->
+<!--         android:layout_height="@dimen/card_shadow" /> -->
+
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/light_blue"
-        android:orientation="vertical" >
+        android:background="@drawable/dialog_background"
+        android:gravity="center"
+        android:padding="12dp" >
+
+        <com.smp.funwithmusic.views.ProgressWheel
+            android:id="@+id/pw_spinner"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            ProgressWheel:barColor="#0097D6"
+            ProgressWheel:barLength="60dp"
+            ProgressWheel:barWidth="5dp"
+            ProgressWheel:rimColor="#330097D6"
+            ProgressWheel:rimWidth="2dp"
+            ProgressWheel:textColor="#222"
+            ProgressWheel:textSize="14sp" />
 
         <com.afollestad.silk.views.text.SilkTextView
             android:id="@+id/progress_text"
@@ -24,24 +36,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginBottom="6dp"
-            android:layout_marginRight="4dp"
             android:text="@string/loading_flow" />
+    </FrameLayout>
 
-        <com.smp.funwithmusic.views.ProgressWheel
-            android:id="@+id/pw_spinner"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center"
-            ProgressWheel:barColor="#99cc00"
-            ProgressWheel:barLength="60dp"
-            ProgressWheel:barWidth="4dp"
-            ProgressWheel:rimColor="@color/holo_orange"
-            ProgressWheel:rimWidth="2dp"
-            ProgressWheel:text=""
-            ProgressWheel:textColor="#222"
-            ProgressWheel:textSize="14sp" />
-    </LinearLayout>
+    <ImageView style="@style/card_shadow" />
 
 </LinearLayout>
-

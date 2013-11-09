@@ -55,9 +55,9 @@ public class BiographiesFragment extends Fragment
 	{
 		BiographiesFragment fragment = new BiographiesFragment();
 		fragment.setInitialSavedState(state);
-		//Bundle bundle = new Bundle();
+		// Bundle bundle = new Bundle();
 		// bundle.putInt("testKey", color);
-		//fragment.setArguments(bundle);
+		// fragment.setArguments(bundle);
 		return fragment;
 	}
 

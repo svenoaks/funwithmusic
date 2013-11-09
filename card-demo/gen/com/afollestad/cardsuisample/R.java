@@ -53,14 +53,15 @@ public final class R {
         public static final int card_menu_button=0x7f020002;
         public static final int card_selector=0x7f020003;
         public static final int card_shadow=0x7f020004;
-        public static final int ic_launcher=0x7f020005;
-        public static final int ic_menu_moreoverflow_card_dark_normal=0x7f020006;
-        public static final int ic_menu_moreoverflow_card_dark_pressed=0x7f020007;
-        public static final int ios=0x7f020008;
-        public static final int list_focused=0x7f020009;
-        public static final int pressed_background=0x7f02000a;
-        public static final int unpressed_background=0x7f02000b;
-        public static final int wp=0x7f02000c;
+        public static final int card_shadow_reverse=0x7f020005;
+        public static final int ic_launcher=0x7f020006;
+        public static final int ic_menu_moreoverflow_card_dark_normal=0x7f020007;
+        public static final int ic_menu_moreoverflow_card_dark_pressed=0x7f020008;
+        public static final int ios=0x7f020009;
+        public static final int list_focused=0x7f02000a;
+        public static final int pressed_background=0x7f02000b;
+        public static final int unpressed_background=0x7f02000c;
+        public static final int wp=0x7f02000d;
     }
     public static final class id {
         public static final int cardsList=0x7f0a0000;

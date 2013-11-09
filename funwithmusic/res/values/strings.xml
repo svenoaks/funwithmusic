@@ -14,7 +14,7 @@
     <string name="artist_info">Get Artist Info</string>
     <string name="loading_flow">Loading Flow&#8230;</string>
     <string name="artist">Artist</string>
-    <string name="identify">Identifying the music around you&#8230;</string>
+    <string name="identify">Listening&#8230;</string>
     <string name="welcome_title">Welcome!</string>
     <string name="welcome_content">To get started, simply begin listening to music in your normal music player and songs will begin to be added to the flow. You can also add songs to the flow by tapping the microphone icon at the top of screen, which will identify the music being played around you.\n\nSee the help documentation for information regarding configuring certain music players to work with Music Flow, and tips on successfully identifying music through the microphone.</string>
 

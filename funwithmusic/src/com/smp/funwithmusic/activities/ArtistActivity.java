@@ -89,7 +89,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_artist);
 		artist = getIntent().getStringExtra(ARTIST_NAME);

@@ -44,7 +44,6 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	private String lastArtist;
 	private View idDialog;
 	private View welcomeScreen;
-	
 
 	private class UpdateActivityReceiver extends BroadcastReceiver
 	{
@@ -268,7 +267,8 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 			public void run()
 			{
 				ProgressWheel pw = (ProgressWheel) view.findViewById(R.id.pw_spinner);
-				if (pw != null) pw.spin();
+				if (pw != null)
+					pw.spin();
 				view.setVisibility(View.VISIBLE);
 			}
 		});
@@ -282,7 +282,8 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 			public void run()
 			{
 				ProgressWheel pw = (ProgressWheel) view.findViewById(R.id.pw_spinner);
-				if (pw != null) pw.stopSpinning();
+				if (pw != null)
+					pw.stopSpinning();
 				view.setVisibility(View.GONE);
 			}
 		});

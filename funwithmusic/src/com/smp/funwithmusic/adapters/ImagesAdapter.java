@@ -21,7 +21,7 @@ public class ImagesAdapter extends BaseAdapter
 {
 	private Context context;
 	private List<String> urls;
-	
+
 	public ImagesAdapter(Context context, List<String> urls)
 	{
 		this.context = context;
@@ -34,7 +34,7 @@ public class ImagesAdapter extends BaseAdapter
 		// TODO Auto-generated method stub
 		return urls.size();
 	}
-	 
+
 	@Override
 	public Object getItem(int arg0)
 	{
@@ -54,8 +54,8 @@ public class ImagesAdapter extends BaseAdapter
 	{
 		ArtistImageView imageView;
 		if (convertView == null)
-		{ 
-			imageView = new ArtistImageView(context);	
+		{
+			imageView = new ArtistImageView(context);
 		}
 		else
 		{

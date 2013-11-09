@@ -36,13 +36,9 @@ import android.widget.RelativeLayout;
 
 public class ImagesFragment extends Fragment
 {
-	
-	private final double HEIGHT_VS_WIDTH = 1.5;
-
 	private String artist;
 	private GridView gridView;
 	private ArrayList<String> urls;
-	private int width, height;
 
 	public ImagesFragment()
 	{
@@ -61,7 +57,7 @@ public class ImagesFragment extends Fragment
 	{
 		if (savedInstanceState != null)
 		{
-			urls = savedInstanceState.getStringArrayList(BUNDLE_IMAGE_URLS);	
+			urls = savedInstanceState.getStringArrayList(BUNDLE_IMAGE_URLS);
 		}
 
 		LinearLayout layout = (LinearLayout) (inflater.inflate(R.layout.fragment_images, null));
@@ -80,17 +76,21 @@ public class ImagesFragment extends Fragment
 		final ViewTreeObserver observer = gridView.getViewTreeObserver();
 		observer.addOnGlobalLayoutListener(new OnGlobalLayoutListener()
 		{
+			@SuppressWarnings("deprecation")
 			@SuppressLint("NewApi")
 			@Override
 			public void onGlobalLayout()
 			{
 				final ViewTreeObserver observer = gridView.getViewTreeObserver();
-		        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-		            observer.removeOnGlobalLayoutListener(this);
-		        } else {
-		            observer.removeGlobalOnLayoutListener(this);
-		        }
-		        if (urls == null)
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+				{
+					observer.removeOnGlobalLayoutListener(this);
+				}
+				else
+				{
+					observer.removeGlobalOnLayoutListener(this);
+				}
+				if (urls == null || urls.size() == 0)
 				{
 					getUrls();
 				}
@@ -122,7 +122,6 @@ public class ImagesFragment extends Fragment
 					@Override
 					public void onErrorResponse(VolleyError error)
 					{
-						// TODO Auto-generated method stub
 
 					}
 				});

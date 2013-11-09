@@ -20,7 +20,7 @@ public class ArtistMenuFragment extends ListFragment
 	public enum ArtistInfo
 	{
 		EVENTS, NEWS, REVIEWS, BIOGRAPHIES, IMAGES, VIDEOS, MORE;
-		
+
 		@Override
 		public String toString()
 		{
@@ -69,6 +69,6 @@ public class ArtistMenuFragment extends ListFragment
 			return;
 
 		ArtistActivity fca = (ArtistActivity) getActivity();
-		fca.switchContent(ArtistInfo.values()[position]);	
+		fca.switchContent(ArtistInfo.values()[position]);
 	}
 }
