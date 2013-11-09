@@ -228,7 +228,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 				if (!isMyServiceRunning(this, IdentifyMusicService.class))
 				{
 					progressText.setText(getResources().getText(R.string.identify));
-					FlowActivity.doListen(this, loadingDialog);
+					FlowActivity.doListen(getApplicationContext(), loadingDialog);
 				}
 				break;
 			default:

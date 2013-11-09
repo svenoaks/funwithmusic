@@ -11,6 +11,7 @@ import com.afollestad.cardsui.CardAdapter;
 import com.afollestad.cardsui.CardBase;
 import com.afollestad.cardsui.CardHeader;
 import com.afollestad.cardsui.CardListView;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
@@ -45,6 +46,7 @@ public class BiographiesFragment extends Fragment
 	private String artist;
 	private CardListView listView;
 	private ArrayList<Biography> bios;
+	RequestQueue queue;
 
 	public BiographiesFragment()
 	{
@@ -55,9 +57,6 @@ public class BiographiesFragment extends Fragment
 	{
 		BiographiesFragment fragment = new BiographiesFragment();
 		fragment.setInitialSavedState(state);
-		// Bundle bundle = new Bundle();
-		// bundle.putInt("testKey", color);
-		// fragment.setArguments(bundle);
 		return fragment;
 	}
 
@@ -105,7 +104,7 @@ public class BiographiesFragment extends Fragment
 
 	private void getBios()
 	{
-		EchoNestClient.getArtistInfo(Volley.newRequestQueue(getActivity()), artist,
+		EchoNestClient.getArtistInfo(queue, TAG_VOLLEY, artist,
 				echoNestRequest.BIOGRAPHIES, new Response.Listener<JSONObject>()
 				{
 					@Override
@@ -144,9 +143,8 @@ public class BiographiesFragment extends Fragment
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
+		queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 		artist = ((ArtistActivity) getActivity()).getArtist();
-
 	}
 
 	@Override
@@ -154,6 +152,13 @@ public class BiographiesFragment extends Fragment
 	{
 		super.onSaveInstanceState(outState);
 		outState.putParcelableArrayList(BUNDLE_BIOGRAPHIES, bios);
+	}
+
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+		queue.cancelAll(TAG_VOLLEY);
 	}
 
 }

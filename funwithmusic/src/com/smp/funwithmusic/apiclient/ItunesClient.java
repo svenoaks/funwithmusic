@@ -22,18 +22,9 @@ public class ItunesClient
 {
 	public static final String BASE_URL = "http://itunes.apple.com/search?";
 
-	// private static AsyncHttpClient client = new AsyncHttpClient();
-	static
-	{
-		// queue = Volley.newRequestQueue(this);
-		/*
-		 * client.setMaxRetriesAndTimeout(HTTP_RETRIES, HTTP_TIMEOUT);
-		 * client.setMaxConnections(100);
-		 */
-	}
 	private static Pattern pattern = Pattern.compile("\\s*[(\\[].*[)\\]]\\s*\\z");
 
-	public static void get(RequestQueue queue, String album,
+	public static void get(RequestQueue queue, Object tag, String album,
 			Response.Listener<JSONObject> responseHandler, Response.ErrorListener errorHandler)
 	{
 		String params = "term=" + URLParamEncoder.encode(removeAlbumVariations(album))
@@ -45,20 +36,9 @@ public class ItunesClient
 
 		JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET,
 				BASE_URL + params, null, responseHandler, errorHandler);
-
+		
+		jsObjRequest.setTag(tag);
 		queue.add(jsObjRequest);
-		/*
-		 * RequestParams params = new RequestParams();
-		 * 
-		 * params.put("term",
-		 * URLParamEncoder.encode(removeAlbumVariations(album))
-		 * .replace(ESCAPED_SPACE, ITUNES_TERMS_CONNECTOR).replace(".", ""));
-		 * 
-		 * params.put("media", "music"); params.put("attribute", "albumTerm");
-		 * params.put("entity", "album"); params.put("limit", "200");
-		 * 
-		 * client.get(BASE_URL, params, responseHandler);
-		 */
 	}
 
 	// This function will remove variations from the album name. For example,

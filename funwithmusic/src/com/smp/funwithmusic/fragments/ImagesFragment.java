@@ -1,14 +1,13 @@
 package com.smp.funwithmusic.fragments;
 
 import java.util.ArrayList;
-import java.util.List;
 import static com.smp.funwithmusic.utilities.Constants.*;
 import org.json.JSONObject;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.smp.funwithmusic.activities.*;
 import com.smp.funwithmusic.adapters.ImagesAdapter;
 import com.smp.funwithmusic.apiclient.EchoNestClient;
@@ -20,9 +19,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,13 +28,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 public class ImagesFragment extends Fragment
 {
 	private String artist;
 	private GridView gridView;
 	private ArrayList<String> urls;
+	RequestQueue queue;
 
 	public ImagesFragment()
 	{
@@ -105,7 +101,7 @@ public class ImagesFragment extends Fragment
 
 	private void getUrls()
 	{
-		EchoNestClient.getArtistInfo(Volley.newRequestQueue(getActivity()), artist,
+		EchoNestClient.getArtistInfo(queue, TAG_VOLLEY, artist,
 				echoNestRequest.IMAGES, new Response.Listener<JSONObject>()
 				{
 					@Override
@@ -137,9 +133,8 @@ public class ImagesFragment extends Fragment
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
+		queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 		artist = ((ArtistActivity) getActivity()).getArtist();
-
 	}
 
 	@Override
@@ -159,6 +154,13 @@ public class ImagesFragment extends Fragment
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
+	}
+
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+		queue.cancelAll(TAG_VOLLEY);
 	}
 
 }

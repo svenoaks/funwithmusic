@@ -49,6 +49,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		ViewGroup parent;
 		Card card;
 		Song song;
+		String tag;
 
 		TextSearchIntoCard(ViewGroup parent, Card card, Song song)
 		{
@@ -67,7 +68,6 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		{
 			if (!result.isTextSearchNoMatchStatus())
 			{
-				// Log.d("Lyrics", "ResultREAdy" + " " + song.getTitle());
 				GNSearchResponse response = result.getBestResponse();
 				if (response != null)
 				{
@@ -88,11 +88,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 									if (art != null)
 									{
 										imageUrl = art.getUrl();
-										// Log.d("Lyrics", "art not null");
 									}
-									// Log.d("Lyrics", "TEST" + imageUrl + " " +
-									// response.getAlbumArtist() + " " +
-									// response.getAlbumTitle());
 									song.setAlbumUrl(imageUrl);
 									updateSingleView(parent, card);
 								}
@@ -109,26 +105,17 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 	private Context mContext;
 	private GNConfig config;
 	private RequestQueue queue;
-	private final int THUMBNAIL_SIZE_IN_PIXELS;
-	private final int THUMBNAIL_SIZE_IN_DP = 56;
+	private String tag;
+
+	public SongCardAdapter(Context context, RequestQueue queue, String tag)
 	{
+		super(context, R.layout.card_song);
 
-	}
-
-	public SongCardAdapter(Context context, RequestQueue queue)
-	{
-		super(context, R.layout.card_song); // the custom card layout is passed
-											// to the super constructor instead
-
-		this.queue = queue; // of every individual card
 		mContext = context;
 		config = GNConfig.init(API_KEY_GRACENOTE, mContext.getApplicationContext());
 		config.setProperty("content.coverArt", "1");
 		config.setProperty("content.coverArt.sizePreference", "MEDIUM");
-		config.setProperty("content.coverArt.genreCoverArt", "1");
-
-		THUMBNAIL_SIZE_IN_PIXELS = (int) Math.ceil(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-				THUMBNAIL_SIZE_IN_DP, context.getResources().getDisplayMetrics()));
+		this.tag = tag;
 		this.queue = queue;
 	}
 
@@ -138,15 +125,16 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		final Song song = ((SongCard) card).getSong();
 
 		Picasso.with(mContext).load(song.getAlbumUrl())
-				.fit()
+				.skipMemoryCache()
 				.placeholder(R.drawable.flow)
 				.error(R.drawable.flow)
+				.fit()
 				.into(icon);
 
 		if (!song.hasAlbumUrl() && !song.isCantGetAlbumUrl())
 		{
 
-			ItunesClient.get(queue, song.getAlbum(), new Response.Listener<JSONObject>()
+			ItunesClient.get(queue, this, song.getAlbum(), new Response.Listener<JSONObject>()
 			{
 
 				@Override
@@ -232,7 +220,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 			song.setCantGetLyrics(true);
 			lyrics.setText(LYRICS_LOADING);
 
-			LyricWikiClient.get(queue, song.getTitle(), song.getArtist(), new Response.Listener<String>()
+			LyricWikiClient.get(queue, tag, song.getTitle(), song.getArtist(), new Response.Listener<String>()
 			{
 				@Override
 				public void onResponse(String text)

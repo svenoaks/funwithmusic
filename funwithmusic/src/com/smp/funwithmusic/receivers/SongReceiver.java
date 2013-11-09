@@ -85,7 +85,7 @@ public class SongReceiver extends BroadcastReceiver
 
 	private void setSongInfo(Context context, Intent intent)
 	{
-		Log.d("SONG", "BLAH");
+		//Log.d("SONG", "BLAH");
 
 		try
 		{

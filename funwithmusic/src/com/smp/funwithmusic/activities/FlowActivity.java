@@ -11,6 +11,7 @@ import com.afollestad.cardsui.Card.CardMenuListener;
 import com.afollestad.cardsui.CardBase;
 import com.afollestad.cardsui.CardHeader;
 import com.afollestad.cardsui.CardListView;
+import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.adapters.SongCardAdapter;
@@ -34,8 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class FlowActivity extends Activity implements CardMenuListener<Card>
-{
-
+{	
 	private List<Song> songs;
 	private IntentFilter filter;
 	private UpdateActivityReceiver receiver;
@@ -44,7 +44,8 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	private String lastArtist;
 	private View idDialog;
 	private View welcomeScreen;
-
+	private RequestQueue queue;
+	
 	private class UpdateActivityReceiver extends BroadcastReceiver
 	{
 		@Override
@@ -76,6 +77,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
 		saveSongs();
 		resetArtist();
+		queue.cancelAll(TAG_VOLLEY);
 	}
 
 	// reseting the imageUrl and lryics will allow the program to attempt to
@@ -132,7 +134,8 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_flow);
-		cardsAdapter = new SongCardAdapter<SongCard>(this, Volley.newRequestQueue(this));
+		queue = Volley.newRequestQueue(this);
+		cardsAdapter = new SongCardAdapter<SongCard>(getApplicationContext(), queue, TAG_VOLLEY);
 		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
 		cardsAdapter.setPopupMenu(R.menu.card_popup, this); // the popup menu
 		// callback is this
@@ -243,7 +246,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 			case R.id.listen:
 				if (!isMyServiceRunning(this, IdentifyMusicService.class))
 				{
-					doListen(this, idDialog);
+					doListen(getApplicationContext(), idDialog);
 				}
 				break;
 			default:

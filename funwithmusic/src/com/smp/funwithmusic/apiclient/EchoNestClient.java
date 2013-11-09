@@ -45,51 +45,30 @@ public class EchoNestClient
 	private final static String RAW_ITUNES = "itunes";
 	private final static String CORRECT_ITUNES = "iTunes";
 
-	// private final static String NON_ASCII = "[^\\p{ASCII}]";
-
 	public enum echoNestRequest
 	{
 		BIOGRAPHIES, BLOGS, IMAGES, NEWS, REVIEWS, TWITTER, URLS, VIDEOS, SONGS
 	};
 
-	// private static AsyncHttpClient client = new AsyncHttpClient();
-	static
-	{
-		// client.setMaxRetriesAndTimeout(HTTP_RETRIES, HTTP_TIMEOUT);
-		// client.setMaxConnections(100);
-	}
-
-	public static void getArtistInfo(RequestQueue queue, String artist, echoNestRequest request,
+	public static void getArtistInfo(RequestQueue queue, String tag, String artist, echoNestRequest request,
 			Response.Listener<JSONObject> responseHandler, Response.ErrorListener errorHandler)
 	{
-		String params = "api_key=" + API_KEY_ECHO_NEST
+		String params = "api_key=" + API_KEY_ECHONEST
 				+ "&name=" + URLParamEncoder.encode(artist)
 						.replace(ESCAPED_SPACE, ECHO_NEST_TERMS_CONNECTOR)
 				+ "&format=json"
 				+ "&results=100";
 
-		/*
-		 * RequestParams params = new RequestParams(); // Log.d("artist",
-		 * Normalizer.normalize(artist, //
-		 * Normalizer.Form.NFD).replaceAll(NON_ASCII, "") + " " + artist); //
-		 * String nString = Normalizer.normalize(artist, //
-		 * Normalizer.Form.NFD).replaceAll(NON_ASCII, ""); params.put("api_key",
-		 * API_KEY_ECHO_NEST); params.put("name", URLParamEncoder.encode(artist)
-		 * .replace(ESCAPED_SPACE, ECHO_NEST_TERMS_CONNECTOR));
-		 * params.put("format", "json"); params.put("results", "100");
-		 */
-
+		
 		Locale locale = Locale.getDefault();
-		// Log.d("Images",BASE_URL + ARTIST_URL +
-		// request.toString().toLowerCase(locale) + "?" );
+		
 		JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET,
 				BASE_URL + ARTIST_URL + request.toString().toLowerCase(locale) + "?"
 						+ params, null, responseHandler, errorHandler);
-
+		
+		jsObjRequest.setTag(tag);
+		
 		queue.add(jsObjRequest);
-		// client.get(BASE_URL + ARTIST_URL +
-		// request.toString().toLowerCase(locale) + "?", params,
-		// responseHandler);
 	}
 
 	public static List<Biography> parseBiographies(JSONObject json)
@@ -194,28 +173,4 @@ public class EchoNestClient
 		}
 		return urls;
 	}
-	/*
-	 * public static void getIdentify(String code, JsonHttpResponseHandler
-	 * responseHandler) { RequestParams params = new RequestParams();
-	 * 
-	 * params.put("api_key", API_KEY_ECHO_NEST); params.put("version",
-	 * ECHOPRINT_VERSION); params.put("code", code);
-	 * 
-	 * // Log.d("Lyrics", AsyncHttpClient.getUrlWithQueryString(BASE_URL, //
-	 * params));
-	 * 
-	 * client.get(BASE_URL + IDENTIFY_URL, params, responseHandler); }
-	 */
-	/*
-	 * public static Song parseIdentify(JSONObject json) { Song result = new
-	 * Song();
-	 * 
-	 * try { JSONObject response = json.getJSONObject("response"); JSONArray
-	 * songs = response.getJSONArray("songs"); JSONObject song =
-	 * songs.getJSONObject(0); result.setArtist(song.getString("artist_name"));
-	 * result.setTitle(song.getString("title")); } catch (JSONException e) { //
-	 * TODO Auto-generated catch block e.printStackTrace(); }
-	 * 
-	 * return result; }
-	 */
 }
