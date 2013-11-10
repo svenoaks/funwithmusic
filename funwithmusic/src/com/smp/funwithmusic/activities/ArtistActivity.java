@@ -67,13 +67,6 @@ public class ArtistActivity extends SlidingFragmentActivity
 	{
 		super.onPause();
 		LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
-
-		FragmentManager mgr = getSupportFragmentManager();
-		mgr.beginTransaction()
-				.detach(mContent)
-				.remove(mContent)
-				.commit();
-		mContent = null;
 	}
 
 	@Override
