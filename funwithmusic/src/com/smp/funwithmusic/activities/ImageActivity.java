@@ -1,6 +1,6 @@
 package com.smp.funwithmusic.activities;
 
-import static com.smp.funwithmusic.utilities.Constants.WEB_URL;
+import static com.smp.funwithmusic.global.Constants.WEB_URL;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 import com.smp.funwithmusic.R;

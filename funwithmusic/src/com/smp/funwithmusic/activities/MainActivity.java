@@ -8,8 +8,8 @@ import com.smp.funwithmusic.dataobjects.Event;
 import com.smp.funwithmusic.dataobjects.EventInfo;
 import com.smp.funwithmusic.dataobjects.Performance;
 
-import static com.smp.funwithmusic.utilities.Constants.*;
-import static com.smp.funwithmusic.utilities.UtilityMethods.*;
+import static com.smp.funwithmusic.global.Constants.*;
+import static com.smp.funwithmusic.global.UtilityMethods.*;
 
 import android.net.Uri;
 import android.os.Bundle;

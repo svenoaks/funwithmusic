@@ -1,14 +1,10 @@
 package com.smp.funwithmusic.fragments;
 
-import static com.smp.funwithmusic.utilities.Constants.TAG_VOLLEY;
+import static com.smp.funwithmusic.global.Constants.TAG_VOLLEY;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.smp.funwithmusic.activities.ArtistActivity;
 import com.smp.funwithmusic.fragments.ArtistMenuFragment.ArtistInfo;
+import com.smp.funwithmusic.global.GlobalRequest;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,17 +13,19 @@ public class BaseArtistFragment extends Fragment
 {
 	private ArtistInfo type;
 	protected String artist;
-	protected RequestQueue queue;
 
+	public void setType(ArtistInfo type)
+	{
+		this.type = type;
+	}
 	public ArtistInfo getType()
 	{
 		return type;
 	}
 	
-	public BaseArtistFragment(ArtistInfo type)
+	public BaseArtistFragment()
 	{
-		this.type = type;
-		setRetainInstance(true);
+		//setRetainInstance(true);
 	}
 
 	public static final BaseArtistFragment newInstance(ArtistInfo info, SavedState state)
@@ -36,10 +34,12 @@ public class BaseArtistFragment extends Fragment
 		switch (info)
 		{
 			case IMAGES:
-				frag = new ImagesFragment(info);
+				frag = new ImagesFragment();
+				frag.setType(info);
 				break;
 			case BIOGRAPHIES:
-				frag = new BiographiesFragment(info);
+				frag = new BiographiesFragment();
+				frag.setType(info);
 				break;
 			default:
 				throw new RuntimeException("unknown fragment " + info.toString());
@@ -52,7 +52,6 @@ public class BaseArtistFragment extends Fragment
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 		artist = ((ArtistActivity) getActivity()).getArtist();
 	}
 
@@ -60,6 +59,18 @@ public class BaseArtistFragment extends Fragment
 	public void onPause()
 	{
 		super.onPause();
-		queue.cancelAll(TAG_VOLLEY);
+		GlobalRequest.getInstance().cancelAll(TAG_VOLLEY);
+		//GlobalRequest.getInstance().stop();
+		
+		//queue = null;
 	}
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		
+		//queue = null;
+	}
+
+	
 }

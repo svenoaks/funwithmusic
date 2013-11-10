@@ -1,7 +1,9 @@
 package com.smp.funwithmusic.fragments;
 
 import java.util.ArrayList;
-import static com.smp.funwithmusic.utilities.Constants.*;
+
+import static com.smp.funwithmusic.global.Constants.*;
+
 import org.json.JSONObject;
 
 import com.android.volley.RequestQueue;
@@ -13,6 +15,7 @@ import com.smp.funwithmusic.adapters.ImagesAdapter;
 import com.smp.funwithmusic.apiclient.EchoNestClient;
 import com.smp.funwithmusic.apiclient.EchoNestClient.echoNestRequest;
 import com.smp.funwithmusic.fragments.ArtistMenuFragment.ArtistInfo;
+import com.smp.funwithmusic.global.GlobalRequest;
 import com.smp.funwithmusic.R;
 
 import android.annotation.SuppressLint;
@@ -33,21 +36,30 @@ import android.widget.LinearLayout;
 
 public class ImagesFragment extends BaseArtistFragment
 {
-	public ImagesFragment(ArtistInfo type)
+	public ImagesFragment()
 	{
-		super(ArtistInfo.IMAGES);
 	}
 
+	private UrlListener urlListen;
 	private GridView gridView;
-	private ArrayList<String> items;
+	private ArrayList<String> urls;
 
-	
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+		if (urlListen != null)
+		{
+			urlListen.frag = null;
+		}
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		if (savedInstanceState != null)
 		{
-			items = savedInstanceState.getStringArrayList(BUNDLE_IMAGE_URLS);
+			urls = savedInstanceState.getStringArrayList(BUNDLE_IMAGE_URLS);
 		}
 
 		LinearLayout layout = (LinearLayout) (inflater.inflate(R.layout.fragment_images, null));
@@ -59,76 +71,73 @@ public class ImagesFragment extends BaseArtistFragment
 					int position, long id)
 			{
 				Intent intent = new Intent(getActivity(), WebActivity.class);
-				intent.putExtra(WEB_URL, items.get(position));
+				intent.putExtra(WEB_URL, urls.get(position));
 				startActivity(intent);
 			}
 		});
-		final ViewTreeObserver observer = gridView.getViewTreeObserver();
-		observer.addOnGlobalLayoutListener(new OnGlobalLayoutListener()
+
+		if (urls == null || urls.size() == 0)
 		{
-			@SuppressWarnings("deprecation")
-			@SuppressLint("NewApi")
-			@Override
-			public void onGlobalLayout()
-			{
-				final ViewTreeObserver observer = gridView.getViewTreeObserver();
-				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-				{
-					observer.removeOnGlobalLayoutListener(this);
-				}
-				else
-				{
-					observer.removeGlobalOnLayoutListener(this);
-				}
-				if (items == null || items.size() == 0)
-				{
-					getUrls();
-				}
-				else
-				{
-					makeAdapter();
-				}
-			}
-		});
+			getUrls();
+		}
+		else
+		{
+			makeAdapter();
+		}
+
 		return layout;
 	}
 
 	private void getUrls()
 	{
-		EchoNestClient.getArtistInfo(queue, TAG_VOLLEY, artist,
-				echoNestRequest.IMAGES, new Response.Listener<JSONObject>()
-				{
-					@Override
-					public void onResponse(JSONObject obj)
-					{
-						// Log.d("Images", "In Success");
-						items = (ArrayList<String>) EchoNestClient.parseImages(obj);
+		urlListen = new UrlListener(this);
+		EchoNestClient.getArtistInfo(GlobalRequest.getInstance(), TAG_VOLLEY, artist,
+				echoNestRequest.IMAGES, urlListen, urlListen);
+	}
 
-						makeAdapter();
-					}
-				}, new Response.ErrorListener()
-				{
+	private void onUrlsReceived(ArrayList<String> urls)
+	{
+		this.urls = urls;
+		makeAdapter();
+	}
 
-					@Override
-					public void onErrorResponse(VolleyError error)
-					{
+	private static class UrlListener implements Response.Listener<JSONObject>,
+			Response.ErrorListener
+	{
+		ImagesFragment frag;
 
-					}
-				});
+		UrlListener(ImagesFragment frag)
+		{
+			this.frag = frag;
+		}
+
+		@Override
+		public void onResponse(JSONObject response)
+		{
+			frag.onUrlsReceived((ArrayList<String>)
+					EchoNestClient.parseImages(response));
+			
+			frag = null;
+		}
+
+		@Override
+		public void onErrorResponse(VolleyError error)
+		{
+			frag = null;
+		}
 	}
 
 	private void makeAdapter()
 	{
-		ImagesAdapter adapter = new ImagesAdapter(getActivity(), items);
+		ImagesAdapter adapter = new ImagesAdapter(getActivity().getApplicationContext(), urls);
 		gridView.setAdapter(adapter);
 	}
-
+	
 	@Override
 	public void onSaveInstanceState(Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
-		outState.putStringArrayList(BUNDLE_IMAGE_URLS, items);
+		outState.putStringArrayList(BUNDLE_IMAGE_URLS, urls);
 	}
 
-	
 }

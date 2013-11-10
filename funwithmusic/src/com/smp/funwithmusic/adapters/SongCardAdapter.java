@@ -4,7 +4,8 @@ import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import static com.smp.funwithmusic.utilities.Constants.*;
+
+import static com.smp.funwithmusic.global.Constants.*;
 
 import com.gracenote.mmid.MobileSDK.GNConfig;
 import com.gracenote.mmid.MobileSDK.GNCoverArt;
@@ -49,7 +50,6 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		ViewGroup parent;
 		Card card;
 		Song song;
-		String tag;
 
 		TextSearchIntoCard(ViewGroup parent, Card card, Song song)
 		{
@@ -125,6 +125,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		final Song song = ((SongCard) card).getSong();
 
 		Picasso.with(mContext).load(song.getAlbumUrl())
+				.skipMemoryCache()
 				.placeholder(R.drawable.flow)
 				.error(R.drawable.flow)
 				.fit()

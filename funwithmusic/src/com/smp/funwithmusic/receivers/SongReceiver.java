@@ -8,8 +8,8 @@ import com.smp.funwithmusic.activities.FlowActivity;
 import com.smp.funwithmusic.dataobjects.Song;
 
 import android.content.BroadcastReceiver;
-import static com.smp.funwithmusic.utilities.Constants.*;
-import static com.smp.funwithmusic.utilities.UtilityMethods.*;
+import static com.smp.funwithmusic.global.Constants.*;
+import static com.smp.funwithmusic.global.UtilityMethods.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;

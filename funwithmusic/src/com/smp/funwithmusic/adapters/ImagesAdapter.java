@@ -63,6 +63,7 @@ public class ImagesAdapter extends BaseAdapter
 		}
 
 		Picasso.with(context).load(urls.get(position))
+				.skipMemoryCache()
 				.centerCrop()
 				.placeholder(R.drawable.placeholder)
 				.error(R.drawable.placeholder)

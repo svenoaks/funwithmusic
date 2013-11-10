@@ -1,6 +1,6 @@
 package com.smp.funwithmusic.apiclient;
 
-import static com.smp.funwithmusic.utilities.Constants.*;
+import static com.smp.funwithmusic.global.Constants.*;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,7 +11,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.smp.funwithmusic.utilities.URLParamEncoder;
+import com.smp.funwithmusic.global.URLParamEncoder;
 
 public class SongKickClient
 {

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.smp.funwithmusic.utilities.Constants.*;
+import static com.smp.funwithmusic.global.Constants.*;
 
 public class Song implements Serializable
 {

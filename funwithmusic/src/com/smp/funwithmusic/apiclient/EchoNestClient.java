@@ -1,6 +1,6 @@
 package com.smp.funwithmusic.apiclient;
 
-import static com.smp.funwithmusic.utilities.Constants.*;
+import static com.smp.funwithmusic.global.Constants.*;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.smp.funwithmusic.dataobjects.Biography;
 import com.smp.funwithmusic.dataobjects.Song;
-import com.smp.funwithmusic.utilities.URLParamEncoder;
+import com.smp.funwithmusic.global.URLParamEncoder;
 
 public class EchoNestClient
 {
@@ -66,6 +66,7 @@ public class EchoNestClient
 				BASE_URL + ARTIST_URL + request.toString().toLowerCase(locale) + "?"
 						+ params, null, responseHandler, errorHandler);
 		
+		//jsObjRequest.setShouldCache(false);
 		jsObjRequest.setTag(tag);
 		
 		queue.add(jsObjRequest);

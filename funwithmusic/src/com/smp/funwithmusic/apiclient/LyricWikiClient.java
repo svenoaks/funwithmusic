@@ -13,9 +13,9 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.smp.funwithmusic.utilities.URLParamEncoder;
+import com.smp.funwithmusic.global.URLParamEncoder;
 
-import static com.smp.funwithmusic.utilities.Constants.*;
+import static com.smp.funwithmusic.global.Constants.*;
 
 public class LyricWikiClient
 {

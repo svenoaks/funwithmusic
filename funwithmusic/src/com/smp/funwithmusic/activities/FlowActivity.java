@@ -1,7 +1,7 @@
 package com.smp.funwithmusic.activities;
 
-import static com.smp.funwithmusic.utilities.Constants.*;
-import static com.smp.funwithmusic.utilities.UtilityMethods.*;
+import static com.smp.funwithmusic.global.Constants.*;
+import static com.smp.funwithmusic.global.UtilityMethods.*;
 
 import java.util.List;
 import java.util.Locale;
@@ -17,6 +17,7 @@ import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.adapters.SongCardAdapter;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.dataobjects.SongCard;
+import com.smp.funwithmusic.global.GlobalRequest;
 import com.smp.funwithmusic.services.IdentifyMusicService;
 import com.smp.funwithmusic.views.ProgressWheel;
 
@@ -28,6 +29,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,7 +46,6 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	private String lastArtist;
 	private View idDialog;
 	private View welcomeScreen;
-	private RequestQueue queue;
 	
 	private class UpdateActivityReceiver extends BroadcastReceiver
 	{
@@ -77,7 +78,8 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
 		saveSongs();
 		resetArtist();
-		queue.cancelAll(TAG_VOLLEY);
+		Log.d("PAUSE", "PAUSED");
+		GlobalRequest.getInstance().cancelAll(TAG_VOLLEY);
 	}
 
 	// reseting the imageUrl and lryics will allow the program to attempt to
@@ -97,6 +99,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	protected void onResume()
 	{
 		super.onResume();
+		Log.d("PAUSE", "reSUMED");
 		addCardsFromList();
 		scrollToBottomOfList();
 		LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
@@ -134,8 +137,9 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_flow);
-		queue = Volley.newRequestQueue(this);
-		cardsAdapter = new SongCardAdapter<SongCard>(this, queue, TAG_VOLLEY);
+		GlobalRequest.init(this);
+		cardsAdapter = new SongCardAdapter<SongCard>(this, 
+						GlobalRequest.getInstance(), TAG_VOLLEY);
 		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
 		cardsAdapter.setPopupMenu(R.menu.card_popup, this); // the popup menu
 		// callback is this

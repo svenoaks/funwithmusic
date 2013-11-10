@@ -1,6 +1,6 @@
 package com.smp.funwithmusic.services;
 
-import static com.smp.funwithmusic.utilities.Constants.*;
+import static com.smp.funwithmusic.global.Constants.*;
 
 import java.util.Hashtable;
 import java.util.concurrent.CountDownLatch;

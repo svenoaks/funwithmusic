@@ -10,8 +10,8 @@ import com.smp.funwithmusic.fragments.ImagesFragment;
 import com.smp.funwithmusic.fragments.ArtistMenuFragment;
 import com.smp.funwithmusic.services.IdentifyMusicService;
 
-import static com.smp.funwithmusic.utilities.Constants.*;
-import static com.smp.funwithmusic.utilities.UtilityMethods.*;
+import static com.smp.funwithmusic.global.Constants.*;
+import static com.smp.funwithmusic.global.UtilityMethods.*;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -58,7 +58,6 @@ public class ArtistActivity extends SlidingFragmentActivity
 	private IntentFilter filter;
 	private UpdateActivityReceiver receiver;
 	private BaseArtistFragment mContent;
-	DisplayMetrics outMetrics;
 	private View loadingDialog;
 	TextView progressText;
 	Bundle savedFrags;
@@ -68,6 +67,13 @@ public class ArtistActivity extends SlidingFragmentActivity
 	{
 		super.onPause();
 		LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+
+		FragmentManager mgr = getSupportFragmentManager();
+		mgr.beginTransaction()
+				.detach(mContent)
+				.remove(mContent)
+				.commit();
+		mContent = null;
 	}
 
 	@Override
@@ -108,7 +114,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 
 		if (mContent == null)
 		{
-			mContent = ImagesFragment.newInstance
+			mContent = BaseArtistFragment.newInstance
 					(ArtistInfo.IMAGES, null);
 		}
 
@@ -118,14 +124,12 @@ public class ArtistActivity extends SlidingFragmentActivity
 				.replace(R.id.fragment_frame, mContent)
 				.commit();
 		// set the Behind View
+		
 		setBehindContentView(R.layout.list_menu_artist);
 		getSupportFragmentManager()
 				.beginTransaction()
 				.replace(R.id.menu_frame, new ArtistMenuFragment())
 				.commit();
-
-		// customize the SlidingMenu
-		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 
 		getActionBar().setIcon(
 				new ColorDrawable(getResources().getColor(android.R.color.transparent)));
@@ -159,15 +163,18 @@ public class ArtistActivity extends SlidingFragmentActivity
 	public void onSaveInstanceState(Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
-		getSupportFragmentManager().putFragment(outState, BUNDLE_FRAGMENT,
-				mContent);
+		/*
+		if (mContent != null)
+			getSupportFragmentManager().putFragment(outState, BUNDLE_FRAGMENT,
+					mContent);
+					*/
 	}
 
 	private void saveCurrentFrag()
 	{
 		FragmentManager mgr = getSupportFragmentManager();
 
-		savedFrags.putParcelable(mContent.getType().toString(), 
+		savedFrags.putParcelable(mContent.getType().toString(),
 				mgr.saveFragmentInstanceState(mContent));
 	}
 
@@ -175,18 +182,18 @@ public class ArtistActivity extends SlidingFragmentActivity
 	{
 		saveCurrentFrag();
 		FragmentManager mgr = getSupportFragmentManager();
-		
+
 		SavedState state = savedFrags.getParcelable(info.toString());
-		
+
 		BaseArtistFragment newContent = BaseArtistFragment.newInstance
 				(info, state);
-		
-		mContent = newContent;
+
 		mgr
 				.beginTransaction()
-				.replace(R.id.fragment_frame, mContent)
+				.replace(R.id.fragment_frame, newContent)
 				.commit();
 		getSlidingMenu().showContent();
+		mContent = newContent;
 	}
 
 	@Override
@@ -218,5 +225,11 @@ public class ArtistActivity extends SlidingFragmentActivity
 	{
 		getMenuInflater().inflate(R.menu.menu_artist, menu);
 		return true;
+	}
+
+	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
 	}
 }

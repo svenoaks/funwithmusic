@@ -2,7 +2,8 @@ package com.smp.funwithmusic.fragments;
 
 import java.util.ArrayList;
 import java.util.List;
-import static com.smp.funwithmusic.utilities.Constants.*;
+
+import static com.smp.funwithmusic.global.Constants.*;
 
 import org.json.JSONObject;
 
@@ -25,6 +26,7 @@ import com.smp.funwithmusic.dataobjects.Biography;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.dataobjects.SongCard;
 import com.smp.funwithmusic.fragments.ArtistMenuFragment.ArtistInfo;
+import com.smp.funwithmusic.global.GlobalRequest;
 import com.smp.funwithmusic.R;
 
 import android.content.Intent;
@@ -45,9 +47,9 @@ import android.widget.RelativeLayout;
 public class BiographiesFragment extends BaseArtistFragment
 {
 	
-	public BiographiesFragment(ArtistInfo type)
+	public BiographiesFragment()
 	{
-		super(ArtistInfo.BIOGRAPHIES);
+		super();
 	}
 
 	private CardListView listView;
@@ -97,7 +99,7 @@ public class BiographiesFragment extends BaseArtistFragment
 
 	private void getBios()
 	{
-		EchoNestClient.getArtistInfo(queue, TAG_VOLLEY, artist,
+		EchoNestClient.getArtistInfo(GlobalRequest.getInstance(), TAG_VOLLEY, artist,
 				echoNestRequest.BIOGRAPHIES, new Response.Listener<JSONObject>()
 				{
 					@Override
