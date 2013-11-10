@@ -125,7 +125,6 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		final Song song = ((SongCard) card).getSong();
 
 		Picasso.with(mContext).load(song.getAlbumUrl())
-				.skipMemoryCache()
 				.placeholder(R.drawable.flow)
 				.error(R.drawable.flow)
 				.fit()

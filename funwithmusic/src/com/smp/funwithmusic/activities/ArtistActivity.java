@@ -4,6 +4,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.fragments.ArtistMenuFragment.ArtistInfo;
+import com.smp.funwithmusic.fragments.BaseArtistFragment;
 import com.smp.funwithmusic.fragments.BiographiesFragment;
 import com.smp.funwithmusic.fragments.ImagesFragment;
 import com.smp.funwithmusic.fragments.ArtistMenuFragment;
@@ -56,7 +57,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 
 	private IntentFilter filter;
 	private UpdateActivityReceiver receiver;
-	private Fragment mContent;
+	private BaseArtistFragment mContent;
 	DisplayMetrics outMetrics;
 	private View loadingDialog;
 	TextView progressText;
@@ -102,12 +103,13 @@ public class ArtistActivity extends SlidingFragmentActivity
 		if (savedInstanceState != null)
 
 			mContent =
-					getSupportFragmentManager().getFragment(savedInstanceState,
+					(BaseArtistFragment) getSupportFragmentManager().getFragment(savedInstanceState,
 							BUNDLE_FRAGMENT);
 
 		if (mContent == null)
 		{
-			mContent = ImagesFragment.newInstance(null);
+			mContent = ImagesFragment.newInstance
+					(ArtistInfo.IMAGES, null);
 		}
 
 		configureSlidingMenu();
@@ -164,48 +166,21 @@ public class ArtistActivity extends SlidingFragmentActivity
 	private void saveCurrentFrag()
 	{
 		FragmentManager mgr = getSupportFragmentManager();
-		String key = null;
 
-		if (mContent instanceof ImagesFragment)
-			key = BUNDLE_IMAGESFRAGMENT;
-		else if (mContent instanceof BiographiesFragment)
-			key = BUNDLE_BIOSFRAGMENT;
-
-		savedFrags.putParcelable(key, mgr.saveFragmentInstanceState(mContent));
+		savedFrags.putParcelable(mContent.getType().toString(), 
+				mgr.saveFragmentInstanceState(mContent));
 	}
 
 	public void switchContent(ArtistInfo info)
 	{
 		saveCurrentFrag();
 		FragmentManager mgr = getSupportFragmentManager();
-		SavedState state = null;
-
-		Fragment newContent = null;
-		switch (info)
-		{
-			case EVENTS:
-				return;
-			case NEWS:
-				return;
-			case REVIEWS:
-				return;
-			case BIOGRAPHIES:
-				state = savedFrags.getParcelable(BUNDLE_BIOSFRAGMENT);
-				newContent = BiographiesFragment.newInstance(state);
-				break;
-			case IMAGES:
-				state = savedFrags.getParcelable(BUNDLE_IMAGESFRAGMENT);
-				newContent = ImagesFragment.newInstance(state);
-				break;
-			case VIDEOS:
-				return;
-			case MORE:
-				return;
-			default:
-				return;
-
-		}
-
+		
+		SavedState state = savedFrags.getParcelable(info.toString());
+		
+		BaseArtistFragment newContent = BaseArtistFragment.newInstance
+				(info, state);
+		
 		mContent = newContent;
 		mgr
 				.beginTransaction()

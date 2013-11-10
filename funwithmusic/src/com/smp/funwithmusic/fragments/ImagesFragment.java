@@ -12,6 +12,7 @@ import com.smp.funwithmusic.activities.*;
 import com.smp.funwithmusic.adapters.ImagesAdapter;
 import com.smp.funwithmusic.apiclient.EchoNestClient;
 import com.smp.funwithmusic.apiclient.EchoNestClient.echoNestRequest;
+import com.smp.funwithmusic.fragments.ArtistMenuFragment.ArtistInfo;
 import com.smp.funwithmusic.R;
 
 import android.annotation.SuppressLint;
@@ -19,6 +20,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.Fragment.SavedState;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,31 +31,23 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
-public class ImagesFragment extends Fragment
+public class ImagesFragment extends BaseArtistFragment
 {
-	private String artist;
+	public ImagesFragment(ArtistInfo type)
+	{
+		super(ArtistInfo.IMAGES);
+	}
+
 	private GridView gridView;
-	private ArrayList<String> urls;
-	RequestQueue queue;
+	private ArrayList<String> items;
 
-	public ImagesFragment()
-	{
-		setRetainInstance(true);
-	}
-
-	public static final ImagesFragment newInstance(SavedState state)
-	{
-		ImagesFragment fragment = new ImagesFragment();
-		fragment.setInitialSavedState(state);
-		return fragment;
-	}
-
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		if (savedInstanceState != null)
 		{
-			urls = savedInstanceState.getStringArrayList(BUNDLE_IMAGE_URLS);
+			items = savedInstanceState.getStringArrayList(BUNDLE_IMAGE_URLS);
 		}
 
 		LinearLayout layout = (LinearLayout) (inflater.inflate(R.layout.fragment_images, null));
@@ -65,7 +59,7 @@ public class ImagesFragment extends Fragment
 					int position, long id)
 			{
 				Intent intent = new Intent(getActivity(), WebActivity.class);
-				intent.putExtra(WEB_URL, urls.get(position));
+				intent.putExtra(WEB_URL, items.get(position));
 				startActivity(intent);
 			}
 		});
@@ -86,7 +80,7 @@ public class ImagesFragment extends Fragment
 				{
 					observer.removeGlobalOnLayoutListener(this);
 				}
-				if (urls == null || urls.size() == 0)
+				if (items == null || items.size() == 0)
 				{
 					getUrls();
 				}
@@ -108,7 +102,7 @@ public class ImagesFragment extends Fragment
 					public void onResponse(JSONObject obj)
 					{
 						// Log.d("Images", "In Success");
-						urls = (ArrayList<String>) EchoNestClient.parseImages(obj);
+						items = (ArrayList<String>) EchoNestClient.parseImages(obj);
 
 						makeAdapter();
 					}
@@ -125,42 +119,16 @@ public class ImagesFragment extends Fragment
 
 	private void makeAdapter()
 	{
-		ImagesAdapter adapter = new ImagesAdapter(getActivity(), urls);
+		ImagesAdapter adapter = new ImagesAdapter(getActivity(), items);
 		gridView.setAdapter(adapter);
-	}
-
-	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-		artist = ((ArtistActivity) getActivity()).getArtist();
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
-		outState.putStringArrayList(BUNDLE_IMAGE_URLS, urls);
+		outState.putStringArrayList(BUNDLE_IMAGE_URLS, items);
 	}
 
-	@Override
-	public void onResume()
-	{
-		super.onResume();
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState)
-	{
-		super.onActivityCreated(savedInstanceState);
-	}
-
-	@Override
-	public void onPause()
-	{
-		super.onPause();
-		queue.cancelAll(TAG_VOLLEY);
-	}
-
+	
 }

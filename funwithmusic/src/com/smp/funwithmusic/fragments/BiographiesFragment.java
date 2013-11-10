@@ -24,6 +24,7 @@ import com.smp.funwithmusic.apiclient.EchoNestClient.echoNestRequest;
 import com.smp.funwithmusic.dataobjects.Biography;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.dataobjects.SongCard;
+import com.smp.funwithmusic.fragments.ArtistMenuFragment.ArtistInfo;
 import com.smp.funwithmusic.R;
 
 import android.content.Intent;
@@ -41,24 +42,16 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-public class BiographiesFragment extends Fragment
+public class BiographiesFragment extends BaseArtistFragment
 {
-	private String artist;
+	
+	public BiographiesFragment(ArtistInfo type)
+	{
+		super(ArtistInfo.BIOGRAPHIES);
+	}
+
 	private CardListView listView;
 	private ArrayList<Biography> bios;
-	RequestQueue queue;
-
-	public BiographiesFragment()
-	{
-		setRetainInstance(true);
-	}
-
-	public static final BiographiesFragment newInstance(SavedState state)
-	{
-		BiographiesFragment fragment = new BiographiesFragment();
-		fragment.setInitialSavedState(state);
-		return fragment;
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -140,25 +133,11 @@ public class BiographiesFragment extends Fragment
 	}
 
 	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-		artist = ((ArtistActivity) getActivity()).getArtist();
-	}
-
-	@Override
 	public void onSaveInstanceState(Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
 		outState.putParcelableArrayList(BUNDLE_BIOGRAPHIES, bios);
 	}
 
-	@Override
-	public void onPause()
-	{
-		super.onPause();
-		queue.cancelAll(TAG_VOLLEY);
-	}
-
+	
 }
