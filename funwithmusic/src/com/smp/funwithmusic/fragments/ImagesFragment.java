@@ -114,10 +114,13 @@ public class ImagesFragment extends BaseArtistFragment
 		@Override
 		public void onResponse(JSONObject response)
 		{
-			frag.onUrlsReceived((ArrayList<String>)
-					EchoNestClient.parseImages(response));
-			
-			frag = null;
+			if (frag != null)
+			{
+				frag.onUrlsReceived((ArrayList<String>)
+						EchoNestClient.parseImages(response));
+
+				frag = null;
+			}
 		}
 
 		@Override
@@ -132,7 +135,7 @@ public class ImagesFragment extends BaseArtistFragment
 		ImagesAdapter adapter = new ImagesAdapter(getActivity().getApplicationContext(), urls);
 		gridView.setAdapter(adapter);
 	}
-	
+
 	@Override
 	public void onSaveInstanceState(Bundle outState)
 	{

@@ -79,6 +79,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		saveSongs();
 		resetArtist();
 		Log.d("PAUSE", "PAUSED");
+		cardsAdapter.releaseListenerReferences();
 		GlobalRequest.getInstance().cancelAll(TAG_VOLLEY);
 	}
 
@@ -139,7 +140,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		setContentView(R.layout.activity_flow);
 		GlobalRequest.init(this);
 		cardsAdapter = new SongCardAdapter<SongCard>(this, 
-						GlobalRequest.getInstance(), TAG_VOLLEY);
+						GlobalRequest.getInstance());
 		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
 		cardsAdapter.setPopupMenu(R.menu.card_popup, this); // the popup menu
 		// callback is this
@@ -153,6 +154,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 
 		cardsList = (CardListView) findViewById(R.id.cardsList);
 		cardsList.setAdapter(cardsAdapter);
+		
 		cardsList.setOnCardClickListener(new CardListView.CardClickListener()
 
 		{
@@ -178,7 +180,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 
 			}
 		});
-
+		
 		filter = new IntentFilter();
 		filter.addAction(ACTION_ADD_SONG);
 		filter.addAction(ACTION_REMOVE_IDENTIFY);
