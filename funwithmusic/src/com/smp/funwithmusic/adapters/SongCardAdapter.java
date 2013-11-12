@@ -49,6 +49,14 @@ import com.android.volley.VolleyError;
 public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		implements ResponseReceivedListener
 {
+	
+	
+	public static class cardViewHolder
+	{
+		TextView title;
+		TextView content;
+		ImageView icon;
+	}
 	private List<ThumbnailResponseListener> listeners;
 
 	public void registerListener(ThumbnailResponseListener listener)
@@ -253,15 +261,17 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		}
 		return true;
 	}
-
+	
 	@Override
-	public View onViewCreated(int index, View recycled, Card item, ViewGroup parent)
+	
+	public View onViewCreated(int index, View recycled, Card item, ViewGroup parent, ViewHolder holder)
 	{
-		TextView lyrics = (TextView) recycled.findViewById(R.id.lyrics);
-		if (lyrics != null)
-			onProcessLyrics(lyrics, item, parent);
+		if (holder.lyrics == null) holder.lyrics = (TextView) recycled.findViewById(R.id.lyrics);
+		
+		if (holder.lyrics != null)
+			onProcessLyrics(holder.lyrics, item, parent);
 
-		return super.onViewCreated(index, recycled, item, parent);
+		return super.onViewCreated(index, recycled, item, parent, holder);
 	}
 	abstract static class ThumbnailResponseListener
 	{
