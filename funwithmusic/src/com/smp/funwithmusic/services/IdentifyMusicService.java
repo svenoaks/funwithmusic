@@ -122,7 +122,7 @@ public class IdentifyMusicService extends IntentService
 		config = GNConfig.init(API_KEY_GRACENOTE, this.getApplicationContext());
 		config.setProperty("content.coverArt", "1");
 		config.setProperty("content.coverArt.genreCoverArt", "0");
-		config.setProperty("content.coverArt.sizePreference", "MEDIUM");
+		config.setProperty("content.coverArt.sizePreference", "SMALL");
 		RecognizeFromMic task = new RecognizeFromMic();
 		task.doFingerprint();
 		// AudioFingerprinter fingerprinter = new AudioFingerprinter(this);

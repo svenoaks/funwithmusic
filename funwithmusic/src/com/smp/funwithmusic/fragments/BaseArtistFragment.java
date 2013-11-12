@@ -25,10 +25,10 @@ public class BaseArtistFragment extends Fragment
 	
 	public BaseArtistFragment()
 	{
-		//setRetainInstance(true);
+		setRetainInstance(true);
 	}
 
-	public static final BaseArtistFragment newInstance(ArtistInfo info, SavedState state)
+	public static final BaseArtistFragment newInstance(ArtistInfo info)
 	{
 		BaseArtistFragment frag = null;
 		switch (info)
@@ -44,7 +44,7 @@ public class BaseArtistFragment extends Fragment
 			default:
 				throw new RuntimeException("unknown fragment " + info.toString());
 		}
-		frag.setInitialSavedState(state);
+		//frag.setInitialSavedState(state);
 		return frag;
 	}
 

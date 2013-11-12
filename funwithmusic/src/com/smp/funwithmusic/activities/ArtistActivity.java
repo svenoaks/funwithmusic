@@ -41,8 +41,12 @@ public class ArtistActivity extends SlidingFragmentActivity
 				FlowActivity.viewGone(loadingDialog);
 				boolean successful = intent.getBooleanExtra(EXTRA_LISTEN_SUCCESSFUL, false);
 				if (successful)
-					ArtistActivity.this.startActivity(new Intent
-							(ArtistActivity.this, FlowActivity.class));
+				{
+					Intent flowIntent = new Intent(ArtistActivity.this, FlowActivity.class);
+					flowIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+					ArtistActivity.this.startActivity(flowIntent);
+				}
+
 			}
 		}
 
@@ -108,7 +112,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 		if (mContent == null)
 		{
 			mContent = BaseArtistFragment.newInstance
-					(ArtistInfo.IMAGES, null);
+					(ArtistInfo.IMAGES);
 		}
 
 		configureSlidingMenu();
@@ -117,7 +121,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 				.replace(R.id.fragment_frame, mContent)
 				.commit();
 		// set the Behind View
-		
+
 		setBehindContentView(R.layout.list_menu_artist);
 		getSupportFragmentManager()
 				.beginTransaction()
@@ -135,10 +139,6 @@ public class ArtistActivity extends SlidingFragmentActivity
 
 		receiver = new UpdateActivityReceiver();
 		savedFrags = new Bundle();
-		if (savedInstanceState != null)
-		{
-
-		}
 	}
 
 	private void configureSlidingMenu()
@@ -156,33 +156,47 @@ public class ArtistActivity extends SlidingFragmentActivity
 	public void onSaveInstanceState(Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
-		/*
+
 		if (mContent != null)
 			getSupportFragmentManager().putFragment(outState, BUNDLE_FRAGMENT,
 					mContent);
-					*/
-	}
 
+	}
+	/*
 	private void saveCurrentFrag()
 	{
-		FragmentManager mgr = getSupportFragmentManager();
+		//FragmentManager mgr = getSupportFragmentManager();
 
-		savedFrags.putParcelable(mContent.getType().toString(),
-				mgr.saveFragmentInstanceState(mContent));
+		//savedFrags.putParcelable(mContent.getType().toString(),
+				//mgr.saveFragmentInstanceState(mContent));
+	}
+	*/
+	@Override
+	public void onBackPressed()
+	{
+		FragmentManager mgr = getSupportFragmentManager();
+		if (mgr.getBackStackEntryCount() > 0)
+		{
+			mgr.popBackStack();
+		}
+		else
+		{
+			finish();
+		}
 	}
 
 	public void switchContent(ArtistInfo info)
 	{
-		saveCurrentFrag();
+		//saveCurrentFrag();
 		FragmentManager mgr = getSupportFragmentManager();
 
-		SavedState state = savedFrags.getParcelable(info.toString());
+		//SavedState state = null;
 
-		BaseArtistFragment newContent = BaseArtistFragment.newInstance
-				(info, state);
+		BaseArtistFragment newContent = BaseArtistFragment.newInstance(info);
 
 		mgr
 				.beginTransaction()
+				.addToBackStack(mContent.getType().toString())
 				.replace(R.id.fragment_frame, newContent)
 				.commit();
 		getSlidingMenu().showContent();
