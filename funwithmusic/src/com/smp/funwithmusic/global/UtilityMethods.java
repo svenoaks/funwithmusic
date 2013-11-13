@@ -7,8 +7,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.dataobjects.EventInfo;
 import com.smp.funwithmusic.dataobjects.Song;
+import com.smp.funwithmusic.views.ProgressWheel;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
@@ -17,6 +19,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Parcelable;
+import android.view.View;
+import android.widget.Toast;
 import static com.smp.funwithmusic.global.Constants.*;
 import static com.smp.funwithmusic.global.UtilityMethods.readObjectFromFile;
 
@@ -94,6 +98,7 @@ public class UtilityMethods
 		{
 			try
 			{
+				fos.flush();
 				fos.close();
 			}
 			catch (IOException e)
@@ -126,5 +131,40 @@ public class UtilityMethods
 		Intent intent = new Intent(context, cls);
 		intent.putExtra(name, info);
 		context.startActivity(intent);
+	}
+	public static void viewVisible(final View view)
+	{
+		view.post(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				ProgressWheel pw = (ProgressWheel) view.findViewById(R.id.pw_spinner);
+				if (pw != null)
+					pw.spin();
+				view.setVisibility(View.VISIBLE);
+			}
+		});
+	}
+
+	public static void viewGone(final View view)
+	{
+		view.post(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				ProgressWheel pw = (ProgressWheel) view.findViewById(R.id.pw_spinner);
+				if (pw != null)
+					pw.stopSpinning();
+				view.setVisibility(View.GONE);
+			}
+		});
+	}
+
+	public static void doDeleteFlow(Context context)
+	{
+		context.deleteFile(SONG_FILE_NAME);
+		Toast.makeText(context, TOAST_FLOW_DELETED, Toast.LENGTH_SHORT).show();
 	}
 }

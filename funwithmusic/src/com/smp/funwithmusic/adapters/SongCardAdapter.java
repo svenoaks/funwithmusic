@@ -57,8 +57,6 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 	private RequestQueue queue;
 	private boolean busy;
 
-	// private Bitmap flow;
-
 	public void setBusy(boolean busy)
 	{
 		this.busy = busy;
@@ -76,8 +74,6 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		config.setProperty("content.coverArt", "1");
 		config.setProperty("content.coverArt.genreCoverArt", "0");
 		config.setProperty("content.coverArt.sizePreference", "SMALL");
-		// flow = BitmapFactory.decodeResource(mContext.getResources(),
-		// R.drawable.flow);
 	}
 
 	public void registerListener(ThumbnailResponseListener listener)

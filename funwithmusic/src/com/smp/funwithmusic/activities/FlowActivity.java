@@ -86,16 +86,12 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 						View thisView = view.getChildAt(i - s);
 						cardsAdapter.getView(i, thisView, view);
 					}
-					// Card card = (Card) view.getChildAt(i);
-
 				}
 				break;
 			case OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
-
 				cardsAdapter.setBusy(false);
 				break;
 			case OnScrollListener.SCROLL_STATE_FLING:
-
 				cardsAdapter.setBusy(true);
 				break;
 		}
@@ -310,41 +306,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 		context.startService(intent);
 	}
 
-	public static void viewVisible(final View view)
-	{
-		view.post(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				ProgressWheel pw = (ProgressWheel) view.findViewById(R.id.pw_spinner);
-				if (pw != null)
-					pw.spin();
-				view.setVisibility(View.VISIBLE);
-			}
-		});
-	}
-
-	public static void viewGone(final View view)
-	{
-		view.post(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				ProgressWheel pw = (ProgressWheel) view.findViewById(R.id.pw_spinner);
-				if (pw != null)
-					pw.stopSpinning();
-				view.setVisibility(View.GONE);
-			}
-		});
-	}
-
-	public static void doDeleteFlow(Context context)
-	{
-		context.deleteFile(SONG_FILE_NAME);
-		Toast.makeText(context, TOAST_FLOW_DELETED, Toast.LENGTH_SHORT).show();
-	}
+	
 
 	@Override
 	public void onMenuItemClick(Card card, MenuItem item)

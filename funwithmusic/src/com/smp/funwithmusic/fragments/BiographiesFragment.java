@@ -26,6 +26,7 @@ import com.smp.funwithmusic.dataobjects.Biography;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.dataobjects.SongCard;
 import com.smp.funwithmusic.fragments.ArtistMenuFragment.ArtistInfo;
+import com.smp.funwithmusic.fragments.BaseArtistFragment.BaseArtistListener;
 import com.smp.funwithmusic.global.GlobalRequest;
 import com.smp.funwithmusic.R;
 
@@ -58,10 +59,6 @@ public class BiographiesFragment extends BaseArtistFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		if (savedInstanceState != null)
-		{
-			bios = savedInstanceState.getParcelableArrayList(BUNDLE_BIOGRAPHIES);
-		}
 		View layout = inflater.inflate(R.layout.fragment_biographies, null);
 		listView = (CardListView) layout.findViewById(R.id.cardsList);
 		listView.setOnCardClickListener(new CardListView.CardClickListener()
@@ -100,27 +97,13 @@ public class BiographiesFragment extends BaseArtistFragment
 	private void getBios()
 	{
 		EchoNestClient.getArtistInfo(GlobalRequest.getInstance(), TAG_VOLLEY, artist,
-				echoNestRequest.BIOGRAPHIES, new Response.Listener<JSONObject>()
-				{
-					@Override
-					public void onResponse(JSONObject obj)
-					{
-						// Log.d("Images", "In Success");
-						bios = (ArrayList<Biography>) EchoNestClient.parseBiographies(obj);
-
-						makeAdapter();
-					}
-				}, new Response.ErrorListener()
-				{
-					@Override
-					public void onErrorResponse(VolleyError error)
-					{
-						// TODO Auto-generated method stub
-
-					}
-				});
+				echoNestRequest.BIOGRAPHIES, listen, listen);
 	}
-
+	private void onBiosReceived(ArrayList<Biography> bios)
+	{
+		this.bios = bios;
+		makeAdapter();
+	}
 	private void makeAdapter()
 	{
 		CardAdapter<Card> cardsAdapter = new CardAdapter<Card>(getActivity());
@@ -138,8 +121,29 @@ public class BiographiesFragment extends BaseArtistFragment
 	public void onSaveInstanceState(Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
-		outState.putParcelableArrayList(BUNDLE_BIOGRAPHIES, bios);
+		//outState.putParcelableArrayList(BUNDLE_BIOGRAPHIES, bios);
 	}
+	
+	static class BiographiesListener extends BaseArtistListener
+	{
+		BiographiesListener(BaseArtistFragment baseArtistFragment)
+		{
+			super(baseArtistFragment);
+		}
 
+		@Override
+		public void onResponse(JSONObject response)
+		{
+			super.onResponse(response);
+				((BiographiesFragment)frag).onBiosReceived((ArrayList<Biography>)
+						EchoNestClient.parseBiographies(response));
+		}
+		
+		@Override
+		public void onErrorResponse(VolleyError error)
+		{
+			super.onErrorResponse(error);
+		}
+	}
 	
 }

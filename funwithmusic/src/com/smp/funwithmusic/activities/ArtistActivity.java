@@ -38,7 +38,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 		{
 			if (intent.getAction().equals(ACTION_REMOVE_IDENTIFY))
 			{
-				FlowActivity.viewGone(loadingDialog);
+				viewGone(loadingDialog);
 				boolean successful = intent.getBooleanExtra(EXTRA_LISTEN_SUCCESSFUL, false);
 				if (successful)
 				{
@@ -49,23 +49,29 @@ public class ArtistActivity extends SlidingFragmentActivity
 
 			}
 		}
-
 	}
 
 	private String artist;
-
-	public String getArtist()
-	{
-		return artist;
-	}
-
 	private IntentFilter filter;
 	private UpdateActivityReceiver receiver;
 	private BaseArtistFragment mContent;
 	private View loadingDialog;
 	TextView progressText;
 	Bundle savedFrags;
-
+	
+	public String getArtist()
+	{
+		return artist;
+	}
+	
+	public View getLoadingDialog()
+	{
+		return loadingDialog;
+	}
+	public TextView getProgressText()
+	{
+		return progressText;
+	}
 	@Override
 	protected void onPause()
 	{
@@ -82,11 +88,11 @@ public class ArtistActivity extends SlidingFragmentActivity
 
 		if (isMyServiceRunning(this, IdentifyMusicService.class))
 		{
-			FlowActivity.viewVisible(loadingDialog);
+			viewVisible(loadingDialog);
 		}
 		else
 		{
-			FlowActivity.viewGone(loadingDialog);
+			viewGone(loadingDialog);
 		}
 	}
 
@@ -212,7 +218,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 				toggle();
 				break;
 			case R.id.clear:
-				FlowActivity.doDeleteFlow(this);
+				doDeleteFlow(this);
 				break;
 			case R.id.listen:
 				if (!isMyServiceRunning(this, IdentifyMusicService.class))
