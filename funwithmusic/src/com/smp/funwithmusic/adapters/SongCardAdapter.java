@@ -29,6 +29,8 @@ import com.squareup.picasso.Picasso;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -49,115 +51,19 @@ import com.android.volley.VolleyError;
 public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		implements ResponseReceivedListener
 {
-	
-	
-	public static class cardViewHolder
-	{
-		TextView title;
-		TextView content;
-		ImageView icon;
-	}
 	private List<ThumbnailResponseListener> listeners;
-
-	public void registerListener(ThumbnailResponseListener listener)
-	{
-		listeners.add(listener);
-	}
-	
-	public void releaseListenerReferences()
-	{
-		for (ThumbnailResponseListener listener : listeners)
-		{
-			listener.releaseReferences();
-		}
-		listeners.clear();
-	}
-	@Override
-	public void beginGracenote(ViewGroup parent, Card card, Song song)
-	{
-		 GracenoteTextResponeListenerStageOne listen = 
-				 new GracenoteTextResponeListenerStageOne(this, song, card, parent);
-		 registerListener(listen);
-		 listen.doTextSearch(song.getArtist(), song.getAlbum(), song.getTitle());
-	}
-
-	@Override
-	public void gracenoteStageOneComplete(ViewGroup parent, Card card, Song song, GNSearchResponse response)
-	{
-		 GracenoteTextResponeListenerStageTwo listen = 
-				 new GracenoteTextResponeListenerStageTwo(this, song, card, parent);
-		 registerListener(listen);
-		 listen.doFetchByAlbumId(response);
-		 
-	}
-	
-	private static class GracenoteTextResponeListenerStageTwo extends ThumbnailResponseListener 
-	implements GNSearchResultReady
-	{
-		GracenoteTextResponeListenerStageTwo(ResponseReceivedListener updater, Song song, Card card, ViewGroup parent)
-		{
-			super(updater, song, card, parent);
-		}
-		void doFetchByAlbumId(GNSearchResponse response)
-		{
-			GNOperations.fetchByAlbumId(this, config, response.getAlbumId());
-		}
-		@Override
-		public void GNResultReady(GNSearchResult result)
-		{
-			GNSearchResponse response = result.getBestResponse();
-			if (response != null && updater != null 
-					&& song != null && card != null && parent != null)
-			{
-				if (!result.isTextSearchNoMatchStatus())
-				{
-					String imageUrl = null;
-					GNCoverArt art = response.getCoverArt();
-					response.getAlbumId();
-					if (art != null)
-					{
-						imageUrl = art.getUrl();
-					}
-					song.setAlbumUrl(imageUrl);
-					updater.updateSingleView(parent, card);
-				}
-			}
-		}
-		
-	}
-	private static class GracenoteTextResponeListenerStageOne extends ThumbnailResponseListener 
-	implements GNSearchResultReady
-	{
-		
-		GracenoteTextResponeListenerStageOne(ResponseReceivedListener updater, Song song, Card card, ViewGroup parent )
-		{
-			super(updater, song, card, parent);
-		}
-
-		void doTextSearch(String artist, String album, String title)
-		{
-			GNOperations.searchByText(this, config, artist, album, null);
-		}
-
-		@Override
-		public void GNResultReady(GNSearchResult result)
-		{
-			if (!result.isTextSearchNoMatchStatus())
-			{
-				GNSearchResponse response = result.getBestResponse();
-				if (response != null && updater != null && song != null && 
-						card != null && parent != null)
-				{
-					updater.gracenoteStageOneComplete(parent, card, song, response);
-				}
-			}
-		}
-	}
-
 	private Context mContext;
 	private static GNConfig config;
 	private RequestQueue queue;
-	
+	private boolean busy;
+
+	// private Bitmap flow;
+
+	public void setBusy(boolean busy)
+	{
+		this.busy = busy;
+	}
+
 	public SongCardAdapter(Context context, RequestQueue queue)
 	{
 		super(context, R.layout.card_song);
@@ -170,20 +76,48 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		config.setProperty("content.coverArt", "1");
 		config.setProperty("content.coverArt.genreCoverArt", "0");
 		config.setProperty("content.coverArt.sizePreference", "SMALL");
+		// flow = BitmapFactory.decodeResource(mContext.getResources(),
+		// R.drawable.flow);
 	}
-	
-	@Override
-	protected boolean onProcessThumbnail(final ImageView icon, final Card card, final ViewGroup parent)
+
+	public void registerListener(ThumbnailResponseListener listener)
 	{
+		listeners.add(listener);
+	}
+
+	public void releaseListenerReferences()
+	{
+		for (ThumbnailResponseListener listener : listeners)
+		{
+			listener.releaseReferences();
+		}
+		listeners.clear();
+	}
+
+	@Override
+	protected boolean onProcessThumbnail(final ImageView icon, final Card card,
+			final ViewGroup parent)
+	{
+		card.setTag(null);
 		final Song song = ((SongCard) card).getSong();
+		if (!busy)
+		{
+			Picasso.with(mContext).load(song.getAlbumUrl())
+					.skipMemoryCache()
+					.placeholder(R.drawable.flow)
+					.error(R.drawable.flow)
+					.resizeDimen(R.dimen.card_thumbnail_large, R.dimen.card_thumbnail_large)
+					.into(icon);
 
-		Picasso.with(mContext).load(song.getAlbumUrl())
-				.skipMemoryCache()
-				.placeholder(R.drawable.flow)
-				.error(R.drawable.flow)
-				.fit()
-				.into(icon);
-
+			card.setTag(this);
+		}
+		else
+		{
+			Picasso.with(mContext).load(R.drawable.flow)
+					.resizeDimen(R.dimen.card_thumbnail_large, R.dimen.card_thumbnail_large)
+					.noFade()
+					.into(icon);
+		}
 		if (!song.hasAlbumUrl() && !song.isCantGetAlbumUrl())
 		{
 			ThumbnailListener listen = new ThumbnailListener(this, song,
@@ -227,7 +161,8 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 
 	// should refactor to use an enum lyricsState within each song.
 
-	protected boolean onProcessLyrics(final TextView lyrics, final Card card, final ViewGroup parent)
+	protected boolean onProcessLyrics(final TextView lyrics, final Card card,
+			final ViewGroup parent)
 	{
 		final Song song = ((SongCard) card).getSong();
 
@@ -261,18 +196,40 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		}
 		return true;
 	}
-	
+
 	@Override
-	
-	public View onViewCreated(int index, View recycled, Card item, ViewGroup parent, ViewHolder holder)
+	public View onViewCreated(int index, View recycled, Card item,
+			ViewGroup parent, ViewHolder holder)
 	{
-		if (holder.lyrics == null) holder.lyrics = (TextView) recycled.findViewById(R.id.lyrics);
-		
+		if (holder.lyrics == null)
+			holder.lyrics = (TextView) recycled.findViewById(R.id.lyrics);
+
 		if (holder.lyrics != null)
 			onProcessLyrics(holder.lyrics, item, parent);
 
 		return super.onViewCreated(index, recycled, item, parent, holder);
 	}
+
+	@Override
+	public void beginGracenote(ViewGroup parent, Card card, Song song)
+	{
+		GracenoteTextResponeListenerStageOne listen =
+				new GracenoteTextResponeListenerStageOne(this, song, card, parent);
+		registerListener(listen);
+		listen.doTextSearch(song.getArtist(), song.getAlbum(), song.getTitle());
+	}
+
+	@Override
+	public void gracenoteStageOneComplete(ViewGroup parent, Card card, Song song,
+			GNSearchResponse response)
+	{
+		GracenoteTextResponeListenerStageTwo listen =
+				new GracenoteTextResponeListenerStageTwo(this, song, card, parent);
+		registerListener(listen);
+		listen.doFetchByAlbumId(response);
+
+	}
+
 	abstract static class ThumbnailResponseListener
 	{
 		ResponseReceivedListener updater;
@@ -280,7 +237,8 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		Card card;
 		ViewGroup parent;
 
-		ThumbnailResponseListener(ResponseReceivedListener updater, Song song, Card card, ViewGroup parent)
+		ThumbnailResponseListener(ResponseReceivedListener updater, Song song,
+				Card card, ViewGroup parent)
 		{
 			this.updater = updater;
 			this.song = song;
@@ -297,7 +255,8 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		}
 	}
 
-	private static class ThumbnailListener extends ThumbnailResponseListener implements Response.Listener<JSONObject>,
+	private static class ThumbnailListener extends ThumbnailResponseListener
+			implements Response.Listener<JSONObject>,
 			Response.ErrorListener
 	{
 		ThumbnailListener(ResponseReceivedListener updater, Song song, Card card, ViewGroup parent)
@@ -319,7 +278,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 				else
 					updater.beginGracenote(parent, card, song);
 			}
-			//releaseReferences();
+			// releaseReferences();
 		}
 
 		@Override
@@ -330,13 +289,14 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 				updater.beginGracenote(parent, card, song);
 			}
 
-			//releaseReferences();
+			// releaseReferences();
 			// Log.d("Lyrics", "Onfailure" + " " + song.getTitle());
-			
+
 		}
 	}
 
-	private static class LyricsListener extends ThumbnailResponseListener implements Response.Listener<String>,
+	private static class LyricsListener extends ThumbnailResponseListener
+			implements Response.Listener<String>,
 			Response.ErrorListener
 	{
 		LyricsListener(ResponseReceivedListener updater, Song song, Card card, ViewGroup parent)
@@ -378,7 +338,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 					updater.updateSingleView(parent, card);
 				}
 			}
-			//releaseReferences();
+			// releaseReferences();
 		}
 
 		@Override
@@ -390,11 +350,77 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 				song.setLyricsLoading(false);
 				updater.updateSingleView(parent, card);
 			}
-			//releaseReferences();
+			// releaseReferences();
 		}
 	}
 
-	
+	private static class GracenoteTextResponeListenerStageTwo
+			extends ThumbnailResponseListener
+			implements GNSearchResultReady
+	{
+		GracenoteTextResponeListenerStageTwo(ResponseReceivedListener updater,
+				Song song, Card card, ViewGroup parent)
+		{
+			super(updater, song, card, parent);
+		}
 
-	
+		void doFetchByAlbumId(GNSearchResponse response)
+		{
+			GNOperations.fetchByAlbumId(this, config, response.getAlbumId());
+		}
+
+		@Override
+		public void GNResultReady(GNSearchResult result)
+		{
+			GNSearchResponse response = result.getBestResponse();
+			if (response != null && updater != null
+					&& song != null && card != null && parent != null)
+			{
+				if (!result.isTextSearchNoMatchStatus())
+				{
+					String imageUrl = null;
+					GNCoverArt art = response.getCoverArt();
+					response.getAlbumId();
+					if (art != null)
+					{
+						imageUrl = art.getUrl();
+					}
+					song.setAlbumUrl(imageUrl);
+					updater.updateSingleView(parent, card);
+				}
+			}
+		}
+
+	}
+
+	private static class GracenoteTextResponeListenerStageOne
+			extends ThumbnailResponseListener
+			implements GNSearchResultReady
+	{
+
+		GracenoteTextResponeListenerStageOne(ResponseReceivedListener updater, Song song,
+				Card card, ViewGroup parent)
+		{
+			super(updater, song, card, parent);
+		}
+
+		void doTextSearch(String artist, String album, String title)
+		{
+			GNOperations.searchByText(this, config, artist, album, null);
+		}
+
+		@Override
+		public void GNResultReady(GNSearchResult result)
+		{
+			if (!result.isTextSearchNoMatchStatus())
+			{
+				GNSearchResponse response = result.getBestResponse();
+				if (response != null && updater != null && song != null &&
+						card != null && parent != null)
+				{
+					updater.gracenoteStageOneComplete(parent, card, song, response);
+				}
+			}
+		}
+	}
 }

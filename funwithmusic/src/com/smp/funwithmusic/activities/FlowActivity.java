@@ -27,17 +27,20 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class FlowActivity extends Activity implements CardMenuListener<Card>
-{	
+public class FlowActivity extends Activity implements CardMenuListener<Card>, OnScrollListener
+{
 	private List<Song> songs;
 	private IntentFilter filter;
 	private UpdateActivityReceiver receiver;
@@ -46,7 +49,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	private String lastArtist;
 	private View idDialog;
 	private View welcomeScreen;
-	
+
 	private class UpdateActivityReceiver extends BroadcastReceiver
 	{
 		@Override
@@ -63,6 +66,44 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 					scrollToBottomOfList();
 			}
 		}
+	}
+
+	@Override
+	public void onScrollStateChanged(AbsListView view, int scrollState)
+	{
+		switch (scrollState)
+		{
+			case OnScrollListener.SCROLL_STATE_IDLE:
+				cardsAdapter.setBusy(false);
+				
+				int s = view.getFirstVisiblePosition();
+				int e = view.getLastVisiblePosition();
+				for (int i = s; i <= e; ++i)
+				{
+					Card card = (Card) view.getItemAtPosition(i);
+					if (card.getTag() == null)
+					{
+						View thisView = view.getChildAt(i - s);
+						cardsAdapter.getView(i, thisView, view);
+					}
+					// Card card = (Card) view.getChildAt(i);
+
+				}
+				break;
+			case OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
+
+				cardsAdapter.setBusy(false);
+				break;
+			case OnScrollListener.SCROLL_STATE_FLING:
+
+				cardsAdapter.setBusy(true);
+				break;
+		}
+	}
+
+	@Override
+	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
+	{
 
 	}
 
@@ -139,8 +180,8 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_flow);
 		GlobalRequest.init(this);
-		cardsAdapter = new SongCardAdapter<SongCard>(this, 
-						GlobalRequest.getInstance());
+		cardsAdapter = new SongCardAdapter<SongCard>(this,
+				GlobalRequest.getInstance());
 		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
 		cardsAdapter.setPopupMenu(R.menu.card_popup, this); // the popup menu
 		// callback is this
@@ -154,7 +195,8 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 
 		cardsList = (CardListView) findViewById(R.id.cardsList);
 		cardsList.setAdapter(cardsAdapter);
-		
+		cardsList.setOnScrollListener(this);
+
 		cardsList.setOnCardClickListener(new CardListView.CardClickListener()
 
 		{
@@ -180,7 +222,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 
 			}
 		});
-		
+
 		filter = new IntentFilter();
 		filter.addAction(ACTION_ADD_SONG);
 		filter.addAction(ACTION_REMOVE_IDENTIFY);

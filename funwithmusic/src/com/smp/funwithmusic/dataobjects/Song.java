@@ -167,8 +167,8 @@ public class Song implements Serializable
 
 	public boolean validate()
 	{
-		return artist != null && title != null && album != null &&
-				!title.equals("Advertisement");
+		return artist != null && title != null && album != null 
+				&& !artist.equals("") && !title.equals("Advertisement");
 	}
 
 	public void removeFeaturing()

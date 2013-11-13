@@ -19,6 +19,7 @@ import static com.smp.funwithmusic.global.Constants.*;
 
 public class LyricWikiClient
 {
+	public static final int MAX_LYRICS_LENGTH = 90;
 	public static final String BASE_URL = "http://lyrics.wikia.com/api.php?";
 
 	public static void get(RequestQueue queue, Object tag, String title, String artist,
@@ -38,8 +39,14 @@ public class LyricWikiClient
 	}
 
 	public static String getShortLyric(JSONObject json)
-	{
-		return json.optString("lyrics");
+	{	
+		String lyrics = json.optString("lyrics");
+		if (lyrics != null)
+		{
+			int tl = lyrics.length() > MAX_LYRICS_LENGTH ? MAX_LYRICS_LENGTH : lyrics.length();
+			lyrics = lyrics.substring(0, tl);
+		}
+		return lyrics;
 	}
 
 	public static String getFullLyricsUrl(JSONObject json)
