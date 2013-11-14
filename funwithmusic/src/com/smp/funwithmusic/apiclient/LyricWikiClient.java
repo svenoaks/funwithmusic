@@ -1,5 +1,7 @@
 package com.smp.funwithmusic.apiclient;
 
+import java.util.Locale;
+
 import org.json.JSONObject;
 
 import android.util.Log;
@@ -21,14 +23,18 @@ public class LyricWikiClient
 {
 	public static final int MAX_LYRICS_LENGTH = 90;
 	public static final String BASE_URL = "http://lyrics.wikia.com/api.php?";
-
+	public static final Locale locale;
+	static
+	{
+		locale = Locale.getDefault();
+	}
 	public static void get(RequestQueue queue, Object tag, String title, String artist,
 			Response.Listener<String> responseHandler, Response.ErrorListener errorHandler)
 	{
 		String params = "func=getSong&"
-				+ "&song=" + URLParamEncoder.encode(title)
+				+ "&song=" + URLParamEncoder.encode(title.toLowerCase(locale))
 						.replace(ESCAPED_SPACE, LYRICS_WIKI_TERMS_CONNECTOR)
-				+ "&artist=" + URLParamEncoder.encode(artist)
+				+ "&artist=" + URLParamEncoder.encode(artist.toLowerCase(locale))
 						.replace(ESCAPED_SPACE, LYRICS_WIKI_TERMS_CONNECTOR)
 				+ "&fmt=json";
 
