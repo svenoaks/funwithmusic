@@ -57,6 +57,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 		{
 			if (intent.getAction().equals(ACTION_REMOVE_IDENTIFY))
 			{
+				progressStopSpin(idDialog);
 				viewGone(idDialog);
 			}
 			else if (intent.getAction().equals(ACTION_ADD_SONG))
@@ -297,16 +298,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 				return false;
 		}
 		return true;
-	}
-
-	public static void doListen(Context context, final View idDialog)
-	{
-		viewVisible(idDialog);
-		Intent intent = new Intent(context, IdentifyMusicService.class);
-		context.startService(intent);
-	}
-
-	
+	}	
 
 	@Override
 	public void onMenuItemClick(Card card, MenuItem item)

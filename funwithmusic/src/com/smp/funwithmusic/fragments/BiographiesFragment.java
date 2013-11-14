@@ -47,7 +47,6 @@ import android.widget.RelativeLayout;
 
 public class BiographiesFragment extends BaseArtistFragment
 {
-	
 	public BiographiesFragment()
 	{
 		super();
@@ -99,11 +98,13 @@ public class BiographiesFragment extends BaseArtistFragment
 		EchoNestClient.getArtistInfo(GlobalRequest.getInstance(), TAG_VOLLEY, artist,
 				echoNestRequest.BIOGRAPHIES, listen, listen);
 	}
+
 	private void onBiosReceived(ArrayList<Biography> bios)
 	{
 		this.bios = bios;
 		makeAdapter();
 	}
+
 	private void makeAdapter()
 	{
 		CardAdapter<Card> cardsAdapter = new CardAdapter<Card>(getActivity());
@@ -121,9 +122,9 @@ public class BiographiesFragment extends BaseArtistFragment
 	public void onSaveInstanceState(Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
-		//outState.putParcelableArrayList(BUNDLE_BIOGRAPHIES, bios);
+		// outState.putParcelableArrayList(BUNDLE_BIOGRAPHIES, bios);
 	}
-	
+
 	static class BiographiesListener extends BaseArtistListener
 	{
 		BiographiesListener(BaseArtistFragment baseArtistFragment)
@@ -134,16 +135,22 @@ public class BiographiesFragment extends BaseArtistFragment
 		@Override
 		public void onResponse(JSONObject response)
 		{
-			super.onResponse(response);
-				((BiographiesFragment)frag).onBiosReceived((ArrayList<Biography>)
+			if (frag != null)
+			{
+				super.onResponse(response);
+				((BiographiesFragment) frag).onBiosReceived((ArrayList<Biography>)
 						EchoNestClient.parseBiographies(response));
+			}
 		}
-		
+
 		@Override
 		public void onErrorResponse(VolleyError error)
 		{
-			super.onErrorResponse(error);
+			if (frag != null)
+			{
+				super.onErrorResponse(error);
+			}
 		}
 	}
-	
+
 }

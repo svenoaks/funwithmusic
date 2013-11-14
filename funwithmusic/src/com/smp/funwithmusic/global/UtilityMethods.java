@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.dataobjects.EventInfo;
 import com.smp.funwithmusic.dataobjects.Song;
+import com.smp.funwithmusic.services.IdentifyMusicService;
 import com.smp.funwithmusic.views.ProgressWheel;
 
 import android.app.ActivityManager;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.widget.Toast;
 import static com.smp.funwithmusic.global.Constants.*;
 import static com.smp.funwithmusic.global.UtilityMethods.readObjectFromFile;
+import static com.smp.funwithmusic.global.UtilityMethods.viewVisible;
 
 public class UtilityMethods
 {
@@ -132,6 +134,7 @@ public class UtilityMethods
 		intent.putExtra(name, info);
 		context.startActivity(intent);
 	}
+
 	public static void viewVisible(final View view)
 	{
 		view.post(new Runnable()
@@ -139,9 +142,6 @@ public class UtilityMethods
 			@Override
 			public void run()
 			{
-				ProgressWheel pw = (ProgressWheel) view.findViewById(R.id.pw_spinner);
-				if (pw != null)
-					pw.spin();
 				view.setVisibility(View.VISIBLE);
 			}
 		});
@@ -154,12 +154,43 @@ public class UtilityMethods
 			@Override
 			public void run()
 			{
-				ProgressWheel pw = (ProgressWheel) view.findViewById(R.id.pw_spinner);
-				if (pw != null)
-					pw.stopSpinning();
 				view.setVisibility(View.GONE);
 			}
 		});
+	}
+
+	public static void progressSpin(final View view)
+	{
+		view.post(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				ProgressWheel pw = (ProgressWheel) view.findViewById(R.id.pw_spinner);
+				if (pw != null)
+					pw.spin();
+			}
+		});
+	}
+	public static void progressStopSpin(final View view)
+	{
+		view.post(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				ProgressWheel pw = (ProgressWheel) view.findViewById(R.id.pw_spinner);
+				if (pw != null)
+					pw.stopSpinning();
+			}
+		});
+	}
+	public static void doListen(Context context, final View idDialog)
+	{
+		viewVisible(idDialog);
+		progressSpin(idDialog);
+		Intent intent = new Intent(context, IdentifyMusicService.class);
+		context.startService(intent);
 	}
 
 	public static void doDeleteFlow(Context context)

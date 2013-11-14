@@ -22,6 +22,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.smp.funwithmusic.dataobjects.Biography;
+import com.smp.funwithmusic.dataobjects.Review;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.global.URLParamEncoder;
 
@@ -59,17 +60,58 @@ public class EchoNestClient
 				+ "&format=json"
 				+ "&results=100";
 
-		
 		Locale locale = Locale.getDefault();
-		
+
 		JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET,
 				BASE_URL + ARTIST_URL + request.toString().toLowerCase(locale) + "?"
 						+ params, null, responseHandler, errorHandler);
-		
-		//jsObjRequest.setShouldCache(false);
+
+		// jsObjRequest.setShouldCache(false);
 		jsObjRequest.setTag(tag);
-		
+
 		queue.add(jsObjRequest);
+	}
+
+	public static List<Review> parseReviews(JSONObject json)
+	{
+		Log.d("REVIEWS", json.toString());
+		List<Review> result = new ArrayList<Review>();
+		
+		try
+		{
+			JSONObject response = json.getJSONObject("response");
+			JSONArray reviews = response.getJSONArray("reviews");
+
+			for (int i = 0; i < reviews.length(); ++i)
+			{
+				JSONObject reviewJ = reviews.getJSONObject(i);
+
+				String name = reviewJ.optString("name");
+				String url = reviewJ.optString("url");
+				String summary = reviewJ.optString("summary");
+				String date = reviewJ.optString("date_reviewed");
+				String image_url = reviewJ.optString("image_url");
+				String release = reviewJ.optString("release");
+
+				Review review = new Review.Builder()
+						.withName(name)
+						.withUrl(url)
+						.withSummary(summary)
+						.withDate(date)
+						.withImage_url(image_url)
+						.withRelease(release)
+						.build();
+
+				result.add(review);
+
+			}
+		}
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+
+		return result;
 	}
 
 	public static List<Biography> parseBiographies(JSONObject json)
@@ -151,7 +193,6 @@ public class EchoNestClient
 
 	public static List<String> parseImages(JSONObject json)
 	{
-		// Log.d("Images", "JSON:   " + json.toString());
 		List<String> urls = new ArrayList<String>();
 		try
 		{
@@ -160,16 +201,11 @@ public class EchoNestClient
 
 			for (int i = 0; i < images.length(); ++i)
 			{
-				// Log.d("Images", "In parseImages  " +
-				// images.getJSONObject(i).getString("url"));
 				urls.add(images.getJSONObject(i).getString("url"));
-
 			}
-
 		}
 		catch (JSONException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return urls;

@@ -23,7 +23,7 @@
             style="@style/card_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/loading_flow"
+            android:text="@string/identify"
             android:layout_marginBottom="7dp" />
 
         <com.smp.funwithmusic.views.ProgressWheel

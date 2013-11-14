@@ -9,6 +9,7 @@
     <string name="action_licenses">Licenses</string>
     <string name="hello_world">Hello world!</string>
     <string name="johns_activity">John\'s Activity</string>
+    <string name="artist_not_found">Unfortunately, nothing could be found.</string>
     <string name="steves_activity">Lyrics Flow</string>
     <string name="todo">TODO</string>
     <string name="artist_info">Get Artist Info</string>

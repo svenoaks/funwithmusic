@@ -1,6 +1,7 @@
 package com.smp.funwithmusic.fragments;
 
 import static com.smp.funwithmusic.global.Constants.TAG_VOLLEY;
+import static com.smp.funwithmusic.global.UtilityMethods.*;
 
 import org.json.JSONObject;
 
@@ -12,6 +13,8 @@ import com.smp.funwithmusic.global.GlobalRequest;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.widget.TextView;
 
 public class BaseArtistFragment extends Fragment
 {
@@ -41,15 +44,20 @@ public class BaseArtistFragment extends Fragment
 		{
 			case IMAGES:
 				frag = new ImagesFragment();
-				frag.setType(info);
 				break;
 			case BIOGRAPHIES:
 				frag = new BiographiesFragment();
-				frag.setType(info);
+				break;
+			case EVENTS:
+				frag = new EventsFragment();
+				break;
+			case REVIEWS:
+				frag = new ReviewsFragment();
 				break;
 			default:
 				throw new RuntimeException("unknown fragment " + info.toString());
 		}
+		frag.setType(info);
 		return frag;
 	}
 
@@ -58,7 +66,10 @@ public class BaseArtistFragment extends Fragment
 	{
 		super.onCreate(savedInstanceState);
 		artist = ((ArtistActivity) getActivity()).getArtist();
-		listen = getNewListener(type);	
+		listen = getNewListener(type);
+
+		viewGone(((ArtistActivity) getActivity()).getNotFound());
+		viewVisible(((ArtistActivity) getActivity()).getLoadingDialog());
 	}
 
 	@Override
@@ -71,12 +82,13 @@ public class BaseArtistFragment extends Fragment
 			listen.frag = null;
 		}
 	}
-	
+
 	@Override
 	public void onResume()
 	{
 		super.onResume();
 	}
+
 	private BaseArtistListener getNewListener(ArtistInfo type)
 	{
 		BaseArtistListener listen = null;
@@ -87,6 +99,9 @@ public class BaseArtistFragment extends Fragment
 				break;
 			case BIOGRAPHIES:
 				listen = new BiographiesFragment.BiographiesListener(this);
+				break;
+			case REVIEWS:
+				listen = new ReviewsFragment.ReviewsListener(this);
 				break;
 			default:
 				throw new RuntimeException("unknown fragment");
@@ -107,14 +122,16 @@ public class BaseArtistFragment extends Fragment
 		@Override
 		public void onResponse(JSONObject response)
 		{
-			if (frag == null) return;
+			viewGone(((ArtistActivity) frag.getActivity()).getLoadingDialog());
 		}
 
 		@Override
 		public void onErrorResponse(VolleyError error)
 		{
-			if (frag == null) return;
+			viewGone(((ArtistActivity) frag.getActivity()).getLoadingDialog());
+			viewVisible(((ArtistActivity) frag.getActivity()).getNotFound());
 		}
+
 	}
 
 }

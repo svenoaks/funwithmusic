@@ -48,11 +48,9 @@ public class SongKickClient
 		}
 		catch (JSONException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Log.d("ID", result);
 		return result;
 	}
-	
 }

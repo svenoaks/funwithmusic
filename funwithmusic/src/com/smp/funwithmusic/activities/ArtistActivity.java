@@ -9,6 +9,7 @@ import com.smp.funwithmusic.fragments.BiographiesFragment;
 import com.smp.funwithmusic.fragments.ImagesFragment;
 import com.smp.funwithmusic.fragments.ArtistMenuFragment;
 import com.smp.funwithmusic.services.IdentifyMusicService;
+import com.smp.funwithmusic.views.ProgressWheel;
 
 import static com.smp.funwithmusic.global.Constants.*;
 import static com.smp.funwithmusic.global.UtilityMethods.*;
@@ -38,7 +39,8 @@ public class ArtistActivity extends SlidingFragmentActivity
 		{
 			if (intent.getAction().equals(ACTION_REMOVE_IDENTIFY))
 			{
-				viewGone(loadingDialog);
+				progressStopSpin(idDialog);
+				viewGone(idDialog);
 				boolean successful = intent.getBooleanExtra(EXTRA_LISTEN_SUCCESSFUL, false);
 				if (successful)
 				{
@@ -55,23 +57,30 @@ public class ArtistActivity extends SlidingFragmentActivity
 	private IntentFilter filter;
 	private UpdateActivityReceiver receiver;
 	private BaseArtistFragment mContent;
+	private View idDialog;
 	private View loadingDialog;
-	TextView progressText;
-	Bundle savedFrags;
-	
+	private View notFound;
+
 	public String getArtist()
 	{
 		return artist;
 	}
-	
+
 	public View getLoadingDialog()
 	{
 		return loadingDialog;
 	}
-	public TextView getProgressText()
+
+	public View getIdDialog()
 	{
-		return progressText;
+		return idDialog;
 	}
+
+	public View getNotFound()
+	{
+		return notFound;
+	}
+
 	@Override
 	protected void onPause()
 	{
@@ -88,11 +97,11 @@ public class ArtistActivity extends SlidingFragmentActivity
 
 		if (isMyServiceRunning(this, IdentifyMusicService.class))
 		{
-			viewVisible(loadingDialog);
+			viewVisible(idDialog);
 		}
 		else
 		{
-			viewGone(loadingDialog);
+			viewGone(idDialog);
 		}
 	}
 
@@ -103,10 +112,10 @@ public class ArtistActivity extends SlidingFragmentActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_artist);
 		artist = getIntent().getStringExtra(ARTIST_NAME);
-		loadingDialog = findViewById(R.id.progress);
-		progressText = (TextView) findViewById(R.id.progress_text);
-		progressText.setText(getResources().getText(R.string.identify));
-		// FlowActivity.viewVisible(loadingDialog);
+		idDialog = findViewById(R.id.progress);
+		loadingDialog = findViewById(R.id.loading);
+		notFound = findViewById(R.id.not_found);
+
 		setTitle(artist);
 
 		if (savedInstanceState != null)
@@ -126,6 +135,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.fragment_frame, mContent)
 				.commit();
+
 		// set the Behind View
 
 		setBehindContentView(R.layout.list_menu_artist);
@@ -144,7 +154,6 @@ public class ArtistActivity extends SlidingFragmentActivity
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
-		savedFrags = new Bundle();
 	}
 
 	private void configureSlidingMenu()
@@ -159,24 +168,23 @@ public class ArtistActivity extends SlidingFragmentActivity
 	}
 
 	@Override
-	public void onSaveInstanceState(Bundle outState)
-	{
-		super.onSaveInstanceState(outState);
+    public void onSaveInstanceState(Bundle outState)
+    {
+            super.onSaveInstanceState(outState);
 
-		if (mContent != null)
-			getSupportFragmentManager().putFragment(outState, BUNDLE_FRAGMENT,
-					mContent);
+            if (mContent != null)
+                    getSupportFragmentManager().putFragment(outState, BUNDLE_FRAGMENT,
+                                    mContent);
 
-	}
+    }
+
 	/*
-	private void saveCurrentFrag()
-	{
-		//FragmentManager mgr = getSupportFragmentManager();
-
-		//savedFrags.putParcelable(mContent.getType().toString(),
-				//mgr.saveFragmentInstanceState(mContent));
-	}
-	*/
+	 * private void saveCurrentFrag() { //FragmentManager mgr =
+	 * getSupportFragmentManager();
+	 * 
+	 * //savedFrags.putParcelable(mContent.getType().toString(),
+	 * //mgr.saveFragmentInstanceState(mContent)); }
+	 */
 	@Override
 	public void onBackPressed()
 	{
@@ -193,15 +201,14 @@ public class ArtistActivity extends SlidingFragmentActivity
 
 	public void switchContent(ArtistInfo info)
 	{
-		//saveCurrentFrag();
+		// saveCurrentFrag();
 		FragmentManager mgr = getSupportFragmentManager();
 
-		//SavedState state = null;
+		// SavedState state = null;
 
 		BaseArtistFragment newContent = BaseArtistFragment.newInstance(info);
 
-		mgr
-				.beginTransaction()
+		mgr.beginTransaction()
 				.addToBackStack(mContent.getType().toString())
 				.replace(R.id.fragment_frame, newContent)
 				.commit();
@@ -223,8 +230,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 			case R.id.listen:
 				if (!isMyServiceRunning(this, IdentifyMusicService.class))
 				{
-					progressText.setText(getResources().getText(R.string.identify));
-					FlowActivity.doListen(getApplicationContext(), loadingDialog);
+					doListen(getApplicationContext(), idDialog);
 				}
 				break;
 			default:

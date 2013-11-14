@@ -37,18 +37,14 @@ import android.widget.LinearLayout;
 public class ImagesFragment extends BaseArtistFragment
 {
 	public ImagesFragment()
-	{}
+	{
+	}
 
 	private GridView gridView;
 	private ArrayList<String> urls;
 
 	@Override
-	public void onPause()
-	{
-		super.onPause();
-	}
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState)
 	{
 		LinearLayout layout = (LinearLayout) (inflater.inflate(R.layout.fragment_images, null));
@@ -88,18 +84,20 @@ public class ImagesFragment extends BaseArtistFragment
 		this.urls = urls;
 		makeAdapter();
 	}
+
 	private void makeAdapter()
 	{
 		ImagesAdapter adapter = new ImagesAdapter(getActivity().getApplicationContext(), urls);
 		gridView.setAdapter(adapter);
 	}
+
 	@Override
 	public void onSaveInstanceState(Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
-		//outState.putStringArrayList(BUNDLE_IMAGE_URLS, urls);
+		// outState.putStringArrayList(BUNDLE_IMAGE_URLS, urls);
 	}
-	
+
 	static class ImagesListener extends BaseArtistListener
 	{
 		ImagesListener(BaseArtistFragment baseArtistFragment)
@@ -110,16 +108,23 @@ public class ImagesFragment extends BaseArtistFragment
 		@Override
 		public void onResponse(JSONObject response)
 		{
-			super.onResponse(response);
-				((ImagesFragment)frag).onUrlsReceived((ArrayList<String>)
+			if (frag != null)
+			{
+				super.onResponse(response);
+				((ImagesFragment) frag).onUrlsReceived((ArrayList<String>)
 						EchoNestClient.parseImages(response));
+			}
 		}
-		
+
 		@Override
 		public void onErrorResponse(VolleyError error)
 		{
-			super.onErrorResponse(error);
+			if (frag != null)
+			{
+				super.onErrorResponse(error);
+			}
+
 		}
 	}
-	
+
 }
