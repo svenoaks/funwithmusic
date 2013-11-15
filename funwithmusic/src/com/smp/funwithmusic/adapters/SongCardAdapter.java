@@ -292,7 +292,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 	}
 
 	private static class LyricsListener extends ThumbnailResponseListener
-			implements Response.Listener<String>,
+			implements Response.Listener<JSONObject>,
 			Response.ErrorListener
 	{
 		LyricsListener(ResponseReceivedListener updater, Song song, Card card, ViewGroup parent)
@@ -301,38 +301,23 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		}
 
 		@Override
-		public void onResponse(String text)
+		public void onResponse(JSONObject obj)
 		{
-
 			// Log.d("Lyrics", "OnSuccess" + " " + song.getTitle());
 			if (updater != null && song != null && card != null && parent != null)
 			{
-				text = text.replace("song = ", "");
+				Locale locale = Locale.getDefault();
+				String shortLyrics = LyricWikiClient.getShortLyric(obj);
 
-				JSONObject obj = null;
-				try
+				if (shortLyrics.toUpperCase(locale).equals(NOT_FOUND.toUpperCase(locale)))
 				{
-					obj = new JSONObject(text);
+					shortLyrics = NOT_FOUND_WITH_ADD;
+					song.setCanAddLyrics(true);
 				}
-				catch (JSONException e)
-				{
-					e.printStackTrace();
-				}
-				if (obj != null)
-				{
-					Locale locale = Locale.getDefault();
-					String shortLyrics = LyricWikiClient.getShortLyric(obj);
-
-					if (shortLyrics.toUpperCase(locale).equals(NOT_FOUND.toUpperCase(locale)))
-					{
-						shortLyrics = NOT_FOUND_WITH_ADD;
-						song.setCanAddLyrics(true);
-					}
-					song.setShortLyrics(shortLyrics);
-					song.setFullLyricsUrl(LyricWikiClient.getFullLyricsUrl(obj));
-					song.setLyricsLoading(false);
-					updater.updateSingleView(parent, card);
-				}
+				song.setShortLyrics(shortLyrics);
+				song.setFullLyricsUrl(LyricWikiClient.getFullLyricsUrl(obj));
+				song.setLyricsLoading(false);
+				updater.updateSingleView(parent, card);
 			}
 			// releaseReferences();
 		}

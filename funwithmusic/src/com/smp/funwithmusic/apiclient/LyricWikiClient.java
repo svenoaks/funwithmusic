@@ -21,7 +21,7 @@ import static com.smp.funwithmusic.global.Constants.*;
 
 public class LyricWikiClient
 {
-	public static final int MAX_LYRICS_LENGTH = 90;
+	public static final int MAX_LYRICS_LENGTH = 120;
 	public static final String BASE_URL = "http://lyrics.wikia.com/api.php?";
 	public static final Locale locale;
 	static
@@ -29,19 +29,19 @@ public class LyricWikiClient
 		locale = Locale.getDefault();
 	}
 	public static void get(RequestQueue queue, Object tag, String title, String artist,
-			Response.Listener<String> responseHandler, Response.ErrorListener errorHandler)
+			Response.Listener<JSONObject> responseHandler, Response.ErrorListener errorHandler)
 	{
 		String params = "func=getSong&"
 				+ "&song=" + URLParamEncoder.encode(title.toLowerCase(locale))
 						.replace(ESCAPED_SPACE, LYRICS_WIKI_TERMS_CONNECTOR)
 				+ "&artist=" + URLParamEncoder.encode(artist.toLowerCase(locale))
 						.replace(ESCAPED_SPACE, LYRICS_WIKI_TERMS_CONNECTOR)
-				+ "&fmt=json";
+				+ "&fmt=realjson";
 
-		StringRequest stringRequest = new StringRequest(Request.Method.GET,
-				BASE_URL + params, responseHandler, errorHandler);
-		stringRequest.setTag(tag);
-		queue.add(stringRequest);
+		JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET,
+				BASE_URL + params, null, responseHandler, errorHandler);
+		jsonRequest.setTag(tag);
+		queue.add(jsonRequest);
 	}
 
 	public static String getShortLyric(JSONObject json)
