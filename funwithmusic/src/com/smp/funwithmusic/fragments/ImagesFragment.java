@@ -3,6 +3,7 @@ package com.smp.funwithmusic.fragments;
 import java.util.ArrayList;
 
 import static com.smp.funwithmusic.global.Constants.*;
+import static com.smp.funwithmusic.global.UtilityMethods.viewVisible;
 
 import org.json.JSONObject;
 
@@ -37,8 +38,7 @@ import android.widget.LinearLayout;
 public class ImagesFragment extends BaseArtistFragment
 {
 	public ImagesFragment()
-	{
-	}
+	{}
 
 	private GridView gridView;
 	private ArrayList<String> urls;
@@ -60,16 +60,16 @@ public class ImagesFragment extends BaseArtistFragment
 				startActivity(intent);
 			}
 		});
-
-		if (urls == null || urls.size() == 0)
-		{
-			getUrls();
-		}
-		else
+		
+		if (urls != null && urls.size() != 0)
 		{
 			makeAdapter();
 		}
-
+		else
+		{
+			getUrls();
+		}
+		
 		return layout;
 	}
 
@@ -82,7 +82,14 @@ public class ImagesFragment extends BaseArtistFragment
 	private void onUrlsReceived(ArrayList<String> urls)
 	{
 		this.urls = urls;
-		makeAdapter();
+		if (urls == null || urls.size() == 0)
+		{
+			viewVisible(((ArtistActivity) getActivity()).getNotFound());
+		}
+		else
+		{
+			makeAdapter();
+		}
 	}
 
 	private void makeAdapter()

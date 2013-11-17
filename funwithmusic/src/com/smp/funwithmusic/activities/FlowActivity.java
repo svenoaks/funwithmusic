@@ -138,7 +138,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 	protected void onResume()
 	{
 		super.onResume();
-		Log.d("PAUSE", "reSUMED");
+		//Log.d("PAUSE", "reSUMED");
 		addCardsFromList();
 		scrollToBottomOfList();
 		LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);

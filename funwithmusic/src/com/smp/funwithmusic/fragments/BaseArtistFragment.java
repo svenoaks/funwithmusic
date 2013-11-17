@@ -3,6 +3,8 @@ package com.smp.funwithmusic.fragments;
 import static com.smp.funwithmusic.global.Constants.TAG_VOLLEY;
 import static com.smp.funwithmusic.global.UtilityMethods.*;
 
+import java.util.ArrayList;
+
 import org.json.JSONObject;
 
 import com.android.volley.Response;
@@ -88,6 +90,8 @@ public class BaseArtistFragment extends Fragment
 	{
 		super.onResume();
 	}
+	
+	
 
 	private BaseArtistListener getNewListener(ArtistInfo type)
 	{
@@ -102,6 +106,9 @@ public class BaseArtistFragment extends Fragment
 				break;
 			case REVIEWS:
 				listen = new ReviewsFragment.ReviewsListener(this);
+				break;
+			case EVENTS:
+				listen = new EventsFragment.ArtistIdListener(this);
 				break;
 			default:
 				throw new RuntimeException("unknown fragment");

@@ -1,6 +1,7 @@
 package com.smp.funwithmusic.fragments;
 
 import static com.smp.funwithmusic.global.Constants.TAG_VOLLEY;
+import static com.smp.funwithmusic.global.UtilityMethods.viewVisible;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ import com.afollestad.cardsui.CardHeader;
 import com.afollestad.cardsui.CardListView;
 import com.android.volley.VolleyError;
 import com.smp.funwithmusic.R;
+import com.smp.funwithmusic.activities.ArtistActivity;
 import com.smp.funwithmusic.apiclient.EchoNestClient;
 import com.smp.funwithmusic.apiclient.EchoNestClient.echoNestRequest;
 import com.smp.funwithmusic.dataobjects.Biography;
@@ -64,14 +66,15 @@ public class ReviewsFragment extends BaseArtistFragment
 			}
 		});
 
-		if (reviews == null)
-		{
-			getreviews();
-		}
-		else
+		if (reviews != null && reviews.size() != 0)
 		{
 			makeAdapter();
 		}
+		else
+		{
+			getreviews();
+		}
+		
 		return layout;
 	}
 
@@ -84,7 +87,14 @@ public class ReviewsFragment extends BaseArtistFragment
 	private void onreviewsReceived(ArrayList<Review> arrayList)
 	{
 		this.reviews = arrayList;
-		makeAdapter();
+		if (reviews == null || reviews.size() == 0)
+		{
+			viewVisible(((ArtistActivity) getActivity()).getNotFound());
+		}
+		else
+		{
+			makeAdapter();
+		}
 	}
 
 	private void makeAdapter()

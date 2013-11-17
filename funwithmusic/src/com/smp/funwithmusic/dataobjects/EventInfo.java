@@ -6,6 +6,8 @@ import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+
+//probably not going to be used
 public class EventInfo implements Parcelable
 {
 	public String getArtist()

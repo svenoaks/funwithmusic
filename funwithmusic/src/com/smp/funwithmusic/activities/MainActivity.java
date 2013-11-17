@@ -55,22 +55,22 @@ public class MainActivity extends Activity
 
 		Event testEvent = new Event.Builder("Wild Flag at The Fillmore (April 18, 2012)")
 				.type("Concert")
-				.mainUri(Uri.parse("http://www.songkick.com/concerts/11129128-wild-flag-at-fillmore?utm_source=PARTNER_ID&utm_medium=partner"))
+				.mainUri("http://www.songkick.com/concerts/11129128-wild-flag-at-fillmore?utm_source=PARTNER_ID&utm_medium=partner")
 				.start("2012-04-18T20:00:00-0800")
 				.performances(perfomances)
 				.location("San Francisco, CA, US")
 				.venueDisplayName("The Fillmore")
-				.venueUri(Uri.parse("http://www.songkick.com/venues/6239-fillmore?utm_source=PARTNER_ID&utm_medium=partner"))
+				.venueUri("http://www.songkick.com/venues/6239-fillmore?utm_source=PARTNER_ID&utm_medium=partner")
 				.build();
 
 		Event testEvent2 = new Event.Builder("Wild Flag at WHEREVER (April 18, 2012)")
 				.type("Concert")
-				.mainUri(Uri.parse("http://www.songkick.com/concerts/11129128-wild-flag-at-fillmore?utm_source=PARTNER_ID&utm_medium=partner"))
+				.mainUri("http://www.songkick.com/concerts/11129128-wild-flag-at-fillmore?utm_source=PARTNER_ID&utm_medium=partner")
 				.start("2012-04-18T20:00:00-0800")
 				.performances(perfomances)
 				.location("YADA, CA, US")
 				.venueDisplayName("The Fillmore")
-				.venueUri(Uri.parse("http://www.songkick.com/venues/6239-fillmore?utm_source=PARTNER_ID&utm_medium=partner"))
+				.venueUri("http://www.songkick.com/venues/6239-fillmore?utm_source=PARTNER_ID&utm_medium=partner")
 				.build();
 
 		List<Event> events = new ArrayList<Event>();

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.smp.funwithmusic.global.Constants.*;
+import static com.smp.funwithmusic.global.UtilityMethods.viewVisible;
 
 import org.json.JSONObject;
 
@@ -82,14 +83,15 @@ public class BiographiesFragment extends BaseArtistFragment
 			}
 		});
 
-		if (bios == null)
-		{
-			getBios();
-		}
-		else
+		if (bios != null && bios.size() != 0)
 		{
 			makeAdapter();
 		}
+		else
+		{
+			getBios();
+		}
+
 		return layout;
 	}
 
@@ -102,7 +104,14 @@ public class BiographiesFragment extends BaseArtistFragment
 	private void onBiosReceived(ArrayList<Biography> bios)
 	{
 		this.bios = bios;
-		makeAdapter();
+		if (bios == null || bios.size() == 0)
+		{
+			viewVisible(((ArtistActivity) getActivity()).getNotFound());
+		}
+		else
+		{
+			makeAdapter();
+		}
 	}
 
 	private void makeAdapter()
@@ -122,7 +131,6 @@ public class BiographiesFragment extends BaseArtistFragment
 	public void onSaveInstanceState(Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
-		// outState.putParcelableArrayList(BUNDLE_BIOGRAPHIES, bios);
 	}
 
 	static class BiographiesListener extends BaseArtistListener

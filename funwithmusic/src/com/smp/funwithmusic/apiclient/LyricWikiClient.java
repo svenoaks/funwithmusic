@@ -4,17 +4,10 @@ import java.util.Locale;
 
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.smp.funwithmusic.global.URLParamEncoder;
 
 import static com.smp.funwithmusic.global.Constants.*;

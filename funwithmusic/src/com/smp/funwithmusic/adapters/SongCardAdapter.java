@@ -1,11 +1,9 @@
 package com.smp.funwithmusic.adapters;
 
-import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import static com.smp.funwithmusic.global.Constants.*;
@@ -16,25 +14,15 @@ import com.gracenote.mmid.MobileSDK.GNOperations;
 import com.gracenote.mmid.MobileSDK.GNSearchResponse;
 import com.gracenote.mmid.MobileSDK.GNSearchResult;
 import com.gracenote.mmid.MobileSDK.GNSearchResultReady;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.apiclient.ItunesClient;
 import com.smp.funwithmusic.apiclient.LyricWikiClient;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.dataobjects.SongCard;
-import com.smp.funwithmusic.receivers.SongReceiver;
-import com.smp.funwithmusic.services.IdentifyMusicService;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -43,7 +31,6 @@ import android.widget.TextView;
 
 import com.afollestad.cardsui.Card;
 import com.afollestad.cardsui.CardAdapter;
-import com.afollestad.silk.adapters.SilkAdapter;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;

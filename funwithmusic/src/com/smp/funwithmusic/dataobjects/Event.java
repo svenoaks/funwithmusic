@@ -15,7 +15,7 @@ public class Event implements Parcelable
 		return type;
 	}
 
-	public Uri getMainUri()
+	public String getMainUri()
 	{
 		return mainUri;
 	}
@@ -45,30 +45,30 @@ public class Event implements Parcelable
 		return venueDisplayName;
 	}
 
-	public Uri getVenueUri()
+	public String getVenueUri()
 	{
 		return venueUri;
 	}
 
 	private String type;
-	private Uri mainUri;
+	private String mainUri;
 	private String displayName;
 	private String start;
 	private List<Performance> performances;
 	private String location;
 	private String venueDisplayName;
-	private Uri venueUri;
+	private String venueUri;
 
 	public static class Builder
 	{
 		private String type;
-		private Uri mainUri;
+		private String mainUri;
 		private String displayName;
 		private String start;
 		private List<Performance> performances;
 		private String location;
 		private String venueDisplayName;
-		private Uri venueUri;
+		private String venueUri;
 
 		public Builder(String displayName)
 		{
@@ -81,7 +81,7 @@ public class Event implements Parcelable
 			return this;
 		}
 
-		public Builder mainUri(Uri mainUri)
+		public Builder mainUri(String mainUri)
 		{
 			this.mainUri = mainUri;
 			return this;
@@ -111,7 +111,7 @@ public class Event implements Parcelable
 			return this;
 		}
 
-		public Builder venueUri(Uri venueUri)
+		public Builder venueUri(String venueUri)
 		{
 			this.venueUri = venueUri;
 			return this;
@@ -121,6 +121,8 @@ public class Event implements Parcelable
 		{
 			return new Event(this);
 		}
+
+		
 	}
 
 	private Event(Builder builder)
@@ -152,26 +154,26 @@ public class Event implements Parcelable
 	public void writeToParcel(Parcel out, int flags)
 	{
 		out.writeString(type);
-		out.writeParcelable(mainUri, 0);
+		out.writeString(mainUri);
 		out.writeString(displayName);
 		out.writeString(start);
 		out.writeList(performances);
 		out.writeString(location);
 		out.writeString(venueDisplayName);
-		out.writeParcelable(venueUri, 0);
+		out.writeString(venueUri);
 	}
 
 	private Event(Parcel in)
 	{
 		type = in.readString();
-		mainUri = in.readParcelable(null);
+		mainUri = in.readString();
 		displayName = in.readString();
 		start = in.readString();
 		performances = new ArrayList<Performance>();
 		in.readList(performances, Performance.class.getClassLoader());
 		location = in.readString();
 		venueDisplayName = in.readString();
-		venueUri = in.readParcelable(null);
+		venueUri = in.readString();
 	}
 
 	@Override
