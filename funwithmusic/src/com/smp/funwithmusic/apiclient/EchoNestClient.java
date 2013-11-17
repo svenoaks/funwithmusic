@@ -76,7 +76,7 @@ public class EchoNestClient
 	{
 		Log.d("REVIEWS", json.toString());
 		List<Review> result = new ArrayList<Review>();
-		
+
 		try
 		{
 			JSONObject response = json.getJSONObject("response");

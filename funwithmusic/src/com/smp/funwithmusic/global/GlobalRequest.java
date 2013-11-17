@@ -14,14 +14,14 @@ public class GlobalRequest
 	{
 		GlobalRequest.context = context.getApplicationContext();
 	}
-	
+
 	public static synchronized RequestQueue getInstance()
 	{
 		if (queue == null)
 		{
 			queue = Volley.newRequestQueue(context);
 		}
-		
+
 		return queue;
 	}
 }

@@ -47,7 +47,7 @@ public class SongKickClient
 		String params = "apikey=" + API_KEY_SONGKICK
 				+ "&per_page=50";
 		JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET,
-				BASE_URL + "artists/" +  artistId + ARTIST_EVENTS_URL + params, null, responseHandler, errorHandler);
+				BASE_URL + "artists/" + artistId + ARTIST_EVENTS_URL + params, null, responseHandler, errorHandler);
 
 		jsObjRequest.setTag(tag);
 		queue.add(jsObjRequest);
@@ -70,8 +70,10 @@ public class SongKickClient
 				String type = event.optString("type");
 				String mainUri = event.optString("uri");
 				String displayName = event.optString("displayName");
-				String start = event.optJSONObject("start")
+				String dateTime = event.optJSONObject("start")
 						.optString("datetime");
+				String date = event.optJSONObject("start")
+						.optString("date");
 
 				JSONArray performances = event.optJSONArray("performance");
 				List<Performance> perfs = new ArrayList<Performance>();
@@ -106,7 +108,8 @@ public class SongKickClient
 					Event e = new Event.Builder(venueDisplayName)
 							.type(type)
 							.mainUri(mainUri)
-							.start(start)
+							.date(date)
+							.dateTime(dateTime)
 							.performances(perfs)
 							.location(location)
 							.venueDisplayName(venueDisplayName)

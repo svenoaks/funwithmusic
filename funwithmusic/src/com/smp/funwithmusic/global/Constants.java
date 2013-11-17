@@ -27,7 +27,7 @@ public class Constants
 	public static final String EVENT_NAME = "com.smp.funwithmusic.EVENT_NAME";
 
 	public static final String DASH = " - ";
-	
+
 	public static final String API_KEY_SONGKICK = "pKFNDev2nVOgUetS";
 	public static final String API_KEY_ECHONEST = "YYTOE4TOBBVSD1FMG";
 	public static final String API_KEY_GRACENOTE = "319488-635BB867F4A29641894975ACAED21413";
@@ -46,9 +46,9 @@ public class Constants
 	public static final String WEB_URL = "com.smp.funwithmusic.WEB_URL";
 
 	public static final String ARTIST_NAME = "com.smp.funwithmusic.ARTIST_NAME";
-	
+
 	public static final String TAG_VOLLEY = "VolleyTag";
-	
+
 	public static final String TOAST_ID_SUCCESSFUL = "Song identified!";
 	public static final String TOAST_ID_FAILURE = "Song couldn't be identified, see help";
 	public static final String TOAST_FLOW_DELETED = "All songs were removed";

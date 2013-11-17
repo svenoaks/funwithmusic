@@ -42,7 +42,7 @@ public class ReviewsFragment extends BaseArtistFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View layout = inflater.inflate(R.layout.fragment_biographies, null);
+		View layout = inflater.inflate(R.layout.fragment_cards_list, null);
 		listView = (CardListView) layout.findViewById(R.id.cardsList);
 		listView.setOnCardClickListener(new CardListView.CardClickListener()
 
@@ -74,7 +74,7 @@ public class ReviewsFragment extends BaseArtistFragment
 		{
 			getreviews();
 		}
-		
+
 		return layout;
 	}
 
@@ -139,7 +139,7 @@ public class ReviewsFragment extends BaseArtistFragment
 		{
 			if (frag != null)
 			{
-			super.onErrorResponse(error);
+				super.onErrorResponse(error);
 			}
 		}
 	}

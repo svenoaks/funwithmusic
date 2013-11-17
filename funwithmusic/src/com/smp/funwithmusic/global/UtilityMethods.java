@@ -172,6 +172,7 @@ public class UtilityMethods
 			}
 		});
 	}
+
 	public static void progressStopSpin(final View view)
 	{
 		view.post(new Runnable()
@@ -185,6 +186,7 @@ public class UtilityMethods
 			}
 		});
 	}
+
 	public static void doListen(Context context, final View idDialog)
 	{
 		viewVisible(idDialog);

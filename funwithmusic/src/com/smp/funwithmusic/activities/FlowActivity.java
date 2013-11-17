@@ -76,7 +76,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 		{
 			case OnScrollListener.SCROLL_STATE_IDLE:
 				cardsAdapter.setBusy(false);
-				
+
 				int s = view.getFirstVisiblePosition();
 				int e = view.getLastVisiblePosition();
 				for (int i = s; i <= e; ++i)
@@ -138,7 +138,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 	protected void onResume()
 	{
 		super.onResume();
-		//Log.d("PAUSE", "reSUMED");
+		// Log.d("PAUSE", "reSUMED");
 		addCardsFromList();
 		scrollToBottomOfList();
 		LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
@@ -298,7 +298,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 				return false;
 		}
 		return true;
-	}	
+	}
 
 	@Override
 	public void onMenuItemClick(Card card, MenuItem item)

@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_above="@id/attr"
+    android:layout_alignParentTop="true" >
+    
     <include layout="@layout/action_bar_bottom_line" />
 
-    <FrameLayout
+    <com.afollestad.cardsui.CardListView
+        android:id="@+id/cardsList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-        <com.afollestad.cardsui.CardListView
-            android:id="@+id/cardsList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    <include
+        android:id="@+id/welcome_screen"
+        layout="@layout/card_empty_flow"
+        android:visibility="gone" />
 
-        <include
-            android:id="@+id/welcome_screen"
-            layout="@layout/card_empty_flow"
-            android:visibility="gone" />
-
-        <include
-            android:id="@+id/progress"
-            layout="@layout/dialog_loading"
-            android:visibility="gone" />
-    </FrameLayout>
+    <include
+        android:id="@+id/progress"
+        layout="@layout/dialog_loading"
+        android:visibility="gone" />
 
 </LinearLayout>

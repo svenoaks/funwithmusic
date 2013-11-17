@@ -266,7 +266,7 @@ public class CardAdapter<ItemType extends CardBase<ItemType>> extends SilkAdapte
 	}
 
 	@Override
-	public View onViewCreated(int index, View recycled, ItemType item, ViewGroup parent, SilkAdapter.ViewHolder viewHolder)
+	public View onViewCreated(int index, View recycled, ItemType item, ViewGroup parent, ViewHolder viewHolder)
 	{
 		if (item.isHeader())
 		{

@@ -6,7 +6,6 @@
         res/values-v11/styles.xml on API 14+ devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-       
         <item name="android:homeAsUpIndicator">@drawable/new_indicator</item>
     </style>
 

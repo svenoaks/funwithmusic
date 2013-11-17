@@ -168,15 +168,15 @@ public class ArtistActivity extends SlidingFragmentActivity
 	}
 
 	@Override
-    public void onSaveInstanceState(Bundle outState)
-    {
-            super.onSaveInstanceState(outState);
+	public void onSaveInstanceState(Bundle outState)
+	{
+		super.onSaveInstanceState(outState);
 
-            if (mContent != null)
-                    getSupportFragmentManager().putFragment(outState, BUNDLE_FRAGMENT,
-                                    mContent);
+		if (mContent != null)
+			getSupportFragmentManager().putFragment(outState, BUNDLE_FRAGMENT,
+					mContent);
 
-    }
+	}
 
 	/*
 	 * private void saveCurrentFrag() { //FragmentManager mgr =

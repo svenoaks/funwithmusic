@@ -9,6 +9,8 @@ import com.smp.funwithmusic.dataobjects.Song;
 public interface ResponseReceivedListener
 {
 	void beginGracenote(ViewGroup parent, Card card, Song song);
+
 	void gracenoteStageOneComplete(ViewGroup parent, Card card, Song song, GNSearchResponse response);
+
 	void updateSingleView(ViewGroup parent, Card card);
 }

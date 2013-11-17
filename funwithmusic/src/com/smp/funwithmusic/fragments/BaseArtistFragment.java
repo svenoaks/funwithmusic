@@ -90,8 +90,6 @@ public class BaseArtistFragment extends Fragment
 	{
 		super.onResume();
 	}
-	
-	
 
 	private BaseArtistListener getNewListener(ArtistInfo type)
 	{

@@ -40,8 +40,7 @@ public class EventsFragment extends BaseArtistFragment
 	private CardListView listView;
 	private ArrayList<Event> events;
 	private EventsListener eventListener;
-	
-	
+
 	@Override
 	public void onPause()
 	{
@@ -51,10 +50,11 @@ public class EventsFragment extends BaseArtistFragment
 			eventListener.frag = null;
 		}
 	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View layout = inflater.inflate(R.layout.fragment_biographies, null);
+		View layout = inflater.inflate(R.layout.fragment_cards_list, null);
 		listView = (CardListView) layout.findViewById(R.id.cardsList);
 		listView.setOnCardClickListener(new CardListView.CardClickListener()
 
@@ -77,7 +77,7 @@ public class EventsFragment extends BaseArtistFragment
 
 			}
 		});
-		
+
 		if (events != null && events.size() != 0)
 		{
 			makeAdapter();
@@ -86,7 +86,7 @@ public class EventsFragment extends BaseArtistFragment
 		{
 			getArtistId();
 		}
-	
+
 		return layout;
 	}
 
@@ -108,7 +108,7 @@ public class EventsFragment extends BaseArtistFragment
 			makeAdapter();
 		}
 	}
-	
+
 	private void onIdReceived(String id)
 	{
 		eventListener = new EventsListener(this);
@@ -120,11 +120,14 @@ public class EventsFragment extends BaseArtistFragment
 	{
 		CardAdapter<Card> cardsAdapter = new CardAdapter<Card>(getActivity());
 		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
-		cardsAdapter.add(new CardHeader("Upcoming Events:"));
+		cardsAdapter.add(new CardHeader("Upcoming Events"));
 		for (Event event : events)
 		{
+			String date = event.getDateTime();
+			if (date == null || date.equals("null"))
+				date = event.getDate();
 			cardsAdapter.add(new Card(event.getDisplayName(),
-					event.getStart()));
+					date));
 		}
 		listView.setAdapter(cardsAdapter);
 	}
@@ -163,6 +166,7 @@ public class EventsFragment extends BaseArtistFragment
 			}
 		}
 	}
+
 	static class EventsListener extends BaseArtistListener
 	{
 		EventsListener(BaseArtistFragment baseArtistFragment)

@@ -25,9 +25,9 @@ public class Event implements Parcelable
 		return displayName;
 	}
 
-	public String getStart()
+	public String getDateTime()
 	{
-		return start;
+		return dateTime;
 	}
 
 	public List<Performance> getPerformances()
@@ -50,10 +50,16 @@ public class Event implements Parcelable
 		return venueUri;
 	}
 
+	public String getDate()
+	{
+		return date;
+	}
+
 	private String type;
 	private String mainUri;
 	private String displayName;
-	private String start;
+	private String date;
+	private String dateTime;
 	private List<Performance> performances;
 	private String location;
 	private String venueDisplayName;
@@ -64,7 +70,8 @@ public class Event implements Parcelable
 		private String type;
 		private String mainUri;
 		private String displayName;
-		private String start;
+		private String date;
+		private String dateTime;
 		private List<Performance> performances;
 		private String location;
 		private String venueDisplayName;
@@ -73,6 +80,12 @@ public class Event implements Parcelable
 		public Builder(String displayName)
 		{
 			this.displayName = displayName;
+		}
+
+		public Builder date(String date)
+		{
+			this.date = date;
+			return this;
 		}
 
 		public Builder type(String type)
@@ -87,9 +100,9 @@ public class Event implements Parcelable
 			return this;
 		}
 
-		public Builder start(String start)
+		public Builder dateTime(String dateTime)
 		{
-			this.start = start;
+			this.dateTime = dateTime;
 			return this;
 		}
 
@@ -122,7 +135,6 @@ public class Event implements Parcelable
 			return new Event(this);
 		}
 
-		
 	}
 
 	private Event(Builder builder)
@@ -130,7 +142,8 @@ public class Event implements Parcelable
 		this.type = builder.type;
 		this.mainUri = builder.mainUri;
 		this.displayName = builder.displayName;
-		this.start = builder.start;
+		this.date = builder.date;
+		this.dateTime = builder.dateTime;
 		this.performances = builder.performances;
 		this.location = builder.location;
 		this.venueDisplayName = builder.venueDisplayName;
@@ -156,7 +169,8 @@ public class Event implements Parcelable
 		out.writeString(type);
 		out.writeString(mainUri);
 		out.writeString(displayName);
-		out.writeString(start);
+		out.writeString(date);
+		out.writeString(dateTime);
 		out.writeList(performances);
 		out.writeString(location);
 		out.writeString(venueDisplayName);
@@ -168,7 +182,8 @@ public class Event implements Parcelable
 		type = in.readString();
 		mainUri = in.readString();
 		displayName = in.readString();
-		start = in.readString();
+		date = in.readString();
+		dateTime = in.readString();
 		performances = new ArrayList<Performance>();
 		in.readList(performances, Performance.class.getClassLoader());
 		location = in.readString();

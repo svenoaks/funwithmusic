@@ -38,7 +38,8 @@ import android.widget.LinearLayout;
 public class ImagesFragment extends BaseArtistFragment
 {
 	public ImagesFragment()
-	{}
+	{
+	}
 
 	private GridView gridView;
 	private ArrayList<String> urls;
@@ -60,7 +61,7 @@ public class ImagesFragment extends BaseArtistFragment
 				startActivity(intent);
 			}
 		});
-		
+
 		if (urls != null && urls.size() != 0)
 		{
 			makeAdapter();
@@ -69,7 +70,7 @@ public class ImagesFragment extends BaseArtistFragment
 		{
 			getUrls();
 		}
-		
+
 		return layout;
 	}
 

@@ -37,7 +37,7 @@ public class ItunesClient
 
 		JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET,
 				BASE_URL + params, null, responseHandler, errorHandler);
-		
+
 		jsObjRequest.setTag(tag);
 		queue.add(jsObjRequest);
 	}

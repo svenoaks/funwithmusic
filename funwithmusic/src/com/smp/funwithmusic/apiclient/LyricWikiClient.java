@@ -21,6 +21,7 @@ public class LyricWikiClient
 	{
 		locale = Locale.getDefault();
 	}
+
 	public static void get(RequestQueue queue, Object tag, String title, String artist,
 			Response.Listener<JSONObject> responseHandler, Response.ErrorListener errorHandler)
 	{
@@ -38,7 +39,7 @@ public class LyricWikiClient
 	}
 
 	public static String getShortLyric(JSONObject json)
-	{	
+	{
 		String lyrics = json.optString("lyrics");
 		if (lyrics != null)
 		{

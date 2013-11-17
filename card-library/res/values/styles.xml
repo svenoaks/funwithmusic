@@ -42,7 +42,7 @@
     <style name="card_outer">
         <item name="android:orientation">vertical</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingTop">@dimen/card_outer_padding_top</item>
         <item name="android:paddingBottom">@dimen/card_outer_padding_bottom</item>
         <item name="android:paddingLeft">@dimen/card_outer_padding_horizontal</item>
@@ -52,7 +52,7 @@
 
     <style name="card_inner">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingLeft">@dimen/card_inner_padding_left</item>
         <item name="android:paddingRight">@dimen/card_inner_padding_right</item>
         <item name="android:paddingTop">@dimen/card_inner_padding_vertical</item>
