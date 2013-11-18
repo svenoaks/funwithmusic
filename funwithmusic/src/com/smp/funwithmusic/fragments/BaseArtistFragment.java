@@ -15,10 +15,12 @@ import com.smp.funwithmusic.global.GlobalRequest;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class BaseArtistFragment extends Fragment
+public abstract class BaseArtistFragment extends Fragment
 {
 	private ArtistInfo type;
 	protected BaseArtistListener listen;
@@ -69,11 +71,14 @@ public class BaseArtistFragment extends Fragment
 		super.onCreate(savedInstanceState);
 		artist = ((ArtistActivity) getActivity()).getArtist();
 		listen = getNewListener(type);
-
-		viewGone(((ArtistActivity) getActivity()).getNotFound());
 		viewVisible(((ArtistActivity) getActivity()).getLoadingDialog());
 	}
-
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	{
+		viewGone(((ArtistActivity) getActivity()).getNotFound());
+		return null;
+	}
 	@Override
 	public void onPause()
 	{

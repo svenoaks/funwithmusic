@@ -19,11 +19,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.Fragment.SavedState;
@@ -104,7 +107,9 @@ public class ArtistActivity extends SlidingFragmentActivity
 			viewGone(idDialog);
 		}
 	}
-
+	
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -154,6 +159,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
+		
 	}
 
 	private void configureSlidingMenu()

@@ -28,14 +28,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -169,6 +172,36 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 
 	}
 
+	private void setWindowContentOverlayCompat()
+	{
+		if (Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN_MR2)
+		{
+			// Get the content view
+			View contentView = findViewById(android.R.id.content);
+
+			// Make sure it's a valid instance of a FrameLayout
+			if (contentView instanceof FrameLayout)
+			{
+				TypedValue tv = new TypedValue();
+
+				// Get the windowContentOverlay value of the current theme
+				if (getTheme().resolveAttribute(
+						android.R.attr.windowContentOverlay, tv, true))
+				{
+
+					// If it's a valid resource, set it as the foreground
+					// drawable
+					// for the content view
+					if (tv.resourceId != 0)
+					{
+						((FrameLayout) contentView).setForeground(
+								getResources().getDrawable(tv.resourceId));
+					}
+				}
+			}
+		}
+	}
+
 	// need to make old OS friendly
 	@SuppressLint("NewApi")
 	@Override
@@ -226,9 +259,18 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
-
+//		getWindow().getDecorView().findViewById(android.R.id.content).post(new Runnable()
+//		{
+//			@Override
+//			public void run()
+//			{
+//				// TODO Auto-generated method stub
+//				setWindowContentOverlayCompat();
+//
+//			}
+//		});
+//	}
 	}
-
 	private void addCardsFromList()
 	{
 		// songs never is null

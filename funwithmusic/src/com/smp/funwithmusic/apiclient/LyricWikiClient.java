@@ -14,7 +14,7 @@ import static com.smp.funwithmusic.global.Constants.*;
 
 public class LyricWikiClient
 {
-	public static final int MAX_LYRICS_LENGTH = 120;
+	public static final int MAX_LYRICS_LENGTH = 90;
 	public static final String BASE_URL = "http://lyrics.wikia.com/api.php?";
 	public static final Locale locale;
 	static

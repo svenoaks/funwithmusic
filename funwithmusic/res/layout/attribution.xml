@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/attr"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:orientation="vertical" >
 
     <ImageView
-         android:id="@+id/attr"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:src="@drawable/card_shadow_reverse" />
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="3dp"
-        android:paddingTop="6dp"
-        android:layout_alignParentBottom="true"
         android:background="@drawable/dialog_background"
+        android:paddingBottom="3dp"
+        android:paddingTop="4dp"
         android:src="@drawable/songkick" />
 
-</merge>
+</LinearLayout>

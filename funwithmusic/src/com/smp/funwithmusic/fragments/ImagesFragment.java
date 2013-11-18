@@ -48,6 +48,7 @@ public class ImagesFragment extends BaseArtistFragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState)
 	{
+		super.onCreateView(inflater, container, savedInstanceState);
 		LinearLayout layout = (LinearLayout) (inflater.inflate(R.layout.fragment_images, null));
 		gridView = (GridView) layout.findViewById(R.id.images_view);
 		gridView.setOnItemClickListener(new OnItemClickListener()
