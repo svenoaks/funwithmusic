@@ -107,9 +107,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 			viewGone(idDialog);
 		}
 	}
-	
-	
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -124,15 +122,16 @@ public class ArtistActivity extends SlidingFragmentActivity
 		setTitle(artist);
 
 		if (savedInstanceState != null)
-
-			mContent =
-					(BaseArtistFragment) getSupportFragmentManager().getFragment(savedInstanceState,
-							BUNDLE_FRAGMENT);
-
+		{
+			String type = savedInstanceState.getString(BUNDLE_FRAGMENT);
+			mContent = BaseArtistFragment.newInstance
+					(ArtistInfo.valueOf(type));
+		}
+		
 		if (mContent == null)
 		{
 			mContent = BaseArtistFragment.newInstance
-					(ArtistInfo.IMAGES);
+					(ArtistInfo.BIOGRAPHIES);
 		}
 
 		configureSlidingMenu();
@@ -159,7 +158,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
-		
+
 	}
 
 	private void configureSlidingMenu()
@@ -177,11 +176,8 @@ public class ArtistActivity extends SlidingFragmentActivity
 	public void onSaveInstanceState(Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
-
-		if (mContent != null)
-			getSupportFragmentManager().putFragment(outState, BUNDLE_FRAGMENT,
-					mContent);
-
+		String debug = mContent.getType().name();
+		outState.putString(BUNDLE_FRAGMENT, mContent.getType().name());
 	}
 
 	/*
@@ -197,7 +193,8 @@ public class ArtistActivity extends SlidingFragmentActivity
 		FragmentManager mgr = getSupportFragmentManager();
 		if (mgr.getBackStackEntryCount() > 0)
 		{
-			mgr.popBackStack();
+			mgr.popBackStackImmediate();
+			mContent = (BaseArtistFragment) mgr.findFragmentById(R.id.fragment_frame);
 		}
 		else
 		{

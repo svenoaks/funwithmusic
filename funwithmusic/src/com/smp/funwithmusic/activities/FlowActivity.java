@@ -259,18 +259,20 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
-//		getWindow().getDecorView().findViewById(android.R.id.content).post(new Runnable()
-//		{
-//			@Override
-//			public void run()
-//			{
-//				// TODO Auto-generated method stub
-//				setWindowContentOverlayCompat();
-//
-//			}
-//		});
-//	}
+		// getWindow().getDecorView().findViewById(android.R.id.content).post(new
+		// Runnable()
+		// {
+		// @Override
+		// public void run()
+		// {
+		// // TODO Auto-generated method stub
+		// setWindowContentOverlayCompat();
+		//
+		// }
+		// });
+		// }
 	}
+
 	private void addCardsFromList()
 	{
 		// songs never is null

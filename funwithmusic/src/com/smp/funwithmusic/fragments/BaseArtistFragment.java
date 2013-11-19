@@ -1,5 +1,6 @@
 package com.smp.funwithmusic.fragments;
 
+import static com.smp.funwithmusic.global.Constants.BUNDLE_FRAGMENT;
 import static com.smp.funwithmusic.global.Constants.TAG_VOLLEY;
 import static com.smp.funwithmusic.global.UtilityMethods.*;
 
@@ -69,16 +70,19 @@ public abstract class BaseArtistFragment extends Fragment
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		
 		artist = ((ArtistActivity) getActivity()).getArtist();
 		listen = getNewListener(type);
 		viewVisible(((ArtistActivity) getActivity()).getLoadingDialog());
 	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		viewGone(((ArtistActivity) getActivity()).getNotFound());
 		return null;
 	}
+
 	@Override
 	public void onPause()
 	{
@@ -143,5 +147,4 @@ public abstract class BaseArtistFragment extends Fragment
 		}
 
 	}
-
 }
