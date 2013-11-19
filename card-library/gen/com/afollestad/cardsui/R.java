@@ -49,11 +49,12 @@ public final class R {
         public static int card_menu_button=0x7f020001;
         public static int card_selector=0x7f020002;
         public static int card_shadow=0x7f020003;
-        public static int ic_menu_moreoverflow_card_dark_normal=0x7f020004;
-        public static int ic_menu_moreoverflow_card_dark_pressed=0x7f020005;
-        public static int list_focused=0x7f020006;
-        public static int pressed_background=0x7f020007;
-        public static int unpressed_background=0x7f020008;
+        public static int card_shadow_reverse=0x7f020004;
+        public static int ic_menu_moreoverflow_card_dark_normal=0x7f020005;
+        public static int ic_menu_moreoverflow_card_dark_pressed=0x7f020006;
+        public static int list_focused=0x7f020007;
+        public static int pressed_background=0x7f020008;
+        public static int unpressed_background=0x7f020009;
     }
     public static final class id {
         public static int day=0x7f090003;
@@ -76,12 +77,13 @@ public final class R {
     }
     public static final class style {
         public static int card_content=0x7f080008;
-        public static int card_header_inner=0x7f08000b;
-        public static int card_header_outer=0x7f08000a;
-        public static int card_header_summary=0x7f08000d;
-        public static int card_header_title=0x7f08000c;
+        public static int card_content_flow=0x7f080009;
+        public static int card_header_inner=0x7f08000c;
+        public static int card_header_outer=0x7f08000b;
+        public static int card_header_summary=0x7f08000e;
+        public static int card_header_title=0x7f08000d;
         public static int card_inner=0x7f080004;
-        public static int card_lyrics=0x7f080009;
+        public static int card_lyrics=0x7f08000a;
         public static int card_outer=0x7f080003;
         public static int card_popup_anchor=0x7f080001;
         public static int card_shadow=0x7f080002;

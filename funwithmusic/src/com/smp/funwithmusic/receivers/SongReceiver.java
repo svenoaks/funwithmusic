@@ -2,13 +2,14 @@ package com.smp.funwithmusic.receivers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 import com.smp.funwithmusic.activities.FlowActivity;
 import com.smp.funwithmusic.dataobjects.Song;
 
 import android.content.BroadcastReceiver;
-import static com.smp.funwithmusic.utilities.Constants.*;
-import static com.smp.funwithmusic.utilities.UtilityMethods.*;
+import static com.smp.funwithmusic.global.Constants.*;
+import static com.smp.funwithmusic.global.UtilityMethods.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 public class SongReceiver extends BroadcastReceiver
 {
 
+	private boolean fromId;
 	private String mAlbum;
 	private String mArtist;
 	private String mImageUrl;
@@ -43,11 +45,13 @@ public class SongReceiver extends BroadcastReceiver
 
 			if (song.validate())
 			{
+				song.removeFeaturing();
 				writeNewSong(context, song);
 
 				Intent send = new Intent(context, FlowActivity.class);
 				send.setAction(ACTION_ADD_SONG);
-				
+				send.putExtra(EXTRA_FROM_ID, fromId);
+
 				LocalBroadcastManager.getInstance(context).sendBroadcast(send);
 			}
 			// Log.i("SONG", mArtist + " " + mTitle + " " + mAlbum);
@@ -61,7 +65,8 @@ public class SongReceiver extends BroadcastReceiver
 	private void writeNewSong(Context context, Song song)
 	{
 		ArrayList<Song> songs = getSongList(context);
-		if (song != null && !songs.contains(song))
+		if (song != null &&
+				(songs.size() == 0 || !songs.get(songs.size() - 1).equals(song)))
 		{
 			songs.add(song);
 			writeObjectToFile(context, SONG_FILE_NAME, songs);
@@ -71,6 +76,7 @@ public class SongReceiver extends BroadcastReceiver
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
+		fromId = false;
 		this.context = context;
 		this.intent = intent;
 		result = goAsync();
@@ -79,12 +85,13 @@ public class SongReceiver extends BroadcastReceiver
 
 	private void setSongInfo(Context context, Intent intent)
 	{
-		Log.d("SONG", "BLAH");
+		// Log.d("SONG", "BLAH");
 
 		try
 		{
 			if (intent.getAction().equals(ACTION_ID))
 			{
+				fromId = true;
 				mArtist = intent.getStringExtra("artist");
 				mTitle = intent.getStringExtra("title");
 				mAlbum = intent.getStringExtra("album");

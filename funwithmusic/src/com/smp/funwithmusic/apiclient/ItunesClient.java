@@ -7,33 +7,39 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.smp.funwithmusic.utilities.URLParamEncoder;
-import static com.smp.funwithmusic.utilities.Constants.*;
+import com.smp.funwithmusic.global.URLParamEncoder;
+
+import static com.smp.funwithmusic.global.Constants.*;
 
 public class ItunesClient
 {
 	public static final String BASE_URL = "http://itunes.apple.com/search?";
-	
-	private static AsyncHttpClient client = new AsyncHttpClient();
-	
-	private static Pattern pattern = Pattern.compile ("\\s*[(\\[].*[)\\]]\\s*\\z");
 
-	public static void get(String album, JsonHttpResponseHandler responseHandler)
+	private static Pattern pattern = Pattern.compile("\\s*[(\\[].*[)\\]]\\s*\\z");
+
+	public static void get(RequestQueue queue, Object tag, String album,
+			Response.Listener<JSONObject> responseHandler, Response.ErrorListener errorHandler)
 	{
-		RequestParams params = new RequestParams();
+		String params = "term=" + URLParamEncoder.encode(removeAlbumVariations(album))
+				.replace(ESCAPED_SPACE, ITUNES_TERMS_CONNECTOR)
+				+ "&media=music"
+				+ "&attribute=albumTerm"
+				+ "&entity=album"
+				+ "&limit=200";
 
-		params.put("term", URLParamEncoder.encode(removeAlbumVariations(album))
-				.replace(ESCAPED_SPACE, ITUNES_TERMS_CONNECTOR));
+		JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET,
+				BASE_URL + params, null, responseHandler, errorHandler);
 
-		params.put("media", "music");
-		params.put("attribute", "albumTerm");
-		params.put("entity", "album");
-		params.put("limit", "200");
-		
-		client.get(BASE_URL, params, responseHandler);
+		jsObjRequest.setTag(tag);
+		queue.add(jsObjRequest);
 	}
 
 	// This function will remove variations from the album name. For example,
@@ -67,7 +73,7 @@ public class ItunesClient
 				{
 					// Log.i("URL", artist);
 					result = res.optString("artworkUrl100");
-					
+
 					if (result == null)
 						result = res.optString("artworkUrl60");
 

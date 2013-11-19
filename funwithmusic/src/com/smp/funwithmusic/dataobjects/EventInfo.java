@@ -6,6 +6,7 @@ import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+//probably not going to be used
 public class EventInfo implements Parcelable
 {
 	public String getArtist()
@@ -17,7 +18,7 @@ public class EventInfo implements Parcelable
 	{
 		return eventList;
 	}
-	
+
 	private String artist;
 	private List<Event> eventList;
 
@@ -26,7 +27,7 @@ public class EventInfo implements Parcelable
 		private String artist;
 		private List<Event> eventList;
 
-		public Builder (String artist, List<Event> eventList)
+		public Builder(String artist, List<Event> eventList)
 		{
 			this.artist = artist;
 			this.eventList = eventList;

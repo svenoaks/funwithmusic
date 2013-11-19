@@ -1,6 +1,6 @@
 package com.smp.funwithmusic.services;
 
-import static com.smp.funwithmusic.utilities.Constants.*;
+import static com.smp.funwithmusic.global.Constants.*;
 
 import java.util.Hashtable;
 import java.util.concurrent.CountDownLatch;
@@ -24,12 +24,12 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
 
 public class IdentifyMusicService extends IntentService
 {
-	private static final int TIME_TO_LISTEN = 20;
-
 	private CountDownLatch latch;
+
 	private volatile boolean successful;
 	private volatile String artist;
 	private volatile String album;
@@ -42,14 +42,29 @@ public class IdentifyMusicService extends IntentService
 		super("identify");
 	}
 
+	@Override
+	public void onDestroy()
+	{
+		if (successful)
+		{
+			Toast.makeText(this, TOAST_ID_SUCCESSFUL, Toast.LENGTH_SHORT).show();
+		}
+		else
+		{
+			Toast.makeText(this, TOAST_ID_FAILURE, Toast.LENGTH_SHORT).show();
+		}
+
+		super.onDestroy();
+	}
+
 	private void sendFinishedIntent()
 	{
-		Intent remove = new Intent(this, FlowActivity.class);
+		Intent remove = new Intent();
 		remove.setAction(ACTION_REMOVE_IDENTIFY);
-		if (artist != null & album != null && title != null)
-		{
-			remove.putExtra(LISTEN_SUCCESSFUL, true);
-		}
+
+		remove.putExtra(EXTRA_LISTEN_SUCCESSFUL, successful);
+
+		remove.addCategory(Intent.CATEGORY_DEFAULT);
 		LocalBroadcastManager.getInstance(this).sendBroadcast(remove);
 	}
 
@@ -62,14 +77,14 @@ public class IdentifyMusicService extends IntentService
 
 		public void GNResultReady(GNSearchResult result)
 		{
-
 			if (result.isFingerprintSearchNoMatchStatus())
 			{
+				successful = false;
 				latch.countDown();
 			}
 			else
 			{
-				successful = true;
+
 				GNSearchResponse response = result.getBestResponse();
 
 				// .addCategory(Intent.CATEGORY_DEFAULT);
@@ -90,6 +105,7 @@ public class IdentifyMusicService extends IntentService
 					send.putExtra("title", title);
 					send.putExtra("album", album);
 					send.putExtra("imageUrl", imageUrl);
+					successful = true;
 					sendBroadcast(send);
 				}
 
@@ -106,6 +122,7 @@ public class IdentifyMusicService extends IntentService
 		config = GNConfig.init(API_KEY_GRACENOTE, this.getApplicationContext());
 		config.setProperty("content.coverArt", "1");
 		config.setProperty("content.coverArt.genreCoverArt", "0");
+		config.setProperty("content.coverArt.sizePreference", "SMALL");
 		RecognizeFromMic task = new RecognizeFromMic();
 		task.doFingerprint();
 		// AudioFingerprinter fingerprinter = new AudioFingerprinter(this);

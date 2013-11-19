@@ -1,6 +1,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
+        android:id="@+id/listen"
+        android:icon="@drawable/microphone"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/action_listen"/>
+    <item
+        android:id="@+id/clear"
+        android:showAsAction="never"
+        android:title="@string/action_clear"/>
+    <item
         android:id="@+id/action_settings"
         android:showAsAction="never"
         android:title="@string/action_settings"/>
@@ -12,5 +22,6 @@
         android:id="@+id/licenses"
         android:showAsAction="never"
         android:title="@string/action_licenses"/>
+    
 
 </menu>

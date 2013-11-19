@@ -15,7 +15,7 @@ public class Event implements Parcelable
 		return type;
 	}
 
-	public Uri getMainUri()
+	public String getMainUri()
 	{
 		return mainUri;
 	}
@@ -25,9 +25,9 @@ public class Event implements Parcelable
 		return displayName;
 	}
 
-	public String getStart()
+	public String getDateTime()
 	{
-		return start;
+		return dateTime;
 	}
 
 	public List<Performance> getPerformances()
@@ -45,51 +45,64 @@ public class Event implements Parcelable
 		return venueDisplayName;
 	}
 
-	public Uri getVenueUri()
+	public String getVenueUri()
 	{
 		return venueUri;
 	}
-	
+
+	public String getDate()
+	{
+		return date;
+	}
+
 	private String type;
-	private Uri mainUri;
+	private String mainUri;
 	private String displayName;
-	private String start;
+	private String date;
+	private String dateTime;
 	private List<Performance> performances;
 	private String location;
 	private String venueDisplayName;
-	private Uri venueUri;
+	private String venueUri;
 
 	public static class Builder
 	{
 		private String type;
-		private Uri mainUri;
+		private String mainUri;
 		private String displayName;
-		private String start;
+		private String date;
+		private String dateTime;
 		private List<Performance> performances;
 		private String location;
 		private String venueDisplayName;
-		private Uri venueUri;
+		private String venueUri;
 
-		public Builder (String displayName)
+		public Builder(String displayName)
 		{
 			this.displayName = displayName;
 		}
-		
+
+		public Builder date(String date)
+		{
+			this.date = date;
+			return this;
+		}
+
 		public Builder type(String type)
 		{
 			this.type = type;
 			return this;
 		}
 
-		public Builder mainUri(Uri mainUri)
+		public Builder mainUri(String mainUri)
 		{
 			this.mainUri = mainUri;
 			return this;
 		}
 
-		public Builder start(String start)
+		public Builder dateTime(String dateTime)
 		{
-			this.start = start;
+			this.dateTime = dateTime;
 			return this;
 		}
 
@@ -111,7 +124,7 @@ public class Event implements Parcelable
 			return this;
 		}
 
-		public Builder venueUri(Uri venueUri)
+		public Builder venueUri(String venueUri)
 		{
 			this.venueUri = venueUri;
 			return this;
@@ -121,6 +134,7 @@ public class Event implements Parcelable
 		{
 			return new Event(this);
 		}
+
 	}
 
 	private Event(Builder builder)
@@ -128,7 +142,8 @@ public class Event implements Parcelable
 		this.type = builder.type;
 		this.mainUri = builder.mainUri;
 		this.displayName = builder.displayName;
-		this.start = builder.start;
+		this.date = builder.date;
+		this.dateTime = builder.dateTime;
 		this.performances = builder.performances;
 		this.location = builder.location;
 		this.venueDisplayName = builder.venueDisplayName;
@@ -147,30 +162,33 @@ public class Event implements Parcelable
 			return new Event[size];
 		}
 	};
+
 	@Override
 	public void writeToParcel(Parcel out, int flags)
 	{
 		out.writeString(type);
-		out.writeParcelable(mainUri, 0);
+		out.writeString(mainUri);
 		out.writeString(displayName);
-		out.writeString(start);
+		out.writeString(date);
+		out.writeString(dateTime);
 		out.writeList(performances);
 		out.writeString(location);
 		out.writeString(venueDisplayName);
-		out.writeParcelable(venueUri, 0);	
+		out.writeString(venueUri);
 	}
 
 	private Event(Parcel in)
 	{
 		type = in.readString();
-		mainUri = in.readParcelable(null);
+		mainUri = in.readString();
 		displayName = in.readString();
-		start = in.readString();
+		date = in.readString();
+		dateTime = in.readString();
 		performances = new ArrayList<Performance>();
 		in.readList(performances, Performance.class.getClassLoader());
 		location = in.readString();
 		venueDisplayName = in.readString();
-		venueUri = in.readParcelable(null);
+		venueUri = in.readString();
 	}
 
 	@Override

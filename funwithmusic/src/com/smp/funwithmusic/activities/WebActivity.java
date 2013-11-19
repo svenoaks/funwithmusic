@@ -4,14 +4,16 @@ import com.smp.funwithmusic.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
-import static com.smp.funwithmusic.utilities.Constants.*;
+import static com.smp.funwithmusic.global.Constants.*;
 
 public class WebActivity extends Activity
 {
@@ -38,23 +40,25 @@ public class WebActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		getWindow().requestFeature(Window.FEATURE_PROGRESS);
-		getWindow().setFeatureInt( Window.FEATURE_PROGRESS, Window.PROGRESS_VISIBILITY_ON);
+		getWindow().setFeatureInt(Window.FEATURE_PROGRESS, Window.PROGRESS_VISIBILITY_ON);
 		setContentView(R.layout.activity_web);
 
 		webView = (WebView) findViewById(R.id.webview);
 
 		Intent intent = getIntent();
 		url = intent.getStringExtra(WEB_URL);
-		
-		Log.d("URL", url);
 
+		Log.d("URL", url);
 		webView.getSettings().setJavaScriptEnabled(true);
 		webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 		webView.getSettings().setBuiltInZoomControls(true);
-		//String ua = "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/4.0";
-		//webView.getSettings().setUserAgentString(ua);
+		webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+		webView.getSettings().setPluginState(WebSettings.PluginState.ON);
+		// String ua =
+		// "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/4.0";
+		// webView.getSettings().setUserAgentString(ua);
 		final Activity activity = this;
-		
+
 		webView.setWebChromeClient(new WebChromeClient()
 		{
 			@Override
@@ -66,19 +70,27 @@ public class WebActivity extends Activity
 				// 100%
 				activity.setProgress(progress * 100);
 			}
-			
+
 		});
 		webView.setWebViewClient(new WebViewClient()
 		{
 			@Override
-			public boolean shouldOverrideUrlLoading (WebView view, String url)
+			public boolean shouldOverrideUrlLoading(WebView view, String url)
 			{
-				// Activities and WebViews measure progress with different
-				// scales.
-				// The progress meter will automatically disappear when we reach
-				// 100%
-				return true;
+				// YouTube video link
+				if (url.startsWith("vnd.youtube:"))
+				{
+
+					startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse
+							(String.format("http://www.youtube.com/v/%s", url.substring("vnd.youtube:".length())))));
+
+					return true;
+				}
+
+				return false;
+
 			}
+
 			@Override
 			public void onReceivedError(WebView view, int errorCode, String description, String failingUrl)
 			{

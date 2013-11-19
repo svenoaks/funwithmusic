@@ -1,14 +1,19 @@
 package com.smp.funwithmusic.dataobjects;
 
 import java.io.Serializable;
-import static com.smp.funwithmusic.utilities.Constants.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static com.smp.funwithmusic.global.Constants.*;
 
 public class Song implements Serializable
 {
 	/**
 	 * 
 	 */
+
 	private static final long serialVersionUID = 6925090966913539997L;
+	private static Pattern featuring = Pattern.compile("\\s*\\(?[Ff]eat(\\.|uring).+\\z");
 
 	private String title;
 	private String artist;
@@ -18,6 +23,8 @@ public class Song implements Serializable
 	private String fullLyricsUrl;
 	private boolean cantGetAlbumUrl;
 	private boolean cantGetLyrics;
+	private boolean canAddLyrics;
+	private boolean lyricsLoading;
 
 	public boolean isCantGetLyrics()
 	{
@@ -75,9 +82,10 @@ public class Song implements Serializable
 		this.artist = artist;
 		this.album = album;
 	}
+
 	public Song()
 	{
-		
+
 	}
 
 	@Override
@@ -140,6 +148,8 @@ public class Song implements Serializable
 		{
 			shortLyrics = fullLyricsUrl = null;
 			cantGetLyrics = false;
+			canAddLyrics = false;
+			lyricsLoading = false;
 		}
 	}
 
@@ -148,15 +158,43 @@ public class Song implements Serializable
 		if (albumUrl == null)
 			cantGetAlbumUrl = false;
 	}
-	
-	//Returns whether this Song is a valid song that should be added to the list.
-	//A song is not aware of the list it is being added to, so further validation
-	//must be handled by the caller.
-	
+
+	// Returns whether this Song is a valid song that should be added to the
+	// list.
+	// A song is not aware of the list it is being added to, so further
+	// validation
+	// must be handled by the caller.
+
 	public boolean validate()
 	{
-		boolean valid = artist !=null && title != null && album != null;
-		
-		return valid;
+		return artist != null && title != null && album != null
+				&& !artist.equals("") && !title.equals("Advertisement");
+	}
+
+	public void removeFeaturing()
+	{
+		artist = featuring.matcher(artist).replaceAll("");
+	}
+
+	public void setCanAddLyrics(boolean b)
+	{
+		canAddLyrics = b;
+
+	}
+
+	public boolean isCanAddLyrics()
+	{
+		return canAddLyrics;
+
+	}
+
+	public boolean isLyricsLoading()
+	{
+		return lyricsLoading;
+	}
+
+	public void setLyricsLoading(boolean lyricsLoading)
+	{
+		this.lyricsLoading = lyricsLoading;
 	}
 }

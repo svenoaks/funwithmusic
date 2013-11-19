@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.afollestad.silk.caching.SilkComparable;
 
 import java.util.ArrayList;
@@ -48,8 +51,9 @@ public abstract class SilkAdapter<ItemType extends SilkComparable> extends BaseA
      * @param recycled The layout with views to be filled (e.g. text views).
      * @param item     The item at the current index of the adapter.
      * @param parent 
+     * @param viewHolder 
      */
-    public abstract View onViewCreated(int index, View recycled, ItemType item, ViewGroup parent);
+    public abstract View onViewCreated(int index, View recycled, ItemType item, ViewGroup parent, ViewHolder viewHolder);
 
     /**
      * Gets the context passed in the constructor, that's used for inflating views.
@@ -234,13 +238,24 @@ public abstract class SilkAdapter<ItemType extends SilkComparable> extends BaseA
 
     @Override
     public final View getView(int i, View view, ViewGroup parent) {
-        if (view == null) {   
+    	ViewHolder viewHolder = null;
+
+    	if (view == null) {   
             int type = getItemViewType(i);
             view = LayoutInflater.from(context).inflate(getLayout(i, type), null);
+            viewHolder = new ViewHolder();
+            view.setTag(viewHolder);
         }
-        return onViewCreated(i, view, getItem(i), parent);
+    	else viewHolder = (ViewHolder) view.getTag();
+        return onViewCreated(i, view, getItem(i), parent, viewHolder);
     }
-
+    public static class ViewHolder
+	{
+		public TextView title;
+		public TextView content;
+		public TextView lyrics;
+		public ImageView icon;
+	}
     /**
      * Resets the changed state of the adapter, indicating that the adapter has not been changed. Every call
      * to a mutator method (e.g. add, set, remove, clear) will set it back to true.
