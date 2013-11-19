@@ -349,7 +349,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int TextView01=0x7f0a0018;
         public static final int TrackList=0x7f0a0054;
         public static final int TrackTextView=0x7f0a0013;
-        public static final int action_settings=0x7f0a0058;
+        public static final int action_settings=0x7f0a0059;
         public static final int albumName=0x7f0a0024;
         public static final int artistName=0x7f0a0025;
         public static final int artist_name=0x7f0a001f;
@@ -367,8 +367,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int cardsList=0x7f0a000e;
         public static final int checkboxDebug=0x7f0a0038;
         public static final int checkboxSpacer=0x7f0a0037;
-        public static final int clear=0x7f0a0057;
+        public static final int clear=0x7f0a0058;
         public static final int content_frame=0x7f0a0006;
+        public static final int copy=0x7f0a0055;
         public static final int coverArtImage=0x7f0a0022;
         public static final int coverartBtn=0x7f0a0028;
         public static final int day=0x7f0a004a;
@@ -379,16 +380,16 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int fragment_frame=0x7f0a0007;
         public static final int fullscreen=0x7f0a0003;
         public static final int gracenoteLogo=0x7f0a0036;
-        public static final int help=0x7f0a0059;
+        public static final int help=0x7f0a005a;
         public static final int home_container=0x7f0a0035;
         public static final int image=0x7f0a000b;
         public static final int images_view=0x7f0a0029;
         public static final int inner_frame=0x7f0a001a;
         public static final int layout_root=0x7f0a001d;
         public static final int left=0x7f0a0000;
-        public static final int licenses=0x7f0a005a;
+        public static final int licenses=0x7f0a005b;
         public static final int line=0x7f0a0005;
-        public static final int listen=0x7f0a0056;
+        public static final int listen=0x7f0a0057;
         public static final int loading=0x7f0a000a;
         public static final int lyric_fragment_search_container=0x7f0a0030;
         public static final int lyrics=0x7f0a001c;
@@ -412,11 +413,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int text3=0x7f0a002d;
         public static final int text_search_container=0x7f0a004d;
         public static final int titleFrame=0x7f0a001b;
-        public static final int todo=0x7f0a0055;
         public static final int trackTitle=0x7f0a0023;
         public static final int webview=0x7f0a000c;
         public static final int welcome_screen=0x7f0a000f;
         public static final int year=0x7f0a004b;
+        public static final int youtube=0x7f0a0056;
     }
     public static final class integer {
         public static final int num_cols=0x7f0b0000;
@@ -472,24 +473,26 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int sample=0x7f040001;
     }
     public static final class string {
-        public static final int action_clear=0x7f060004;
-        public static final int action_help=0x7f060005;
-        public static final int action_licenses=0x7f060006;
-        public static final int action_listen=0x7f060003;
-        public static final int action_settings=0x7f060002;
+        public static final int action_clear=0x7f060006;
+        public static final int action_help=0x7f060007;
+        public static final int action_licenses=0x7f060008;
+        public static final int action_listen=0x7f060005;
+        public static final int action_settings=0x7f060004;
         public static final int app_name=0x7f060000;
-        public static final int artist=0x7f06000e;
-        public static final int artist_info=0x7f06000c;
-        public static final int artist_not_found=0x7f060009;
-        public static final int hello_world=0x7f060007;
-        public static final int identify=0x7f06000f;
-        public static final int johns_activity=0x7f060008;
-        public static final int loading_flow=0x7f06000d;
+        public static final int artist=0x7f060010;
+        public static final int artist_info=0x7f06000e;
+        public static final int artist_not_found=0x7f06000b;
+        public static final int copy=0x7f060003;
+        public static final int hello_world=0x7f060009;
+        public static final int identify=0x7f060011;
+        public static final int johns_activity=0x7f06000a;
+        public static final int loading_flow=0x7f06000f;
         public static final int see_more=0x7f060001;
-        public static final int steves_activity=0x7f06000a;
-        public static final int todo=0x7f06000b;
-        public static final int welcome_content=0x7f060011;
-        public static final int welcome_title=0x7f060010;
+        public static final int steves_activity=0x7f06000c;
+        public static final int todo=0x7f06000d;
+        public static final int welcome_content=0x7f060013;
+        public static final int welcome_title=0x7f060012;
+        public static final int youtube=0x7f060002;
     }
     public static final class style {
         /** 

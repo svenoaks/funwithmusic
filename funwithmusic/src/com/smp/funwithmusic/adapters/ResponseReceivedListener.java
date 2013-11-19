@@ -13,4 +13,8 @@ public interface ResponseReceivedListener
 	void gracenoteStageOneComplete(ViewGroup parent, Card card, Song song, GNSearchResponse response);
 
 	void updateSingleView(ViewGroup parent, Card card);
+
+	void doNormalize(ViewGroup parent, Card card, Song song);
+	
+	void doLyricsListen(ViewGroup parent, Card card, Song song);
 }

@@ -13,6 +13,7 @@ import com.afollestad.cardsui.CardHeader;
 import com.afollestad.cardsui.CardListView;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.google.android.youtube.player.YouTubeStandalonePlayer;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.adapters.SongCardAdapter;
 import com.smp.funwithmusic.dataobjects.Song;
@@ -24,6 +25,8 @@ import com.smp.funwithmusic.views.ProgressWheel;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -169,37 +172,6 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 				cardsList.setSelection(cardsAdapter.getCount() - 1);
 			}
 		});
-
-	}
-
-	private void setWindowContentOverlayCompat()
-	{
-		if (Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN_MR2)
-		{
-			// Get the content view
-			View contentView = findViewById(android.R.id.content);
-
-			// Make sure it's a valid instance of a FrameLayout
-			if (contentView instanceof FrameLayout)
-			{
-				TypedValue tv = new TypedValue();
-
-				// Get the windowContentOverlay value of the current theme
-				if (getTheme().resolveAttribute(
-						android.R.attr.windowContentOverlay, tv, true))
-				{
-
-					// If it's a valid resource, set it as the foreground
-					// drawable
-					// for the content view
-					if (tv.resourceId != 0)
-					{
-						((FrameLayout) contentView).setForeground(
-								getResources().getDrawable(tv.resourceId));
-					}
-				}
-			}
-		}
 	}
 
 	// need to make old OS friendly
@@ -259,18 +231,6 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
-		// getWindow().getDecorView().findViewById(android.R.id.content).post(new
-		// Runnable()
-		// {
-		// @Override
-		// public void run()
-		// {
-		// // TODO Auto-generated method stub
-		// setWindowContentOverlayCompat();
-		//
-		// }
-		// });
-		// }
 	}
 
 	private void addCardsFromList()
@@ -344,17 +304,34 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 		return true;
 	}
 
-	@Override
-	public void onMenuItemClick(Card card, MenuItem item)
-	{
-
-	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		getMenuInflater().inflate(R.menu.menu_flow, menu);
 		return true;
+	}
+
+	@Override
+	public void onMenuItemClick(Card card, MenuItem item)
+	{
+		SongCard songCard = (SongCard) card;
+		Song song = songCard.getSong();
+		switch (item.getItemId())
+		{
+			case R.id.copy:
+				ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE); 
+				ClipData clip = ClipData.newPlainText("MUSIC_FLOW", song.getArtist() + " " 
+						+ song.getTitle());
+				clipboard.setPrimaryClip(clip);
+				break;
+			case R.id.youtube:
+				Intent intent = YouTubeStandalonePlayer.createVideoIntent(this, API_KEY_DEBUG_YOUTUBE, "TiGaDm6t98c", 0, true, true);
+				 startActivity(intent);
+				break;
+		}
+		
 	}
 
 }
