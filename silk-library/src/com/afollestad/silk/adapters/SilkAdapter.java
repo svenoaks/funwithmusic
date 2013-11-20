@@ -252,8 +252,10 @@ public abstract class SilkAdapter<ItemType extends SilkComparable> extends BaseA
     public static class ViewHolder
 	{
 		public TextView title;
-		public TextView content;
-		public TextView lyrics;
+		public TextView title2;
+		public TextView content1;
+		public TextView content2;
+		public TextView content3;
 		public ImageView icon;
 	}
     /**

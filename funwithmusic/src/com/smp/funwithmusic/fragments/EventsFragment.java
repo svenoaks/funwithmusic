@@ -22,11 +22,13 @@ import com.afollestad.cardsui.CardListView;
 import com.android.volley.VolleyError;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.activities.ArtistActivity;
+import com.smp.funwithmusic.adapters.EventCardAdapter;
 import com.smp.funwithmusic.apiclient.EchoNestClient;
 import com.smp.funwithmusic.apiclient.EchoNestClient.echoNestRequest;
 import com.smp.funwithmusic.apiclient.SongKickClient;
 import com.smp.funwithmusic.dataobjects.Biography;
 import com.smp.funwithmusic.dataobjects.Event;
+import com.smp.funwithmusic.dataobjects.EventCard;
 import com.smp.funwithmusic.fragments.BaseArtistFragment.BaseArtistListener;
 import com.smp.funwithmusic.global.GlobalRequest;
 
@@ -119,16 +121,13 @@ public class EventsFragment extends BaseArtistFragment
 
 	private void makeAdapter()
 	{
-		CardAdapter<Card> cardsAdapter = new CardAdapter<Card>(getActivity());
+		EventCardAdapter<EventCard> cardsAdapter = new EventCardAdapter<EventCard>(getActivity());
 		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
 		cardsAdapter.add(new CardHeader("Upcoming Events"));
-		for (Event event : events)
+		for (int i = 0; i < events.size(); ++i)
 		{
-			String date = event.getDateTime();
-			if (date == null || date.equals("null"))
-				date = event.getDate();
-			cardsAdapter.add(new Card(event.getDisplayName(),
-					date));
+			Event event = events.get(i);
+			cardsAdapter.add(new EventCard(event));
 		}
 		listView.setAdapter(cardsAdapter);
 	}

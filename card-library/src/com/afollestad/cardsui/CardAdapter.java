@@ -276,16 +276,16 @@ public class CardAdapter<ItemType extends CardBase<ItemType>> extends SilkAdapte
 
 		if (viewHolder.title == null)
 			viewHolder.title = (TextView) recycled.findViewById(android.R.id.title);
-		if (viewHolder.content == null)
-			viewHolder.content = (TextView) recycled.findViewById(android.R.id.content);
+		if (viewHolder.content1 == null)
+			viewHolder.content1 = (TextView) recycled.findViewById(android.R.id.content);
 		if (viewHolder.icon == null)
 			viewHolder.icon = (ImageView) recycled.findViewById(android.R.id.icon);
 
 		if (viewHolder.title != null)
 			onProcessTitle(viewHolder.title, item, mAccentColor);
 
-		if (viewHolder.content != null)
-			onProcessContent(viewHolder.content, item);
+		if (viewHolder.content1 != null)
+			onProcessContent(viewHolder.content1, item);
 
 		if (viewHolder.icon != null)
 		{

@@ -262,7 +262,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 		if (cardsAdapter.getCount() != 0 && lastArtist != null
 				&& lastArtist.toUpperCase(locale).equals(song.getArtist().toUpperCase(locale)))
 		{
-			cardsAdapter.add(new SongCard(song, this));
+			cardsAdapter.add(new SongCard(song));
 			return;
 		}
 		lastArtist = song.getArtist();
@@ -279,7 +279,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 					}
 				}));
 
-		cardsAdapter.add(new SongCard(song, this));
+		cardsAdapter.add(new SongCard(song));
 	}
 
 	@Override

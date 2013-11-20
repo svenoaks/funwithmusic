@@ -91,7 +91,7 @@
         <item name="android:layout_below">@+id/titleFrame</item>
         <item name="android:layout_toRightOf">@android:id/icon</item>
         <item name="android:layout_marginLeft">@dimen/card_title_margin_left</item>
-        <item name="android:maxLines">20</item>
+<!--         <item name="android:maxLines">20</item> -->
         <item name="android:singleLine">false</item>
     </style>
     <style name="card_content_flow">

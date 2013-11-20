@@ -38,7 +38,7 @@ public class SongCard extends Card
 		return song;
 	}
 
-	public SongCard(final Song song, final Context context)
+	public SongCard(final Song song)
 	{
 		super(song.getTitle(), song.getAlbum());
 		this.song = song;
