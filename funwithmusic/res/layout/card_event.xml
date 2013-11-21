@@ -28,24 +28,39 @@
                 style="@style/card_popup_anchor" />
         </RelativeLayout>
 
-<!--         <LinearLayout -->
-<!--             android:layout_width="wrap_content" -->
-<!--             android:layout_height="wrap_content" -->
-<!--             android:layout_below="@id/titleFrame" -->
-<!--             android:layout_marginLeft="@dimen/card_title_margin_left" -->
-<!--             android:layout_toRightOf="@android:id/icon" > -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleFrame"
+            android:layout_marginLeft="@dimen/card_title_margin_left"
+            android:layout_toRightOf="@android:id/icon"
+            android:orientation="vertical" >
+
+           
+             <com.afollestad.silk.views.text.SilkTextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/card_content" />
+             
+              <com.afollestad.silk.views.text.SilkTextView
+                android:id="@+id/date_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/card_content" />
+            
+            <com.afollestad.silk.views.text.SilkTextView
+                android:id="@+id/main_artist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/card_content" />
 
             <com.afollestad.silk.views.text.SilkTextView
-                android:id="@android:id/content"
-                style="@style/card_content"
-                 />
-
-<!--             <com.afollestad.silk.views.text.SilkTextView -->
-<!--                 android:id="@+id/content2" -->
-<!--                 android:layout_width="wrap_content" -->
-<!--                 android:layout_height="wrap_content" -->
-<!--                 /> -->
-<!--         </LinearLayout> -->
+                android:id="@+android:id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/card_content" />
+        </LinearLayout>
     </RelativeLayout>
 
     <!-- suppress AndroidLintContentDescription -->

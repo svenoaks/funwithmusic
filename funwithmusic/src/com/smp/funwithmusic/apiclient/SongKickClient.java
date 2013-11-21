@@ -56,7 +56,7 @@ public class SongKickClient
 	public static ArrayList<Event> parseEvents(JSONObject obj)
 	{
 		ArrayList<Event> result = new ArrayList<Event>();
-
+		Log.d("RESPONSE", obj.toString());
 		try
 		{
 			JSONArray events = obj.getJSONObject("resultsPage")
@@ -97,7 +97,6 @@ public class SongKickClient
 
 				String location = event.optJSONObject("location")
 						.optString("city");
-
 				String venueDisplayName = event.optJSONObject("venue")
 						.optString("displayName");
 				String venueUri = event.optJSONObject("venue")
@@ -122,6 +121,7 @@ public class SongKickClient
 		}
 		catch (JSONException e)
 		{
+			Log.d("RESPONSE", "EXCEPTION YOUR HONOR");
 			e.printStackTrace();
 		}
 

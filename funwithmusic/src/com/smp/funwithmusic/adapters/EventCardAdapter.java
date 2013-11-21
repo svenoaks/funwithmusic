@@ -24,7 +24,7 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 
 	public EventCardAdapter(Context context)
 	{
-		super(context, R.layout.list_item_card);
+		super(context, R.layout.card_event);
 		this.context = context;
 	}
 
@@ -32,24 +32,31 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 	public View onViewCreated(int index, View recycled, Card item,
 			ViewGroup parent, ViewHolder holder)
 	{
-		/*
+		
 		if (holder.title2 == null)
-			holder.title2 = (TextView) recycled.findViewById(R.id.other_artists);
+			holder.title2 = (TextView) recycled.findViewById(R.id.main_artist);
 		if (holder.content2 == null)
 			holder.content2 = (TextView) recycled.findViewById(R.id.location);
 		if (holder.content3 == null)
 			holder.content3 = (TextView) recycled.findViewById(R.id.date_time);
 		
 		if (holder.title2 != null)
-			onProcessVenueName(holder.title2, item, parent);
+			onProcessMainArtist(holder.title2, item, parent);
 		if (holder.content2 != null)
 			onProcessLocation(holder.content2, item, parent);
 		if (holder.content3 != null)
 			onProcessDateTime(holder.content3, item, parent);
-*/
+
 		return super.onViewCreated(index, recycled, item, parent, holder);
 	}
 	
+	private void onProcessMainArtist(TextView content2, Card item, ViewGroup parent)
+	{
+		final Event event = ((EventCard) item).getEvent();
+		List<Performance> perfs = event.getPerformances();
+		if (perfs.size() > 0) content2.setText(perfs.get(0).getDisplayName());
+	}
+
 	private void onProcessDateTime(TextView content3, Card item, ViewGroup parent)
 	{
 		final Event event = ((EventCard) item).getEvent();
@@ -91,6 +98,7 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 	@Override
 	protected boolean onProcessContent(TextView content, Card card)
 	{
+		/*
 		if (content == null) return false;
 		final Event event = ((EventCard) card).getEvent();
 		List<Performance> perfs = event.getPerformances();
@@ -100,7 +108,9 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 			str.append(per.getDisplayName() + "\n");
 		}
 		content.setText(str.toString());
+		*/
 		return true;
+		
 		//return super.onProcessContent(content, card);
 	}
 

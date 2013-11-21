@@ -16,7 +16,7 @@ public class EventCard extends Card
 
 	public EventCard(final Event event)
 	{
-		super();
+		super(event.getLocation(), event.getDate());
 		this.event = event;
 	}
 }

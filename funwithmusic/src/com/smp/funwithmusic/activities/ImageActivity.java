@@ -23,7 +23,7 @@ public class ImageActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_image);
-
+		
 		imageView = (ImageView) findViewById(R.id.image);
 
 		Intent intent = getIntent();
