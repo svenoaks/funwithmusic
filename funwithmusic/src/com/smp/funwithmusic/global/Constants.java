@@ -2,6 +2,8 @@ package com.smp.funwithmusic.global;
 
 public class Constants
 {
+	public static final String LYRICS_SEARCH_URL = "http://lyrics.wikia.com/Special:Search?search=";
+	
 	public static final String BUNDLE_IMAGESFRAGMENT = "com.smp.funwithmusic.BUNDLE_IMAGESFRAGMENT";
 	public static final String BUNDLE_BIOSFRAGMENT = "com.smp.funwithmusic.BUNDLE_BIOSFRAGMENT";
 
@@ -37,11 +39,12 @@ public class Constants
 	public static final String ITUNES_TERMS_CONNECTOR = "+";
 	public static final String ECHO_NEST_TERMS_CONNECTOR = "+";
 	public static final String LYRICS_WIKI_TERMS_CONNECTOR = "_";
+	public static final String LYRICS_WIKI_SEARCH_TERMS_CONNECTOR = "+";
 	public static final String SONGKICK_TERMS_CONNECTOR = "_";
 
 	public static final String LYRICS_LOADING = "Lyrics loading...";
-	public static final String NOT_FOUND = "Not found";
-	public static final String NOT_FOUND_WITH_ADD = "Not found - tap to add";
+	public static final String LYRICS_WIKI_NOT_FOUND = "Not found";
+	public static final String SEARCH_LYRICS = "Tap for lyrics search";
 	public static final String COULDNT_FIND_LYRICS = "Lyrics couldn't be found";
 
 	public static final String WEB_URL = "com.smp.funwithmusic.WEB_URL";

@@ -11,6 +11,7 @@
 
         <LinearLayout
             style="@style/card_outer"
+            android:layout_marginTop="15dp"
             android:layout_height="wrap_content" >
 
             <RelativeLayout

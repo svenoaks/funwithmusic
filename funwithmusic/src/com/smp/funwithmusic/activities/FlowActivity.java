@@ -146,7 +146,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 		super.onResume();
 		// Log.d("PAUSE", "reSUMED");
 		addCardsFromList();
-		scrollToBottomOfList();
+		//scrollToBottomOfList();
 		LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
 
 		if (isMyServiceRunning(this, IdentifyMusicService.class))
@@ -231,6 +231,8 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
+		
+		scrollToBottomOfList();
 	}
 
 	private void addCardsFromList()
