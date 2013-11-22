@@ -127,7 +127,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 			mContent = BaseArtistFragment.newInstance
 					(ArtistInfo.valueOf(type));
 		}
-		
+
 		if (mContent == null)
 		{
 			mContent = BaseArtistFragment.newInstance

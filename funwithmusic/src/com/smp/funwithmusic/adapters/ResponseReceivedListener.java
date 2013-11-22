@@ -14,7 +14,7 @@ public interface ResponseReceivedListener
 
 	void updateSingleView(ViewGroup parent, Card card);
 
-	//void doNormalize(ViewGroup parent, Card card, Song song);
-	
+	// void doNormalize(ViewGroup parent, Card card, Song song);
+
 	void doLyricsListen(ViewGroup parent, Card card, Song song);
 }

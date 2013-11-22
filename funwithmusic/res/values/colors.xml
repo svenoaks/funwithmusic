@@ -4,6 +4,7 @@
     <color name="light_blue">#e2f4fb</color>
     <color name="holo_orange">#ff9909</color>
     <color name="list_gray">#505050</color>
+    <color name="holo_blue_dark">#ff0099cc</color>
     <color name="info_0">#0099cc</color>
     <color name="info_1">#669900</color>
     <color name="info_2">#9933cc</color>

@@ -299,11 +299,12 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 					song.setCanSearchLyrics(true);
 
 					shortLyrics = SEARCH_LYRICS;
-					
+
 					String searchTerms = getSearchTerms(song);
-					
-					//We need to allow the user to see the search results if there is no exact match
-					//for the lyrics.
+
+					// We need to allow the user to see the search results if
+					// there is no exact match
+					// for the lyrics.
 					song.setFullLyricsUrl(LYRICS_SEARCH_URL + searchTerms);
 
 				}
@@ -329,20 +330,20 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 			}
 			// releaseReferences();
 		}
-		
+
 		private String getSearchTerms(Song song)
 		{
 			Locale locale = Locale.getDefault();
 			String searchTerms = URLParamEncoder.encode(song.getArtist().toLowerCase(locale))
 					.replace(ESCAPED_SPACE, LYRICS_WIKI_SEARCH_TERMS_CONNECTOR)
 					+ LYRICS_WIKI_SEARCH_TERMS_CONNECTOR
-					+ URLParamEncoder.encode(song.getTitle().toLowerCase(locale))
+					+ URLParamEncoder.encode(song.getTitle())
 							.replace(ESCAPED_SPACE, LYRICS_WIKI_SEARCH_TERMS_CONNECTOR);
-			
+
 			return searchTerms;
 		}
 	}
-	
+
 	private static class GracenoteTextResponeListenerStageTwo
 			extends ThumbnailResponseListener
 			implements GNSearchResultReady
@@ -413,6 +414,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 			}
 		}
 	}
+
 	@Override
 	public void doLyricsListen(ViewGroup parent, Card card, Song song)
 	{
@@ -422,54 +424,28 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		LyricWikiClient.get(queue, TAG_VOLLEY, song.getTitle(),
 				song.getArtist(), listen, listen);
 	}
-/*
-	private static class NormalizeListener
-			extends ThumbnailResponseListener
-			implements GNSearchResultReady
-	{
-
-		NormalizeListener(ResponseReceivedListener updater, Song song,
-				Card card, ViewGroup parent)
-		{
-			super(updater, song, card, parent);
-		}
-
-		void doTextSearch(String artist, String album, String title)
-		{
-			GNOperations.searchByText(this, config, artist, album, title);
-		}
-
-		@Override
-		public void GNResultReady(GNSearchResult result)
-		{
-			if (updater != null && song != null &&
-					card != null && parent != null)
-			{
-				if (!result.isTextSearchNoMatchStatus())
-				{
-					GNSearchResponse response = result.getBestResponse();
-					{
-						if (response != null)
-						{
-							Log.d("LYRICS", response.getTrackTitle());
-							song.setTitle(response.getTrackTitle());
-						}
-					}
-				}
-				updater.doLyricsListen(parent, card, song);
-			}
-		}
-	}
-*/
-	
 	/*
-	@Override
-	public void doNormalize(ViewGroup parent, Card card, Song song)
-	{
-		NormalizeListener listen =
-				new NormalizeListener(this, song, card, parent);
-		registerListener(listen);
-		listen.doTextSearch(song.getArtist(), song.getAlbum(), song.getTitle());
-	}
-	*/
+	 * private static class NormalizeListener extends ThumbnailResponseListener
+	 * implements GNSearchResultReady {
+	 * 
+	 * NormalizeListener(ResponseReceivedListener updater, Song song, Card card,
+	 * ViewGroup parent) { super(updater, song, card, parent); }
+	 * 
+	 * void doTextSearch(String artist, String album, String title) {
+	 * GNOperations.searchByText(this, config, artist, album, title); }
+	 * 
+	 * @Override public void GNResultReady(GNSearchResult result) { if (updater
+	 * != null && song != null && card != null && parent != null) { if
+	 * (!result.isTextSearchNoMatchStatus()) { GNSearchResponse response =
+	 * result.getBestResponse(); { if (response != null) { Log.d("LYRICS",
+	 * response.getTrackTitle()); song.setTitle(response.getTrackTitle()); } } }
+	 * updater.doLyricsListen(parent, card, song); } } }
+	 */
+
+	/*
+	 * @Override public void doNormalize(ViewGroup parent, Card card, Song song)
+	 * { NormalizeListener listen = new NormalizeListener(this, song, card,
+	 * parent); registerListener(listen); listen.doTextSearch(song.getArtist(),
+	 * song.getAlbum(), song.getTitle()); }
+	 */
 }

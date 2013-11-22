@@ -70,7 +70,7 @@ public abstract class BaseArtistFragment extends Fragment
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		
+
 		artist = ((ArtistActivity) getActivity()).getArtist();
 		listen = getNewListener(type);
 		viewVisible(((ArtistActivity) getActivity()).getLoadingDialog());

@@ -36,7 +36,7 @@ public class SongKickClient
 
 		JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET,
 				BASE_URL + ARTIST_ID_URL + params, null, responseHandler, errorHandler);
-
+		
 		jsObjRequest.setTag(tag);
 		queue.add(jsObjRequest);
 	}
@@ -50,6 +50,7 @@ public class SongKickClient
 				BASE_URL + "artists/" + artistId + ARTIST_EVENTS_URL + params, null, responseHandler, errorHandler);
 
 		jsObjRequest.setTag(tag);
+		Log.d("RESPONSE", jsObjRequest.getUrl());
 		queue.add(jsObjRequest);
 	}
 
@@ -77,7 +78,7 @@ public class SongKickClient
 
 				JSONArray performances = event.optJSONArray("performance");
 				List<Performance> perfs = new ArrayList<Performance>();
-				for (int j = 0; i < performances.length(); ++i)
+				for (int j = 0; j < performances.length(); ++j)
 				{
 					JSONObject per = performances.optJSONObject(j);
 					String perDisplayName = per.optString("displayName");
@@ -102,26 +103,23 @@ public class SongKickClient
 				String venueUri = event.optJSONObject("venue")
 						.optString("uri");
 
-				if (displayName != null)
-				{
-					Event e = new Event.Builder(venueDisplayName)
-							.type(type)
-							.mainUri(mainUri)
-							.date(date)
-							.dateTime(dateTime)
-							.performances(perfs)
-							.location(location)
-							.venueDisplayName(venueDisplayName)
-							.venueUri(venueUri)
-							.build();
+				Event e = new Event.Builder(displayName)
+						.type(type)
+						.mainUri(mainUri)
+						.date(date)
+						.dateTime(dateTime)
+						.performances(perfs)
+						.location(location)
+						.venueDisplayName(venueDisplayName)
+						.venueUri(venueUri)
+						.build();
 
-					result.add(e);
-				}
+				result.add(e);
+
 			}
 		}
 		catch (JSONException e)
 		{
-			Log.d("RESPONSE", "EXCEPTION YOUR HONOR");
 			e.printStackTrace();
 		}
 

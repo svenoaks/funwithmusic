@@ -23,12 +23,12 @@ public class ImageActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_image);
-		
+
 		imageView = (ImageView) findViewById(R.id.image);
 
 		Intent intent = getIntent();
 		String url = intent.getStringExtra(WEB_URL);
-		 
+
 		Picasso.with(this).load(url).into(imageView, new Callback()
 		{
 
@@ -36,7 +36,7 @@ public class ImageActivity extends Activity
 			public void onError()
 			{
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -44,9 +44,9 @@ public class ImageActivity extends Activity
 			{
 				PhotoViewAttacher attacher = new PhotoViewAttacher(imageView);
 			}
-			
+
 		});
-		
+
 	}
 
 	@Override

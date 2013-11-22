@@ -253,6 +253,7 @@ public abstract class SilkAdapter<ItemType extends SilkComparable> extends BaseA
 	{
 		public TextView title;
 		public TextView title2;
+		public TextView title3;
 		public TextView content1;
 		public TextView content2;
 		public TextView content3;

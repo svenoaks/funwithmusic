@@ -47,6 +47,15 @@ import android.widget.Toast;
 
 public class FlowActivity extends Activity implements CardMenuListener<Card>, OnScrollListener
 {
+	@Override
+	protected void onNewIntent(Intent intent)
+	{
+		// this is a new Intent from Music Id in Artist Activity, so
+		// we want to scroll to the bottom of the list.
+		shouldScrollToBottom = true;
+		super.onNewIntent(intent);
+	}
+
 	private List<Song> songs;
 	private IntentFilter filter;
 	private UpdateActivityReceiver receiver;
@@ -55,6 +64,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 	private String lastArtist;
 	private View idDialog;
 	private View welcomeScreen;
+	private boolean shouldScrollToBottom;
 
 	private class UpdateActivityReceiver extends BroadcastReceiver
 	{
@@ -146,7 +156,11 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 		super.onResume();
 		// Log.d("PAUSE", "reSUMED");
 		addCardsFromList();
-		//scrollToBottomOfList();
+		if (shouldScrollToBottom)
+		{
+			scrollToBottomOfList();
+			shouldScrollToBottom = false;
+		}
 		LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
 
 		if (isMyServiceRunning(this, IdentifyMusicService.class))
@@ -184,7 +198,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 		GlobalRequest.init(this);
 		cardsAdapter = new SongCardAdapter<SongCard>(this,
 				GlobalRequest.getInstance());
-		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
+		cardsAdapter.setAccentColorRes(R.color.holo_blue_dark);
 		cardsAdapter.setPopupMenu(R.menu.card_popup, this); // the popup menu
 		// callback is this
 		// activity
@@ -231,7 +245,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
-		
+
 		scrollToBottomOfList();
 	}
 
@@ -306,8 +320,6 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 		return true;
 	}
 
-	
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -323,17 +335,17 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 		switch (item.getItemId())
 		{
 			case R.id.copy:
-				ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE); 
-				ClipData clip = ClipData.newPlainText("MUSIC_FLOW", song.getArtist() + " " 
+				ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+				ClipData clip = ClipData.newPlainText("MUSIC_FLOW", song.getArtist() + " "
 						+ song.getTitle());
 				clipboard.setPrimaryClip(clip);
 				break;
 			case R.id.youtube:
 				Intent intent = YouTubeStandalonePlayer.createVideoIntent(this, API_KEY_DEBUG_YOUTUBE, "TiGaDm6t98c", 0, true, true);
-				 startActivity(intent);
+				startActivity(intent);
 				break;
 		}
-		
+
 	}
 
 }
