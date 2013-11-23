@@ -1,5 +1,6 @@
 package com.smp.funwithmusic.adapters;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -337,10 +338,16 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 			String searchTerms = URLParamEncoder.encode(song.getArtist().toLowerCase(locale))
 					.replace(ESCAPED_SPACE, LYRICS_WIKI_SEARCH_TERMS_CONNECTOR)
 					+ LYRICS_WIKI_SEARCH_TERMS_CONNECTOR
-					+ URLParamEncoder.encode(song.getTitle())
+					+ URLParamEncoder.encode(normalizeString(song.getTitle().toLowerCase(locale)))
 							.replace(ESCAPED_SPACE, LYRICS_WIKI_SEARCH_TERMS_CONNECTOR);
 
 			return searchTerms;
+		}
+		private String normalizeString(String string)
+		{
+			return Normalizer
+	           .normalize(string, Normalizer.Form.NFD)
+	           .replaceAll("[^\\p{ASCII}]", "");
 		}
 	}
 

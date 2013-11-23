@@ -18,9 +18,9 @@ public final class R {
 		public static final int spinner_item_text = 0x7f070001;
 	}
 	public static final class id {
-		public static final int day = 0x7f0a004e;
-		public static final int month = 0x7f0a004d;
-		public static final int year = 0x7f0a004f;
+		public static final int day = 0x7f0a004c;
+		public static final int month = 0x7f0a004b;
+		public static final int year = 0x7f0a004d;
 	}
 	public static final class layout {
 		public static final int fragment_list = 0x7f030012;
