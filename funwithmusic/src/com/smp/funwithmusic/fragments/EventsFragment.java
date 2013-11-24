@@ -7,12 +7,17 @@ import java.util.ArrayList;
 
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -41,16 +46,7 @@ public class EventsFragment extends BaseArtistFragment
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-		listView.post(new Runnable(){
 
-			@Override
-			public void run()
-			{
-				ImageView eventImage = (ImageView) getActivity().findViewById(R.id.event_image);
-				Picasso.with(getActivity()).load(imageUrl).into(eventImage);
-				
-			}});
-		
 	}
 
 	public EventsFragment()
@@ -88,17 +84,11 @@ public class EventsFragment extends BaseArtistFragment
 			public void onCardClick(int index, CardBase card, View view)
 			{
 				final int CORRECT_FOR_HEADER = 1;
-				/*
-				 * String bioUrl = bios.get(index -
-				 * CORRECT_FOR_HEADER).getUrl(); Intent intent = new
-				 * Intent(getActivity(), WebActivity.class);
-				 * intent.putExtra(WEB_URL, bioUrl); startActivity(intent);
-				 */
+
 				String eventUrl = events.get(index - CORRECT_FOR_HEADER).getMainUri();
 				Uri uri = Uri.parse(eventUrl);
 				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 				startActivity(intent);
-
 			}
 		});
 
@@ -145,8 +135,8 @@ public class EventsFragment extends BaseArtistFragment
 	private void makeAdapter()
 	{
 		EventCardAdapter<EventCard> cardsAdapter = new EventCardAdapter<EventCard>(getActivity(), imageUrl);
-		//cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
-		CardHeader header = new CardHeader("Events");
+		// cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
+		CardHeader header = new CardHeader("Upcoming Events");
 		cardsAdapter.add(header);
 
 		for (int i = 0; i < events.size(); ++i)
@@ -155,6 +145,36 @@ public class EventsFragment extends BaseArtistFragment
 			cardsAdapter.add(new EventCard(event));
 		}
 		listView.setAdapter(cardsAdapter);
+		ViewTreeObserver vto = listView.getViewTreeObserver();
+		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener()
+		{
+			@Override
+			public void onGlobalLayout()
+			{
+				ImageView eventImage = (ImageView) getActivity().findViewById(R.id.event_image);
+				Picasso.with(getActivity()).load(imageUrl).into(eventImage);
+				if (Build.VERSION.SDK_INT < 16)
+				{
+					removeLayoutListenerPre16(listView.getViewTreeObserver(), this);
+				}
+				else
+				{
+					removeLayoutListenerPost16(listView.getViewTreeObserver(), this);
+				}
+			}
+		});
+	}
+
+	@SuppressWarnings("deprecation")
+	private void removeLayoutListenerPre16(ViewTreeObserver observer, OnGlobalLayoutListener listener)
+	{
+		observer.removeGlobalOnLayoutListener(listener);
+	}
+
+	@SuppressLint("NewApi")
+	private void removeLayoutListenerPost16(ViewTreeObserver observer, OnGlobalLayoutListener listener)
+	{
+		observer.removeOnGlobalLayoutListener(listener);
 	}
 
 	@Override
@@ -218,5 +238,11 @@ public class EventsFragment extends BaseArtistFragment
 				super.onErrorResponse(error);
 			}
 		}
+	}
+
+	@Override
+	public boolean hasData()
+	{
+		return events != null && events.size() > 0;
 	}
 }

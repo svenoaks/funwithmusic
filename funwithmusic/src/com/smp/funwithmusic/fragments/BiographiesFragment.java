@@ -162,4 +162,10 @@ public class BiographiesFragment extends BaseArtistFragment
 		}
 	}
 
+	@Override
+	public boolean hasData()
+	{
+		return bios != null && bios.size() > 0;
+	}
+
 }

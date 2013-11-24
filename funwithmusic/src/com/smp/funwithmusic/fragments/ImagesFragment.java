@@ -136,4 +136,10 @@ public class ImagesFragment extends BaseArtistFragment
 		}
 	}
 
+	@Override
+	public boolean hasData()
+	{
+		return urls != null && urls.size() > 0;
+	}
+
 }

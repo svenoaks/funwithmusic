@@ -65,7 +65,8 @@ public abstract class BaseArtistFragment extends Fragment
 		frag.setType(info);
 		return frag;
 	}
-
+	public abstract boolean hasData();
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{

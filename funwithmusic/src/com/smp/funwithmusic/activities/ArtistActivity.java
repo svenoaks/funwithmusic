@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.Fragment.SavedState;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 
 public class ArtistActivity extends SlidingFragmentActivity
@@ -211,9 +212,10 @@ public class ArtistActivity extends SlidingFragmentActivity
 
 		BaseArtistFragment newContent = BaseArtistFragment.newInstance(info);
 
-		mgr.beginTransaction()
-				.addToBackStack(mContent.getType().toString())
-				.replace(R.id.fragment_frame, newContent)
+		FragmentTransaction trans = mgr.beginTransaction();
+		if (mContent.hasData())
+			trans.addToBackStack(mContent.getType().toString());
+		trans.replace(R.id.fragment_frame, newContent)
 				.commit();
 		getSlidingMenu().showContent();
 		mContent = newContent;

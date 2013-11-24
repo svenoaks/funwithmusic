@@ -145,4 +145,10 @@ public class ReviewsFragment extends BaseArtistFragment
 		}
 	}
 
+	@Override
+	public boolean hasData()
+	{
+		return reviews != null && reviews.size() > 0;
+	}
+
 }
