@@ -18,37 +18,42 @@ import com.afollestad.cardsui.Card;
 import com.afollestad.cardsui.CardAdapter;
 import com.afollestad.cardsui.CardBase;
 import com.smp.funwithmusic.R;
+import com.smp.funwithmusic.apiclient.SongKickClient;
 import com.smp.funwithmusic.dataobjects.Event;
 import com.smp.funwithmusic.dataobjects.EventCard;
 import com.smp.funwithmusic.dataobjects.Performance;
+import com.squareup.picasso.Picasso;
 
 public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 {
 	Context context;
 	private final static int TYPE_HEADER = 2;
 	private TextAppearanceSpan titleAppearance;
-	
-	public EventCardAdapter(Context context)
+	private String imageUrl;
+
+	public EventCardAdapter(Context context, String imageUrl)
 	{
 		super(context, R.layout.card_event);
 		this.context = context;
-		
+		this.imageUrl = imageUrl;
 		ColorStateList blue = ColorStateList.valueOf
 				(context.getResources().getColor(R.color.holo_blue_dark));
-		
+
 		int size = context.getResources().getDimensionPixelSize(R.dimen.card_content);
 		int style = Typeface.NORMAL;
-		
+
 		titleAppearance = new TextAppearanceSpan("sans-serif", style, size, blue, null);
 	}
+
 	@Override
 	public int getLayout(int index, int type)
 	{
 		if (type == TYPE_HEADER)
 			return R.layout.list_item_event_header;
-	
+
 		return super.getLayout(index, type);
 	}
+
 	@Override
 	public View onViewCreated(int index, View recycled, Card item,
 			ViewGroup parent, ViewHolder holder)
@@ -62,7 +67,7 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 			onProcessLocation(holder.content2, item, parent);
 		if (holder.content3 != null)
 			onProcessDateTime(holder.content3, item, parent);
-		
+
 		return super.onViewCreated(index, recycled, item, parent, holder);
 	}
 
@@ -93,7 +98,13 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 	protected boolean onProcessThumbnail(ImageView icon, Card card, ViewGroup parent)
 	{
 		final Event event = ((EventCard) card).getEvent();
-		return super.onProcessThumbnail(icon, card, parent);
+		if (icon == null)
+			return false;
+		Picasso.with(context).load(imageUrl)
+				.fit()
+				.centerCrop()
+				.into(icon);
+		return true;
 	}
 
 	// Other artists at show
@@ -139,11 +150,9 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 		SpannableStringBuilder spanned = new SpannableStringBuilder(blueString.toString()
 				+ normalColorString.toString());
 
-		
 		spanned.setSpan(titleAppearance, 0, blueString.length(),
 				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		
-		
+
 		int sl = spanned.length();
 		int nl = NEW_LINE.length();
 		CharSequence test = spanned.subSequence(sl - nl, sl);

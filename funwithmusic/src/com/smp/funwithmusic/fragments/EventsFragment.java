@@ -37,6 +37,22 @@ import com.squareup.picasso.Picasso;
 
 public class EventsFragment extends BaseArtistFragment
 {
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState)
+	{
+		super.onActivityCreated(savedInstanceState);
+		listView.post(new Runnable(){
+
+			@Override
+			public void run()
+			{
+				ImageView eventImage = (ImageView) getActivity().findViewById(R.id.event_image);
+				Picasso.with(getActivity()).load(imageUrl).into(eventImage);
+				
+			}});
+		
+	}
+
 	public EventsFragment()
 	{
 		super();
@@ -46,6 +62,7 @@ public class EventsFragment extends BaseArtistFragment
 	private ArrayList<Event> events;
 	private EventsListener eventListener;
 	private String artistId;
+	private String imageUrl;
 
 	@Override
 	public void onPause()
@@ -120,14 +137,15 @@ public class EventsFragment extends BaseArtistFragment
 	{
 		eventListener = new EventsListener(this);
 		this.artistId = artistId;
+		imageUrl = SongKickClient.getImageUrl(artistId);
 		SongKickClient.getEvents(GlobalRequest.getInstance(), TAG_VOLLEY, artistId,
 				eventListener, eventListener);
 	}
 
 	private void makeAdapter()
 	{
-		EventCardAdapter<EventCard> cardsAdapter = new EventCardAdapter<EventCard>(getActivity());
-		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
+		EventCardAdapter<EventCard> cardsAdapter = new EventCardAdapter<EventCard>(getActivity(), imageUrl);
+		//cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
 		CardHeader header = new CardHeader("Events");
 		cardsAdapter.add(header);
 
@@ -137,17 +155,6 @@ public class EventsFragment extends BaseArtistFragment
 			cardsAdapter.add(new EventCard(event));
 		}
 		listView.setAdapter(cardsAdapter);
-		listView.post(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				ImageView eventImage = (ImageView) getActivity().findViewById(R.id.event_image);
-				String imageUrl = SongKickClient.getImageUrl(artistId);
-				Picasso.with(getActivity()).load(imageUrl).into(eventImage);
-
-			}
-		});
 	}
 
 	@Override

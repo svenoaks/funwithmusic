@@ -7,11 +7,9 @@
         android:id="@+id/inner_frame"
         style="@style/card_inner" >
 
-        <!-- suppress AndroidLintContentDescription -->
-
         <ImageView
             android:id="@android:id/icon"
-            style="@style/card_thumbnail" />
+            style="@style/card_thumbnail_large" />
 
         <LinearLayout
             android:layout_width="wrap_content"
