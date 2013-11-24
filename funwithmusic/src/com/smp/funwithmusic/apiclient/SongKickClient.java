@@ -26,6 +26,10 @@ public class SongKickClient
 	private final static String ARTIST_ID_URL = "search/artists.json?";
 
 	private final static String ARTIST_EVENTS_URL = "/calendar.json?";
+	
+	private final static String IMAGE_URL = "http://www2.sk-static.com/images/media/profile_images/artists/";
+	
+	private final static String IMAGE_URL_SIZE = "/col6";
 
 	public static void getId(RequestQueue queue, Object tag, String artist,
 			Response.Listener<JSONObject> responseHandler, Response.ErrorListener errorHandler)
@@ -40,7 +44,10 @@ public class SongKickClient
 		jsObjRequest.setTag(tag);
 		queue.add(jsObjRequest);
 	}
-
+	public static String getImageUrl(String artistId)
+	{
+		return IMAGE_URL + artistId + IMAGE_URL_SIZE;
+	}
 	public static void getEvents(RequestQueue queue, Object tag, String artistId,
 			Response.Listener<JSONObject> responseHandler, Response.ErrorListener errorHandler)
 	{

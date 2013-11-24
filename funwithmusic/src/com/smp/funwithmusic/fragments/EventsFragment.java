@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.afollestad.cardsui.Card;
 import com.afollestad.cardsui.CardAdapter;
@@ -31,6 +33,7 @@ import com.smp.funwithmusic.dataobjects.Event;
 import com.smp.funwithmusic.dataobjects.EventCard;
 import com.smp.funwithmusic.fragments.BaseArtistFragment.BaseArtistListener;
 import com.smp.funwithmusic.global.GlobalRequest;
+import com.squareup.picasso.Picasso;
 
 public class EventsFragment extends BaseArtistFragment
 {
@@ -42,6 +45,7 @@ public class EventsFragment extends BaseArtistFragment
 	private CardListView listView;
 	private ArrayList<Event> events;
 	private EventsListener eventListener;
+	private String artistId;
 
 	@Override
 	public void onPause()
@@ -112,10 +116,11 @@ public class EventsFragment extends BaseArtistFragment
 		}
 	}
 
-	private void onIdReceived(String id)
+	private void onIdReceived(String artistId)
 	{
 		eventListener = new EventsListener(this);
-		SongKickClient.getEvents(GlobalRequest.getInstance(), TAG_VOLLEY, id,
+		this.artistId = artistId;
+		SongKickClient.getEvents(GlobalRequest.getInstance(), TAG_VOLLEY, artistId,
 				eventListener, eventListener);
 	}
 
@@ -123,13 +128,26 @@ public class EventsFragment extends BaseArtistFragment
 	{
 		EventCardAdapter<EventCard> cardsAdapter = new EventCardAdapter<EventCard>(getActivity());
 		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
-		cardsAdapter.add(new CardHeader("Upcoming Events"));
+		CardHeader header = new CardHeader("Events");
+		cardsAdapter.add(header);
+
 		for (int i = 0; i < events.size(); ++i)
 		{
 			Event event = events.get(i);
 			cardsAdapter.add(new EventCard(event));
 		}
 		listView.setAdapter(cardsAdapter);
+		listView.post(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				ImageView eventImage = (ImageView) getActivity().findViewById(R.id.event_image);
+				String imageUrl = SongKickClient.getImageUrl(artistId);
+				Picasso.with(getActivity()).load(imageUrl).into(eventImage);
+
+			}
+		});
 	}
 
 	@Override

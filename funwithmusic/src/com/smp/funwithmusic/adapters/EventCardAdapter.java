@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.afollestad.cardsui.Card;
 import com.afollestad.cardsui.CardAdapter;
+import com.afollestad.cardsui.CardBase;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.dataobjects.Event;
 import com.smp.funwithmusic.dataobjects.EventCard;
@@ -24,6 +25,7 @@ import com.smp.funwithmusic.dataobjects.Performance;
 public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 {
 	Context context;
+	private final static int TYPE_HEADER = 2;
 	private TextAppearanceSpan titleAppearance;
 	
 	public EventCardAdapter(Context context)
@@ -39,7 +41,14 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 		
 		titleAppearance = new TextAppearanceSpan("sans-serif", style, size, blue, null);
 	}
-
+	@Override
+	public int getLayout(int index, int type)
+	{
+		if (type == TYPE_HEADER)
+			return R.layout.list_item_event_header;
+	
+		return super.getLayout(index, type);
+	}
 	@Override
 	public View onViewCreated(int index, View recycled, Card item,
 			ViewGroup parent, ViewHolder holder)
