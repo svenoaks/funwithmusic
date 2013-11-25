@@ -1,7 +1,14 @@
 package com.smp.funwithmusic.adapters;
 
 import static com.smp.funwithmusic.global.Constants.*;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -33,7 +40,7 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 
 	public EventCardAdapter(Context context, String imageUrl)
 	{
-		super(context, R.layout.card_event);
+		super(context, R.layout.list_item_event);
 		this.context = context;
 		this.imageUrl = imageUrl;
 		ColorStateList blue = ColorStateList.valueOf
@@ -74,11 +81,29 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 	private void onProcessDateTime(TextView content3, Card item, ViewGroup parent)
 	{
 		final Event event = ((EventCard) item).getEvent();
-		String date = event.getDateTime();
+		Locale locale = Locale.getDefault();
+		Date date = null;
+		SimpleDateFormat parse = null;
 		if (date == null || date.equals("null"))
-			date = event.getDate();
-
-		content3.setText(date);
+		{
+			parse = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", locale);
+			try
+			{
+				date = parse.parse(event.getDateTime());
+			}
+			catch (ParseException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		else
+		{
+			
+		}
+		//GregorianCalendar cal = new GregorianCalendar();
+		DateFormat format = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, locale);
+		//cal.setTime(date);
+		content3.setText(format.format(date));
 	}
 
 	@Override

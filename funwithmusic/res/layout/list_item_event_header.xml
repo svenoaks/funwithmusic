@@ -30,22 +30,38 @@
             android:id="@+id/inner_frame"
             style="@style/card_inner"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="@dimen/artist_info_pic_height"
             android:background="#00000000"
             android:padding="0dp" >
 
-            <View
+            <FrameLayout
                 android:id="@+id/black"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:minWidth="100dp"
-                android:background="#000000" />
+                android:background="#000000" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|left"
+                    android:src="@drawable/on_tour" />
+
+                <TextView
+                    android:id="@+id/concerts_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:padding="10dp" />
+            </FrameLayout>
 
             <FrameLayout
                 android:id="@+id/image_frame"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent"
+                android:visibility="invisible" >
 
                 <ImageView
                     android:id="@+id/event_image"

@@ -10,6 +10,8 @@
     <dimen name="slidingmenu_offset">60dp</dimen>
     <dimen name="list_padding">10dp</dimen>
     <dimen name="shadow_width">15dp</dimen>
+     <dimen name="artist_info_pic_height">300dp</dimen>
     <integer name="num_cols">1</integer>
+    
 
 </resources>

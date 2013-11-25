@@ -28,6 +28,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.afollestad.cardsui.Card;
 import com.afollestad.cardsui.CardAdapter;
@@ -120,8 +121,12 @@ public class EventsFragment extends BaseArtistFragment
 			{
 				EventsFragment.this.artistBitmap = artistBitmap;
 				FrameLayout frame = (FrameLayout) getActivity().findViewById(R.id.image_frame);
-				final int LAYOUT_HEIGHT_IN_DP = 220;
+				float LAYOUT_HEIGHT_IN_DP = getActivity()
+						.getResources()
+						.getDimension(R.dimen.artist_info_pic_height);
 				scaleFrame(frame, LAYOUT_HEIGHT_IN_DP);
+				TextView eventText = (TextView) getActivity().findViewById(R.id.concerts_number);
+				eventText.setText(String.valueOf(events.size()) + " upcoming concerts");
 			}
 
 			@Override
@@ -137,24 +142,21 @@ public class EventsFragment extends BaseArtistFragment
 		return layout;
 	}
 
-	protected void scaleFrame(FrameLayout frame, int boundBoxInDp)
+	protected void scaleFrame(FrameLayout frame, float heightOfFrame)
 	{
 		int width = artistBitmap.getWidth();
 		int height = artistBitmap.getHeight();
 		
 		final double MAX_PERCENTAGE_OF_SCREEN = 0.75;
 		int maxWidth = (int) (frame.getWidth() * MAX_PERCENTAGE_OF_SCREEN);
-		Log.d("IMAGE", String.valueOf(maxWidth));
-
-		float xScale = ((float) maxWidth / width);
-		float yScale = ((float) dpToPx(boundBoxInDp) / height);
-		float scale = yScale;
-
+		
+		float scale = heightOfFrame / height;
+		
 		Matrix matrix = new Matrix();
 		matrix.postScale(scale, scale);
 
 		Bitmap scaledBitmap = Bitmap.createBitmap(artistBitmap, 0, 0, width, height, matrix, true);
-		// BitmapDrawable result = new BitmapDrawable(scaledBitmap);
+		
 		width = scaledBitmap.getWidth();
 		height = scaledBitmap.getHeight();
 		
@@ -162,13 +164,12 @@ public class EventsFragment extends BaseArtistFragment
 		
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,
 				height);
-		// Log.d("IMAGE", String.valueOf(artistBitmap.getWidth()) + " " +
-		// String.valueOf(artistBitmap.getHeight())
-		// + "IMAGEWIVEW WIDTH " + String.valueOf(eventImage.getWidth()) + " " +
-		// "IMAGEWIVEW HEIGHT " + String.valueOf(eventImage.getHeight()) );
+		
 		frame.setLayoutParams(params);
+		
 		ImageView eventImage = (ImageView) getActivity().findViewById(R.id.event_image);
 		eventImage.setImageBitmap(scaledBitmap);
+		frame.setVisibility(View.VISIBLE);
 	}
 
 	private int dpToPx(int dp)

@@ -53,7 +53,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 
 	public SongCardAdapter(Context context, RequestQueue queue)
 	{
-		super(context, R.layout.card_song);
+		super(context, R.layout.list_item_song);
 
 		mContext = context;
 		this.queue = queue;
