@@ -359,7 +359,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int attr=0x7f0a000d;
         public static final int bioBtn=0x7f0a0028;
         public static final int bioReviewtxt=0x7f0a0019;
-        public static final int black=0x7f0a0032;
+        public static final int black=0x7f0a0030;
         public static final int buttonAlbumID=0x7f0a0045;
         public static final int buttonFiles=0x7f0a0046;
         public static final int buttonHistory=0x7f0a004b;
@@ -382,14 +382,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int debugPanel=0x7f0a003f;
         public static final int debugText=0x7f0a0041;
         public static final int debugTopBorder=0x7f0a0040;
-        public static final int event_image=0x7f0a0031;
+        public static final int event_image=0x7f0a0032;
         public static final int fragment_frame=0x7f0a0007;
         public static final int fullscreen=0x7f0a0003;
         public static final int gracenoteLogo=0x7f0a003b;
         public static final int help=0x7f0a005f;
         public static final int home_container=0x7f0a003a;
         public static final int image=0x7f0a000b;
-        public static final int image_frame=0x7f0a0030;
+        public static final int image_frame=0x7f0a0031;
         public static final int images_view=0x7f0a002b;
         public static final int inner_frame=0x7f0a001a;
         public static final int layout_root=0x7f0a001f;

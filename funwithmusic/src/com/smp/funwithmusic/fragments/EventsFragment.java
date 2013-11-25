@@ -10,16 +10,24 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.afollestad.cardsui.Card;
 import com.afollestad.cardsui.CardAdapter;
@@ -39,6 +47,8 @@ import com.smp.funwithmusic.dataobjects.EventCard;
 import com.smp.funwithmusic.fragments.BaseArtistFragment.BaseArtistListener;
 import com.smp.funwithmusic.global.GlobalRequest;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Picasso.LoadedFrom;
+import com.squareup.picasso.Target;
 
 public class EventsFragment extends BaseArtistFragment
 {
@@ -59,6 +69,9 @@ public class EventsFragment extends BaseArtistFragment
 	private EventsListener eventListener;
 	private String artistId;
 	private String imageUrl;
+	private Target target;
+	private Bitmap artistBitmap;
+	EventCardAdapter<EventCard> cardsAdapter;
 
 	@Override
 	public void onPause()
@@ -68,6 +81,7 @@ public class EventsFragment extends BaseArtistFragment
 		{
 			eventListener.frag = null;
 		}
+		Picasso.with(getActivity()).cancelRequest(target);
 	}
 
 	@Override
@@ -92,16 +106,87 @@ public class EventsFragment extends BaseArtistFragment
 			}
 		});
 
-		if (events != null && events.size() != 0)
+		target = new Target()
 		{
-			makeAdapter();
-		}
-		else
+
+			@Override
+			public void onBitmapFailed(Drawable arg0)
+			{
+
+			}
+
+			@Override
+			public void onBitmapLoaded(Bitmap artistBitmap, LoadedFrom arg1)
+			{
+				EventsFragment.this.artistBitmap = artistBitmap;
+				FrameLayout frame = (FrameLayout) getActivity().findViewById(R.id.image_frame);
+				final int LAYOUT_HEIGHT_IN_DP = 220;
+				scaleFrame(frame, LAYOUT_HEIGHT_IN_DP);
+			}
+
+			@Override
+			public void onPrepareLoad(Drawable arg0)
+			{
+				// TODO Auto-generated method stub
+
+			}
+		};
+
+		prepareAdapter();
+
+		return layout;
+	}
+
+	protected void scaleFrame(FrameLayout frame, int boundBoxInDp)
+	{
+		int width = artistBitmap.getWidth();
+		int height = artistBitmap.getHeight();
+		
+		final double MAX_PERCENTAGE_OF_SCREEN = 0.75;
+		int maxWidth = (int) (frame.getWidth() * MAX_PERCENTAGE_OF_SCREEN);
+		Log.d("IMAGE", String.valueOf(maxWidth));
+
+		float xScale = ((float) maxWidth / width);
+		float yScale = ((float) dpToPx(boundBoxInDp) / height);
+		float scale = yScale;
+
+		Matrix matrix = new Matrix();
+		matrix.postScale(scale, scale);
+
+		Bitmap scaledBitmap = Bitmap.createBitmap(artistBitmap, 0, 0, width, height, matrix, true);
+		// BitmapDrawable result = new BitmapDrawable(scaledBitmap);
+		width = scaledBitmap.getWidth();
+		height = scaledBitmap.getHeight();
+		
+		if (width > maxWidth) width = maxWidth;
+		
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,
+				height);
+		// Log.d("IMAGE", String.valueOf(artistBitmap.getWidth()) + " " +
+		// String.valueOf(artistBitmap.getHeight())
+		// + "IMAGEWIVEW WIDTH " + String.valueOf(eventImage.getWidth()) + " " +
+		// "IMAGEWIVEW HEIGHT " + String.valueOf(eventImage.getHeight()) );
+		frame.setLayoutParams(params);
+		ImageView eventImage = (ImageView) getActivity().findViewById(R.id.event_image);
+		eventImage.setImageBitmap(scaledBitmap);
+	}
+
+	private int dpToPx(int dp)
+	{
+		float density = getActivity().getApplicationContext().getResources().getDisplayMetrics().density;
+		return Math.round((float) dp * density);
+	}
+
+	private void prepareAdapter()
+	{
+		if (events == null || events.size() == 0)
 		{
 			getArtistId();
 		}
-
-		return layout;
+		else
+		{
+			makeAdapter();
+		}
 	}
 
 	private void getArtistId()
@@ -134,7 +219,7 @@ public class EventsFragment extends BaseArtistFragment
 
 	private void makeAdapter()
 	{
-		EventCardAdapter<EventCard> cardsAdapter = new EventCardAdapter<EventCard>(getActivity(), imageUrl);
+		cardsAdapter = new EventCardAdapter<EventCard>(getActivity(), imageUrl);
 		// cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
 		CardHeader header = new CardHeader("Upcoming Events");
 		cardsAdapter.add(header);
@@ -145,14 +230,14 @@ public class EventsFragment extends BaseArtistFragment
 			cardsAdapter.add(new EventCard(event));
 		}
 		listView.setAdapter(cardsAdapter);
+
 		ViewTreeObserver vto = listView.getViewTreeObserver();
 		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener()
 		{
 			@Override
 			public void onGlobalLayout()
 			{
-				ImageView eventImage = (ImageView) getActivity().findViewById(R.id.event_image);
-				Picasso.with(getActivity()).load(imageUrl).into(eventImage);
+				Picasso.with(getActivity()).load(imageUrl).into(target);
 				if (Build.VERSION.SDK_INT < 16)
 				{
 					removeLayoutListenerPre16(listView.getViewTreeObserver(), this);

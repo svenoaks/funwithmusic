@@ -133,7 +133,7 @@ int id artist_name 0x7f0a0021
 int id attr 0x7f0a000d
 int id bioBtn 0x7f0a0028
 int id bioReviewtxt 0x7f0a0019
-int id black 0x7f0a0032
+int id black 0x7f0a0030
 int id buttonAlbumID 0x7f0a0045
 int id buttonFiles 0x7f0a0046
 int id buttonHistory 0x7f0a004b
@@ -156,14 +156,14 @@ int id debugBottomBorder 0x7f0a0042
 int id debugPanel 0x7f0a003f
 int id debugText 0x7f0a0041
 int id debugTopBorder 0x7f0a0040
-int id event_image 0x7f0a0031
+int id event_image 0x7f0a0032
 int id fragment_frame 0x7f0a0007
 int id fullscreen 0x7f0a0003
 int id gracenoteLogo 0x7f0a003b
 int id help 0x7f0a005f
 int id home_container 0x7f0a003a
 int id image 0x7f0a000b
-int id image_frame 0x7f0a0030
+int id image_frame 0x7f0a0031
 int id images_view 0x7f0a002b
 int id inner_frame 0x7f0a001a
 int id layout_root 0x7f0a001f
