@@ -85,14 +85,13 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 		Date date = null;
 		SimpleDateFormat parse = null;
 		DateFormat format = null;
-		if (event.getDateTime() != null 
+		if (event.getDateTime() != null
 				&& !event.getDateTime().equals("null"))
 		{
 			parse = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", locale);
 			try
 			{
 				date = parse.parse(event.getDateTime());
-				
 			}
 			catch (ParseException e)
 			{
@@ -107,7 +106,7 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 			try
 			{
 				date = parse.parse(event.getDate());
-				
+
 			}
 			catch (ParseException e)
 			{
@@ -116,9 +115,7 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 			format = DateFormat.getDateInstance
 					(DateFormat.MEDIUM, locale);
 		}
-		//GregorianCalendar cal = new GregorianCalendar();
-		
-		//cal.setTime(date);
+
 		content3.setText(format.format(date));
 	}
 

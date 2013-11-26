@@ -343,11 +343,12 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 
 			return searchTerms;
 		}
+
 		private String normalizeString(String string)
 		{
 			return Normalizer
-	           .normalize(string, Normalizer.Form.NFD)
-	           .replaceAll("[^\\p{ASCII}]", "");
+					.normalize(string, Normalizer.Form.NFD)
+					.replaceAll("[^\\p{ASCII}]", "");
 		}
 	}
 

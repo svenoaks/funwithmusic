@@ -17,7 +17,7 @@
 
     <include
         android:id="@+id/progress"
-        layout="@layout/dialog_loading"
+        layout="@layout/view_identify"
         android:visibility="gone" />
 
 </FrameLayout>

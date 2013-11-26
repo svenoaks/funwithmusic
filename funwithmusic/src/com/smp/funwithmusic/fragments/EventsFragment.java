@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.afollestad.cardsui.Card;
 import com.afollestad.cardsui.CardAdapter;
@@ -53,6 +54,7 @@ import com.squareup.picasso.Target;
 
 public class EventsFragment extends BaseArtistFragment
 {
+	private enum DisplayedView { LOADING, ARTIST_IMAGE };
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
@@ -73,6 +75,7 @@ public class EventsFragment extends BaseArtistFragment
 	private Target target;
 	private Bitmap artistBitmap;
 	EventCardAdapter<EventCard> cardsAdapter;
+	ViewFlipper flipper;
 
 	@Override
 	public void onPause()
@@ -117,16 +120,36 @@ public class EventsFragment extends BaseArtistFragment
 			}
 
 			@Override
-			public void onBitmapLoaded(Bitmap artistBitmap, LoadedFrom arg1)
+			public void onBitmapLoaded(final Bitmap artistBitmap, LoadedFrom arg1)
 			{
-				EventsFragment.this.artistBitmap = artistBitmap;
-				FrameLayout frame = (FrameLayout) getActivity().findViewById(R.id.image_frame);
-				float LAYOUT_HEIGHT_IN_DP = getActivity()
-						.getResources()
-						.getDimension(R.dimen.artist_info_pic_height);
-				scaleFrame(frame, LAYOUT_HEIGHT_IN_DP);
-				TextView eventText = (TextView) getActivity().findViewById(R.id.concerts_number);
-				eventText.setText(String.valueOf(events.size()) + " upcoming concerts");
+				flipper = (ViewFlipper) getActivity().findViewById(R.id.flip_image);
+				ViewTreeObserver vto = flipper.getViewTreeObserver();
+				vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener()
+				{
+					@Override
+					public void onGlobalLayout()
+					{
+						EventsFragment.this.artistBitmap = artistBitmap;
+						FrameLayout frame = (FrameLayout) getActivity().findViewById(R.id.image_frame);
+						float LAYOUT_HEIGHT_IN_DP = getActivity()
+								.getResources()
+								.getDimension(R.dimen.artist_info_pic_height);
+						scaleFrame(frame, LAYOUT_HEIGHT_IN_DP);
+						TextView eventText = (TextView) getActivity().findViewById(R.id.concerts_number);
+						eventText.setText(String.valueOf(events.size()) + " upcoming concerts");
+						if (Build.VERSION.SDK_INT < 16)
+						{
+							removeLayoutListenerPre16(flipper.getViewTreeObserver(), this);
+						}
+						else
+						{
+							removeLayoutListenerPost16(flipper.getViewTreeObserver(), this);
+						}
+					}
+				});
+				
+				flipper.setDisplayedChild(DisplayedView.ARTIST_IMAGE.ordinal());
+				
 			}
 
 			@Override
@@ -146,27 +169,28 @@ public class EventsFragment extends BaseArtistFragment
 	{
 		int width = artistBitmap.getWidth();
 		int height = artistBitmap.getHeight();
-		
+
 		final double MAX_PERCENTAGE_OF_SCREEN = 0.75;
 		int maxWidth = (int) (frame.getWidth() * MAX_PERCENTAGE_OF_SCREEN);
-		
+
 		float scale = heightOfFrame / height;
-		
+
 		Matrix matrix = new Matrix();
 		matrix.postScale(scale, scale);
 
 		Bitmap scaledBitmap = Bitmap.createBitmap(artistBitmap, 0, 0, width, height, matrix, true);
-		
+
 		width = scaledBitmap.getWidth();
 		height = scaledBitmap.getHeight();
-		
-		if (width > maxWidth) width = maxWidth;
-		
+
+		if (width > maxWidth)
+			width = maxWidth;
+
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,
 				height);
-		
+
 		frame.setLayoutParams(params);
-		
+
 		ImageView eventImage = (ImageView) getActivity().findViewById(R.id.event_image);
 		eventImage.setImageBitmap(scaledBitmap);
 		frame.setVisibility(View.VISIBLE);

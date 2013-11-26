@@ -26,57 +26,73 @@
 
     <LinearLayout style="@style/card_outer" >
 
-        <LinearLayout
-            android:id="@+id/inner_frame"
-            style="@style/card_inner"
+        <ViewFlipper
+            android:id="@+id/flip_image"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/artist_info_pic_height"
-            android:background="#00000000"
-            android:padding="0dp" >
+            android:layout_height="@dimen/artist_info_pic_height" >
 
             <FrameLayout
-                android:id="@+id/black"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#000000" >
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/artist_info_pic_height" >
 
-                <ImageView
+                <ProgressBar
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="top|left"
-                    android:src="@drawable/on_tour" />
-
-                <TextView
-                    android:id="@+id/concerts_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@android:color/white"
-                    android:gravity="center"
-                    android:padding="10dp" />
+                    android:layout_gravity="center" />
             </FrameLayout>
 
-            <FrameLayout
-                android:id="@+id/image_frame"
+            <LinearLayout
+                android:id="@+id/inner_frame"
+                style="@style/card_inner"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="invisible" >
+                android:layout_height="@dimen/artist_info_pic_height"
+                android:background="#00000000"
+                android:padding="0dp" >
 
-                <ImageView
-                    android:id="@+id/event_image"
+                <FrameLayout
+                    android:id="@+id/black"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#000000" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|left"
+                        android:src="@drawable/on_tour" />
+
+                    <TextView
+                        android:id="@+id/concerts_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:textColor="@android:color/white" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/image_frame"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop" />
+                    android:visibility="invisible" >
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="left"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/blur" />
-            </FrameLayout>
-        </LinearLayout>
+                    <ImageView
+                        android:id="@+id/event_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="left"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/blur" />
+                </FrameLayout>
+            </LinearLayout>
+        </ViewFlipper>
 
         <ImageView style="@style/card_shadow" />
     </LinearLayout>

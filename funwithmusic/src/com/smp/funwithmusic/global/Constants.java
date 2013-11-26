@@ -3,7 +3,7 @@ package com.smp.funwithmusic.global;
 public class Constants
 {
 	public static final String NEW_LINE = "\n";
-	
+
 	public static final String LYRICS_SEARCH_URL = "http://lyrics.wikia.com/Special:Search?search=";
 
 	public static final String BUNDLE_IMAGESFRAGMENT = "com.smp.funwithmusic.BUNDLE_IMAGESFRAGMENT";
