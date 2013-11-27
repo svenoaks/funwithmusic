@@ -54,7 +54,11 @@ import com.squareup.picasso.Target;
 
 public class EventsFragment extends BaseArtistFragment
 {
-	private enum DisplayedView { LOADING, ARTIST_IMAGE };
+	private enum DisplayedView
+	{
+		LOADING, ARTIST_IMAGE
+	};
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
@@ -123,33 +127,35 @@ public class EventsFragment extends BaseArtistFragment
 			public void onBitmapLoaded(final Bitmap artistBitmap, LoadedFrom arg1)
 			{
 				flipper = (ViewFlipper) getActivity().findViewById(R.id.flip_image);
-				ViewTreeObserver vto = flipper.getViewTreeObserver();
-				vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener()
+				if (flipper != null)
 				{
-					@Override
-					public void onGlobalLayout()
+					ViewTreeObserver vto = flipper.getViewTreeObserver();
+					vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener()
 					{
-						EventsFragment.this.artistBitmap = artistBitmap;
-						FrameLayout frame = (FrameLayout) getActivity().findViewById(R.id.image_frame);
-						float LAYOUT_HEIGHT_IN_DP = getActivity()
-								.getResources()
-								.getDimension(R.dimen.artist_info_pic_height);
-						scaleFrame(frame, LAYOUT_HEIGHT_IN_DP);
-						TextView eventText = (TextView) getActivity().findViewById(R.id.concerts_number);
-						eventText.setText(String.valueOf(events.size()) + " upcoming concerts");
-						if (Build.VERSION.SDK_INT < 16)
+						@Override
+						public void onGlobalLayout()
 						{
-							removeLayoutListenerPre16(flipper.getViewTreeObserver(), this);
+							EventsFragment.this.artistBitmap = artistBitmap;
+							FrameLayout frame = (FrameLayout) getActivity().findViewById(R.id.image_frame);
+							float LAYOUT_HEIGHT_IN_DP = getActivity()
+									.getResources()
+									.getDimension(R.dimen.artist_info_pic_height);
+							scaleFrame(frame, LAYOUT_HEIGHT_IN_DP);
+							TextView eventText = (TextView) getActivity().findViewById(R.id.concerts_number);
+							eventText.setText(String.valueOf(events.size()) + " upcoming concerts");
+							if (Build.VERSION.SDK_INT < 16)
+							{
+								removeLayoutListenerPre16(flipper.getViewTreeObserver(), this);
+							}
+							else
+							{
+								removeLayoutListenerPost16(flipper.getViewTreeObserver(), this);
+							}
 						}
-						else
-						{
-							removeLayoutListenerPost16(flipper.getViewTreeObserver(), this);
-						}
-					}
-				});
-				
-				flipper.setDisplayedChild(DisplayedView.ARTIST_IMAGE.ordinal());
-				
+					});
+
+					flipper.setDisplayedChild(DisplayedView.ARTIST_IMAGE.ordinal());
+				}
 			}
 
 			@Override

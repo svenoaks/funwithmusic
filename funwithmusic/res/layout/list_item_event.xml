@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/card_content"
                 android:singleLine="true"
-                android:maxLines="1"
+                android:ellipsize="end"
                 android:visibility="gone" />
 
             <com.afollestad.silk.views.text.SilkTextView
