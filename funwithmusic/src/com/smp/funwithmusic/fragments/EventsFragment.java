@@ -78,8 +78,9 @@ public class EventsFragment extends BaseArtistFragment
 	private String imageUrl;
 	private Target target;
 	private Bitmap artistBitmap;
-	EventCardAdapter<EventCard> cardsAdapter;
-	ViewFlipper flipper;
+	private EventCardAdapter<EventCard> cardsAdapter;
+	private ViewFlipper flipper;
+	private float LAYOUT_HEIGHT_IN_DP;
 
 	@Override
 	public void onPause()
@@ -99,6 +100,7 @@ public class EventsFragment extends BaseArtistFragment
 		View layout = inflater.inflate(R.layout.fragment_cards_list, null);
 		listView = (CardListView) layout.findViewById(R.id.cardsList);
 		listView.setOnCardClickListener(new CardListView.CardClickListener()
+		
 
 		{
 			@SuppressWarnings("rawtypes")
@@ -126,36 +128,31 @@ public class EventsFragment extends BaseArtistFragment
 			@Override
 			public void onBitmapLoaded(final Bitmap artistBitmap, LoadedFrom arg1)
 			{
-				flipper = (ViewFlipper) getActivity().findViewById(R.id.flip_image);
-				if (flipper != null)
+				ViewTreeObserver vto = flipper.getViewTreeObserver();
+				vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener()
 				{
-					ViewTreeObserver vto = flipper.getViewTreeObserver();
-					vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener()
+					@Override
+					public void onGlobalLayout()
 					{
-						@Override
-						public void onGlobalLayout()
+						EventsFragment.this.artistBitmap = artistBitmap;
+						FrameLayout frame = (FrameLayout) flipper.findViewById(R.id.image_frame);
+						
+						scaleFrame(frame, LAYOUT_HEIGHT_IN_DP);
+						TextView eventText = (TextView) flipper.findViewById(R.id.concerts_number);
+						eventText.setText(String.valueOf(events.size()) + " upcoming concerts");
+						if (Build.VERSION.SDK_INT < 16)
 						{
-							EventsFragment.this.artistBitmap = artistBitmap;
-							FrameLayout frame = (FrameLayout) getActivity().findViewById(R.id.image_frame);
-							float LAYOUT_HEIGHT_IN_DP = getActivity()
-									.getResources()
-									.getDimension(R.dimen.artist_info_pic_height);
-							scaleFrame(frame, LAYOUT_HEIGHT_IN_DP);
-							TextView eventText = (TextView) getActivity().findViewById(R.id.concerts_number);
-							eventText.setText(String.valueOf(events.size()) + " upcoming concerts");
-							if (Build.VERSION.SDK_INT < 16)
-							{
-								removeLayoutListenerPre16(flipper.getViewTreeObserver(), this);
-							}
-							else
-							{
-								removeLayoutListenerPost16(flipper.getViewTreeObserver(), this);
-							}
+							removeLayoutListenerPre16(flipper.getViewTreeObserver(), this);
 						}
-					});
+						else
+						{
+							removeLayoutListenerPost16(flipper.getViewTreeObserver(), this);
+						}
+					}
+				});
 
-					flipper.setDisplayedChild(DisplayedView.ARTIST_IMAGE.ordinal());
-				}
+				flipper.setDisplayedChild(DisplayedView.ARTIST_IMAGE.ordinal());
+				cardsAdapter.notifyDataSetChanged();
 			}
 
 			@Override
@@ -165,7 +162,10 @@ public class EventsFragment extends BaseArtistFragment
 
 			}
 		};
-
+		
+		LAYOUT_HEIGHT_IN_DP = getActivity()
+				.getResources()
+				.getDimension(R.dimen.artist_info_pic_height);
 		prepareAdapter();
 
 		return layout;
@@ -197,7 +197,7 @@ public class EventsFragment extends BaseArtistFragment
 
 		frame.setLayoutParams(params);
 
-		ImageView eventImage = (ImageView) getActivity().findViewById(R.id.event_image);
+		ImageView eventImage = (ImageView) flipper.findViewById(R.id.event_image);
 		eventImage.setImageBitmap(scaledBitmap);
 		frame.setVisibility(View.VISIBLE);
 	}
@@ -253,6 +253,7 @@ public class EventsFragment extends BaseArtistFragment
 		cardsAdapter = new EventCardAdapter<EventCard>(getActivity(), imageUrl);
 		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
 		CardHeader header = new CardHeader("Upcoming Events");
+
 		cardsAdapter.add(header);
 
 		for (int i = 0; i < events.size(); ++i)
@@ -268,6 +269,7 @@ public class EventsFragment extends BaseArtistFragment
 			@Override
 			public void onGlobalLayout()
 			{
+				flipper = (ViewFlipper) listView.findViewById(R.id.flip_image);
 				Picasso.with(getActivity()).load(imageUrl).into(target);
 				if (Build.VERSION.SDK_INT < 16)
 				{
