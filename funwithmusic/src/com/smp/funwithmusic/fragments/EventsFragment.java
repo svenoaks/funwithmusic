@@ -245,7 +245,7 @@ public class EventsFragment extends BaseArtistFragment
 	private void makeAdapter()
 	{
 		cardsAdapter = new EventCardAdapter<EventCard>(getActivity(), imageUrl);
-		// cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
+		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
 		CardHeader header = new CardHeader("Upcoming Events");
 		cardsAdapter.add(header);
 

@@ -70,12 +70,37 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 		if (holder.content3 == null)
 			holder.content3 = (TextView) recycled.findViewById(R.id.date_time);
 
+		if (holder.title2 == null)
+			holder.title2 = (TextView) recycled.findViewById(R.id.festival_name);
+		
 		if (holder.content2 != null)
 			onProcessLocation(holder.content2, item, parent);
 		if (holder.content3 != null)
 			onProcessDateTime(holder.content3, item, parent);
+		
+		if (holder.title2 != null)
+			onProcessFestivalName(holder.title2, item, parent);
 
 		return super.onViewCreated(index, recycled, item, parent, holder);
+	}
+
+	private void onProcessFestivalName(TextView title2, Card item, ViewGroup parent)
+	{
+		final Event event = ((EventCard) item).getEvent();
+	
+		if (event.getType().equals("Festival"))
+		{
+			SpannableStringBuilder spanned = new SpannableStringBuilder(event.getDisplayName());
+			spanned.setSpan(titleAppearance, 0, spanned.length(),
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			title2.setVisibility(View.VISIBLE);
+			title2.setText(spanned);
+		}
+		else
+		{
+			title2.setText("");
+			title2.setVisibility(View.GONE);
+		}
 	}
 
 	private void onProcessDateTime(TextView content3, Card item, ViewGroup parent)
@@ -88,10 +113,12 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 		if (event.getDateTime() != null
 				&& !event.getDateTime().equals("null"))
 		{
-			parse = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", locale);
+			final int BEG_TZ = 19;
+			String noTimeZone = event.getDateTime().substring(0, BEG_TZ);
+			parse = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", locale);
 			try
 			{
-				date = parse.parse(event.getDateTime());
+				date = parse.parse(noTimeZone);
 			}
 			catch (ParseException e)
 			{
@@ -161,7 +188,6 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 
 		if (event.getType().equals("Festival"))
 		{
-			blueString.append(event.getDisplayName() + NEW_LINE);
 			for (Performance per : perfs)
 			{
 				normalColorString.append(per.getDisplayName()
@@ -188,12 +214,12 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 		SpannableStringBuilder spanned = new SpannableStringBuilder(blueString.toString()
 				+ normalColorString.toString());
 
-		spanned.setSpan(titleAppearance, 0, blueString.length(),
+		if (blueString.length() > 0) spanned.setSpan(titleAppearance, 0, blueString.length(),
 				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 		int sl = spanned.length();
 		int nl = NEW_LINE.length();
-		CharSequence test = spanned.subSequence(sl - nl, sl);
+		
 		if (sl >= nl)
 			while (spanned.subSequence(sl - nl, sl).toString().equals(NEW_LINE))
 			{

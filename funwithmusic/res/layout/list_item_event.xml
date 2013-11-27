@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- suppress AndroidLintUselessParent -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/card_outer" >
 
@@ -12,7 +11,7 @@
             style="@style/card_thumbnail_large" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/titleFrame"
             android:layout_marginLeft="@dimen/card_title_margin_left"
@@ -42,6 +41,15 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textSize="@dimen/card_content" />
+            
+            <TextView
+                android:id="@+id/festival_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/card_content"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:visibility="gone" />
 
             <com.afollestad.silk.views.text.SilkTextView
                 android:id="@+android:id/content"
