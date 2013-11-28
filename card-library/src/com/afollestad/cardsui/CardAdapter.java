@@ -164,7 +164,7 @@ public class CardAdapter<ItemType extends CardBase<ItemType>> extends SilkAdapte
 		return layout;
 	}
 
-	private void setupHeader(ItemType header, View view)
+	protected void setupHeader(ItemType header, View view)
 	{
 		TextView title = (TextView) view.findViewById(android.R.id.title);
 		if (title == null)

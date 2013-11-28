@@ -258,6 +258,7 @@ public abstract class SilkAdapter<ItemType extends SilkComparable> extends BaseA
 		public TextView content2;
 		public TextView content3;
 		public ImageView icon;
+		
 	}
     /**
      * Resets the changed state of the adapter, indicating that the adapter has not been changed. Every call

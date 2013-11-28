@@ -54,10 +54,7 @@ import com.squareup.picasso.Target;
 
 public class EventsFragment extends BaseArtistFragment
 {
-	private enum DisplayedView
-	{
-		LOADING, ARTIST_IMAGE
-	};
+	
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
@@ -74,14 +71,12 @@ public class EventsFragment extends BaseArtistFragment
 	private CardListView listView;
 	private ArrayList<Event> events;
 	private EventsListener eventListener;
-	private String artistId;
+	
 	private String imageUrl;
-	private Target target;
-	private Bitmap artistBitmap;
+	
 	private EventCardAdapter<EventCard> cardsAdapter;
-	private ViewFlipper flipper;
-	private float LAYOUT_HEIGHT_IN_DP;
-
+	
+	
 	@Override
 	public void onPause()
 	{
@@ -90,7 +85,7 @@ public class EventsFragment extends BaseArtistFragment
 		{
 			eventListener.frag = null;
 		}
-		Picasso.with(getActivity()).cancelRequest(target);
+		cardsAdapter.cancelPicasso();
 	}
 
 	@Override
@@ -116,97 +111,14 @@ public class EventsFragment extends BaseArtistFragment
 			}
 		});
 
-		target = new Target()
-		{
-
-			@Override
-			public void onBitmapFailed(Drawable arg0)
-			{
-
-			}
-
-			@Override
-			public void onBitmapLoaded(final Bitmap artistBitmap, LoadedFrom arg1)
-			{
-				ViewTreeObserver vto = flipper.getViewTreeObserver();
-				vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener()
-				{
-					@Override
-					public void onGlobalLayout()
-					{
-						EventsFragment.this.artistBitmap = artistBitmap;
-						FrameLayout frame = (FrameLayout) flipper.findViewById(R.id.image_frame);
-						
-						scaleFrame(frame, LAYOUT_HEIGHT_IN_DP);
-						TextView eventText = (TextView) flipper.findViewById(R.id.concerts_number);
-						eventText.setText(String.valueOf(events.size()) + " upcoming concerts");
-						if (Build.VERSION.SDK_INT < 16)
-						{
-							removeLayoutListenerPre16(flipper.getViewTreeObserver(), this);
-						}
-						else
-						{
-							removeLayoutListenerPost16(flipper.getViewTreeObserver(), this);
-						}
-					}
-				});
-
-				flipper.setDisplayedChild(DisplayedView.ARTIST_IMAGE.ordinal());
-				cardsAdapter.notifyDataSetChanged();
-			}
-
-			@Override
-			public void onPrepareLoad(Drawable arg0)
-			{
-				// TODO Auto-generated method stub
-
-			}
-		};
 		
-		LAYOUT_HEIGHT_IN_DP = getActivity()
-				.getResources()
-				.getDimension(R.dimen.artist_info_pic_height);
+		
 		prepareAdapter();
 
 		return layout;
 	}
 
-	protected void scaleFrame(FrameLayout frame, float heightOfFrame)
-	{
-		int width = artistBitmap.getWidth();
-		int height = artistBitmap.getHeight();
-
-		final double MAX_PERCENTAGE_OF_SCREEN = 0.75;
-		int maxWidth = (int) (frame.getWidth() * MAX_PERCENTAGE_OF_SCREEN);
-
-		float scale = heightOfFrame / height;
-
-		Matrix matrix = new Matrix();
-		matrix.postScale(scale, scale);
-
-		Bitmap scaledBitmap = Bitmap.createBitmap(artistBitmap, 0, 0, width, height, matrix, true);
-
-		width = scaledBitmap.getWidth();
-		height = scaledBitmap.getHeight();
-
-		if (width > maxWidth)
-			width = maxWidth;
-
-		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,
-				height);
-
-		frame.setLayoutParams(params);
-
-		ImageView eventImage = (ImageView) flipper.findViewById(R.id.event_image);
-		eventImage.setImageBitmap(scaledBitmap);
-		frame.setVisibility(View.VISIBLE);
-	}
-
-	private int dpToPx(int dp)
-	{
-		float density = getActivity().getApplicationContext().getResources().getDisplayMetrics().density;
-		return Math.round((float) dp * density);
-	}
+	
 
 	private void prepareAdapter()
 	{
@@ -242,7 +154,6 @@ public class EventsFragment extends BaseArtistFragment
 	private void onIdReceived(String artistId)
 	{
 		eventListener = new EventsListener(this);
-		this.artistId = artistId;
 		imageUrl = SongKickClient.getImageUrl(artistId);
 		SongKickClient.getEvents(GlobalRequest.getInstance(), TAG_VOLLEY, artistId,
 				eventListener, eventListener);
@@ -250,7 +161,7 @@ public class EventsFragment extends BaseArtistFragment
 
 	private void makeAdapter()
 	{
-		cardsAdapter = new EventCardAdapter<EventCard>(getActivity(), imageUrl);
+		cardsAdapter = new EventCardAdapter<EventCard>(getActivity(), imageUrl, events.size());
 		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
 		CardHeader header = new CardHeader("Upcoming Events");
 
@@ -262,38 +173,9 @@ public class EventsFragment extends BaseArtistFragment
 			cardsAdapter.add(new EventCard(event));
 		}
 		listView.setAdapter(cardsAdapter);
-
-		ViewTreeObserver vto = listView.getViewTreeObserver();
-		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener()
-		{
-			@Override
-			public void onGlobalLayout()
-			{
-				flipper = (ViewFlipper) listView.findViewById(R.id.flip_image);
-				Picasso.with(getActivity()).load(imageUrl).into(target);
-				if (Build.VERSION.SDK_INT < 16)
-				{
-					removeLayoutListenerPre16(listView.getViewTreeObserver(), this);
-				}
-				else
-				{
-					removeLayoutListenerPost16(listView.getViewTreeObserver(), this);
-				}
-			}
-		});
 	}
 
-	@SuppressWarnings("deprecation")
-	private void removeLayoutListenerPre16(ViewTreeObserver observer, OnGlobalLayoutListener listener)
-	{
-		observer.removeGlobalOnLayoutListener(listener);
-	}
-
-	@SuppressLint("NewApi")
-	private void removeLayoutListenerPost16(ViewTreeObserver observer, OnGlobalLayoutListener listener)
-	{
-		observer.removeOnGlobalLayoutListener(listener);
-	}
+	
 
 	@Override
 	public void onSaveInstanceState(Bundle outState)

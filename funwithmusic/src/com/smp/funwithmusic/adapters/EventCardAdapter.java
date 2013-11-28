@@ -10,16 +10,26 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.TextAppearanceSpan;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.afollestad.cardsui.Card;
 import com.afollestad.cardsui.CardAdapter;
@@ -29,20 +39,32 @@ import com.smp.funwithmusic.apiclient.SongKickClient;
 import com.smp.funwithmusic.dataobjects.Event;
 import com.smp.funwithmusic.dataobjects.EventCard;
 import com.smp.funwithmusic.dataobjects.Performance;
+import com.smp.funwithmusic.fragments.EventsFragment;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+import com.squareup.picasso.Picasso.LoadedFrom;
 
 public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 {
-	Context context;
+	private enum DisplayedView
+	{
+		LOADING, ARTIST_IMAGE
+	};
+	private Context context;
 	private final static int TYPE_HEADER = 2;
 	private TextAppearanceSpan titleAppearance;
 	private String imageUrl;
+	private Target target;
+	private float LAYOUT_HEIGHT_IN_DP;
+	private int noOfEvents;
+	private float maxFrameWidth;
 
-	public EventCardAdapter(Context context, String imageUrl)
+	public EventCardAdapter(Context context, String imageUrl, int noOfEvents)
 	{
 		super(context, R.layout.list_item_event);
 		this.context = context;
 		this.imageUrl = imageUrl;
+		this.noOfEvents = noOfEvents;
 		ColorStateList blue = ColorStateList.valueOf
 				(context.getResources().getColor(R.color.holo_blue_dark));
 
@@ -50,6 +72,116 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 		int style = Typeface.NORMAL;
 
 		titleAppearance = new TextAppearanceSpan("sans-serif", style, size, blue, null);
+
+		LAYOUT_HEIGHT_IN_DP = context
+				.getResources()
+				.getDimension(R.dimen.artist_info_pic_height);
+	}
+	@Override
+	protected void setupHeader(Card header, View view)
+	{
+		super.setupHeader(header, view);
+		final ViewFlipper flipper = (ViewFlipper) view.findViewById(R.id.flip_image);
+		target = new Target()
+		{
+			@Override
+			public void onBitmapFailed(Drawable arg0)
+			{
+
+			}
+
+			@Override
+			public void onBitmapLoaded(final Bitmap artistBitmap, LoadedFrom arg1)
+			{
+				setupFrame(artistBitmap, flipper);
+				flipper.setDisplayedChild(DisplayedView.ARTIST_IMAGE.ordinal());
+			}
+
+			@Override
+			public void onPrepareLoad(Drawable arg0)
+			{
+				// TODO Auto-generated method stub
+
+			}
+		};
+		ViewTreeObserver vto = flipper.getViewTreeObserver();
+		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener()
+		{
+			@Override
+			public void onGlobalLayout()
+			{
+				maxFrameWidth = flipper.getWidth();
+				Picasso.with(context).load(imageUrl).into(target);
+				if (Build.VERSION.SDK_INT < 16)
+				{
+					removeLayoutListenerPre16(flipper.getViewTreeObserver(), this);
+				}
+				else
+				{
+					removeLayoutListenerPost16(flipper.getViewTreeObserver(), this);
+				}
+			}
+		});
+		
+	}
+
+	@SuppressWarnings("deprecation")
+	private void removeLayoutListenerPre16(ViewTreeObserver observer, OnGlobalLayoutListener listener)
+	{
+		observer.removeGlobalOnLayoutListener(listener);
+	}
+
+	@SuppressLint("NewApi")
+	private void removeLayoutListenerPost16(ViewTreeObserver observer, OnGlobalLayoutListener listener)
+	{
+		observer.removeOnGlobalLayoutListener(listener);
+	}
+
+	protected void setupFrame(Bitmap artistBitmap, ViewFlipper flipper)
+	{
+		FrameLayout frame = (FrameLayout) flipper.findViewById(R.id.image_frame);
+
+		int width = artistBitmap.getWidth();
+		int height = artistBitmap.getHeight();
+
+		final double MAX_PERCENTAGE_OF_SCREEN = 0.75;
+		int maxWidth = (int) (maxFrameWidth * MAX_PERCENTAGE_OF_SCREEN);
+
+		float scale = LAYOUT_HEIGHT_IN_DP / height;
+
+		Matrix matrix = new Matrix();
+		matrix.postScale(scale, scale);
+
+		Bitmap scaledBitmap = Bitmap.createBitmap(artistBitmap, 0, 0, width, height, matrix, true);
+
+		width = scaledBitmap.getWidth();
+		height = scaledBitmap.getHeight();
+
+		if (width > maxWidth)
+			width = maxWidth;
+
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,
+				height);
+
+		frame.setLayoutParams(params);
+
+		ImageView eventImage = (ImageView) flipper.findViewById(R.id.event_image);
+		eventImage.setImageBitmap(scaledBitmap);
+
+		TextView eventText = (TextView) flipper.findViewById(R.id.concerts_number);
+		eventText.setText(String.valueOf(noOfEvents) +
+				" upcoming concerts");
+	}
+
+	private int dpToPx(int dp)
+	{
+		float density = context.getApplicationContext().getResources().getDisplayMetrics().density;
+		return Math.round((float) dp * density);
+	}
+
+	public void cancelPicasso()
+	{
+		Picasso.with(context).cancelRequest(target);
 	}
 
 	@Override
@@ -72,12 +204,12 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 
 		if (holder.title2 == null)
 			holder.title2 = (TextView) recycled.findViewById(R.id.festival_name);
-		
+
 		if (holder.content2 != null)
 			onProcessLocation(holder.content2, item, parent);
 		if (holder.content3 != null)
 			onProcessDateTime(holder.content3, item, parent);
-		
+
 		if (holder.title2 != null)
 			onProcessFestivalName(holder.title2, item, parent);
 
@@ -87,7 +219,7 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 	private void onProcessFestivalName(TextView title2, Card item, ViewGroup parent)
 	{
 		final Event event = ((EventCard) item).getEvent();
-	
+
 		if (event.getType().equals("Festival"))
 		{
 			SpannableStringBuilder spanned = new SpannableStringBuilder(event.getDisplayName());
@@ -214,12 +346,13 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 		SpannableStringBuilder spanned = new SpannableStringBuilder(blueString.toString()
 				+ normalColorString.toString());
 
-		if (blueString.length() > 0) spanned.setSpan(titleAppearance, 0, blueString.length(),
-				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		if (blueString.length() > 0)
+			spanned.setSpan(titleAppearance, 0, blueString.length(),
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 		int sl = spanned.length();
 		int nl = NEW_LINE.length();
-		
+
 		if (sl >= nl)
 			while (spanned.subSequence(sl - nl, sl).toString().equals(NEW_LINE))
 			{
@@ -230,8 +363,6 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 		content.setText(spanned);
 
 		return true;
-
-		// return super.onProcessContent(content, card);
 	}
 
 	private void onProcessLocation(TextView title2, Card item, ViewGroup parent)
