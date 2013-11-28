@@ -11,6 +11,7 @@ import com.afollestad.cardsui.Card.CardMenuListener;
 import com.afollestad.cardsui.CardBase;
 import com.afollestad.cardsui.CardHeader;
 import com.afollestad.cardsui.CardListView;
+import com.afollestad.silk.adapters.SilkAdapter.ViewHolder;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
@@ -21,6 +22,7 @@ import com.smp.funwithmusic.dataobjects.SongCard;
 import com.smp.funwithmusic.global.GlobalRequest;
 import com.smp.funwithmusic.services.IdentifyMusicService;
 import com.smp.funwithmusic.views.ProgressWheel;
+import com.squareup.picasso.Picasso;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -41,11 +43,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.AbsListView.RecyclerListener;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class FlowActivity extends Activity implements CardMenuListener<Card>, OnScrollListener
+public class FlowActivity extends Activity implements CardMenuListener<Card>, RecyclerListener
 {
 	@Override
 	protected void onNewIntent(Intent intent)
@@ -84,10 +87,11 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 			}
 		}
 	}
-
+	/*
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState)
 	{
+		
 		switch (scrollState)
 		{
 			case OnScrollListener.SCROLL_STATE_IDLE:
@@ -112,6 +116,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 				cardsAdapter.setBusy(true);
 				break;
 		}
+		
 	}
 
 	@Override
@@ -119,7 +124,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 	{
 
 	}
-
+	*/
 	private void resetArtist()
 	{
 		lastArtist = null;
@@ -188,8 +193,6 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 		});
 	}
 
-	// need to make old OS friendly
-	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -211,7 +214,8 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 
 		cardsList = (CardListView) findViewById(R.id.cardsList);
 		cardsList.setAdapter(cardsAdapter);
-		cardsList.setOnScrollListener(this);
+		//cardsList.setOnScrollListener(this);
+		cardsList.setRecyclerListener(this);
 
 		cardsList.setOnCardClickListener(new CardListView.CardClickListener()
 
@@ -346,6 +350,13 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, On
 				break;
 		}
 
+	}
+
+	@Override
+	public void onMovedToScrapHeap(View view)
+	{
+		ViewHolder holder = (ViewHolder) view.getTag();
+		Picasso.with(this).cancelRequest(holder.icon);	
 	}
 
 }

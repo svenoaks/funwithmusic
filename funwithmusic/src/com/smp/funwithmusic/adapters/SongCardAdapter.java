@@ -44,13 +44,10 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 	private Context mContext;
 	private static GNConfig config;
 	private RequestQueue queue;
-	private boolean busy;
 
-	public void setBusy(boolean busy)
-	{
-		this.busy = busy;
-	}
+	// private boolean busy;
 
+	
 	public SongCardAdapter(Context context, RequestQueue queue)
 	{
 		super(context, R.layout.list_item_song);
@@ -83,26 +80,18 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 	protected boolean onProcessThumbnail(final ImageView icon, final Card card,
 			final ViewGroup parent)
 	{
-		card.setTag(null);
+		// card.setTag(null);
 		final Song song = ((SongCard) card).getSong();
-		if (!busy)
-		{
-			Picasso.with(mContext).load(song.getAlbumUrl())
-					.skipMemoryCache()
-					.placeholder(R.drawable.flow)
-					.error(R.drawable.flow)
-					.resizeDimen(R.dimen.card_thumbnail_large, R.dimen.card_thumbnail_large)
-					.into(icon);
 
-			card.setTag(this);
-		}
-		else
-		{
-			Picasso.with(mContext).load(R.drawable.flow)
-					.resizeDimen(R.dimen.card_thumbnail_large, R.dimen.card_thumbnail_large)
-					.noFade()
-					.into(icon);
-		}
+		Picasso.with(mContext).load(song.getAlbumUrl())
+				.skipMemoryCache()
+				.placeholder(R.drawable.flow)
+				.error(R.drawable.flow)
+				.resizeDimen(R.dimen.card_thumbnail_large, R.dimen.card_thumbnail_large)
+				.into(icon);
+
+		card.setTag(this);
+
 		if (!song.hasAlbumUrl() && !song.isCantGetAlbumUrl())
 		{
 			ThumbnailListener listen = new ThumbnailListener(this, song,
