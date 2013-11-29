@@ -22,20 +22,28 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.Fragment.SavedState;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentManager.BackStackEntry;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 
 public class ArtistActivity extends SlidingFragmentActivity
 {
+	public enum DisplayedView
+	{
+		FRAGMENT, NOT_FOUND, LOADING
+	};
+
 	private class UpdateActivityReceiver extends BroadcastReceiver
 	{
 		@Override
@@ -62,27 +70,21 @@ public class ArtistActivity extends SlidingFragmentActivity
 	private UpdateActivityReceiver receiver;
 	private BaseArtistFragment mContent;
 	private View idDialog;
-	private View loadingDialog;
-	private View notFound;
+	private ViewFlipper flipper;
+
+	public void changeFlipperState(int view)
+	{
+		flipper.setDisplayedChild(view);
+	}
 
 	public String getArtist()
 	{
 		return artist;
 	}
 
-	public View getLoadingDialog()
-	{
-		return loadingDialog;
-	}
-
 	public View getIdDialog()
 	{
 		return idDialog;
-	}
-
-	public View getNotFound()
-	{
-		return notFound;
 	}
 
 	@Override
@@ -112,13 +114,11 @@ public class ArtistActivity extends SlidingFragmentActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_artist);
 		artist = getIntent().getStringExtra(ARTIST_NAME);
 		idDialog = findViewById(R.id.progress);
-		loadingDialog = findViewById(R.id.loading);
-		notFound = findViewById(R.id.not_found);
+		flipper = (ViewFlipper) findViewById(R.id.flipper);
 
 		setTitle(artist);
 
@@ -159,7 +159,6 @@ public class ArtistActivity extends SlidingFragmentActivity
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
-
 	}
 
 	private void configureSlidingMenu()
@@ -181,40 +180,63 @@ public class ArtistActivity extends SlidingFragmentActivity
 		outState.putString(BUNDLE_FRAGMENT, mContent.getType().name());
 	}
 
-	/*
-	 * private void saveCurrentFrag() { //FragmentManager mgr =
-	 * getSupportFragmentManager();
-	 * 
-	 * //savedFrags.putParcelable(mContent.getType().toString(),
-	 * //mgr.saveFragmentInstanceState(mContent)); }
-	 */
 	@Override
 	public void onBackPressed()
 	{
 		FragmentManager mgr = getSupportFragmentManager();
-		if (mgr.getBackStackEntryCount() > 0)
-		{
-			mgr.popBackStackImmediate();
-			mContent = (BaseArtistFragment) mgr.findFragmentById(R.id.fragment_frame);
-		}
-		else
+		int c = mgr.getBackStackEntryCount();
+		if (c == 0)
 		{
 			finish();
+			return;
 		}
+		if (c > 0)
+		{
+			BackStackEntry lastFrag =
+					mgr.getBackStackEntryAt(c - 1);
+			mgr.popBackStackImmediate();
+			c = mgr.getBackStackEntryCount();
+			if (lastFrag
+					.getName()
+					.equals(mContent.getType()
+							.toString()))
+			{
+				if (c == 0)
+				{
+					finish();
+				}
+				else
+				{
+					mgr.popBackStackImmediate();
+				}
+			}
+			Log.d("STACK", String.valueOf(c));
+		}
+		mContent = (BaseArtistFragment) mgr.findFragmentById(R.id.fragment_frame);
 	}
 
 	public void switchContent(ArtistInfo info)
 	{
-		// saveCurrentFrag();
 		FragmentManager mgr = getSupportFragmentManager();
-
-		// SavedState state = null;
-
+		changeFlipperState(DisplayedView.FRAGMENT.ordinal());
 		BaseArtistFragment newContent = BaseArtistFragment.newInstance(info);
-
 		FragmentTransaction trans = mgr.beginTransaction();
 		if (mContent.hasData())
-			trans.addToBackStack(mContent.getType().toString());
+		{
+			boolean shouldAdd = true;
+			for (int i = 0; i < mgr.getBackStackEntryCount(); ++i)
+			{
+				if (mContent.getType().toString()
+						.equals(mgr.getBackStackEntryAt(i).getName()))
+				{
+					shouldAdd = false;
+					break;
+				}
+
+			}
+			if (shouldAdd)
+				trans.addToBackStack(mContent.getType().toString());
+		}
 		trans.replace(R.id.fragment_frame, newContent)
 				.commit();
 		getSlidingMenu().showContent();

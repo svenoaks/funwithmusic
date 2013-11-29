@@ -12,6 +12,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.smp.funwithmusic.activities.*;
+import com.smp.funwithmusic.activities.ArtistActivity.DisplayedView;
 import com.smp.funwithmusic.adapters.ImagesAdapter;
 import com.smp.funwithmusic.apiclient.EchoNestClient;
 import com.smp.funwithmusic.apiclient.EchoNestClient.echoNestRequest;
@@ -86,7 +87,8 @@ public class ImagesFragment extends BaseArtistFragment
 		this.urls = urls;
 		if (urls == null || urls.size() == 0)
 		{
-			viewVisible(((ArtistActivity) getActivity()).getNotFound());
+			((ArtistActivity) getActivity())
+					.changeFlipperState((DisplayedView.NOT_FOUND.ordinal()));
 		}
 		else
 		{

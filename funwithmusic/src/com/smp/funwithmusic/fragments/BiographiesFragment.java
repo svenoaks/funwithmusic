@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.smp.funwithmusic.activities.*;
+import com.smp.funwithmusic.activities.ArtistActivity.DisplayedView;
 import com.smp.funwithmusic.adapters.BiographiesAdapter;
 import com.smp.funwithmusic.adapters.ImagesAdapter;
 import com.smp.funwithmusic.apiclient.EchoNestClient;
@@ -107,7 +108,8 @@ public class BiographiesFragment extends BaseArtistFragment
 		this.bios = bios;
 		if (bios == null || bios.size() == 0)
 		{
-			viewVisible(((ArtistActivity) getActivity()).getNotFound());
+			((ArtistActivity) getActivity())
+					.changeFlipperState((DisplayedView.NOT_FOUND.ordinal()));
 		}
 		else
 		{

@@ -50,6 +50,7 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 	{
 		LOADING, ARTIST_IMAGE
 	};
+
 	private Context context;
 	private final static int TYPE_HEADER = 2;
 	private TextAppearanceSpan titleAppearance;
@@ -77,6 +78,7 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 				.getResources()
 				.getDimension(R.dimen.artist_info_pic_height);
 	}
+
 	@Override
 	protected void setupHeader(Card header, View view)
 	{
@@ -122,7 +124,7 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 				}
 			}
 		});
-		
+
 	}
 
 	@SuppressWarnings("deprecation")

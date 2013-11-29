@@ -39,6 +39,7 @@ import com.afollestad.cardsui.CardListView;
 import com.android.volley.VolleyError;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.activities.ArtistActivity;
+import com.smp.funwithmusic.activities.ArtistActivity.DisplayedView;
 import com.smp.funwithmusic.adapters.EventCardAdapter;
 import com.smp.funwithmusic.apiclient.EchoNestClient;
 import com.smp.funwithmusic.apiclient.EchoNestClient.echoNestRequest;
@@ -54,13 +55,10 @@ import com.squareup.picasso.Target;
 
 public class EventsFragment extends BaseArtistFragment
 {
-	
-
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-
 	}
 
 	public EventsFragment()
@@ -71,12 +69,9 @@ public class EventsFragment extends BaseArtistFragment
 	private CardListView listView;
 	private ArrayList<Event> events;
 	private EventsListener eventListener;
-	
 	private String imageUrl;
-	
 	private EventCardAdapter<EventCard> cardsAdapter;
-	
-	
+
 	@Override
 	public void onPause()
 	{
@@ -85,7 +80,10 @@ public class EventsFragment extends BaseArtistFragment
 		{
 			eventListener.frag = null;
 		}
-		cardsAdapter.cancelPicasso();
+		if (cardsAdapter != null)
+		{
+			cardsAdapter.cancelPicasso();
+		}
 	}
 
 	@Override
@@ -95,8 +93,6 @@ public class EventsFragment extends BaseArtistFragment
 		View layout = inflater.inflate(R.layout.fragment_cards_list, null);
 		listView = (CardListView) layout.findViewById(R.id.cardsList);
 		listView.setOnCardClickListener(new CardListView.CardClickListener()
-		
-
 		{
 			@SuppressWarnings("rawtypes")
 			@Override
@@ -110,15 +106,10 @@ public class EventsFragment extends BaseArtistFragment
 				startActivity(intent);
 			}
 		});
-
-		
-		
 		prepareAdapter();
 
 		return layout;
 	}
-
-	
 
 	private void prepareAdapter()
 	{
@@ -143,7 +134,8 @@ public class EventsFragment extends BaseArtistFragment
 		this.events = events;
 		if (events == null || events.size() == 0)
 		{
-			viewVisible(((ArtistActivity) getActivity()).getNotFound());
+			((ArtistActivity) getActivity())
+					.changeFlipperState((DisplayedView.NOT_FOUND.ordinal()));
 		}
 		else
 		{
@@ -175,13 +167,10 @@ public class EventsFragment extends BaseArtistFragment
 		listView.setAdapter(cardsAdapter);
 	}
 
-	
-
 	@Override
 	public void onSaveInstanceState(Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
-		// outState.putParcelableArrayList(BUNDLE_BIOGRAPHIES, bios);
 	}
 
 	static class ArtistIdListener extends BaseArtistListener

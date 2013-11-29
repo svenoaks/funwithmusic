@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.smp.funwithmusic.activities.ArtistActivity;
+import com.smp.funwithmusic.activities.ArtistActivity.DisplayedView;
 import com.smp.funwithmusic.fragments.ArtistMenuFragment.ArtistInfo;
 import com.smp.funwithmusic.global.GlobalRequest;
 
@@ -20,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 public abstract class BaseArtistFragment extends Fragment
 {
@@ -72,16 +74,15 @@ public abstract class BaseArtistFragment extends Fragment
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
 		artist = ((ArtistActivity) getActivity()).getArtist();
 		listen = getNewListener(type);
-		viewVisible(((ArtistActivity) getActivity()).getLoadingDialog());
+		((ArtistActivity) getActivity())
+				.changeFlipperState((DisplayedView.LOADING.ordinal()));
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		viewGone(((ArtistActivity) getActivity()).getNotFound());
 		return null;
 	}
 
@@ -138,15 +139,17 @@ public abstract class BaseArtistFragment extends Fragment
 		@Override
 		public void onResponse(JSONObject response)
 		{
-			viewGone(((ArtistActivity) frag.getActivity()).getLoadingDialog());
+			if (frag != null)
+				((ArtistActivity) frag.getActivity())
+						.changeFlipperState((DisplayedView.FRAGMENT.ordinal()));
 		}
 
 		@Override
 		public void onErrorResponse(VolleyError error)
 		{
-			viewGone(((ArtistActivity) frag.getActivity()).getLoadingDialog());
-			viewVisible(((ArtistActivity) frag.getActivity()).getNotFound());
+			if (frag != null)
+				((ArtistActivity) frag.getActivity())
+						.changeFlipperState((DisplayedView.NOT_FOUND.ordinal()));
 		}
-
 	}
 }

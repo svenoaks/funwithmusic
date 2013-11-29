@@ -22,6 +22,7 @@ import com.afollestad.cardsui.CardListView;
 import com.android.volley.VolleyError;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.activities.ArtistActivity;
+import com.smp.funwithmusic.activities.ArtistActivity.DisplayedView;
 import com.smp.funwithmusic.apiclient.EchoNestClient;
 import com.smp.funwithmusic.apiclient.EchoNestClient.echoNestRequest;
 import com.smp.funwithmusic.dataobjects.Biography;
@@ -90,7 +91,8 @@ public class ReviewsFragment extends BaseArtistFragment
 		this.reviews = arrayList;
 		if (reviews == null || reviews.size() == 0)
 		{
-			viewVisible(((ArtistActivity) getActivity()).getNotFound());
+			((ArtistActivity) getActivity())
+					.changeFlipperState((DisplayedView.NOT_FOUND.ordinal()));
 		}
 		else
 		{
