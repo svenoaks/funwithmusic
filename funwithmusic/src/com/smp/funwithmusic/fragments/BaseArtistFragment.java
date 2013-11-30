@@ -1,6 +1,7 @@
 package com.smp.funwithmusic.fragments;
 
 import static com.smp.funwithmusic.global.Constants.BUNDLE_FRAGMENT;
+
 import static com.smp.funwithmusic.global.Constants.TAG_VOLLEY;
 import static com.smp.funwithmusic.global.UtilityMethods.*;
 
@@ -17,6 +18,7 @@ import com.smp.funwithmusic.global.GlobalRequest;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,7 @@ public abstract class BaseArtistFragment extends Fragment
 	private ArtistInfo type;
 	protected BaseArtistListener listen;
 	protected String artist;
+	protected ArrayList<?> data;
 
 	public void setType(ArtistInfo type)
 	{
@@ -68,7 +71,10 @@ public abstract class BaseArtistFragment extends Fragment
 		return frag;
 	}
 
-	public abstract boolean hasData();
+	public boolean hasData()
+	{
+		return (data != null && data.size() > 0);
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -76,14 +82,6 @@ public abstract class BaseArtistFragment extends Fragment
 		super.onCreate(savedInstanceState);
 		artist = ((ArtistActivity) getActivity()).getArtist();
 		listen = getNewListener(type);
-		((ArtistActivity) getActivity())
-				.changeFlipperState((DisplayedView.LOADING.ordinal()));
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-	{
-		return null;
 	}
 
 	@Override
@@ -97,11 +95,41 @@ public abstract class BaseArtistFragment extends Fragment
 		}
 	}
 
+	protected void onDataReceived(ArrayList<?> data)
+	{
+		this.data = data;
+		if (hasData())
+		{
+			makeAdapter();
+		}
+		else
+		{
+			((ArtistActivity) getActivity())
+					.changeFlipperState((DisplayedView.NOT_FOUND.ordinal()));
+		}
+	}
+	protected void prepareAdapter()
+	{
+		if (data == null || data.size() == 0)
+		{
+			((ArtistActivity) getActivity())
+			.changeFlipperState((DisplayedView.LOADING.ordinal()));
+			getData();
+		}
+		else
+		{
+			makeAdapter();
+		}
+	}
 	@Override
 	public void onResume()
 	{
 		super.onResume();
 	}
+
+	protected abstract void makeAdapter();
+
+	protected abstract void getData();
 
 	private BaseArtistListener getNewListener(ArtistInfo type)
 	{
@@ -139,17 +167,25 @@ public abstract class BaseArtistFragment extends Fragment
 		@Override
 		public void onResponse(JSONObject response)
 		{
+
 			if (frag != null)
+			{
 				((ArtistActivity) frag.getActivity())
 						.changeFlipperState((DisplayedView.FRAGMENT.ordinal()));
+				Log.d("response", "onResponse called!");
+			}
 		}
 
 		@Override
 		public void onErrorResponse(VolleyError error)
 		{
+
 			if (frag != null)
+			{
 				((ArtistActivity) frag.getActivity())
 						.changeFlipperState((DisplayedView.NOT_FOUND.ordinal()));
+				Log.d("response", "onError called!");
+			}
 		}
 	}
 }

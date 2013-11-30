@@ -43,13 +43,12 @@ public class ImagesFragment extends BaseArtistFragment
 	}
 
 	private GridView gridView;
-	private ArrayList<String> urls;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState)
 	{
-		super.onCreateView(inflater, container, savedInstanceState);
+		
 		LinearLayout layout = (LinearLayout) (inflater.inflate(R.layout.fragment_images, null));
 		gridView = (GridView) layout.findViewById(R.id.images_view);
 		gridView.setOnItemClickListener(new OnItemClickListener()
@@ -59,46 +58,29 @@ public class ImagesFragment extends BaseArtistFragment
 					int position, long id)
 			{
 				Intent intent = new Intent(getActivity(), ImageActivity.class);
-				intent.putExtra(WEB_URL, urls.get(position));
+				intent.putExtra(WEB_URL, ((ArrayList<String>) data).get(position));
 				startActivity(intent);
 			}
 		});
 
-		if (urls != null && urls.size() != 0)
-		{
-			makeAdapter();
-		}
-		else
-		{
-			getUrls();
-		}
+		prepareAdapter();
 
 		return layout;
 	}
 
-	private void getUrls()
+	@Override
+	protected void getData()
 	{
 		EchoNestClient.getArtistInfo(GlobalRequest.getInstance(), TAG_VOLLEY, artist,
 				echoNestRequest.IMAGES, listen, listen);
 	}
 
-	private void onUrlsReceived(ArrayList<String> urls)
+	
+	@Override
+	protected void makeAdapter()
 	{
-		this.urls = urls;
-		if (urls == null || urls.size() == 0)
-		{
-			((ArtistActivity) getActivity())
-					.changeFlipperState((DisplayedView.NOT_FOUND.ordinal()));
-		}
-		else
-		{
-			makeAdapter();
-		}
-	}
-
-	private void makeAdapter()
-	{
-		ImagesAdapter adapter = new ImagesAdapter(getActivity().getApplicationContext(), urls);
+		ImagesAdapter adapter = new ImagesAdapter(getActivity().getApplicationContext(),
+				(ArrayList<String>) data);
 		gridView.setAdapter(adapter);
 	}
 
@@ -122,7 +104,7 @@ public class ImagesFragment extends BaseArtistFragment
 			if (frag != null)
 			{
 				super.onResponse(response);
-				((ImagesFragment) frag).onUrlsReceived((ArrayList<String>)
+				((ImagesFragment) frag).onDataReceived((ArrayList<String>)
 						EchoNestClient.parseImages(response));
 			}
 		}
@@ -138,10 +120,6 @@ public class ImagesFragment extends BaseArtistFragment
 		}
 	}
 
-	@Override
-	public boolean hasData()
-	{
-		return urls != null && urls.size() > 0;
-	}
+	
 
 }

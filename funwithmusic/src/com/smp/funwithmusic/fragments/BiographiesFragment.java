@@ -55,16 +55,15 @@ public class BiographiesFragment extends BaseArtistFragment
 	}
 
 	private CardListView listView;
-	private ArrayList<Biography> bios;
+	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		super.onCreateView(inflater, container, savedInstanceState);
+		
 		View layout = inflater.inflate(R.layout.fragment_cards_list, null);
 		listView = (CardListView) layout.findViewById(R.id.cardsList);
 		listView.setOnCardClickListener(new CardListView.CardClickListener()
-
 		{
 			@SuppressWarnings("rawtypes")
 			@Override
@@ -77,7 +76,7 @@ public class BiographiesFragment extends BaseArtistFragment
 				 * Intent(getActivity(), WebActivity.class);
 				 * intent.putExtra(WEB_URL, bioUrl); startActivity(intent);
 				 */
-				String bioUrl = bios.get(index - CORRECT_FOR_HEADER).getUrl();
+				String bioUrl = ((ArrayList<Biography>) data).get(index - CORRECT_FOR_HEADER).getUrl();
 				Uri uri = Uri.parse(bioUrl);
 				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 				startActivity(intent);
@@ -85,44 +84,26 @@ public class BiographiesFragment extends BaseArtistFragment
 			}
 		});
 
-		if (bios != null && bios.size() != 0)
-		{
-			makeAdapter();
-		}
-		else
-		{
-			getBios();
-		}
+		prepareAdapter();
 
 		return layout;
 	}
 
-	private void getBios()
+	@Override
+	protected void getData()
 	{
 		EchoNestClient.getArtistInfo(GlobalRequest.getInstance(), TAG_VOLLEY, artist,
 				echoNestRequest.BIOGRAPHIES, listen, listen);
 	}
 
-	private void onBiosReceived(ArrayList<Biography> bios)
-	{
-		this.bios = bios;
-		if (bios == null || bios.size() == 0)
-		{
-			((ArtistActivity) getActivity())
-					.changeFlipperState((DisplayedView.NOT_FOUND.ordinal()));
-		}
-		else
-		{
-			makeAdapter();
-		}
-	}
-
-	private void makeAdapter()
+	@Override
+	protected void makeAdapter()
 	{
 		CardAdapter<Card> cardsAdapter = new CardAdapter<Card>(getActivity());
 		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
 		cardsAdapter.add(new CardHeader("Biographies"));
-		for (Biography bio : bios)
+		
+		for (Biography bio : ((ArrayList<Biography>) data))
 		{
 			cardsAdapter.add(new Card("Biography at " + bio.getSite(),
 					bio.getText()));
@@ -146,10 +127,11 @@ public class BiographiesFragment extends BaseArtistFragment
 		@Override
 		public void onResponse(JSONObject response)
 		{
+			Log.d("response", "onResponse before frag called!");
 			if (frag != null)
 			{
 				super.onResponse(response);
-				((BiographiesFragment) frag).onBiosReceived((ArrayList<Biography>)
+				((BiographiesFragment) frag).onDataReceived((ArrayList<Biography>)
 						EchoNestClient.parseBiographies(response));
 			}
 		}
@@ -157,6 +139,7 @@ public class BiographiesFragment extends BaseArtistFragment
 		@Override
 		public void onErrorResponse(VolleyError error)
 		{
+			Log.d("response", "onError before frag called!");
 			if (frag != null)
 			{
 				super.onErrorResponse(error);
@@ -164,10 +147,5 @@ public class BiographiesFragment extends BaseArtistFragment
 		}
 	}
 
-	@Override
-	public boolean hasData()
-	{
-		return bios != null && bios.size() > 0;
-	}
-
+	
 }

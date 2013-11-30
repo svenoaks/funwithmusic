@@ -46,7 +46,7 @@ import com.squareup.picasso.Picasso.LoadedFrom;
 
 public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 {
-	private enum DisplayedView
+	private enum ImageDisplayedView
 	{
 		LOADING, ARTIST_IMAGE
 	};
@@ -96,7 +96,7 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 			public void onBitmapLoaded(final Bitmap artistBitmap, LoadedFrom arg1)
 			{
 				setupFrame(artistBitmap, flipper);
-				flipper.setDisplayedChild(DisplayedView.ARTIST_IMAGE.ordinal());
+				flipper.setDisplayedChild(ImageDisplayedView.ARTIST_IMAGE.ordinal());
 			}
 
 			@Override

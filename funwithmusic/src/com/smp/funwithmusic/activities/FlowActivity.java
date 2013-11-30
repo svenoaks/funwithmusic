@@ -87,44 +87,29 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 			}
 		}
 	}
+
 	/*
-	@Override
-	public void onScrollStateChanged(AbsListView view, int scrollState)
-	{
-		
-		switch (scrollState)
-		{
-			case OnScrollListener.SCROLL_STATE_IDLE:
-				cardsAdapter.setBusy(false);
-
-				int s = view.getFirstVisiblePosition();
-				int e = view.getLastVisiblePosition();
-				for (int i = s; i <= e; ++i)
-				{
-					Card card = (Card) view.getItemAtPosition(i);
-					if (card.getTag() == null)
-					{
-						View thisView = view.getChildAt(i - s);
-						cardsAdapter.getView(i, thisView, view);
-					}
-				}
-				break;
-			case OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
-				cardsAdapter.setBusy(false);
-				break;
-			case OnScrollListener.SCROLL_STATE_FLING:
-				cardsAdapter.setBusy(true);
-				break;
-		}
-		
-	}
-
-	@Override
-	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
-	{
-
-	}
-	*/
+	 * @Override public void onScrollStateChanged(AbsListView view, int
+	 * scrollState) {
+	 * 
+	 * switch (scrollState) { case OnScrollListener.SCROLL_STATE_IDLE:
+	 * cardsAdapter.setBusy(false);
+	 * 
+	 * int s = view.getFirstVisiblePosition(); int e =
+	 * view.getLastVisiblePosition(); for (int i = s; i <= e; ++i) { Card card =
+	 * (Card) view.getItemAtPosition(i); if (card.getTag() == null) { View
+	 * thisView = view.getChildAt(i - s); cardsAdapter.getView(i, thisView,
+	 * view); } } break; case OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
+	 * cardsAdapter.setBusy(false); break; case
+	 * OnScrollListener.SCROLL_STATE_FLING: cardsAdapter.setBusy(true); break; }
+	 * 
+	 * }
+	 * 
+	 * @Override public void onScroll(AbsListView view, int firstVisibleItem,
+	 * int visibleItemCount, int totalItemCount) {
+	 * 
+	 * }
+	 */
 	private void resetArtist()
 	{
 		lastArtist = null;
@@ -214,7 +199,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 
 		cardsList = (CardListView) findViewById(R.id.cardsList);
 		cardsList.setAdapter(cardsAdapter);
-		//cardsList.setOnScrollListener(this);
+		// cardsList.setOnScrollListener(this);
 		cardsList.setRecyclerListener(this);
 
 		cardsList.setOnCardClickListener(new CardListView.CardClickListener()
@@ -345,7 +330,8 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 				clipboard.setPrimaryClip(clip);
 				break;
 			case R.id.youtube:
-				Intent intent = YouTubeStandalonePlayer.createVideoIntent(this, API_KEY_DEBUG_YOUTUBE, "TiGaDm6t98c", 0, true, true);
+				Intent intent = YouTubeStandalonePlayer.createVideoIntent
+						(this, API_KEY_DEBUG_YOUTUBE, "TiGaDm6t98c", 0, true, true);
 				startActivity(intent);
 				break;
 		}
@@ -356,7 +342,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 	public void onMovedToScrapHeap(View view)
 	{
 		ViewHolder holder = (ViewHolder) view.getTag();
-		Picasso.with(this).cancelRequest(holder.icon);	
+		Picasso.with(this).cancelRequest(holder.icon);
 	}
 
 }

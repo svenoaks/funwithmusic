@@ -67,7 +67,6 @@ public class EventsFragment extends BaseArtistFragment
 	}
 
 	private CardListView listView;
-	private ArrayList<Event> events;
 	private EventsListener eventListener;
 	private String imageUrl;
 	private EventCardAdapter<EventCard> cardsAdapter;
@@ -89,7 +88,6 @@ public class EventsFragment extends BaseArtistFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		super.onCreateView(inflater, container, savedInstanceState);
 		View layout = inflater.inflate(R.layout.fragment_cards_list, null);
 		listView = (CardListView) layout.findViewById(R.id.cardsList);
 		listView.setOnCardClickListener(new CardListView.CardClickListener()
@@ -100,47 +98,24 @@ public class EventsFragment extends BaseArtistFragment
 			{
 				final int CORRECT_FOR_HEADER = 1;
 
-				String eventUrl = events.get(index - CORRECT_FOR_HEADER).getMainUri();
+				String eventUrl = ((ArrayList<Event>) data)
+						.get(index - CORRECT_FOR_HEADER).getMainUri();
 				Uri uri = Uri.parse(eventUrl);
 				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 				startActivity(intent);
 			}
 		});
+		
 		prepareAdapter();
 
 		return layout;
 	}
 
-	private void prepareAdapter()
-	{
-		if (events == null || events.size() == 0)
-		{
-			getArtistId();
-		}
-		else
-		{
-			makeAdapter();
-		}
-	}
-
-	private void getArtistId()
+	@Override
+	protected void getData()
 	{
 		SongKickClient.getId(GlobalRequest.getInstance(), TAG_VOLLEY, artist,
 				listen, listen);
-	}
-
-	private void onEventsReceived(ArrayList<Event> events)
-	{
-		this.events = events;
-		if (events == null || events.size() == 0)
-		{
-			((ArtistActivity) getActivity())
-					.changeFlipperState((DisplayedView.NOT_FOUND.ordinal()));
-		}
-		else
-		{
-			makeAdapter();
-		}
 	}
 
 	private void onIdReceived(String artistId)
@@ -151,17 +126,18 @@ public class EventsFragment extends BaseArtistFragment
 				eventListener, eventListener);
 	}
 
-	private void makeAdapter()
+	@Override
+	protected void makeAdapter()
 	{
-		cardsAdapter = new EventCardAdapter<EventCard>(getActivity(), imageUrl, events.size());
+		cardsAdapter = new EventCardAdapter<EventCard>(getActivity(), imageUrl, data.size());
 		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
 		CardHeader header = new CardHeader("Upcoming Events");
 
 		cardsAdapter.add(header);
 
-		for (int i = 0; i < events.size(); ++i)
+		for (int i = 0; i < data.size(); ++i)
 		{
-			Event event = events.get(i);
+			Event event = ((ArrayList<Event>) data).get(i);
 			cardsAdapter.add(new EventCard(event));
 		}
 		listView.setAdapter(cardsAdapter);
@@ -214,8 +190,8 @@ public class EventsFragment extends BaseArtistFragment
 			if (frag != null)
 			{
 				super.onResponse(response);
-				((EventsFragment) frag).onEventsReceived(
-						SongKickClient.parseEvents(response));
+				frag.onDataReceived(SongKickClient
+						.parseEvents(response));
 			}
 		}
 
@@ -227,11 +203,5 @@ public class EventsFragment extends BaseArtistFragment
 				super.onErrorResponse(error);
 			}
 		}
-	}
-
-	@Override
-	public boolean hasData()
-	{
-		return events != null && events.size() > 0;
 	}
 }

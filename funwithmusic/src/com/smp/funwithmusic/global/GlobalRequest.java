@@ -21,7 +21,7 @@ public class GlobalRequest
 		{
 			queue = Volley.newRequestQueue(context);
 		}
-
+		
 		return queue;
 	}
 }

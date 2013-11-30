@@ -38,12 +38,11 @@ public class ReviewsFragment extends BaseArtistFragment
 	}
 
 	private CardListView listView;
-	private ArrayList<Review> reviews;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		super.onCreateView(inflater, container, savedInstanceState);
+		
 		View layout = inflater.inflate(R.layout.fragment_cards_list, null);
 		listView = (CardListView) layout.findViewById(R.id.cardsList);
 		listView.setOnCardClickListener(new CardListView.CardClickListener()
@@ -60,7 +59,7 @@ public class ReviewsFragment extends BaseArtistFragment
 				 * Intent(getActivity(), WebActivity.class);
 				 * intent.putExtra(WEB_URL, bioUrl); startActivity(intent);
 				 */
-				String bioUrl = reviews.get(index - CORRECT_FOR_HEADER).getUrl();
+				String bioUrl = ((ArrayList<Review>) data).get(index - CORRECT_FOR_HEADER).getUrl();
 				Uri uri = Uri.parse(bioUrl);
 				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 				startActivity(intent);
@@ -68,55 +67,30 @@ public class ReviewsFragment extends BaseArtistFragment
 			}
 		});
 
-		if (reviews != null && reviews.size() != 0)
-		{
-			makeAdapter();
-		}
-		else
-		{
-			getreviews();
-		}
+		prepareAdapter();
 
 		return layout;
 	}
 
-	private void getreviews()
+	@Override
+	protected void getData()
 	{
 		EchoNestClient.getArtistInfo(GlobalRequest.getInstance(), TAG_VOLLEY, artist,
 				echoNestRequest.REVIEWS, listen, listen);
 	}
 
-	private void onreviewsReceived(ArrayList<Review> arrayList)
-	{
-		this.reviews = arrayList;
-		if (reviews == null || reviews.size() == 0)
-		{
-			((ArtistActivity) getActivity())
-					.changeFlipperState((DisplayedView.NOT_FOUND.ordinal()));
-		}
-		else
-		{
-			makeAdapter();
-		}
-	}
-
-	private void makeAdapter()
+	@Override
+	protected void makeAdapter()
 	{
 		CardAdapter<Card> cardsAdapter = new CardAdapter<Card>(getActivity());
 		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
 		cardsAdapter.add(new CardHeader("Reviews"));
-		for (Review review : reviews)
+		for (Review review : (ArrayList<Review>) data)
 		{
 			cardsAdapter.add(new Card(review.getName(),
 					review.getSummary()));
 		}
 		listView.setAdapter(cardsAdapter);
-	}
-
-	@Override
-	public void onSaveInstanceState(Bundle outState)
-	{
-		super.onSaveInstanceState(outState);
 	}
 
 	static class ReviewsListener extends BaseArtistListener
@@ -132,7 +106,7 @@ public class ReviewsFragment extends BaseArtistFragment
 			if (frag != null)
 			{
 				super.onResponse(response);
-				((ReviewsFragment) frag).onreviewsReceived((ArrayList<Review>)
+				((ReviewsFragment) frag).onDataReceived((ArrayList<Review>)
 						EchoNestClient.parseReviews(response));
 			}
 		}
@@ -145,12 +119,6 @@ public class ReviewsFragment extends BaseArtistFragment
 				super.onErrorResponse(error);
 			}
 		}
-	}
-
-	@Override
-	public boolean hasData()
-	{
-		return reviews != null && reviews.size() > 0;
 	}
 
 }
