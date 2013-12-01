@@ -333,6 +333,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 				intent.putExtra(EXTRA_YOUTUBE_SEARCH_TERMS
 						,song.getArtist() + SPACE + song.getTitle());
 				startActivity(intent);
+				break;
 		}
 
 	}
