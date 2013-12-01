@@ -17,6 +17,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.adapters.SongCardAdapter;
+import com.smp.funwithmusic.asynctask.YouTubeQueryAsyncTask;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.dataobjects.SongCard;
 import com.smp.funwithmusic.global.GlobalRequest;
@@ -330,10 +331,14 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 				clipboard.setPrimaryClip(clip);
 				break;
 			case R.id.youtube:
+				new YouTubeQueryAsyncTask().execute("query");
+				break;
+				/*
 				Intent intent = YouTubeStandalonePlayer.createVideoIntent
 						(this, API_KEY_DEBUG_YOUTUBE, "TiGaDm6t98c", 0, true, true);
 				startActivity(intent);
 				break;
+				*/
 		}
 
 	}

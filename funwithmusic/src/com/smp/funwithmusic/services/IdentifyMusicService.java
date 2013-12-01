@@ -2,10 +2,7 @@ package com.smp.funwithmusic.services;
 
 import static com.smp.funwithmusic.global.Constants.*;
 
-import java.util.Hashtable;
 import java.util.concurrent.CountDownLatch;
-
-import org.json.JSONObject;
 
 import com.gracenote.mmid.MobileSDK.GNConfig;
 import com.gracenote.mmid.MobileSDK.GNCoverArt;
@@ -13,17 +10,11 @@ import com.gracenote.mmid.MobileSDK.GNOperations;
 import com.gracenote.mmid.MobileSDK.GNSearchResponse;
 import com.gracenote.mmid.MobileSDK.GNSearchResult;
 import com.gracenote.mmid.MobileSDK.GNSearchResultReady;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.smp.funwithmusic.activities.FlowActivity;
-import com.smp.funwithmusic.apiclient.EchoNestClient;
-import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.receivers.SongReceiver;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.widget.Toast;
 
 public class IdentifyMusicService extends IntentService

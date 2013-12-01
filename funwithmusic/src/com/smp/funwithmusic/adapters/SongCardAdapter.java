@@ -24,6 +24,7 @@ import com.smp.funwithmusic.global.URLParamEncoder;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,14 +76,14 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		}
 		listeners.clear();
 	}
-
+	
 	@Override
 	protected boolean onProcessThumbnail(final ImageView icon, final Card card,
 			final ViewGroup parent)
 	{
 		// card.setTag(null);
 		final Song song = ((SongCard) card).getSong();
-
+		
 		Picasso.with(mContext).load(song.getAlbumUrl())
 				.skipMemoryCache()
 				.placeholder(R.drawable.flow)
@@ -215,7 +216,12 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 			this.card = card;
 			this.parent = parent;
 		}
-
+		
+		protected boolean isAlive()
+		{
+			return updater != null && song != null && card != null && parent != null;
+		}
+		
 		void releaseReferences()
 		{
 			updater = null;
@@ -233,11 +239,12 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		{
 			super(updater, song, card, parent);
 		}
+		
 
 		@Override
 		public void onResponse(JSONObject obj)
 		{
-			if (updater != null && song != null && card != null && parent != null)
+			if (isAlive())
 			{
 				String url =
 						ItunesClient.getImageUrl(obj, song.getArtist());
@@ -254,7 +261,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		@Override
 		public void onErrorResponse(VolleyError error)
 		{
-			if (updater != null && song != null && card != null && parent != null)
+			if (isAlive())
 			{
 				updater.beginGracenote(parent, card, song);
 			}
@@ -279,7 +286,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		{
 
 			// Log.d("Lyrics", "OnSuccess" + " " + song.getTitle());
-			if (updater != null && song != null && card != null && parent != null)
+			if (isAlive())
 			{
 				Locale locale = Locale.getDefault();
 				String shortLyrics = LyricWikiClient.getShortLyric(obj);
@@ -306,13 +313,12 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 				song.setLyricsLoading(false);
 				updater.updateSingleView(parent, card);
 			}
-			// releaseReferences();
 		}
 
 		@Override
 		public void onErrorResponse(VolleyError error)
 		{
-			if (updater != null && song != null && card != null && parent != null)
+			if (isAlive())
 			{
 				Log.d("Lyrics", "Onfailure" + " " + song.getTitle());
 				song.setLyricsLoading(false);
@@ -360,8 +366,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		public void GNResultReady(GNSearchResult result)
 		{
 			GNSearchResponse response = result.getBestResponse();
-			if (response != null && updater != null
-					&& song != null && card != null && parent != null)
+			if (isAlive())
 			{
 				if (!result.isTextSearchNoMatchStatus())
 				{
@@ -377,7 +382,6 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 				}
 			}
 		}
-
 	}
 
 	private static class GracenoteTextResponeListenerStageOne
@@ -402,8 +406,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 			if (!result.isTextSearchNoMatchStatus())
 			{
 				GNSearchResponse response = result.getBestResponse();
-				if (response != null && updater != null && song != null &&
-						card != null && parent != null)
+				if (isAlive())
 				{
 					// Log.d("LYRICS", response.getTrackTitle());
 					updater.gracenoteStageOneComplete(parent, card, song, response);

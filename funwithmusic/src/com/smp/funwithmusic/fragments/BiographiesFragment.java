@@ -1,11 +1,7 @@
 package com.smp.funwithmusic.fragments;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import static com.smp.funwithmusic.global.Constants.*;
-import static com.smp.funwithmusic.global.UtilityMethods.viewVisible;
-
 import org.json.JSONObject;
 
 import com.afollestad.cardsui.Card;
@@ -13,39 +9,20 @@ import com.afollestad.cardsui.CardAdapter;
 import com.afollestad.cardsui.CardBase;
 import com.afollestad.cardsui.CardHeader;
 import com.afollestad.cardsui.CardListView;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.Volley;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.smp.funwithmusic.activities.*;
-import com.smp.funwithmusic.activities.ArtistActivity.DisplayedView;
-import com.smp.funwithmusic.adapters.BiographiesAdapter;
-import com.smp.funwithmusic.adapters.ImagesAdapter;
 import com.smp.funwithmusic.apiclient.EchoNestClient;
 import com.smp.funwithmusic.apiclient.EchoNestClient.echoNestRequest;
 import com.smp.funwithmusic.dataobjects.Biography;
-import com.smp.funwithmusic.dataobjects.Song;
-import com.smp.funwithmusic.dataobjects.SongCard;
-import com.smp.funwithmusic.fragments.ArtistMenuFragment.ArtistInfo;
-import com.smp.funwithmusic.fragments.BaseArtistFragment.BaseArtistListener;
 import com.smp.funwithmusic.global.GlobalRequest;
 import com.smp.funwithmusic.R;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 public class BiographiesFragment extends BaseArtistFragment
 {
