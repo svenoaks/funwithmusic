@@ -32,7 +32,6 @@ public class BiographiesFragment extends BaseArtistFragment
 	}
 
 	private CardListView listView;
-	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

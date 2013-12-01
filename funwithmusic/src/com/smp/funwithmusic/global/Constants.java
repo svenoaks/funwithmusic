@@ -3,6 +3,8 @@ package com.smp.funwithmusic.global;
 public class Constants
 {
 	public static final String NEW_LINE = "\n";
+	public static final String SPACE = " ";
+	public static final String ESCAPED_SPACE = "%20";
 
 	public static final String LYRICS_SEARCH_URL = "http://lyrics.wikia.com/Special:Search?search=";
 
@@ -19,6 +21,7 @@ public class Constants
 
 	public static final String EXTRA_FROM_ID = "com.smp.funwithmusic.EXTRA_FROM_ID";
 	public static final String EXTRA_LISTEN_SUCCESSFUL = "com.smp.funwithmusic.LISTEN_SUCCESSFUL";
+	public static final String EXTRA_YOUTUBE_SEARCH_TERMS = "com.smp.funwithmusic.YOUTUBE_SEARCH_TERMS";
 
 	public static final int HTTP_RETRIES = 7;
 	public static final int HTTP_TIMEOUT = 5000;
@@ -38,7 +41,6 @@ public class Constants
 	public static final String API_KEY_DEBUG_YOUTUBE = "AIzaSyBvru2jEXZMpRhoHQ18DbMlo04ZTnQeDEA";
 	public static final String API_KEY_BROWSER_YOUTUBE = "AIzaSyDpibMZPJqGGSNAJmNrcBYqtDo1dEs-4uM";
 
-	public static final String ESCAPED_SPACE = "%20";
 	public static final String ITUNES_TERMS_CONNECTOR = "+";
 	public static final String ECHO_NEST_TERMS_CONNECTOR = "+";
 	public static final String LYRICS_WIKI_TERMS_CONNECTOR = "_";

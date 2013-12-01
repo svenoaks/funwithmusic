@@ -100,6 +100,7 @@ public abstract class BaseArtistFragment extends Fragment
 		this.data = data;
 		if (hasData())
 		{
+			showFrag();
 			makeAdapter();
 		}
 		else
@@ -118,6 +119,7 @@ public abstract class BaseArtistFragment extends Fragment
 		}
 		else
 		{
+			showFrag();
 			makeAdapter();
 		}
 	}
@@ -125,6 +127,11 @@ public abstract class BaseArtistFragment extends Fragment
 	public void onResume()
 	{
 		super.onResume();
+	}
+	private void showFrag()
+	{
+		((ArtistActivity) getActivity())
+		.changeFlipperState((DisplayedView.FRAGMENT.ordinal()));
 	}
 
 	protected abstract void makeAdapter();
@@ -170,8 +177,6 @@ public abstract class BaseArtistFragment extends Fragment
 
 			if (frag != null)
 			{
-				((ArtistActivity) frag.getActivity())
-						.changeFlipperState((DisplayedView.FRAGMENT.ordinal()));
 				Log.d("response", "onResponse called!");
 			}
 		}

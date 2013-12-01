@@ -25,6 +25,9 @@
         android:theme="@style/AppTheme" >
         <activity android:name="com.smp.funwithmusic.activities.ArtistActivity" />
          <activity android:name="com.smp.funwithmusic.activities.ImageActivity" />
+         <activity android:name="com.smp.funwithmusic.activities.YouTubeSelectionActivity" 
+             android:label="@string/youtube_name"
+             android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <activity
             android:name="com.smp.funwithmusic.activities.WebActivity"
             android:label="@string/app_name" />

@@ -235,8 +235,6 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
-
-		scrollToBottomOfList();
 	}
 
 	private void addCardsFromList()
@@ -326,19 +324,15 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 		{
 			case R.id.copy:
 				ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-				ClipData clip = ClipData.newPlainText("MUSIC_FLOW", song.getArtist() + " "
+				ClipData clip = ClipData.newPlainText("MUSIC_FLOW", song.getArtist() + SPACE
 						+ song.getTitle());
 				clipboard.setPrimaryClip(clip);
 				break;
 			case R.id.youtube:
-				new YouTubeQueryAsyncTask().execute("query");
-				break;
-				/*
-				Intent intent = YouTubeStandalonePlayer.createVideoIntent
-						(this, API_KEY_DEBUG_YOUTUBE, "TiGaDm6t98c", 0, true, true);
+				Intent intent = new Intent(this, YouTubeSelectionActivity.class);
+				intent.putExtra(EXTRA_YOUTUBE_SEARCH_TERMS
+						,song.getArtist() + SPACE + song.getTitle());
 				startActivity(intent);
-				break;
-				*/
 		}
 
 	}
