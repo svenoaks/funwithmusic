@@ -21,6 +21,7 @@ import com.smp.funwithmusic.apiclient.LyricWikiClient;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.dataobjects.SongCard;
 import com.smp.funwithmusic.global.URLParamEncoder;
+import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
@@ -45,10 +46,10 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 	private Context mContext;
 	private static GNConfig config;
 	private RequestQueue queue;
+	Picasso picasso;
 
 	// private boolean busy;
 
-	
 	public SongCardAdapter(Context context, RequestQueue queue)
 	{
 		super(context, R.layout.list_item_song);
@@ -61,6 +62,9 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		config.setProperty("content.coverArt", "1");
 		config.setProperty("content.coverArt.genreCoverArt", "0");
 		config.setProperty("content.coverArt.sizePreference", "SMALL");
+		Picasso.Builder builder = new Picasso.Builder(mContext);
+		picasso = builder.downloader(new OkHttpDownloader(mContext)).build();
+		picasso.setDebugging(true);
 	}
 
 	private void registerListener(ThumbnailResponseListener listener)
@@ -76,15 +80,15 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		}
 		listeners.clear();
 	}
-	
+
 	@Override
 	protected boolean onProcessThumbnail(final ImageView icon, final Card card,
 			final ViewGroup parent)
 	{
 		// card.setTag(null);
 		final Song song = ((SongCard) card).getSong();
-		
-		Picasso.with(mContext).load(song.getAlbumUrl())
+
+		picasso .load(song.getAlbumUrl())
 				.skipMemoryCache()
 				.placeholder(R.drawable.flow)
 				.error(R.drawable.flow)
@@ -92,7 +96,8 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 				.into(icon);
 
 		card.setTag(this);
-
+		
+		Log.d("SONG", song.getTitle() + " " + song.getAlbumUrl());
 		if (!song.hasAlbumUrl() && !song.isCantGetAlbumUrl())
 		{
 			ThumbnailListener listen = new ThumbnailListener(this, song,
@@ -197,7 +202,8 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		GracenoteTextResponeListenerStageTwo listen =
 				new GracenoteTextResponeListenerStageTwo(this, song, card, parent);
 		registerListener(listen);
-		listen.doFetchByAlbumId(response);
+		if (response != null)
+			listen.doFetchByAlbumId(response);
 
 	}
 
@@ -216,12 +222,12 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 			this.card = card;
 			this.parent = parent;
 		}
-		
+
 		protected boolean isAlive()
 		{
 			return updater != null && song != null && card != null && parent != null;
 		}
-		
+
 		void releaseReferences()
 		{
 			updater = null;
@@ -239,7 +245,6 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		{
 			super(updater, song, card, parent);
 		}
-		
 
 		@Override
 		public void onResponse(JSONObject obj)

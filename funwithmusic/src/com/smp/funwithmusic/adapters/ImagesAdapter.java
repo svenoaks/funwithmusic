@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.views.ArtistImageView;
+import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
@@ -21,11 +22,14 @@ public class ImagesAdapter extends BaseAdapter
 {
 	private Context context;
 	private List<String> urls;
+	Picasso picasso;
 
 	public ImagesAdapter(Context context, List<String> urls)
 	{
 		this.context = context;
 		this.urls = urls;
+		Picasso.Builder builder = new Picasso.Builder(context);
+		picasso = builder.downloader(new OkHttpDownloader(context)).build();
 	}
 
 	@Override
@@ -62,7 +66,7 @@ public class ImagesAdapter extends BaseAdapter
 			imageView = (ArtistImageView) convertView;
 		}
 
-		Picasso.with(context).load(urls.get(position))
+		picasso.load(urls.get(position))
 				// .skipMemoryCache()
 				.centerCrop()
 				.placeholder(R.drawable.placeholder)
