@@ -46,9 +46,8 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 	private Context mContext;
 	private static GNConfig config;
 	private RequestQueue queue;
-	Picasso picasso;
 
-	// private boolean busy;
+	// Picasso picasso;
 
 	public SongCardAdapter(Context context, RequestQueue queue)
 	{
@@ -62,9 +61,10 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		config.setProperty("content.coverArt", "1");
 		config.setProperty("content.coverArt.genreCoverArt", "0");
 		config.setProperty("content.coverArt.sizePreference", "SMALL");
-		Picasso.Builder builder = new Picasso.Builder(mContext);
-		picasso = builder.downloader(new OkHttpDownloader(mContext)).build();
-		picasso.setDebugging(true);
+
+		// Picasso.Builder builder = new Picasso.Builder(mContext);
+		// picasso = builder.downloader(new OkHttpDownloader(mContext)).build();
+		// picasso.setDebugging(true);
 	}
 
 	private void registerListener(ThumbnailResponseListener listener)
@@ -88,16 +88,14 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		// card.setTag(null);
 		final Song song = ((SongCard) card).getSong();
 
-		picasso .load(song.getAlbumUrl())
-				.skipMemoryCache()
+		Picasso.with(mContext).load(song.getAlbumUrl())
+
 				.placeholder(R.drawable.flow)
 				.error(R.drawable.flow)
 				.resizeDimen(R.dimen.card_thumbnail_large, R.dimen.card_thumbnail_large)
 				.into(icon);
 
-		card.setTag(this);
-		
-		Log.d("SONG", song.getTitle() + " " + song.getAlbumUrl());
+		// Log.d("SONG", song.getTitle() + " " + song.getAlbumUrl());
 		if (!song.hasAlbumUrl() && !song.isCantGetAlbumUrl())
 		{
 			ThumbnailListener listen = new ThumbnailListener(this, song,
@@ -135,7 +133,6 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 	@Override
 	protected boolean onProcessContent(TextView content, Card card)
 	{
-		// Optional, you can modify properties of the content textview here.
 		return super.onProcessContent(content, card);
 	}
 
@@ -170,7 +167,9 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		{
 			lyrics.setText(COULDNT_FIND_LYRICS);
 		}
+
 		return true;
+
 	}
 
 	@Override
@@ -429,28 +428,4 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		LyricWikiClient.get(queue, TAG_VOLLEY, song.getTitle(),
 				song.getArtist(), listen, listen);
 	}
-	/*
-	 * private static class NormalizeListener extends ThumbnailResponseListener
-	 * implements GNSearchResultReady {
-	 * 
-	 * NormalizeListener(ResponseReceivedListener updater, Song song, Card card,
-	 * ViewGroup parent) { super(updater, song, card, parent); }
-	 * 
-	 * void doTextSearch(String artist, String album, String title) {
-	 * GNOperations.searchByText(this, config, artist, album, title); }
-	 * 
-	 * @Override public void GNResultReady(GNSearchResult result) { if (updater
-	 * != null && song != null && card != null && parent != null) { if
-	 * (!result.isTextSearchNoMatchStatus()) { GNSearchResponse response =
-	 * result.getBestResponse(); { if (response != null) { Log.d("LYRICS",
-	 * response.getTrackTitle()); song.setTitle(response.getTrackTitle()); } } }
-	 * updater.doLyricsListen(parent, card, song); } } }
-	 */
-
-	/*
-	 * @Override public void doNormalize(ViewGroup parent, Card card, Song song)
-	 * { NormalizeListener listen = new NormalizeListener(this, song, card,
-	 * parent); registerListener(listen); listen.doTextSearch(song.getArtist(),
-	 * song.getAlbum(), song.getTitle()); }
-	 */
 }

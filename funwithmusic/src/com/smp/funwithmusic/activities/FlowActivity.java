@@ -89,28 +89,6 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 		}
 	}
 
-	/*
-	 * @Override public void onScrollStateChanged(AbsListView view, int
-	 * scrollState) {
-	 * 
-	 * switch (scrollState) { case OnScrollListener.SCROLL_STATE_IDLE:
-	 * cardsAdapter.setBusy(false);
-	 * 
-	 * int s = view.getFirstVisiblePosition(); int e =
-	 * view.getLastVisiblePosition(); for (int i = s; i <= e; ++i) { Card card =
-	 * (Card) view.getItemAtPosition(i); if (card.getTag() == null) { View
-	 * thisView = view.getChildAt(i - s); cardsAdapter.getView(i, thisView,
-	 * view); } } break; case OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
-	 * cardsAdapter.setBusy(false); break; case
-	 * OnScrollListener.SCROLL_STATE_FLING: cardsAdapter.setBusy(true); break; }
-	 * 
-	 * }
-	 * 
-	 * @Override public void onScroll(AbsListView view, int firstVisibleItem,
-	 * int visibleItemCount, int totalItemCount) {
-	 * 
-	 * }
-	 */
 	private void resetArtist()
 	{
 		lastArtist = null;
@@ -189,18 +167,13 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 				GlobalRequest.getInstance());
 		cardsAdapter.setAccentColorRes(R.color.holo_blue_dark);
 		cardsAdapter.setPopupMenu(R.menu.card_popup, this); // the popup menu
-		// callback is this
-		// activity
-
-		TextView progressText = (TextView) findViewById(R.id.progress_text);
-		progressText.setText(getResources().getText(R.string.identify));
 
 		idDialog = findViewById(R.id.progress);
 		welcomeScreen = findViewById(R.id.welcome_screen);
 
 		cardsList = (CardListView) findViewById(R.id.cardsList);
 		cardsList.setAdapter(cardsAdapter);
-		// cardsList.setOnScrollListener(this);
+	
 		cardsList.setRecyclerListener(this);
 
 		cardsList.setOnCardClickListener(new CardListView.CardClickListener()
@@ -335,9 +308,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 				startActivity(intent);
 				break;
 		}
-
 	}
-
 	@Override
 	public void onMovedToScrapHeap(View view)
 	{

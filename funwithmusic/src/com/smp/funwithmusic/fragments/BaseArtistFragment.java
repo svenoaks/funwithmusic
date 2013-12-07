@@ -65,7 +65,7 @@ public abstract class BaseArtistFragment extends Fragment
 				frag = new ReviewsFragment();
 				break;
 			default:
-				throw new RuntimeException("unknown fragment " + info.toString());
+				throw new UnsupportedOperationException("unknown fragment " + info.toString());
 		}
 		frag.setType(info);
 		return frag;

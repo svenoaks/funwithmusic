@@ -29,6 +29,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.Fragment.SavedState;
@@ -219,7 +220,17 @@ public class ArtistActivity extends SlidingFragmentActivity
 	{
 		FragmentManager mgr = getSupportFragmentManager();
 		changeFlipperState(DisplayedView.FRAGMENT.ordinal());
-		BaseArtistFragment newContent = BaseArtistFragment.newInstance(info);
+
+		BaseArtistFragment newContent = null;
+		try
+		{
+			newContent = BaseArtistFragment.newInstance(info);
+		}
+		catch (UnsupportedOperationException e)
+		{
+			Toast.makeText(this, "Not implemented", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		FragmentTransaction trans = mgr.beginTransaction();
 		if (mContent.hasData())
 		{

@@ -17,11 +17,11 @@ public final class R {
 		public static final int gracenote_logo_tile = 0x7f02000c;
 		public static final int gracenote_logo_tile_transparent = 0x7f02000d;
 		public static final int headertile = 0x7f02000f;
-		public static final int icon = 0x7f020013;
-		public static final int loading = 0x7f020016;
-		public static final int no_cover_art = 0x7f020019;
-		public static final int no_metadata = 0x7f02001a;
-		public static final int pindown = 0x7f02001c;
+		public static final int icon = 0x7f020014;
+		public static final int loading = 0x7f020017;
+		public static final int no_cover_art = 0x7f02001a;
+		public static final int no_metadata = 0x7f02001b;
+		public static final int pindown = 0x7f02001d;
 	}
 	public static final class id {
 		public static final int AlbumTextView = 0x7f0a0016;
@@ -37,15 +37,15 @@ public final class R {
 		public static final int LyricFragmentArtistLabel = 0x7f0a0038;
 		public static final int LyricFragmentLabel = 0x7f0a003a;
 		public static final int RelativeLayout01 = 0x7f0a0011;
-		public static final int TextAlbum = 0x7f0a0058;
-		public static final int TextAlbumLabel = 0x7f0a0057;
-		public static final int TextArtist = 0x7f0a0056;
-		public static final int TextArtistLabel = 0x7f0a0055;
+		public static final int TextAlbum = 0x7f0a0056;
+		public static final int TextAlbumLabel = 0x7f0a0055;
+		public static final int TextArtist = 0x7f0a0054;
+		public static final int TextArtistLabel = 0x7f0a0053;
 		public static final int TextLayout = 0x7f0a0018;
-		public static final int TextTrack = 0x7f0a005a;
-		public static final int TextTrackLabel = 0x7f0a0059;
+		public static final int TextTrack = 0x7f0a0058;
+		public static final int TextTrackLabel = 0x7f0a0057;
 		public static final int TextView01 = 0x7f0a0019;
-		public static final int TrackList = 0x7f0a005b;
+		public static final int TrackList = 0x7f0a0059;
 		public static final int TrackTextView = 0x7f0a0014;
 		public static final int albumName = 0x7f0a0022;
 		public static final int artistName = 0x7f0a0023;
@@ -77,7 +77,7 @@ public final class R {
 		public static final int resultsScroller = 0x7f0a0017;
 		public static final int reviewBtn = 0x7f0a0025;
 		public static final int statusText = 0x7f0a0040;
-		public static final int text_search_container = 0x7f0a0054;
+		public static final int text_search_container = 0x7f0a0052;
 		public static final int trackTitle = 0x7f0a0021;
 	}
 	public static final class layout {
@@ -89,9 +89,9 @@ public final class R {
 		public static final int location = 0x7f03001c;
 		public static final int lyric_fragment_search = 0x7f03001d;
 		public static final int main = 0x7f03001e;
-		public static final int text_search = 0x7f030024;
-		public static final int tracklist = 0x7f030025;
-		public static final int tracklist_row = 0x7f030026;
+		public static final int text_search = 0x7f030023;
+		public static final int tracklist = 0x7f030024;
+		public static final int tracklist_row = 0x7f030025;
 	}
 	public static final class raw {
 		public static final int bundle161 = 0x7f040000;

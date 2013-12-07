@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.smp.funwithmusic"
-    android:versionCode="8"
-    android:versionName="0.7" >
+    android:versionCode="9"
+    android:versionName="0.8" >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -24,10 +24,11 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity android:name="com.smp.funwithmusic.activities.ArtistActivity" />
-         <activity android:name="com.smp.funwithmusic.activities.ImageActivity" />
-         <activity android:name="com.smp.funwithmusic.activities.YouTubeSelectionActivity" 
-             android:label="@string/youtube_name"
-             android:theme="@android:style/Theme.Holo.Light.Dialog" />
+        <activity android:name="com.smp.funwithmusic.activities.ImageActivity" />
+        <activity
+            android:name="com.smp.funwithmusic.activities.YouTubeSelectionActivity"
+            android:label="@string/youtube_name"
+            android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <activity
             android:name="com.smp.funwithmusic.activities.WebActivity"
             android:label="@string/app_name" />

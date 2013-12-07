@@ -19,6 +19,8 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Parcelable;
 import android.view.View;
 import android.widget.Toast;
@@ -28,11 +30,26 @@ import static com.smp.funwithmusic.global.UtilityMethods.viewVisible;
 
 public class UtilityMethods
 {
+	 public static boolean isOnline(Context context)
+     {
+             ConnectivityManager cm = (ConnectivityManager) context.getSystemService
+            		 (Context.CONNECTIVITY_SERVICE);
+             NetworkInfo netInfoMob = cm
+                             .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+             NetworkInfo netInfoWifi = cm
+                             .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
-	public static boolean isMyServiceRunning(Context context, Class<? extends Service> myService)
+             return ((netInfoMob != null && netInfoMob.isConnected()) 
+            		 || (netInfoWifi != null && netInfoWifi.isConnected()));
+     }
+	public static boolean isMyServiceRunning
+		(Context context, Class<? extends Service> myService)
 	{
-		ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-		for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
+		ActivityManager manager = (ActivityManager) context.getSystemService
+				(Context.ACTIVITY_SERVICE);
+		
+		for (RunningServiceInfo service 
+				: manager.getRunningServices(Integer.MAX_VALUE))
 		{
 			if (myService.getName().equals(service.service.getClassName()))
 			{

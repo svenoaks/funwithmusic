@@ -9,8 +9,11 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import static com.smp.funwithmusic.global.Constants.*;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ImageView;
+import static com.smp.funwithmusic.global.UtilityMethods.*;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
@@ -53,6 +56,11 @@ public class YouTubeQueryAsyncTask extends AsyncTask<String, Void, List<SearchRe
 	protected List<SearchResult> doInBackground(String... args)
 	{
 		List<SearchResult> searchResultList = null;
+		
+		//checks if online to try to prevent crash
+		//still can crash due to bug in library
+		if (listener instanceof Context && 
+				isOnline((Context) listener))
 		try
 		{
 			String queryTerm = args[0];
@@ -72,14 +80,14 @@ public class YouTubeQueryAsyncTask extends AsyncTask<String, Void, List<SearchRe
 		}
 		catch (GoogleJsonResponseException e)
 		{
-			System.err.println("There was a service error: " + e.getDetails().getCode() + " : "
-					+ e.getDetails().getMessage());
+			e.printStackTrace();
+			
 		}
 		catch (IOException e)
 		{
-			System.err.println("There was an IO error: " + e.getCause() + " : " + e.getMessage());
+			e.printStackTrace();
 		}
-
+		
 		return searchResultList;
 	}
 
