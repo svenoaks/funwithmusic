@@ -1,0 +1,17 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="card_thumbnail_large">90dp</dimen>
+    
+    
+<!--     Slidingmenu dimen -->
+    <dimen name="slidingmenu_offset">60dp</dimen>
+    <dimen name="list_padding">10dp</dimen>
+    <dimen name="shadow_width">15dp</dimen>
+     <dimen name="artist_info_pic_height">300dp</dimen>
+    <integer name="num_cols">1</integer>
+    
+
+</resources>

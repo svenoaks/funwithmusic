@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/line"
+    android:layout_gravity="center" >
+
+    <com.afollestad.cardsui.CardListView
+        android:id="@+id/cardsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <include
+        android:id="@+id/welcome_screen"
+        layout="@layout/card_empty_flow"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/progress"
+        layout="@layout/view_identify"
+        android:visibility="gone" />
+
+</FrameLayout>

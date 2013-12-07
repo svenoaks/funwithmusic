@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="card_inner_large" parent="@style/card_inner">
+        <item name="android:paddingLeft">3dp</item>
+    </style>
+
+    <style name="card_thumbnail_large" parent="@style/card_thumbnail">
+        <item name="android:layout_width">@dimen/card_thumbnail_large</item>
+        <item name="android:layout_height">@dimen/card_thumbnail_large</item>
+    </style>
+
+    <style name="card_title_large" parent="@style/card_title">
+        <item name="android:textSize">@dimen/card_title_large</item>
+    </style>
+
+    <style name="card_content_large" parent="@style/card_content">
+        <item name="android:textSize">@dimen/card_content_large</item>
+    </style>
+
+</resources>

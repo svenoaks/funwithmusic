@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- suppress AndroidLintUselessParent -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            style="@style/card_outer"
+            android:layout_marginTop="15dp"
+            android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:id="@+id/inner_frame"
+                style="@style/card_inner" >
+
+                <!-- suppress AndroidLintContentDescription -->
+                <!-- <ImageView android:id="@android:id/icon" style="@style/card_thumbnail_large" android:src="@drawable/flow"/> -->
+
+                <RelativeLayout
+                    android:id="@+id/titleFrame"
+                    style="@style/card_title_frame" >
+
+                    <TextView
+                        android:id="@android:id/title"
+                        style="@style/card_title"
+                        android:textColor="@android:color/holo_blue_dark"
+                        android:text="@string/welcome_title" />
+                </RelativeLayout>
+
+                <com.afollestad.silk.views.text.SilkTextView
+                    android:id="@+android:id/content"
+                    style="@style/card_content"
+                    android:singleLine="false"
+                    android:text="@string/welcome_content" />
+
+                <!-- <View -->
+                <!-- android:id="@+id/divider" -->
+                <!-- android:layout_height="1dp" -->
+                <!-- android:layout_width="match_parent" -->
+                <!-- android:layout_alignBottom="@android:id/icon" -->
+                <!-- android:layout_toRightOf="@android:id/icon" -->
+                <!-- android:layout_marginLeft="@dimen/card_title_margin_left" -->
+                <!-- android:layout_marginRight="@dimen/card_title_margin_left" -->
+                <!-- android:background="@color/card_gray"/> -->
+
+            </RelativeLayout>
+
+            <!-- suppress AndroidLintContentDescription -->
+
+            <ImageView style="@style/card_shadow" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
