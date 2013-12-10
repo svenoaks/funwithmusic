@@ -23,10 +23,12 @@ import com.android.volley.VolleyError;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.activities.ArtistActivity;
 import com.smp.funwithmusic.activities.ArtistActivity.DisplayedView;
+import com.smp.funwithmusic.adapters.ReviewsAdapter;
 import com.smp.funwithmusic.apiclient.EchoNestClient;
 import com.smp.funwithmusic.apiclient.EchoNestClient.echoNestRequest;
 import com.smp.funwithmusic.dataobjects.Biography;
 import com.smp.funwithmusic.dataobjects.Review;
+import com.smp.funwithmusic.dataobjects.ReviewCard;
 import com.smp.funwithmusic.fragments.BaseArtistFragment.BaseArtistListener;
 import com.smp.funwithmusic.global.GlobalRequest;
 
@@ -42,7 +44,7 @@ public class ReviewsFragment extends BaseArtistFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		
+
 		View layout = inflater.inflate(R.layout.fragment_cards_list, null);
 		listView = (CardListView) layout.findViewById(R.id.cardsList);
 		listView.setOnCardClickListener(new CardListView.CardClickListener()
@@ -79,16 +81,18 @@ public class ReviewsFragment extends BaseArtistFragment
 				echoNestRequest.REVIEWS, listen, listen);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void makeAdapter()
 	{
-		CardAdapter<Card> cardsAdapter = new CardAdapter<Card>(getActivity());
+		CardAdapter<Card> cardsAdapter = new ReviewsAdapter<ReviewCard>
+				(getActivity(), (ArrayList<Review>) data);
+
 		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
 		cardsAdapter.add(new CardHeader("Reviews"));
 		for (Review review : (ArrayList<Review>) data)
 		{
-			cardsAdapter.add(new Card(review.getName(),
-					review.getSummary()));
+			cardsAdapter.add(new ReviewCard(review));
 		}
 		listView.setAdapter(cardsAdapter);
 	}

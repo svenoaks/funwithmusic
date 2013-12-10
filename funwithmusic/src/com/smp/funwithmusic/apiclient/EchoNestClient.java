@@ -89,17 +89,20 @@ public class EchoNestClient
 				String image_url = reviewJ.optString("image_url");
 				String release = reviewJ.optString("release");
 
-				Review review = new Review.Builder()
-						.withName(name)
-						.withUrl(url)
-						.withSummary(summary)
-						.withDate(date)
-						.withImage_url(image_url)
-						.withRelease(release)
-						.build();
+				if (!url.contains("music.aol.com")
+						&&!url.contains("splendidzine.com"))
+				{
+					Review review = new Review.Builder()
+							.withName(name)
+							.withUrl(url)
+							.withSummary(summary)
+							.withDate(date)
+							.withImage_url(image_url)
+							.withRelease(release)
+							.build();
 
-				result.add(review);
-
+					result.add(review);
+				}
 			}
 		}
 		catch (JSONException e)

@@ -330,6 +330,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int songkick=0x7f020021;
         public static final int stripe=0x7f020022;
         public static final int unpressed_background=0x7f020023;
+        public static final int welcome=0x7f020024;
     }
     public static final class id {
         public static final int AlbumTextView=0x7f0a0016;
@@ -461,20 +462,21 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int list_item_event=0x7f030016;
         public static final int list_item_event_header=0x7f030017;
         public static final int list_item_header=0x7f030018;
-        public static final int list_item_song=0x7f030019;
-        public static final int list_item_youtube=0x7f03001a;
-        public static final int list_menu_artist=0x7f03001b;
-        public static final int location=0x7f03001c;
-        public static final int lyric_fragment_search=0x7f03001d;
-        public static final int main=0x7f03001e;
-        public static final int silk_date_picker=0x7f03001f;
-        public static final int slidingmenumain=0x7f030020;
-        public static final int spinner_item=0x7f030021;
-        public static final int spinner_item_dropdown=0x7f030022;
-        public static final int text_search=0x7f030023;
-        public static final int tracklist=0x7f030024;
-        public static final int tracklist_row=0x7f030025;
-        public static final int view_identify=0x7f030026;
+        public static final int list_item_review=0x7f030019;
+        public static final int list_item_song=0x7f03001a;
+        public static final int list_item_youtube=0x7f03001b;
+        public static final int list_menu_artist=0x7f03001c;
+        public static final int location=0x7f03001d;
+        public static final int lyric_fragment_search=0x7f03001e;
+        public static final int main=0x7f03001f;
+        public static final int silk_date_picker=0x7f030020;
+        public static final int slidingmenumain=0x7f030021;
+        public static final int spinner_item=0x7f030022;
+        public static final int spinner_item_dropdown=0x7f030023;
+        public static final int text_search=0x7f030024;
+        public static final int tracklist=0x7f030025;
+        public static final int tracklist_row=0x7f030026;
+        public static final int view_identify=0x7f030027;
     }
     public static final class menu {
         public static final int card_popup=0x7f0c0000;

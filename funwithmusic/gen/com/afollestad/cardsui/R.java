@@ -65,9 +65,9 @@ public final class R {
 		public static final int list_item_card = 0x7f030014;
 		public static final int list_item_card_nocontent = 0x7f030015;
 		public static final int list_item_header = 0x7f030018;
-		public static final int silk_date_picker = 0x7f03001f;
-		public static final int spinner_item = 0x7f030021;
-		public static final int spinner_item_dropdown = 0x7f030022;
+		public static final int silk_date_picker = 0x7f030020;
+		public static final int spinner_item = 0x7f030022;
+		public static final int spinner_item_dropdown = 0x7f030023;
 	}
 	public static final class string {
 		public static final int see_more = 0x7f060001;
