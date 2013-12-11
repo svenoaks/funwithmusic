@@ -88,7 +88,8 @@ public abstract class BaseArtistFragment extends Fragment
 	public void onPause()
 	{
 		super.onPause();
-		GlobalRequest.getInstance().cancelAll(TAG_VOLLEY);
+		GlobalRequest.getInstance(getActivity())
+			.getRequestQueue().cancelAll(TAG_VOLLEY);
 		if (listen != null)
 		{
 			listen.frag = null;

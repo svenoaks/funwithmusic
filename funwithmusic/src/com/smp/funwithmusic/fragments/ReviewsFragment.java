@@ -77,7 +77,8 @@ public class ReviewsFragment extends BaseArtistFragment
 	@Override
 	protected void getData()
 	{
-		EchoNestClient.getArtistInfo(GlobalRequest.getInstance(), TAG_VOLLEY, artist,
+		EchoNestClient.getArtistInfo(GlobalRequest.getInstance(getActivity())
+				.getRequestQueue(), TAG_VOLLEY, artist,
 				echoNestRequest.REVIEWS, listen, listen);
 	}
 

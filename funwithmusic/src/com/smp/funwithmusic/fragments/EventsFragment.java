@@ -114,7 +114,8 @@ public class EventsFragment extends BaseArtistFragment
 	@Override
 	protected void getData()
 	{
-		SongKickClient.getId(GlobalRequest.getInstance(), TAG_VOLLEY, artist,
+		SongKickClient.getId(GlobalRequest.getInstance(getActivity())
+				.getRequestQueue(), TAG_VOLLEY, artist,
 				listen, listen);
 	}
 
@@ -122,7 +123,8 @@ public class EventsFragment extends BaseArtistFragment
 	{
 		eventListener = new EventsListener(this);
 		imageUrl = SongKickClient.getImageUrl(artistId);
-		SongKickClient.getEvents(GlobalRequest.getInstance(), TAG_VOLLEY, artistId,
+		SongKickClient.getEvents(GlobalRequest.getInstance(getActivity())
+				.getRequestQueue(), TAG_VOLLEY, artistId,
 				eventListener, eventListener);
 	}
 

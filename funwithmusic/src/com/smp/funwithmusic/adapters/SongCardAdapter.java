@@ -1,5 +1,7 @@
 package com.smp.funwithmusic.adapters;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.NetworkImageView;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +22,11 @@ import com.smp.funwithmusic.apiclient.ItunesClient;
 import com.smp.funwithmusic.apiclient.LyricWikiClient;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.dataobjects.SongCard;
+import com.smp.funwithmusic.global.GlobalRequest;
 import com.smp.funwithmusic.global.URLParamEncoder;
-import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,6 @@ import android.widget.TextView;
 
 import com.afollestad.cardsui.Card;
 import com.afollestad.cardsui.CardAdapter;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
@@ -82,30 +82,37 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 	}
 
 	@Override
-	protected boolean onProcessThumbnail(final ImageView icon, final Card card,
+	protected boolean onProcessThumbnail(ImageView icon, final Card card,
 			final ViewGroup parent)
 	{
 		// card.setTag(null);
 		final Song song = ((SongCard) card).getSong();
-
-		Picasso.with(mContext).load(song.getAlbumUrl())
-
-				.placeholder(R.drawable.flow)
-				.error(R.drawable.flow)
-				.resizeDimen(R.dimen.card_thumbnail_large, R.dimen.card_thumbnail_large)
-				.into(icon);
-
-		// Log.d("SONG", song.getTitle() + " " + song.getAlbumUrl());
-		if (!song.hasAlbumUrl() && !song.isCantGetAlbumUrl())
+		if (icon instanceof NetworkImageView)
 		{
-			ThumbnailListener listen = new ThumbnailListener(this, song,
-					card, parent);
-			registerListener(listen);
-			ItunesClient.get(queue, TAG_VOLLEY, song.getAlbum(), listen, listen);
+			NetworkImageView nIcon = (NetworkImageView) icon;
+			nIcon.setDefaultImageResId(R.drawable.flow);
+			nIcon.setErrorImageResId(R.drawable.flow);
+			nIcon.setImageUrl(song.getAlbumUrl(), GlobalRequest
+					.getInstance(mContext).getImageLoader());
+			/*
+			 * Picasso.with(mContext).load(song.getAlbumUrl())
+			 * 
+			 * .placeholder(R.drawable.flow) .error(R.drawable.flow)
+			 * .resizeDimen(R.dimen.card_thumbnail_large,
+			 * R.dimen.card_thumbnail_large) .into(icon);
+			 */
 
-			song.setCantGetAlbumUrl(true);
+			// Log.d("SONG", song.getTitle() + " " + song.getAlbumUrl());
+			if (!song.hasAlbumUrl() && !song.isCantGetAlbumUrl())
+			{
+				ThumbnailListener listen = new ThumbnailListener(this, song,
+						card, parent);
+				registerListener(listen);
+				ItunesClient.get(queue, TAG_VOLLEY, song.getAlbum(), listen, listen);
+
+				song.setCantGetAlbumUrl(true);
+			}
 		}
-
 		return true;
 	}
 

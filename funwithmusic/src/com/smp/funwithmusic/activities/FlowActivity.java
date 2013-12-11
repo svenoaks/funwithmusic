@@ -12,20 +12,14 @@ import com.afollestad.cardsui.CardBase;
 import com.afollestad.cardsui.CardHeader;
 import com.afollestad.cardsui.CardListView;
 import com.afollestad.silk.adapters.SilkAdapter.ViewHolder;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
-import com.google.android.youtube.player.YouTubeStandalonePlayer;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.adapters.SongCardAdapter;
-import com.smp.funwithmusic.asynctask.YouTubeQueryAsyncTask;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.dataobjects.SongCard;
 import com.smp.funwithmusic.global.GlobalRequest;
 import com.smp.funwithmusic.services.IdentifyMusicService;
-import com.smp.funwithmusic.views.ProgressWheel;
 import com.squareup.picasso.Picasso;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
@@ -33,21 +27,13 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.AbsListView.RecyclerListener;
-import android.widget.FrameLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class FlowActivity extends Activity implements CardMenuListener<Card>, RecyclerListener
 {
@@ -103,7 +89,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 		resetArtist();
 		Log.d("PAUSE", "PAUSED");
 		cardsAdapter.releaseListenerReferences();
-		GlobalRequest.getInstance().cancelAll(TAG_VOLLEY);
+		GlobalRequest.getInstance(this).getRequestQueue().cancelAll(TAG_VOLLEY);
 	}
 
 	// reseting the imageUrl and lryics will allow the program to attempt to
@@ -162,9 +148,8 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_flow);
-		GlobalRequest.init(this);
 		cardsAdapter = new SongCardAdapter<SongCard>(this,
-				GlobalRequest.getInstance());
+				GlobalRequest.getInstance(this).getRequestQueue());
 		cardsAdapter.setAccentColorRes(R.color.holo_blue_dark);
 		cardsAdapter.setPopupMenu(R.menu.card_popup, this); // the popup menu
 

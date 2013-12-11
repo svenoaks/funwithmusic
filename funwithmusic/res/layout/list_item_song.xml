@@ -5,7 +5,7 @@
     <RelativeLayout android:id="@+id/inner_frame" style="@style/card_inner">
 
         <!--suppress AndroidLintContentDescription -->
-        <ImageView android:id="@android:id/icon" style="@style/card_thumbnail_large"/>
+        <com.android.volley.toolbox.NetworkImageView android:id="@android:id/icon" style="@style/card_thumbnail_large"/>
 
         <RelativeLayout android:id="@+id/titleFrame" style="@style/card_title_frame">
 

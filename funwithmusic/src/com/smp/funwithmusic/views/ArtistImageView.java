@@ -1,11 +1,14 @@
 package com.smp.funwithmusic.views;
 
+import com.android.volley.toolbox.NetworkImageView;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
 public class ArtistImageView extends ImageView
 {
+	private static final float HEIGHT_MULTIPLIER = 1.5f;
 	public ArtistImageView(Context context, AttributeSet attrs, int defStyle)
 	{
 		super(context, attrs, defStyle);
@@ -28,7 +31,7 @@ public class ArtistImageView extends ImageView
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
 	{
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		setMeasuredDimension(getMeasuredWidth(), (int) (getMeasuredWidth() * 1.5));
+		setMeasuredDimension(getMeasuredWidth(), (int) (getMeasuredWidth() * HEIGHT_MULTIPLIER));
 
 	}
 }
