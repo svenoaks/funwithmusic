@@ -5,7 +5,8 @@
     <RelativeLayout android:id="@+id/inner_frame" style="@style/card_inner">
 
         <!--suppress AndroidLintContentDescription -->
-        <com.android.volley.toolbox.NetworkImageView android:id="@android:id/icon" style="@style/card_thumbnail_large"/>
+        <com.android.volley.toolbox.NetworkImageView android:id="@android:id/icon" style="@style/card_thumbnail_large"
+            android:scaleType="centerCrop"/>
 
         <RelativeLayout android:id="@+id/titleFrame" style="@style/card_title_frame">
 
@@ -18,7 +19,7 @@
         </RelativeLayout>
 
         <com.afollestad.silk.views.text.SilkTextView android:id="@android:id/content" style="@style/card_content"
-            android:maxLines="9"/>
+            />
 
     </RelativeLayout>
 

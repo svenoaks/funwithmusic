@@ -15,6 +15,7 @@ import com.smp.funwithmusic.global.GlobalRequest;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -39,15 +40,16 @@ public class ReviewsAdapter<T extends ReviewCard> extends CardAdapter<Card>
 		if (icon == null)
 			return false;
 
-		if (event.getImage_url() != null
-				&& !event.getImage_url().equals(""))
-		{
-			NetworkImageView nIcon = (NetworkImageView) icon;
-			nIcon.setDefaultImageResId(R.drawable.flow);
-			nIcon.setErrorImageResId(R.drawable.flow);
-			nIcon.setImageUrl(event.getImage_url(), GlobalRequest
-					.getInstance(context).getImageLoader());
-		}
+		// if (event.getImage_url() != null
+		// && !event.getImage_url().equals(""))
+		// {
+		Log.d("REVIEW", event.getImage_url());
+		NetworkImageView nIcon = (NetworkImageView) icon;
+		nIcon.setDefaultImageResId(R.drawable.flow);
+		nIcon.setErrorImageResId(R.drawable.flow);
+		nIcon.setImageUrl(event.getImage_url(), GlobalRequest
+				.getInstance(context).getImageLoader());
+		// }
 		/*
 		 * Picasso.with(context).load(event.getImage_url())
 		 * .placeholder(R.drawable.flow) .error(R.drawable.flow) .centerCrop()

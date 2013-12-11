@@ -70,7 +70,6 @@ public class EchoNestClient
 
 	public static List<Review> parseReviews(JSONObject json)
 	{
-		Log.d("REVIEWS", json.toString());
 		List<Review> result = new ArrayList<Review>();
 
 		try
@@ -88,6 +87,9 @@ public class EchoNestClient
 				String date = reviewJ.optString("date_reviewed");
 				String image_url = reviewJ.optString("image_url");
 				String release = reviewJ.optString("release");
+				
+				if (summary != null)
+					summary = processText(summary);
 
 				if (!url.contains("music.aol.com")
 						&&!url.contains("splendidzine.com"))
@@ -172,7 +174,7 @@ public class EchoNestClient
 
 	private static String processText(String text)
 	{
-		final int MAX_CHARS = 300;
+		final int MAX_CHARS = 200;
 		final int LONG_ENOUGH = 3;
 		final String ELLIPSES = "...";
 
