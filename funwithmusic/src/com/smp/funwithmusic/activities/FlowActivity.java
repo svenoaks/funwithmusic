@@ -33,6 +33,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 import android.widget.AbsListView.RecyclerListener;
 
 public class FlowActivity extends Activity implements CardMenuListener<Card>, RecyclerListener
@@ -285,6 +286,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 				ClipData clip = ClipData.newPlainText("MUSIC_FLOW", song.getArtist() + SPACE
 						+ song.getTitle());
 				clipboard.setPrimaryClip(clip);
+				Toast.makeText(this, "Artist and Song info saved to clipboard.", Toast.LENGTH_SHORT).show();
 				break;
 			case R.id.youtube:
 				Intent intent = new Intent(this, YouTubeSelectionActivity.class);
@@ -297,8 +299,10 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 	@Override
 	public void onMovedToScrapHeap(View view)
 	{
+		/*
 		ViewHolder holder = (ViewHolder) view.getTag();
 		Picasso.with(this).cancelRequest(holder.icon);
+		*/
 	}
 
 }

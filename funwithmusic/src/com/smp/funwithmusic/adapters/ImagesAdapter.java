@@ -67,14 +67,14 @@ public class ImagesAdapter extends BaseAdapter
 		{
 			imageView = (ArtistImageView) convertView;
 		}
-		/*
+		
 		imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 		imageView.setDefaultImageResId(R.drawable.placeholder);
 		imageView.setErrorImageResId(R.drawable.placeholder);
 		imageView.setImageUrl(urls.get(position), GlobalRequest
 				.getInstance(context).getImageLoader());
-		*/
 		
+		/*
 		picasso.load(urls.get(position))
 				// .skipMemoryCache()
 				.centerCrop()
@@ -82,7 +82,7 @@ public class ImagesAdapter extends BaseAdapter
 				.error(R.drawable.placeholder)
 				.fit()
 				.into(imageView);
-				
+		*/		
 		// Log.d("Images", "In get view  " + urls.get(position));
 		return imageView;
 	}

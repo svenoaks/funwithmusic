@@ -90,7 +90,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		if (icon instanceof NetworkImageView)
 		{
 			NetworkImageView nIcon = (NetworkImageView) icon;
-			nIcon.setDefaultImageResId(R.drawable.flow);
+			//nIcon.setDefaultImageResId(R.drawable.flow);
 			nIcon.setErrorImageResId(R.drawable.flow);
 			nIcon.setImageUrl(song.getAlbumUrl(), GlobalRequest
 					.getInstance(mContext).getImageLoader());

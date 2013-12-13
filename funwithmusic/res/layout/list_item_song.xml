@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--suppress AndroidLintUselessParent -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" style="@style/card_outer">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     style="@style/card_outer">
 
     <RelativeLayout android:id="@+id/inner_frame" style="@style/card_inner">
 
         <!--suppress AndroidLintContentDescription -->
-        <com.android.volley.toolbox.NetworkImageView android:id="@android:id/icon" style="@style/card_thumbnail_large"/>
+        <com.smp.funwithmusic.views.FadeInNetworkImageView android:id="@android:id/icon" style="@style/card_thumbnail_large"/>
 
         <RelativeLayout android:id="@+id/titleFrame" style="@style/card_title_frame">
 
