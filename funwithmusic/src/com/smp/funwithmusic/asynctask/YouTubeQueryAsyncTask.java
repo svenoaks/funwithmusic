@@ -1,40 +1,33 @@
 package com.smp.funwithmusic.asynctask;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import static com.smp.funwithmusic.global.Constants.*;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.ImageView;
 import static com.smp.funwithmusic.global.UtilityMethods.*;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
-import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.apache.ApacheHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.*;
 import com.google.api.services.youtube.YouTube;
-import com.google.api.services.youtube.model.ResourceId;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
-import com.google.api.services.youtube.model.Thumbnail;
+import com.smp.funwithmusic.global.GlobalRequest;
 
 
 public class YouTubeQueryAsyncTask extends AsyncTask<String, Void, List<SearchResult>>
 {
-	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+	private static final HttpTransport HTTP_TRANSPORT = new ApacheHttpTransport();
 	private static final JsonFactory JSON_FACTORY = new JacksonFactory();
 	private static final long NUMBER_OF_VIDEOS_RETURNED = 25;
-	private static final YouTube youtube;
+	private static YouTube youtube;
 	
 	static
 	{
@@ -57,12 +50,9 @@ public class YouTubeQueryAsyncTask extends AsyncTask<String, Void, List<SearchRe
 	{
 		List<SearchResult> searchResultList = null;
 		
-		//checks if online to try to prevent crash
-		//still can crash due to bug in library
-		if (listener instanceof Context && 
-				isOnline((Context) listener))
 		try
 		{
+			
 			String queryTerm = args[0];
 			YouTube.Search.List search = youtube.search().list("id,snippet");
 

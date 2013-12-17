@@ -22,7 +22,7 @@ public class YouTubeSelectionActivity extends ListActivity implements OnYoutubeS
 	private YouTubeQueryAsyncTask task;
 	private String query;
 	private YouTubeSelectionAdapter adapter;
-	
+
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id)
 	{
@@ -33,7 +33,7 @@ public class YouTubeSelectionActivity extends ListActivity implements OnYoutubeS
 		startActivity(intent);
 		finish();
 	}
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -54,10 +54,7 @@ public class YouTubeSelectionActivity extends ListActivity implements OnYoutubeS
 		super.onResume();
 		query = getIntent().getStringExtra(EXTRA_YOUTUBE_SEARCH_TERMS);
 		task = new YouTubeQueryAsyncTask(this);
-		if (query != null)
-			task.execute(query);
-		else
-			finish();
+		task.execute(query);
 	}
 
 	@Override

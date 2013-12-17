@@ -177,7 +177,6 @@ public class ArtistActivity extends SlidingFragmentActivity
 	public void onSaveInstanceState(Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
-		String debug = mContent.getType().name();
 		outState.putString(BUNDLE_FRAGMENT, mContent.getType().name());
 	}
 

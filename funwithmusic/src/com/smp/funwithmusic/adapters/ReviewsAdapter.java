@@ -44,11 +44,14 @@ public class ReviewsAdapter<T extends ReviewCard> extends CardAdapter<Card>
 		// && !event.getImage_url().equals(""))
 		// {
 		Log.d("REVIEW", event.getImage_url());
-		NetworkImageView nIcon = (NetworkImageView) icon;
-		nIcon.setDefaultImageResId(R.drawable.flow);
-		nIcon.setErrorImageResId(R.drawable.flow);
-		nIcon.setImageUrl(event.getImage_url(), GlobalRequest
-				.getInstance(context).getImageLoader());
+		if (icon instanceof NetworkImageView)
+		{
+			NetworkImageView nIcon = (NetworkImageView) icon;
+			nIcon.setDefaultImageResId(R.drawable.flow);
+			nIcon.setErrorImageResId(R.drawable.flow);
+			nIcon.setImageUrl(event.getImage_url(), GlobalRequest
+					.getInstance(context).getImageLoader());
+		}
 		// }
 		/*
 		 * Picasso.with(context).load(event.getImage_url())

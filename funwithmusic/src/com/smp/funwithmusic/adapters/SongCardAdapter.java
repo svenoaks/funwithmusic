@@ -85,7 +85,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 	protected boolean onProcessThumbnail(ImageView icon, final Card card,
 			final ViewGroup parent)
 	{
-		// card.setTag(null);
+		
 		final Song song = ((SongCard) card).getSong();
 		if (icon instanceof NetworkImageView)
 		{
@@ -94,15 +94,9 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 			nIcon.setErrorImageResId(R.drawable.flow);
 			nIcon.setImageUrl(song.getAlbumUrl(), GlobalRequest
 					.getInstance(mContext).getImageLoader());
-			/*
-			 * Picasso.with(mContext).load(song.getAlbumUrl())
-			 * 
-			 * .placeholder(R.drawable.flow) .error(R.drawable.flow)
-			 * .resizeDimen(R.dimen.card_thumbnail_large,
-			 * R.dimen.card_thumbnail_large) .into(icon);
-			 */
-
-			// Log.d("SONG", song.getTitle() + " " + song.getAlbumUrl());
+			
+		
+			 Log.d("SONG", song.getTitle() + " " + song.getAlbumUrl());
 			if (!song.hasAlbumUrl() && !song.isCantGetAlbumUrl())
 			{
 				ThumbnailListener listen = new ThumbnailListener(this, song,
@@ -114,6 +108,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 			}
 		}
 		return true;
+		
 	}
 
 	public void updateSingleView(ViewGroup parent, Card card)
