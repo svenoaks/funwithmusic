@@ -23,7 +23,7 @@ import com.smp.funwithmusic.global.GlobalRequest;
 
 public class YouTubeQueryAsyncTask extends AsyncTask<String, Void, List<SearchResult>>
 {
-	private static final HttpTransport HTTP_TRANSPORT = new ApacheHttpTransport();
+	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	private static final JsonFactory JSON_FACTORY = new JacksonFactory();
 	private static final long NUMBER_OF_VIDEOS_RETURNED = 25;
 	private static YouTube youtube;
@@ -38,6 +38,7 @@ public class YouTubeQueryAsyncTask extends AsyncTask<String, Void, List<SearchRe
 		}).setApplicationName("Music Flow").build();
 	}
 	
+
 	private OnYoutubeSearchResults listener;
 
 	public YouTubeQueryAsyncTask(OnYoutubeSearchResults listener)
@@ -49,34 +50,32 @@ public class YouTubeQueryAsyncTask extends AsyncTask<String, Void, List<SearchRe
 	{
 		List<SearchResult> searchResultList = null;
 
-		if (listener != null &&
-				isOnline((Context) listener))
-			try
-			{
-				String queryTerm = args[0];
-				YouTube.Search.List search = youtube.search().list("id,snippet");
+		try
+		{
+			String queryTerm = args[0];
+			YouTube.Search.List search = youtube.search().list("id,snippet");
 
-				String apiKey = API_KEY_BROWSER_YOUTUBE;
-				search.setKey(apiKey);
-				search.setQ(queryTerm);
+			String apiKey = API_KEY_BROWSER_YOUTUBE;
+			search.setKey(apiKey);
+			search.setQ(queryTerm);
 
-				search.setType("video");
+			search.setType("video");
 
-				search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/high/url)");
-				search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
-				SearchListResponse searchResponse = search.execute();
+			search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/high/url)");
+			search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
+			SearchListResponse searchResponse = search.execute();
 
-				searchResultList = searchResponse.getItems();
-			}
-			catch (GoogleJsonResponseException e)
-			{
-				e.printStackTrace();
+			searchResultList = searchResponse.getItems();
+		}
+		catch (GoogleJsonResponseException e)
+		{
+			e.printStackTrace();
 
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 
 		return searchResultList;
 	}

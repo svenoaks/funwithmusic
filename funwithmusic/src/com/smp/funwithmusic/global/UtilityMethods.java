@@ -39,8 +39,8 @@ public class UtilityMethods
              NetworkInfo netInfoWifi = cm
                              .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
-             return ((netInfoMob != null && netInfoMob.isConnected()) 
-            		 || (netInfoWifi != null && netInfoWifi.isConnected()));
+             return ((netInfoMob != null && netInfoMob.isConnectedOrConnecting()) 
+            		 || (netInfoWifi != null && netInfoWifi.isConnectedOrConnecting()));
      }
 	public static boolean isMyServiceRunning
 		(Context context, Class<? extends Service> myService)
