@@ -2,10 +2,12 @@ package com.smp.funwithmusic.adapters;
 
 import java.util.List;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.google.api.services.youtube.model.SearchResult;
 import com.google.api.services.youtube.model.Thumbnail;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.dataobjects.Biography;
+import com.smp.funwithmusic.global.GlobalRequest;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
@@ -39,20 +41,24 @@ public class YouTubeSelectionAdapter extends BaseAdapter
 		}
 
 		TextView text1 = (TextView) convertView.findViewById(android.R.id.text1);
-		ImageView image = (ImageView) convertView.findViewById(R.id.image);
+		NetworkImageView image = (NetworkImageView) convertView.findViewById(R.id.image);
 
 		SearchResult vid = vids.get(position);
 
 		Thumbnail thumbnail = (Thumbnail) vid.getSnippet().getThumbnails().getHigh();
 
 		text1.setText(vid.getSnippet().getTitle());
-		
+		/*
 		if (thumbnail != null)
 		Picasso.with(context).load(thumbnail.getUrl())
 				.centerInside()
 				.fit()
 				.into(image);
-
+		*/
+		image.setErrorImageResId(R.drawable.flow);
+		image.setImageUrl(thumbnail.getUrl(), 
+				GlobalRequest.getInstance(context).getImageLoader());
+		
 		return convertView;
 	}
 

@@ -23,11 +23,21 @@ import com.smp.funwithmusic.global.GlobalRequest;
 
 public class YouTubeQueryAsyncTask extends AsyncTask<String, Void, List<SearchResult>>
 {
-	private final HttpTransport HTTP_TRANSPORT = new ApacheHttpTransport();
+	private static final HttpTransport HTTP_TRANSPORT = new ApacheHttpTransport();
 	private static final JsonFactory JSON_FACTORY = new JacksonFactory();
-	private final long NUMBER_OF_VIDEOS_RETURNED = 25;
-	private YouTube youtube;
+	private static final long NUMBER_OF_VIDEOS_RETURNED = 25;
+	private static YouTube youtube;
 
+	static
+	{
+		youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer()
+		{
+			public void initialize(HttpRequest request)
+			{
+			}
+		}).setApplicationName("Music Flow").build();
+	}
+	
 	private OnYoutubeSearchResults listener;
 
 	public YouTubeQueryAsyncTask(OnYoutubeSearchResults listener)
@@ -42,14 +52,7 @@ public class YouTubeQueryAsyncTask extends AsyncTask<String, Void, List<SearchRe
 		if (listener != null &&
 				isOnline((Context) listener))
 			try
-			{	
-				youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer()
-				{
-					public void initialize(HttpRequest request)
-					{
-					}
-				}).setApplicationName("Music Flow").build();
-
+			{
 				String queryTerm = args[0];
 				YouTube.Search.List search = youtube.search().list("id,snippet");
 
@@ -64,7 +67,6 @@ public class YouTubeQueryAsyncTask extends AsyncTask<String, Void, List<SearchRe
 				SearchListResponse searchResponse = search.execute();
 
 				searchResultList = searchResponse.getItems();
-				HTTP_TRANSPORT.shutdown();
 			}
 			catch (GoogleJsonResponseException e)
 			{
@@ -75,7 +77,7 @@ public class YouTubeQueryAsyncTask extends AsyncTask<String, Void, List<SearchRe
 			{
 				e.printStackTrace();
 			}
-		
+
 		return searchResultList;
 	}
 
