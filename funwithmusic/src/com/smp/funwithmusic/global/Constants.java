@@ -2,6 +2,8 @@ package com.smp.funwithmusic.global;
 
 public class Constants
 {
+	public static final String PREF_LIST_POSITION = "com.smp.funwithmusic.adapterposition";
+	
 	public static final String NEW_LINE = "\n";
 	public static final String SPACE = " ";
 	public static final String ESCAPED_SPACE = "%20";

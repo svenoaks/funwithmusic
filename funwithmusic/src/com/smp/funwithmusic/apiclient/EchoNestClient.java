@@ -18,7 +18,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.smp.funwithmusic.dataobjects.Biography;
-import com.smp.funwithmusic.dataobjects.Review;
+import com.smp.funwithmusic.dataobjects.NewsReview;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.global.URLParamEncoder;
 
@@ -68,14 +68,25 @@ public class EchoNestClient
 		queue.add(jsObjRequest);
 	}
 
-	public static List<Review> parseReviews(JSONObject json)
+	public static List<NewsReview> parseNewsReviews(JSONObject json, echoNestRequest request)
 	{
-		List<Review> result = new ArrayList<Review>();
-
+		List<NewsReview> result = new ArrayList<NewsReview>();
+		String toGet = null;
+		switch (request)
+		{
+			case NEWS:
+				toGet = "news";
+				break;
+			case REVIEWS:
+				toGet = "reviews";
+				break;
+			default:
+				throw new IllegalArgumentException("Request not supported");
+		}
 		try
 		{
 			JSONObject response = json.getJSONObject("response");
-			JSONArray reviews = response.getJSONArray("reviews");
+			JSONArray reviews = response.getJSONArray(toGet);
 
 			for (int i = 0; i < reviews.length(); ++i)
 			{
@@ -87,14 +98,14 @@ public class EchoNestClient
 				String date = reviewJ.optString("date_reviewed");
 				String image_url = reviewJ.optString("image_url");
 				String release = reviewJ.optString("release");
-				
+
 				if (summary != null)
 					summary = processText(summary);
 
 				if (!url.contains("music.aol.com")
-						&&!url.contains("splendidzine.com"))
+						&& !url.contains("splendidzine.com"))
 				{
-					Review review = new Review.Builder()
+					NewsReview review = new NewsReview.Builder()
 							.withName(name)
 							.withUrl(url)
 							.withSummary(summary)

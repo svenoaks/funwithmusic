@@ -27,6 +27,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -70,8 +71,6 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 			else if (intent.getAction().equals(ACTION_ADD_SONG))
 			{
 				addCardsFromList();
-				if (intent.getBooleanExtra(EXTRA_FROM_ID, false))
-					scrollToBottomOfList();
 			}
 		}
 	}
@@ -91,6 +90,9 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 		Log.d("PAUSE", "PAUSED");
 		cardsAdapter.releaseListenerReferences();
 		GlobalRequest.getInstance(this).getRequestQueue().cancelAll(TAG_VOLLEY);
+		SharedPreferences pref = getPref(this);
+		pref.edit().putInt(PREF_LIST_POSITION, cardsList.getFirstVisiblePosition())
+				.commit();
 	}
 
 	// reseting the imageUrl and lryics will allow the program to attempt to
@@ -114,8 +116,12 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 		addCardsFromList();
 		if (shouldScrollToBottom)
 		{
-			scrollToBottomOfList();
+			scrollToPositionInList(cardsAdapter.getCount() - 1);
 			shouldScrollToBottom = false;
+		}
+		else
+		{
+			scrollToPositionInList(getPref(this).getInt(PREF_LIST_POSITION, -1));
 		}
 		LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
 
@@ -131,7 +137,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 
 	// Scrolls the view so that last item is at the bottom of the screen.
 	//
-	private void scrollToBottomOfList()
+	private void scrollToPositionInList(final int position)
 	{
 		cardsList.post(new Runnable()
 		{
@@ -139,7 +145,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 			public void run()
 			{
 				// Select the last row so it will scroll into view
-				cardsList.setSelection(cardsAdapter.getCount() - 1);
+				cardsList.setSelection(position);
 			}
 		});
 	}
@@ -159,7 +165,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 
 		cardsList = (CardListView) findViewById(R.id.cardsList);
 		cardsList.setAdapter(cardsAdapter);
-	
+
 		cardsList.setRecyclerListener(this);
 
 		cardsList.setOnCardClickListener(new CardListView.CardClickListener()
@@ -291,18 +297,19 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 			case R.id.youtube:
 				Intent intent = new Intent(this, YouTubeSelectionActivity.class);
 				intent.putExtra(EXTRA_YOUTUBE_SEARCH_TERMS
-						,song.getArtist() + SPACE + song.getTitle());
+						, song.getArtist() + SPACE + song.getTitle());
 				startActivity(intent);
 				break;
 		}
 	}
+
 	@Override
 	public void onMovedToScrapHeap(View view)
 	{
 		/*
-		ViewHolder holder = (ViewHolder) view.getTag();
-		Picasso.with(this).cancelRequest(holder.icon);
-		*/
+		 * ViewHolder holder = (ViewHolder) view.getTag();
+		 * Picasso.with(this).cancelRequest(holder.icon);
+		 */
 	}
 
 }

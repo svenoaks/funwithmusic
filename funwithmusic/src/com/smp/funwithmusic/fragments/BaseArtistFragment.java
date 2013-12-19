@@ -62,7 +62,10 @@ public abstract class BaseArtistFragment extends Fragment
 				frag = new EventsFragment();
 				break;
 			case REVIEWS:
-				frag = new ReviewsFragment();
+				frag = new NewsReviewsFragment();
+				break;
+			case NEWS:
+				frag = new NewsReviewsFragment();
 				break;
 			default:
 				throw new UnsupportedOperationException("unknown fragment " + info.toString());
@@ -151,7 +154,10 @@ public abstract class BaseArtistFragment extends Fragment
 				listen = new BiographiesFragment.BiographiesListener(this);
 				break;
 			case REVIEWS:
-				listen = new ReviewsFragment.ReviewsListener(this);
+				listen = new NewsReviewsFragment.NewsReviewsListener(this);
+				break;
+			case NEWS:
+				listen = new NewsReviewsFragment.NewsReviewsListener(this);
 				break;
 			case EVENTS:
 				listen = new EventsFragment.ArtistIdListener(this);

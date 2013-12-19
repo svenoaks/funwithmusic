@@ -19,7 +19,7 @@ public class ArtistMenuFragment extends ListFragment
 {
 	public enum ArtistInfo
 	{
-		EVENTS, NEWS, REVIEWS, BIOGRAPHIES, IMAGES, VIDEOS, MORE;
+		EVENTS, NEWS, REVIEWS, BIOGRAPHIES, IMAGES;
 
 		@Override
 		public String toString()
@@ -36,10 +36,6 @@ public class ArtistMenuFragment extends ListFragment
 					return "Biographies";
 				case IMAGES:
 					return "Images";
-				case VIDEOS:
-					return "Videos";
-				case MORE:
-					return "More";
 				default:
 					return "";
 			}
