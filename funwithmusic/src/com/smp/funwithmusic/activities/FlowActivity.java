@@ -71,6 +71,8 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 			else if (intent.getAction().equals(ACTION_ADD_SONG))
 			{
 				addCardsFromList();
+				if (intent.getBooleanExtra(EXTRA_FROM_ID, false))
+					scrollToPositionInList(cardsAdapter.getCount() - 1);
 			}
 		}
 	}
