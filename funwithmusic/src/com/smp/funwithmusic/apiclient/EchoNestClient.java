@@ -6,11 +6,13 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.text.Html;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -41,6 +43,11 @@ public class EchoNestClient
 
 	private final static String RAW_ITUNES = "itunes";
 	private final static String CORRECT_ITUNES = "iTunes";
+	
+	private final static int BIOS_MAX_CHARS = 350;
+	private final static int NEWSREVIEWS_MAX_CHARS = 200;
+
+	private static Pattern pattern = Pattern.compile("</?[sS][pP][aA][nN]>");
 
 	public enum echoNestRequest
 	{
@@ -55,6 +62,9 @@ public class EchoNestClient
 						.replace(ESCAPED_SPACE, ECHO_NEST_TERMS_CONNECTOR)
 				+ "&format=json"
 				+ "&results=100";
+
+		if (request == echoNestRequest.NEWS)
+			params += "&high_relevance=true";
 
 		Locale locale = Locale.getDefault();
 
@@ -98,9 +108,18 @@ public class EchoNestClient
 				String date = reviewJ.optString("date_reviewed");
 				String image_url = reviewJ.optString("image_url");
 				String release = reviewJ.optString("release");
-
+				
+				if (name != null)
+				{
+					name = pattern.matcher(name).replaceAll("");
+					name = Html.fromHtml((String) name).toString();
+				}
 				if (summary != null)
-					summary = processText(summary);
+				{
+					summary = processText(summary, NEWSREVIEWS_MAX_CHARS);
+					summary = Html.fromHtml((String) summary).toString();
+				}
+				
 
 				if (!url.contains("music.aol.com")
 						&& !url.contains("splendidzine.com"))
@@ -143,7 +162,7 @@ public class EchoNestClient
 				String url = bioJ.getString("url");
 				String text = bioJ.getString("text");
 
-				text = processText(text);
+				text = processText(text, BIOS_MAX_CHARS);
 				site = processSite(site);
 
 				if (site.equals(CORRECT_WIKIPEDIA) || (site.equals(CORRECT_LAST_FM)
@@ -183,21 +202,32 @@ public class EchoNestClient
 		return site;
 	}
 
-	private static String processText(String text)
+	private static String processText(String text, int maxChars)
 	{
-		final int MAX_CHARS = 200;
 		final int LONG_ENOUGH = 3;
 		final String ELLIPSES = "...";
 
 		if (!text.equals(""))
 		{
-			int tl = text.length() > MAX_CHARS ? MAX_CHARS : text.length();
+			text = pattern.matcher(text)
+					.replaceAll("");
+			int tl = text.length() > maxChars ? maxChars : text.length();
 			text = text.substring(0, tl);
 		}
 
 		if (text.length() >= LONG_ENOUGH &&
 				!text.substring(text.length() - LONG_ENOUGH).equals(ELLIPSES))
 		{
+			int i;
+			for (i = text.length() - 1; i > 0; --i)
+			{
+				String chars = text.substring(i - 1, i + 1);
+				if (chars.matches("\\S\\s"))
+				{
+					break;
+				}
+			}
+			text = text.substring(0, i);
 			text += ELLIPSES;
 		}
 		return text;

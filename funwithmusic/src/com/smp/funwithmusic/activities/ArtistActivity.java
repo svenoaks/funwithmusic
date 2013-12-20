@@ -57,9 +57,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 				boolean successful = intent.getBooleanExtra(EXTRA_LISTEN_SUCCESSFUL, false);
 				if (successful)
 				{
-					Intent flowIntent = new Intent(ArtistActivity.this, FlowActivity.class);
-					flowIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-					ArtistActivity.this.startActivity(flowIntent);
+					startFlowActivity();
 				}
 
 			}
@@ -72,7 +70,13 @@ public class ArtistActivity extends SlidingFragmentActivity
 	private BaseArtistFragment mContent;
 	private View idDialog;
 	private ViewFlipper flipper;
-
+	
+	private void startFlowActivity()
+	{
+		Intent flowIntent = new Intent(ArtistActivity.this, FlowActivity.class);
+		flowIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		ArtistActivity.this.startActivity(flowIntent);
+	}
 	public void changeFlipperState(int view)
 	{
 		flipper.setDisplayedChild(view);
@@ -183,6 +187,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 	@Override
 	public void onBackPressed()
 	{
+		
 		FragmentManager mgr = getSupportFragmentManager();
 		int c = mgr.getBackStackEntryCount();
 		if (c == 0)
@@ -213,6 +218,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 			Log.d("STACK", String.valueOf(c));
 		}
 		mContent = (BaseArtistFragment) mgr.findFragmentById(R.id.fragment_frame);
+		
 	}
 
 	public void switchContent(ArtistInfo info)
@@ -269,6 +275,9 @@ public class ArtistActivity extends SlidingFragmentActivity
 				{
 					doListen(getApplicationContext(), idDialog);
 				}
+				break;
+			case R.id.flow:
+				startFlowActivity();
 				break;
 			default:
 				return false;

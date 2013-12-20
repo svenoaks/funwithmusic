@@ -68,7 +68,8 @@ public abstract class BaseArtistFragment extends Fragment
 				frag = new NewsReviewsFragment();
 				break;
 			default:
-				throw new UnsupportedOperationException("unknown fragment " + info.toString());
+				throw new UnsupportedOperationException("unknown fragment "
+						+ info.toString());
 		}
 		frag.setType(info);
 		return frag;
@@ -92,7 +93,7 @@ public abstract class BaseArtistFragment extends Fragment
 	{
 		super.onPause();
 		GlobalRequest.getInstance(getActivity())
-			.getRequestQueue().cancelAll(TAG_VOLLEY);
+				.getRequestQueue().cancelAll(TAG_VOLLEY);
 		if (listen != null)
 		{
 			listen.frag = null;
@@ -113,12 +114,13 @@ public abstract class BaseArtistFragment extends Fragment
 					.changeFlipperState((DisplayedView.NOT_FOUND.ordinal()));
 		}
 	}
+
 	protected void prepareAdapter()
 	{
 		if (data == null || data.size() == 0)
 		{
 			((ArtistActivity) getActivity())
-			.changeFlipperState((DisplayedView.LOADING.ordinal()));
+					.changeFlipperState((DisplayedView.LOADING.ordinal()));
 			getData();
 		}
 		else
@@ -127,15 +129,17 @@ public abstract class BaseArtistFragment extends Fragment
 			makeAdapter();
 		}
 	}
+
 	@Override
 	public void onResume()
 	{
 		super.onResume();
 	}
+
 	private void showFrag()
 	{
 		((ArtistActivity) getActivity())
-		.changeFlipperState((DisplayedView.FRAGMENT.ordinal()));
+				.changeFlipperState((DisplayedView.FRAGMENT.ordinal()));
 	}
 
 	protected abstract void makeAdapter();

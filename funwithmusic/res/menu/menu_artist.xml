@@ -1,9 +1,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
+     <item
+        android:id="@+id/flow"
+        android:icon="@drawable/flow"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/flow"/>
     <item
         android:id="@+id/listen"
         android:icon="@drawable/microphone"
-        android:orderInCategory="100"
+        android:orderInCategory="101"
         android:showAsAction="ifRoom|withText"
         android:title="@string/action_listen"/>
     <item

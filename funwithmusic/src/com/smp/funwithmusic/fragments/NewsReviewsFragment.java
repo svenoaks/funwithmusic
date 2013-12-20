@@ -102,11 +102,12 @@ public class NewsReviewsFragment extends BaseArtistFragment
 	@Override
 	protected void makeAdapter()
 	{
+		String name = getType().toString();
 		CardAdapter<Card> cardsAdapter = new NewsReviewsAdapter<NewsReviewCard>
 				(getActivity(), (ArrayList<NewsReview>) data);
 
 		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
-		cardsAdapter.add(new CardHeader("Reviews"));
+		cardsAdapter.add(new CardHeader(name));
 		for (NewsReview review : (ArrayList<NewsReview>) data)
 		{
 			cardsAdapter.add(new NewsReviewCard(review));

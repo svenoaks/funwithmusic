@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+	 <string name="flow">Flow</string>
     <string name="app_name">Music Flow</string>
     <string name="youtube">Watch on Youtube</string>
     <string name="copy">Copy to Clipboard</string>
