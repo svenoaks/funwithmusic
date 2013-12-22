@@ -1,16 +1,15 @@
 package com.smp.funwithmusic.fragments;
 
-import static com.smp.funwithmusic.global.Constants.BUNDLE_FRAGMENT;
+import static com.smp.funwithmusic.global.Constants.*;
 
 import static com.smp.funwithmusic.global.Constants.TAG_VOLLEY;
-import static com.smp.funwithmusic.global.UtilityMethods.*;
-
 import java.util.ArrayList;
 
 import org.json.JSONObject;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.activities.ArtistActivity;
 import com.smp.funwithmusic.activities.ArtistActivity.DisplayedView;
 import com.smp.funwithmusic.fragments.ArtistMenuFragment.ArtistInfo;
@@ -19,18 +18,35 @@ import com.smp.funwithmusic.global.GlobalRequest;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 public abstract class BaseArtistFragment extends Fragment
 {
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState)
+	{
+		super.onViewCreated(view, savedInstanceState);
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState)
+	{
+		super.onSaveInstanceState(outState);
+		outState.putSerializable(BUNDLE_FRAGMENT, type);
+		outState.putString(BUNDLE_ARTIST_NAME, artist);
+	}
+
 	private ArtistInfo type;
 	protected BaseArtistListener listen;
 	protected String artist;
 	protected ArrayList<?> data;
+	protected ViewFlipper flipper;
+
+	public void changeFlipperState(int view)
+	{
+		flipper.setDisplayedChild(view);
+	}
 
 	public void setType(ArtistInfo type)
 	{
@@ -71,7 +87,8 @@ public abstract class BaseArtistFragment extends Fragment
 				throw new UnsupportedOperationException("unknown fragment "
 						+ info.toString());
 		}
-		frag.setType(info);
+		if (info != null)
+			frag.setType(info);
 		return frag;
 	}
 
@@ -84,8 +101,14 @@ public abstract class BaseArtistFragment extends Fragment
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		artist = ((ArtistActivity) getActivity()).getArtist();
-		listen = getNewListener(type);
+		if (isAdded())
+			artist = ((ArtistActivity) getActivity()).getArtist();
+		if (savedInstanceState != null)
+		{
+			type = (ArtistInfo) savedInstanceState.getSerializable(BUNDLE_FRAGMENT);
+			artist = savedInstanceState.getString(BUNDLE_ARTIST_NAME);
+		}
+		listen = getNewListener(getType());
 	}
 
 	@Override
@@ -110,8 +133,7 @@ public abstract class BaseArtistFragment extends Fragment
 		}
 		else
 		{
-			((ArtistActivity) getActivity())
-					.changeFlipperState((DisplayedView.NOT_FOUND.ordinal()));
+			changeFlipperState((DisplayedView.NOT_FOUND.ordinal()));
 		}
 	}
 
@@ -119,8 +141,7 @@ public abstract class BaseArtistFragment extends Fragment
 	{
 		if (data == null || data.size() == 0)
 		{
-			((ArtistActivity) getActivity())
-					.changeFlipperState((DisplayedView.LOADING.ordinal()));
+			changeFlipperState((DisplayedView.LOADING.ordinal()));
 			getData();
 		}
 		else
@@ -138,8 +159,8 @@ public abstract class BaseArtistFragment extends Fragment
 
 	private void showFrag()
 	{
-		((ArtistActivity) getActivity())
-				.changeFlipperState((DisplayedView.FRAGMENT.ordinal()));
+
+		changeFlipperState((DisplayedView.FRAGMENT.ordinal()));
 	}
 
 	protected abstract void makeAdapter();
@@ -198,8 +219,7 @@ public abstract class BaseArtistFragment extends Fragment
 
 			if (frag != null)
 			{
-				((ArtistActivity) frag.getActivity())
-						.changeFlipperState((DisplayedView.NOT_FOUND.ordinal()));
+				frag.changeFlipperState((DisplayedView.NOT_FOUND.ordinal()));
 				Log.d("response", "onError called!");
 			}
 		}

@@ -44,7 +44,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 	{
 		FRAGMENT, NOT_FOUND, LOADING
 	};
-
+	
 	private class UpdateActivityReceiver extends BroadcastReceiver
 	{
 		@Override
@@ -69,7 +69,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 	private UpdateActivityReceiver receiver;
 	private BaseArtistFragment mContent;
 	private View idDialog;
-	private ViewFlipper flipper;
+	
 	
 	private void startFlowActivity()
 	{
@@ -77,11 +77,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 		flowIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		ArtistActivity.this.startActivity(flowIntent);
 	}
-	public void changeFlipperState(int view)
-	{
-		flipper.setDisplayedChild(view);
-	}
-
+	
 	public String getArtist()
 	{
 		return artist;
@@ -123,17 +119,17 @@ public class ArtistActivity extends SlidingFragmentActivity
 		setContentView(R.layout.activity_artist);
 		artist = getIntent().getStringExtra(ARTIST_NAME);
 		idDialog = findViewById(R.id.progress);
-		flipper = (ViewFlipper) findViewById(R.id.flipper);
-
-		setTitle(artist);
-
+		
 		if (savedInstanceState != null)
 		{
+			artist = savedInstanceState.getString(BUNDLE_ARTIST_NAME);
 			String type = savedInstanceState.getString(BUNDLE_FRAGMENT);
 			mContent = BaseArtistFragment.newInstance
 					(ArtistInfo.valueOf(type));
 		}
-
+		
+		setTitle(artist);
+		
 		if (mContent == null)
 		{
 			mContent = BaseArtistFragment.newInstance
@@ -182,6 +178,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 	{
 		super.onSaveInstanceState(outState);
 		outState.putString(BUNDLE_FRAGMENT, mContent.getType().name());
+		outState.putString(BUNDLE_ARTIST_NAME, getArtist());
 	}
 
 	@Override
@@ -224,8 +221,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 	public void switchContent(ArtistInfo info)
 	{
 		FragmentManager mgr = getSupportFragmentManager();
-		changeFlipperState(DisplayedView.FRAGMENT.ordinal());
-
+		
 		BaseArtistFragment newContent = null;
 		try
 		{

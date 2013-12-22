@@ -20,6 +20,7 @@ public class Constants
 	public static final String BUNDLE_FRAGMENT = "com.smp.funwithmusic.BUNDLE_FRAGMENT";
 	public static final String BUNDLE_IMAGE_URLS = "com.smp.funwithmusic.BUNDLE_IMAGE_URLS";
 	public static final String BUNDLE_BIOGRAPHIES = "com.smp.funwithmusic.BUNDLE_BIOGRAPHIES";
+	public static final String BUNDLE_ARTIST_NAME = "com.smp.funwithmusic.BUNDLE_ARTIST_NAME";
 
 	public static final String EXTRA_FROM_ID = "com.smp.funwithmusic.EXTRA_FROM_ID";
 	public static final String EXTRA_LISTEN_SUCCESSFUL = "com.smp.funwithmusic.LISTEN_SUCCESSFUL";

@@ -6,7 +6,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-public class ArtistImageView extends NetworkImageView
+public class ArtistImageView extends ImageView
 {
 	private static final float HEIGHT_MULTIPLIER = 1.5f;
 	public ArtistImageView(Context context, AttributeSet attrs, int defStyle)

@@ -48,6 +48,7 @@ import com.smp.funwithmusic.dataobjects.Biography;
 import com.smp.funwithmusic.dataobjects.Event;
 import com.smp.funwithmusic.dataobjects.EventCard;
 import com.smp.funwithmusic.fragments.BaseArtistFragment.BaseArtistListener;
+import com.smp.funwithmusic.global.ApplicationContextProvider;
 import com.smp.funwithmusic.global.GlobalRequest;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Picasso.LoadedFrom;
@@ -105,7 +106,7 @@ public class EventsFragment extends BaseArtistFragment
 				startActivity(intent);
 			}
 		});
-		
+		flipper = (ViewFlipper) layout.findViewById(R.id.flipper);
 		prepareAdapter();
 
 		return layout;
@@ -114,7 +115,7 @@ public class EventsFragment extends BaseArtistFragment
 	@Override
 	protected void getData()
 	{
-		SongKickClient.getId(GlobalRequest.getInstance(getActivity())
+		SongKickClient.getId(GlobalRequest.getInstance(ApplicationContextProvider.getContext())
 				.getRequestQueue(), TAG_VOLLEY, artist,
 				listen, listen);
 	}
@@ -123,7 +124,7 @@ public class EventsFragment extends BaseArtistFragment
 	{
 		eventListener = new EventsListener(this);
 		imageUrl = SongKickClient.getImageUrl(artistId);
-		SongKickClient.getEvents(GlobalRequest.getInstance(getActivity())
+		SongKickClient.getEvents(GlobalRequest.getInstance(ApplicationContextProvider.getContext())
 				.getRequestQueue(), TAG_VOLLEY, artistId,
 				eventListener, eventListener);
 	}
@@ -131,18 +132,21 @@ public class EventsFragment extends BaseArtistFragment
 	@Override
 	protected void makeAdapter()
 	{
-		cardsAdapter = new EventCardAdapter<EventCard>(getActivity(), imageUrl, data.size());
-		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
-		CardHeader header = new CardHeader("Upcoming Events");
-
-		cardsAdapter.add(header);
-
-		for (int i = 0; i < data.size(); ++i)
+		if (isAdded())
 		{
-			Event event = ((ArrayList<Event>) data).get(i);
-			cardsAdapter.add(new EventCard(event));
+			cardsAdapter = new EventCardAdapter<EventCard>(getActivity(), imageUrl, data.size());
+			cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
+			CardHeader header = new CardHeader("Upcoming Events");
+
+			cardsAdapter.add(header);
+
+			for (int i = 0; i < data.size(); ++i)
+			{
+				Event event = ((ArrayList<Event>) data).get(i);
+				cardsAdapter.add(new EventCard(event));
+			}
+			listView.setAdapter(cardsAdapter);
 		}
-		listView.setAdapter(cardsAdapter);
 	}
 
 	@Override

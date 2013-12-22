@@ -360,7 +360,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int albumName=0x7f0a0022;
         public static final int artistName=0x7f0a0023;
         public static final int artist_name=0x7f0a001f;
-        public static final int attr=0x7f0a000e;
+        public static final int attr=0x7f0a000b;
         public static final int bioBtn=0x7f0a0024;
         public static final int bioReviewtxt=0x7f0a001a;
         public static final int black=0x7f0a0031;
@@ -372,7 +372,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int buttonPCMStream=0x7f0a004d;
         public static final int buttonText=0x7f0a004c;
         public static final int buttoncancel=0x7f0a004a;
-        public static final int cardsList=0x7f0a000f;
+        public static final int cardsList=0x7f0a000d;
         public static final int checkboxDebug=0x7f0a0040;
         public static final int checkboxSpacer=0x7f0a003f;
         public static final int clear=0x7f0a0061;
@@ -390,14 +390,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int event_image=0x7f0a0034;
         public static final int festival_name=0x7f0a002f;
         public static final int flip_image=0x7f0a0030;
-        public static final int flipper=0x7f0a0007;
+        public static final int flipper=0x7f0a000c;
         public static final int flow=0x7f0a005f;
-        public static final int fragment_frame=0x7f0a0008;
+        public static final int fragment_frame=0x7f0a0007;
         public static final int fullscreen=0x7f0a0003;
         public static final int gracenoteLogo=0x7f0a003e;
         public static final int help=0x7f0a0063;
         public static final int home_container=0x7f0a003d;
-        public static final int image=0x7f0a000c;
+        public static final int image=0x7f0a0009;
         public static final int image_frame=0x7f0a0033;
         public static final int images_view=0x7f0a0027;
         public static final int inner_frame=0x7f0a001b;
@@ -407,7 +407,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int licenses=0x7f0a0064;
         public static final int line=0x7f0a0005;
         public static final int listen=0x7f0a0060;
-        public static final int loading=0x7f0a000a;
+        public static final int loading=0x7f0a000f;
         public static final int location=0x7f0a002d;
         public static final int lyric_fragment_search_container=0x7f0a0038;
         public static final int lyrics=0x7f0a0035;
@@ -416,8 +416,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int metadataListing=0x7f0a0046;
         public static final int month=0x7f0a004f;
         public static final int myMapView1=0x7f0a0037;
-        public static final int not_found=0x7f0a0009;
-        public static final int progress=0x7f0a000b;
+        public static final int not_found=0x7f0a000e;
+        public static final int progress=0x7f0a0008;
         public static final int progress_text=0x7f0a005b;
         public static final int pw_spinner=0x7f0a005c;
         public static final int resultsScroller=0x7f0a0017;
@@ -430,7 +430,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int text_search_container=0x7f0a0053;
         public static final int titleFrame=0x7f0a001c;
         public static final int trackTitle=0x7f0a0021;
-        public static final int webview=0x7f0a000d;
+        public static final int webview=0x7f0a000a;
         public static final int welcome_screen=0x7f0a0010;
         public static final int year=0x7f0a0051;
         public static final int youtube=0x7f0a005d;

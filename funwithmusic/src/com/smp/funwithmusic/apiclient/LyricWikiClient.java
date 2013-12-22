@@ -25,7 +25,7 @@ public class LyricWikiClient
 	public static void get(RequestQueue queue, Object tag, String title, String artist,
 			Response.Listener<JSONObject> responseHandler, Response.ErrorListener errorHandler)
 	{
-		String params = "func=getSong&"
+		String params = "func=getSong"
 				+ "&song=" + URLParamEncoder.encode(title.toLowerCase(locale))
 						.replace(ESCAPED_SPACE, LYRICS_WIKI_TERMS_CONNECTOR)
 				+ "&artist=" + URLParamEncoder.encode(artist.toLowerCase(locale))

@@ -13,6 +13,7 @@ import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.services.IdentifyMusicService;
 import com.smp.funwithmusic.views.ProgressWheel;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.app.Service;
@@ -23,6 +24,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Parcelable;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.Toast;
 import static com.smp.funwithmusic.global.Constants.*;
 import static com.smp.funwithmusic.global.UtilityMethods.readObjectFromFile;
@@ -30,6 +33,17 @@ import static com.smp.funwithmusic.global.UtilityMethods.viewVisible;
 
 public class UtilityMethods
 {
+	@SuppressWarnings("deprecation")
+	public static void removeLayoutListenerPre16(ViewTreeObserver observer, OnGlobalLayoutListener listener)
+	{
+		observer.removeGlobalOnLayoutListener(listener);
+	}
+
+	@SuppressLint("NewApi")
+	public static void removeLayoutListenerPost16(ViewTreeObserver observer, OnGlobalLayoutListener listener)
+	{
+		observer.removeOnGlobalLayoutListener(listener);
+	}
 	 public static boolean isOnline(Context context)
      {
              ConnectivityManager cm = (ConnectivityManager) context.getSystemService

@@ -5,17 +5,35 @@
     android:layout_below="@id/line"
     android:layout_gravity="center" >
 
-    <com.afollestad.cardsui.CardListView
-        android:id="@+id/cardsList"
+    <ViewFlipper
+        android:id="@+id/flipper"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/card_gray" >
+
+        <com.afollestad.cardsui.CardListView
+            android:id="@+id/cardsList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <com.afollestad.silk.views.text.SilkTextView
+            android:id="@+id/not_found"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/artist_not_found" />
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </ViewFlipper>
 
     <include
         android:id="@+id/welcome_screen"
         layout="@layout/card_empty_flow"
         android:visibility="gone" />
-
-    <include
+      <include
         android:id="@+id/progress"
         layout="@layout/view_identify"
         android:visibility="gone" />

@@ -1,7 +1,7 @@
 package com.smp.funwithmusic.adapters;
 
 import static com.smp.funwithmusic.global.Constants.*;
-
+import static com.smp.funwithmusic.global.UtilityMethods.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -125,18 +125,6 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 			}
 		});
 
-	}
-
-	@SuppressWarnings("deprecation")
-	private void removeLayoutListenerPre16(ViewTreeObserver observer, OnGlobalLayoutListener listener)
-	{
-		observer.removeGlobalOnLayoutListener(listener);
-	}
-
-	@SuppressLint("NewApi")
-	private void removeLayoutListenerPost16(ViewTreeObserver observer, OnGlobalLayoutListener listener)
-	{
-		observer.removeOnGlobalLayoutListener(listener);
 	}
 
 	protected void setupFrame(Bitmap artistBitmap, ViewFlipper flipper)

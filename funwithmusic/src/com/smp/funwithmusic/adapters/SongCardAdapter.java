@@ -59,7 +59,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		config = GNConfig.init(API_KEY_GRACENOTE, mContext
 				.getApplicationContext());
 		config.setProperty("content.coverArt", "1");
-		config.setProperty("content.coverArt.genreCoverArt", "0");
+		config.setProperty("content.coverArt.genreCoverArt", "1");
 		config.setProperty("content.coverArt.sizePreference", "SMALL");
 
 		// Picasso.Builder builder = new Picasso.Builder(mContext);

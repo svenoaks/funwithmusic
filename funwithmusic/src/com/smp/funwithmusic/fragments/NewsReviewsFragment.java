@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ViewFlipper;
 
 import com.afollestad.cardsui.Card;
 import com.afollestad.cardsui.CardAdapter;
@@ -30,6 +31,7 @@ import com.smp.funwithmusic.dataobjects.Biography;
 import com.smp.funwithmusic.dataobjects.NewsReview;
 import com.smp.funwithmusic.dataobjects.NewsReviewCard;
 import com.smp.funwithmusic.fragments.BaseArtistFragment.BaseArtistListener;
+import com.smp.funwithmusic.global.ApplicationContextProvider;
 import com.smp.funwithmusic.global.GlobalRequest;
 
 public class NewsReviewsFragment extends BaseArtistFragment
@@ -44,7 +46,6 @@ public class NewsReviewsFragment extends BaseArtistFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-
 		View layout = inflater.inflate(R.layout.fragment_cards_list, null);
 		listView = (CardListView) layout.findViewById(R.id.cardsList);
 		listView.setOnCardClickListener(new CardListView.CardClickListener()
@@ -68,11 +69,12 @@ public class NewsReviewsFragment extends BaseArtistFragment
 
 			}
 		});
-
+		flipper = (ViewFlipper) layout.findViewById(R.id.flipper);
 		prepareAdapter();
 
 		return layout;
 	}
+
 	private echoNestRequest getRequestType()
 	{
 		echoNestRequest request = null;
@@ -89,11 +91,12 @@ public class NewsReviewsFragment extends BaseArtistFragment
 		}
 		return request;
 	}
+
 	@Override
 	protected void getData()
 	{
-		
-		EchoNestClient.getArtistInfo(GlobalRequest.getInstance(getActivity())
+
+		EchoNestClient.getArtistInfo(GlobalRequest.getInstance(ApplicationContextProvider.getContext())
 				.getRequestQueue(), TAG_VOLLEY, artist,
 				getRequestType(), listen, listen);
 	}
@@ -102,17 +105,20 @@ public class NewsReviewsFragment extends BaseArtistFragment
 	@Override
 	protected void makeAdapter()
 	{
-		String name = getType().toString();
-		CardAdapter<Card> cardsAdapter = new NewsReviewsAdapter<NewsReviewCard>
-				(getActivity(), (ArrayList<NewsReview>) data);
-
-		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
-		cardsAdapter.add(new CardHeader(name));
-		for (NewsReview review : (ArrayList<NewsReview>) data)
+		if (isAdded())
 		{
-			cardsAdapter.add(new NewsReviewCard(review));
+			String name = getType().toString();
+			CardAdapter<Card> cardsAdapter = new NewsReviewsAdapter<NewsReviewCard>
+					(getActivity(), (ArrayList<NewsReview>) data);
+
+			cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
+			cardsAdapter.add(new CardHeader(name));
+			for (NewsReview review : (ArrayList<NewsReview>) data)
+			{
+				cardsAdapter.add(new NewsReviewCard(review));
+			}
+			listView.setAdapter(cardsAdapter);
 		}
-		listView.setAdapter(cardsAdapter);
 	}
 
 	static class NewsReviewsListener extends BaseArtistListener
@@ -129,8 +135,8 @@ public class NewsReviewsFragment extends BaseArtistFragment
 			{
 				super.onResponse(response);
 				((NewsReviewsFragment) frag).onDataReceived((ArrayList<NewsReview>)
-						EchoNestClient.parseNewsReviews(response, 
-								((NewsReviewsFragment)frag).getRequestType()));
+						EchoNestClient.parseNewsReviews(response,
+								((NewsReviewsFragment) frag).getRequestType()));
 			}
 		}
 

@@ -32,8 +32,8 @@ public class EchoNestClient
 	private final static String IDENTIFY_URL = "song/identify?";
 	private final static String ECHOPRINT_VERSION = "4.12";
 
-	private final static String RAW_WIKIPEDIA = "Wikipedia";
-	private final static String CORRECT_WIKIPEDIA = "WikipediA";
+	private final static String RAW_WIKIPEDIA = "wikipedia";
+	private final static String CORRECT_WIKIPEDIA = "Wikipedia";
 
 	private final static String RAW_LAST_FM = "last.fm";
 	private final static String CORRECT_LAST_FM = "last.fm";
@@ -47,7 +47,7 @@ public class EchoNestClient
 	private final static int BIOS_MAX_CHARS = 350;
 	private final static int NEWSREVIEWS_MAX_CHARS = 200;
 
-	private static Pattern pattern = Pattern.compile("</?[sS][pP][aA][nN]>");
+	//private static Pattern pattern = Pattern.compile("</?[sS][pP][aA][nN]>");
 
 	public enum echoNestRequest
 	{
@@ -111,18 +111,18 @@ public class EchoNestClient
 				
 				if (name != null)
 				{
-					name = pattern.matcher(name).replaceAll("");
-					name = Html.fromHtml((String) name).toString();
+					//name = pattern.matcher(name).replaceAll("");
+					name = Html.fromHtml(name).toString();
 				}
 				if (summary != null)
 				{
 					summary = processText(summary, NEWSREVIEWS_MAX_CHARS);
-					summary = Html.fromHtml((String) summary).toString();
+					summary = Html.fromHtml(summary).toString();
 				}
 				
 
 				if (!url.contains("music.aol.com")
-						&& !url.contains("splendidzine.com"))
+						&& !url.contains("splendidezine.com"))
 				{
 					NewsReview review = new NewsReview.Builder()
 							.withName(name)
@@ -163,6 +163,7 @@ public class EchoNestClient
 				String text = bioJ.getString("text");
 
 				text = processText(text, BIOS_MAX_CHARS);
+				text = Html.fromHtml(text).toString();
 				site = processSite(site);
 
 				if (site.equals(CORRECT_WIKIPEDIA) || (site.equals(CORRECT_LAST_FM)
@@ -209,8 +210,8 @@ public class EchoNestClient
 
 		if (!text.equals(""))
 		{
-			text = pattern.matcher(text)
-					.replaceAll("");
+			//text = pattern.matcher(text)
+					//.replaceAll("");
 			int tl = text.length() > maxChars ? maxChars : text.length();
 			text = text.substring(0, tl);
 		}

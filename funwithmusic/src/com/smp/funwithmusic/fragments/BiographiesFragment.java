@@ -13,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.smp.funwithmusic.apiclient.EchoNestClient;
 import com.smp.funwithmusic.apiclient.EchoNestClient.echoNestRequest;
 import com.smp.funwithmusic.dataobjects.Biography;
+import com.smp.funwithmusic.global.ApplicationContextProvider;
 import com.smp.funwithmusic.global.GlobalRequest;
 import com.smp.funwithmusic.R;
 
@@ -23,6 +24,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ViewFlipper;
 
 public class BiographiesFragment extends BaseArtistFragment
 {
@@ -36,7 +38,7 @@ public class BiographiesFragment extends BaseArtistFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		
+
 		View layout = inflater.inflate(R.layout.fragment_cards_list, null);
 		listView = (CardListView) layout.findViewById(R.id.cardsList);
 		listView.setOnCardClickListener(new CardListView.CardClickListener()
@@ -59,7 +61,7 @@ public class BiographiesFragment extends BaseArtistFragment
 
 			}
 		});
-
+		flipper = (ViewFlipper) layout.findViewById(R.id.flipper);
 		prepareAdapter();
 
 		return layout;
@@ -68,7 +70,7 @@ public class BiographiesFragment extends BaseArtistFragment
 	@Override
 	protected void getData()
 	{
-		EchoNestClient.getArtistInfo(GlobalRequest.getInstance(getActivity())
+		EchoNestClient.getArtistInfo(GlobalRequest.getInstance(ApplicationContextProvider.getContext())
 				.getRequestQueue(), TAG_VOLLEY, artist,
 				echoNestRequest.BIOGRAPHIES, listen, listen);
 	}
@@ -76,16 +78,19 @@ public class BiographiesFragment extends BaseArtistFragment
 	@Override
 	protected void makeAdapter()
 	{
-		CardAdapter<Card> cardsAdapter = new CardAdapter<Card>(getActivity());
-		cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
-		cardsAdapter.add(new CardHeader("Biographies"));
-		
-		for (Biography bio : ((ArrayList<Biography>) data))
+		if (isAdded())
 		{
-			cardsAdapter.add(new Card("Biography at " + bio.getSite(),
-					bio.getText()));
+			CardAdapter<Card> cardsAdapter = new CardAdapter<Card>(getActivity());
+			cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
+			cardsAdapter.add(new CardHeader("Biographies"));
+
+			for (Biography bio : ((ArrayList<Biography>) data))
+			{
+				cardsAdapter.add(new Card("Biography at " + bio.getSite(),
+						bio.getText()));
+			}
+			listView.setAdapter(cardsAdapter);
 		}
-		listView.setAdapter(cardsAdapter);
 	}
 
 	@Override
@@ -124,5 +129,4 @@ public class BiographiesFragment extends BaseArtistFragment
 		}
 	}
 
-	
 }

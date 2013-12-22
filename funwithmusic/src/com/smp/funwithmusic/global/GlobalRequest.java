@@ -17,7 +17,6 @@ import com.android.volley.toolbox.Volley;
 public class GlobalRequest
 {
 	private static GlobalRequest instance;
-	private Context context;
 	private RequestQueue queue;
 	private ImageLoader imageLoader;
 
@@ -74,7 +73,6 @@ public class GlobalRequest
 
 		queue = Volley.newRequestQueue(context);
 		BitmapLruImageCache mCache = new BitmapLruImageCache(cacheSize);
-
 		imageLoader = new ImageLoader(queue, mCache);
 	}
 
