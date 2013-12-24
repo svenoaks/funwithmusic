@@ -77,13 +77,12 @@ public final class R {
     }
     public static final class style {
         public static int card_content=0x7f080008;
-        public static int card_content_flow=0x7f080009;
-        public static int card_header_inner=0x7f08000c;
-        public static int card_header_outer=0x7f08000b;
-        public static int card_header_summary=0x7f08000e;
-        public static int card_header_title=0x7f08000d;
+        public static int card_header_inner=0x7f08000b;
+        public static int card_header_outer=0x7f08000a;
+        public static int card_header_summary=0x7f08000d;
+        public static int card_header_title=0x7f08000c;
         public static int card_inner=0x7f080004;
-        public static int card_lyrics=0x7f08000a;
+        public static int card_lyrics=0x7f080009;
         public static int card_outer=0x7f080003;
         public static int card_popup_anchor=0x7f080001;
         public static int card_shadow=0x7f080002;

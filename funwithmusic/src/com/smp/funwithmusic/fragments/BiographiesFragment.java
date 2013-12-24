@@ -86,8 +86,10 @@ public class BiographiesFragment extends BaseArtistFragment
 
 			for (Biography bio : ((ArrayList<Biography>) data))
 			{
-				cardsAdapter.add(new Card("Biography at " + bio.getSite(),
-						bio.getText()));
+				Card card = new Card("Biography at " + bio.getSite(),
+						bio.getText());
+				card.setThumbnail(getActivity(), R.drawable.bio);
+				cardsAdapter.add(card);
 			}
 			listView.setAdapter(cardsAdapter);
 		}

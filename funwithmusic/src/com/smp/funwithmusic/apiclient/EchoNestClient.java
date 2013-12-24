@@ -81,14 +81,17 @@ public class EchoNestClient
 	public static List<NewsReview> parseNewsReviews(JSONObject json, echoNestRequest request)
 	{
 		List<NewsReview> result = new ArrayList<NewsReview>();
+		String dateStr = null;
 		String toGet = null;
 		switch (request)
 		{
 			case NEWS:
 				toGet = "news";
+				dateStr = "date_found";
 				break;
 			case REVIEWS:
 				toGet = "reviews";
+				dateStr = "date_found";
 				break;
 			default:
 				throw new IllegalArgumentException("Request not supported");
@@ -105,7 +108,7 @@ public class EchoNestClient
 				String name = reviewJ.optString("name");
 				String url = reviewJ.optString("url");
 				String summary = reviewJ.optString("summary");
-				String date = reviewJ.optString("date_reviewed");
+				String date = reviewJ.optString(dateStr);
 				String image_url = reviewJ.optString("image_url");
 				String release = reviewJ.optString("release");
 				

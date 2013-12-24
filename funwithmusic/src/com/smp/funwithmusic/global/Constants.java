@@ -23,6 +23,7 @@ public class Constants
 	public static final String BUNDLE_ARTIST_NAME = "com.smp.funwithmusic.BUNDLE_ARTIST_NAME";
 
 	public static final String EXTRA_FROM_ID = "com.smp.funwithmusic.EXTRA_FROM_ID";
+	public static final String EXTRA_SHOULD_SCROLL = "com.smp.funwithmusic.SHOULD_SCROLL";
 	public static final String EXTRA_LISTEN_SUCCESSFUL = "com.smp.funwithmusic.LISTEN_SUCCESSFUL";
 	public static final String EXTRA_YOUTUBE_SEARCH_TERMS = "com.smp.funwithmusic.YOUTUBE_SEARCH_TERMS";
 

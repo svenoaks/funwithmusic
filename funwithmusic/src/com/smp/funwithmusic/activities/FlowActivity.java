@@ -44,7 +44,9 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 	{
 		// this is a new Intent from Music Id in Artist Activity, so
 		// we want to scroll to the bottom of the list.
-		shouldScrollToBottom = true;
+		if (intent.getBooleanExtra(EXTRA_SHOULD_SCROLL, false))
+			shouldScrollToBottom = true;
+		setIntent(intent);
 		super.onNewIntent(intent);
 	}
 
@@ -130,6 +132,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 		if (isMyServiceRunning(this, IdentifyMusicService.class))
 		{
 			viewVisible(idDialog);
+			progressSpin(idDialog);
 		}
 		else
 		{

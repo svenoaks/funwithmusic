@@ -5,7 +5,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.dataobjects.EventInfo;
@@ -33,6 +38,37 @@ import static com.smp.funwithmusic.global.UtilityMethods.viewVisible;
 
 public class UtilityMethods
 {
+	public static String processDateTime(String raw, boolean showTime)
+	{
+		Locale locale = Locale.getDefault();
+		Date date = null;
+		SimpleDateFormat parse = null;
+		DateFormat format = null;
+
+		final int BEG_TZ = 19;
+		if (raw.length() >= BEG_TZ)
+			raw = raw.substring(0, BEG_TZ);
+		parse = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", locale);
+		try
+		{
+			date = parse.parse(raw);
+		}
+		catch (ParseException e)
+		{
+			e.printStackTrace();
+		}
+		if (showTime)
+			format = DateFormat.getDateTimeInstance
+				(DateFormat.MEDIUM, DateFormat.SHORT, locale);
+		else
+			format = DateFormat.getDateInstance
+			(DateFormat.MEDIUM, locale);
+		if (date != null)
+			return format.format(date);
+
+		return "";
+	}
+
 	@SuppressWarnings("deprecation")
 	public static void removeLayoutListenerPre16(ViewTreeObserver observer, OnGlobalLayoutListener listener)
 	{
@@ -44,26 +80,27 @@ public class UtilityMethods
 	{
 		observer.removeOnGlobalLayoutListener(listener);
 	}
-	 public static boolean isOnline(Context context)
-     {
-             ConnectivityManager cm = (ConnectivityManager) context.getSystemService
-            		 (Context.CONNECTIVITY_SERVICE);
-             NetworkInfo netInfoMob = cm
-                             .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-             NetworkInfo netInfoWifi = cm
-                             .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
-             return ((netInfoMob != null && netInfoMob.isConnectedOrConnecting()) 
-            		 || (netInfoWifi != null && netInfoWifi.isConnectedOrConnecting()));
-     }
+	public static boolean isOnline(Context context)
+	{
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService
+				(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo netInfoMob = cm
+				.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+		NetworkInfo netInfoWifi = cm
+				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+		return ((netInfoMob != null && netInfoMob.isConnectedOrConnecting())
+		|| (netInfoWifi != null && netInfoWifi.isConnectedOrConnecting()));
+	}
+
 	public static boolean isMyServiceRunning
-		(Context context, Class<? extends Service> myService)
+			(Context context, Class<? extends Service> myService)
 	{
 		ActivityManager manager = (ActivityManager) context.getSystemService
 				(Context.ACTIVITY_SERVICE);
-		
-		for (RunningServiceInfo service 
-				: manager.getRunningServices(Integer.MAX_VALUE))
+
+		for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
 		{
 			if (myService.getName().equals(service.service.getClassName()))
 			{

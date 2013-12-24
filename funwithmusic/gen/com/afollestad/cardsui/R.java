@@ -42,23 +42,23 @@ public final class R {
 		public static final int spinner_item_text = 0x7f070001;
 	}
 	public static final class drawable {
-		public static final int card_header_selector = 0x7f020002;
-		public static final int card_menu_button = 0x7f020003;
-		public static final int card_selector = 0x7f020004;
-		public static final int card_shadow = 0x7f020005;
-		public static final int card_shadow_reverse = 0x7f020006;
-		public static final int ic_menu_moreoverflow_card_dark_normal = 0x7f020012;
-		public static final int ic_menu_moreoverflow_card_dark_pressed = 0x7f020013;
-		public static final int list_focused = 0x7f020016;
-		public static final int pressed_background = 0x7f02001f;
-		public static final int unpressed_background = 0x7f020023;
+		public static final int card_header_selector = 0x7f020003;
+		public static final int card_menu_button = 0x7f020004;
+		public static final int card_selector = 0x7f020005;
+		public static final int card_shadow = 0x7f020006;
+		public static final int card_shadow_reverse = 0x7f020007;
+		public static final int ic_menu_moreoverflow_card_dark_normal = 0x7f020013;
+		public static final int ic_menu_moreoverflow_card_dark_pressed = 0x7f020014;
+		public static final int list_focused = 0x7f020017;
+		public static final int pressed_background = 0x7f020021;
+		public static final int unpressed_background = 0x7f020026;
 	}
 	public static final class id {
-		public static final int day = 0x7f0a0050;
+		public static final int day = 0x7f0a0052;
 		public static final int inner_frame = 0x7f0a001b;
-		public static final int month = 0x7f0a004f;
+		public static final int month = 0x7f0a0051;
 		public static final int titleFrame = 0x7f0a001c;
-		public static final int year = 0x7f0a0051;
+		public static final int year = 0x7f0a0053;
 	}
 	public static final class layout {
 		public static final int fragment_list = 0x7f03000e;
@@ -74,13 +74,12 @@ public final class R {
 	}
 	public static final class style {
 		public static final int card_content = 0x7f090008;
-		public static final int card_content_flow = 0x7f090009;
-		public static final int card_header_inner = 0x7f09000c;
-		public static final int card_header_outer = 0x7f09000b;
-		public static final int card_header_summary = 0x7f09000e;
-		public static final int card_header_title = 0x7f09000d;
+		public static final int card_header_inner = 0x7f09000b;
+		public static final int card_header_outer = 0x7f09000a;
+		public static final int card_header_summary = 0x7f09000d;
+		public static final int card_header_title = 0x7f09000c;
 		public static final int card_inner = 0x7f090004;
-		public static final int card_lyrics = 0x7f09000a;
+		public static final int card_lyrics = 0x7f090009;
 		public static final int card_outer = 0x7f090003;
 		public static final int card_popup_anchor = 0x7f090001;
 		public static final int card_shadow = 0x7f090002;

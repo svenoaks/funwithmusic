@@ -94,16 +94,7 @@
 <!--         <item name="android:maxLines">20</item> -->
         <item name="android:singleLine">false</item>
     </style>
-    <style name="card_content_flow">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/card_content</item>
-        <item name="android:layout_below">@+id/titleFrame</item>
-        <item name="android:layout_toRightOf">@android:id/icon</item>
-        <item name="android:layout_marginLeft">@dimen/card_title_margin_left</item>
-        <item name="android:singleLine">true</item>
-    </style>
-
+    
     <style name="card_lyrics">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

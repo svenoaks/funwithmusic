@@ -46,14 +46,22 @@ import android.widget.ViewFlipper;
 public class ImagesFragment extends BaseArtistFragment
 {
 	@Override
+	public void onLowMemory()
+	{
+		super.onLowMemory();
+
+		adapter.shutdownPicasso();
+		adapter.refreshPicasso();
+		adapter.notifyDataSetChanged();
+	}
+
+	@Override
 	public void onDestroy()
 	{
 		super.onDestroy();
 		if (adapter != null)
 		{
-			Picasso picasso = adapter.getPicasso();
-			if (picasso != null)
-				picasso.shutdown();
+			adapter.shutdownPicasso();
 		}
 
 	}
@@ -78,9 +86,13 @@ public class ImagesFragment extends BaseArtistFragment
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id)
 			{
-				Intent intent = new Intent(getActivity(), ImageActivity.class);
-				intent.putExtra(WEB_URL, ((ArrayList<String>) data).get(position));
-				startActivity(intent);
+				String url = (String) data.get(position);
+				if (url != null)
+				{
+					Intent intent = new Intent(getActivity(), ImageActivity.class);
+					intent.putExtra(WEB_URL, ((ArrayList<String>) data).get(position));
+					startActivity(intent);
+				}
 			}
 		});
 		flipper = (ViewFlipper) layout.findViewById(R.id.flipper);
@@ -100,6 +112,7 @@ public class ImagesFragment extends BaseArtistFragment
 	@Override
 	protected void makeAdapter()
 	{
+
 		if (isAdded())
 		{
 			adapter = new ImagesAdapter(getActivity(),

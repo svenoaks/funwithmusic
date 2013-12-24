@@ -57,7 +57,8 @@ public class ArtistActivity extends SlidingFragmentActivity
 				boolean successful = intent.getBooleanExtra(EXTRA_LISTEN_SUCCESSFUL, false);
 				if (successful)
 				{
-					startFlowActivity();
+					boolean fromId = true;
+					startFlowActivity(fromId);
 				}
 
 			}
@@ -71,9 +72,10 @@ public class ArtistActivity extends SlidingFragmentActivity
 	private View idDialog;
 	
 	
-	private void startFlowActivity()
+	private void startFlowActivity(boolean fromId)
 	{
 		Intent flowIntent = new Intent(ArtistActivity.this, FlowActivity.class);
+		if (fromId) flowIntent.putExtra(EXTRA_SHOULD_SCROLL, true);
 		flowIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		ArtistActivity.this.startActivity(flowIntent);
 	}
@@ -105,6 +107,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 		if (isMyServiceRunning(this, IdentifyMusicService.class))
 		{
 			viewVisible(idDialog);
+			progressSpin(idDialog);
 		}
 		else
 		{
@@ -273,7 +276,9 @@ public class ArtistActivity extends SlidingFragmentActivity
 				}
 				break;
 			case R.id.flow:
-				startFlowActivity();
+				boolean fromId = false;
+				startFlowActivity(fromId);
+				finish();
 				break;
 			default:
 				return false;

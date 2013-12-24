@@ -17,8 +17,8 @@ import static com.smp.funwithmusic.global.Constants.*;
 
 public class WebActivity extends Activity
 {
-	WebView webView;
-	String url;
+	private WebView webView;
+	private String url;
 
 	@Override
 	protected void onPause()
@@ -57,8 +57,7 @@ public class WebActivity extends Activity
 		// String ua =
 		// "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/4.0";
 		// webView.getSettings().setUserAgentString(ua);
-		final Activity activity = this;
-
+		
 		webView.setWebChromeClient(new WebChromeClient()
 		{
 			@Override
@@ -68,7 +67,7 @@ public class WebActivity extends Activity
 				// scales.
 				// The progress meter will automatically disappear when we reach
 				// 100%
-				activity.setProgress(progress * 100);
+				WebActivity.this.setProgress(progress * 100);
 			}
 
 		});
@@ -94,7 +93,7 @@ public class WebActivity extends Activity
 			@Override
 			public void onReceivedError(WebView view, int errorCode, String description, String failingUrl)
 			{
-				Toast.makeText(activity, "Oh no! " + description, Toast.LENGTH_SHORT).show();
+				Toast.makeText(WebActivity.this, "Oh no! " + description, Toast.LENGTH_SHORT).show();
 			}
 		});
 

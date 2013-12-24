@@ -229,25 +229,14 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 	{
 		final Event event = ((EventCard) item).getEvent();
 		Locale locale = Locale.getDefault();
+		String newDate = "";
 		Date date = null;
 		SimpleDateFormat parse = null;
 		DateFormat format = null;
 		if (event.getDateTime() != null
 				&& !event.getDateTime().equals("null"))
 		{
-			final int BEG_TZ = 19;
-			String noTimeZone = event.getDateTime().substring(0, BEG_TZ);
-			parse = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", locale);
-			try
-			{
-				date = parse.parse(noTimeZone);
-			}
-			catch (ParseException e)
-			{
-				e.printStackTrace();
-			}
-			format = DateFormat.getDateTimeInstance
-					(DateFormat.MEDIUM, DateFormat.SHORT, locale);
+			newDate = processDateTime(event.getDateTime(), true);
 		}
 		else if (event.getDate() != null && !event.getDate().equals("null"))
 		{
@@ -263,9 +252,11 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 			}
 			format = DateFormat.getDateInstance
 					(DateFormat.MEDIUM, locale);
+			
+			newDate = format.format(date);
 		}
 
-		content3.setText(format.format(date));
+		content3.setText(newDate);
 	}
 
 	@Override

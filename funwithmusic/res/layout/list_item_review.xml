@@ -1,29 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--suppress AndroidLintUselessParent -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" style="@style/card_outer">
+<!-- suppress AndroidLintUselessParent -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/card_outer" >
 
-    <RelativeLayout android:id="@+id/inner_frame" style="@style/card_inner">
+    <RelativeLayout
+        android:id="@+id/inner_frame"
+        style="@style/card_inner" >
 
-        <!--suppress AndroidLintContentDescription -->
-        <com.android.volley.toolbox.NetworkImageView android:id="@android:id/icon" style="@style/card_thumbnail_large"
-            android:scaleType="centerCrop"/>
+        <!-- suppress AndroidLintContentDescription -->
 
-        <RelativeLayout android:id="@+id/titleFrame" style="@style/card_title_frame">
+        <ImageView
+            android:id="@android:id/icon"
+            style="@style/card_thumbnail"
+            android:scaleType="centerCrop" />
 
-            <TextView android:id="@android:id/title" style="@style/card_title"
-                android:singleLine="false"/>
+        <RelativeLayout
+            android:id="@+id/titleFrame"
+            style="@style/card_title_frame" >
 
-            <!--suppress AndroidLintContentDescription -->
-            <ImageButton android:id="@android:id/button1" style="@style/card_popup_anchor"/>
+            <TextView
+                android:id="@android:id/title"
+                style="@style/card_title"
+                android:singleLine="false" />
 
+            <com.afollestad.silk.views.text.SilkTextView
+                android:id="@+id/date"
+                style="@style/card_content"
+                android:layout_below="@android:id/title"
+                android:layout_marginLeft="0dp" />
+
+            <TextView
+                android:id="@+id/blank"
+                style="@style/card_title"
+                android:layout_below="@id/date"
+                android:layout_marginLeft="0dp"
+                android:singleLine="true" />
+
+            <!-- suppress AndroidLintContentDescription -->
+
+            <ImageButton
+                android:id="@android:id/button1"
+                style="@style/card_popup_anchor" />
         </RelativeLayout>
 
-        <com.afollestad.silk.views.text.SilkTextView android:id="@android:id/content" style="@style/card_content"
-            />
-
+        <com.afollestad.silk.views.text.SilkTextView
+            android:id="@android:id/content"
+            style="@style/card_content" />
     </RelativeLayout>
 
-    <!--suppress AndroidLintContentDescription -->
-    <ImageView style="@style/card_shadow"/>
+    <!-- suppress AndroidLintContentDescription -->
+
+    <ImageView style="@style/card_shadow" />
 
 </LinearLayout>

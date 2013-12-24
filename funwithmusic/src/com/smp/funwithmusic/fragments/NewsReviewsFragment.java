@@ -109,7 +109,7 @@ public class NewsReviewsFragment extends BaseArtistFragment
 		{
 			String name = getType().toString();
 			CardAdapter<Card> cardsAdapter = new NewsReviewsAdapter<NewsReviewCard>
-					(getActivity(), (ArrayList<NewsReview>) data);
+					(getActivity(), (ArrayList<NewsReview>) data, getType());
 
 			cardsAdapter.setAccentColorRes(android.R.color.holo_blue_dark);
 			cardsAdapter.add(new CardHeader(name));
