@@ -2,7 +2,7 @@
 
      <item
         android:id="@+id/flow"
-        android:icon="@drawable/flow"
+        android:icon="@drawable/flow_button"
         android:orderInCategory="100"
         android:showAsAction="ifRoom|withText"
         android:title="@string/flow"/>

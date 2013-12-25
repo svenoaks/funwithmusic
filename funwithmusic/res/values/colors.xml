@@ -10,5 +10,6 @@
     <color name="info_2">#9933cc</color>
     <color name="info_3">#ff8a00</color>
     <color name="info_4">#cc0000</color>
+    <color name="date_gray">#686a6b</color>
 
 </resources>

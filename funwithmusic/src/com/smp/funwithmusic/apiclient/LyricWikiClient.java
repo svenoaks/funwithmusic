@@ -43,8 +43,11 @@ public class LyricWikiClient
 		String lyrics = json.optString("lyrics");
 		if (lyrics != null)
 		{
+			lyrics = EchoNestClient.processText(lyrics, MAX_LYRICS_LENGTH);
+			/*
 			int tl = lyrics.length() > MAX_LYRICS_LENGTH ? MAX_LYRICS_LENGTH : lyrics.length();
 			lyrics = lyrics.substring(0, tl);
+			*/
 		}
 		return lyrics;
 	}

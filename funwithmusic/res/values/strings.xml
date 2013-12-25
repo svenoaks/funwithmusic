@@ -2,7 +2,7 @@
 <resources>
 	 <string name="flow">Flow</string>
     <string name="app_name">Music Flow</string>
-    <string name="youtube">Watch on youtube</string>
+    <string name="youtube">Watch on YouTube</string>
     <string name="copy">Copy to clipboard</string>
     <string name="action_settings">Settings</string>
     <string name="action_listen">Id</string>

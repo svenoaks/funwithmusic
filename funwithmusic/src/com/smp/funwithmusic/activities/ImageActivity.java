@@ -4,6 +4,7 @@ import static com.smp.funwithmusic.global.Constants.WEB_URL;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 import com.smp.funwithmusic.R;
+import com.smp.funwithmusic.global.GlobalRequest;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -29,7 +30,7 @@ public class ImageActivity extends Activity
 		Intent intent = getIntent();
 		String url = intent.getStringExtra(WEB_URL);
 
-		Picasso.with(this).load(url).into(imageView, new Callback()
+		GlobalRequest.getInstance(this).getPicasso().load(url).into(imageView, new Callback()
 		{
 
 			@Override
@@ -62,7 +63,7 @@ public class ImageActivity extends Activity
 			// being garbage collected. It also prevents our callback from
 			// getting invoked even after the
 			// activity has finished.
-			Picasso.with(this).cancelRequest(imageView);
+			GlobalRequest.getInstance(this).getPicasso().cancelRequest(imageView);
 		}
 	}
 

@@ -23,19 +23,6 @@
                 style="@style/card_title"
                 android:singleLine="false" />
 
-            <com.afollestad.silk.views.text.SilkTextView
-                android:id="@+id/date"
-                style="@style/card_content"
-                android:layout_below="@android:id/title"
-                android:layout_marginLeft="0dp" />
-
-            <TextView
-                android:id="@+id/blank"
-                style="@style/card_title"
-                android:layout_below="@id/date"
-                android:layout_marginLeft="0dp"
-                android:singleLine="true" />
-
             <!-- suppress AndroidLintContentDescription -->
 
             <ImageButton
@@ -43,9 +30,19 @@
                 style="@style/card_popup_anchor" />
         </RelativeLayout>
 
+        <TextView
+            android:id="@+id/date"
+            style="@style/card_content"
+            android:textColor="@color/date_gray"
+            android:layout_marginTop="@dimen/card_gap"
+            android:layout_below="@id/titleFrame"
+            android:singleLine="true"
+            android:visibility="visible" />
+
         <com.afollestad.silk.views.text.SilkTextView
             android:id="@android:id/content"
-            style="@style/card_content" />
+            style="@style/card_content"
+            android:layout_below="@id/date" />
     </RelativeLayout>
 
     <!-- suppress AndroidLintContentDescription -->

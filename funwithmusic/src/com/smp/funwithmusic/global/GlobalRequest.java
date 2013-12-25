@@ -13,12 +13,15 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.ImageLoader.ImageCache;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.OkHttpDownloader;
+import com.squareup.picasso.Picasso;
 
 public class GlobalRequest
 {
 	private static GlobalRequest instance;
 	private RequestQueue queue;
 	private ImageLoader imageLoader;
+	private Picasso picasso;
 
 	class BitmapLruImageCache extends LruCache<String, Bitmap> implements ImageCache
 	{
@@ -74,6 +77,9 @@ public class GlobalRequest
 		queue = Volley.newRequestQueue(context);
 		BitmapLruImageCache mCache = new BitmapLruImageCache(cacheSize);
 		imageLoader = new ImageLoader(queue, mCache);
+		
+		Picasso.Builder builder = new Picasso.Builder(context);
+		picasso = builder.downloader(new OkHttpDownloader(context)).build();
 	}
 
 	public RequestQueue getRequestQueue()
@@ -85,7 +91,11 @@ public class GlobalRequest
 	{
 		return imageLoader;
 	}
-
+	
+	public Picasso getPicasso()
+	{
+		return picasso;
+	}
 	public static synchronized GlobalRequest getInstance(Context context)
 	{
 		if (instance == null)

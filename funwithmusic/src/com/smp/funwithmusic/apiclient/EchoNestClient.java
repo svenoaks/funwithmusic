@@ -206,7 +206,7 @@ public class EchoNestClient
 		return site;
 	}
 
-	private static String processText(String text, int maxChars)
+	public static String processText(String text, int maxChars)
 	{
 		final int LONG_ENOUGH = 3;
 		final String ELLIPSES = "...";

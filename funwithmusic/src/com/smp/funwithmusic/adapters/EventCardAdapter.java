@@ -40,6 +40,7 @@ import com.smp.funwithmusic.dataobjects.Event;
 import com.smp.funwithmusic.dataobjects.EventCard;
 import com.smp.funwithmusic.dataobjects.Performance;
 import com.smp.funwithmusic.fragments.EventsFragment;
+import com.smp.funwithmusic.global.GlobalRequest;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.squareup.picasso.Picasso.LoadedFrom;
@@ -69,7 +70,7 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 		ColorStateList blue = ColorStateList.valueOf
 				(context.getResources().getColor(R.color.holo_blue_dark));
 
-		int size = context.getResources().getDimensionPixelSize(R.dimen.card_content);
+		int size = context.getResources().getDimensionPixelSize(R.dimen.card_title);
 		int style = Typeface.NORMAL;
 
 		titleAppearance = new TextAppearanceSpan("sans-serif", style, size, blue, null);
@@ -113,7 +114,7 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 			public void onGlobalLayout()
 			{
 				maxFrameWidth = flipper.getWidth();
-				Picasso.with(context).load(imageUrl).into(target);
+				GlobalRequest.getInstance(context).getPicasso().load(imageUrl).into(target);
 				if (Build.VERSION.SDK_INT < 16)
 				{
 					removeLayoutListenerPre16(flipper.getViewTreeObserver(), this);
@@ -171,7 +172,7 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 
 	public void cancelPicasso()
 	{
-		Picasso.with(context).cancelRequest(target);
+		GlobalRequest.getInstance(context).getPicasso().cancelRequest(target);
 	}
 
 	@Override
@@ -252,7 +253,7 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 			}
 			format = DateFormat.getDateInstance
 					(DateFormat.MEDIUM, locale);
-			
+
 			newDate = format.format(date);
 		}
 
@@ -278,7 +279,9 @@ public class EventCardAdapter<T extends EventCard> extends CardAdapter<Card>
 		final Event event = ((EventCard) card).getEvent();
 		if (icon == null)
 			return false;
-		Picasso.with(context).load(imageUrl)
+		GlobalRequest.getInstance(context)
+				.getPicasso()
+				.load(imageUrl)
 				.fit()
 				.centerCrop()
 				.into(icon);

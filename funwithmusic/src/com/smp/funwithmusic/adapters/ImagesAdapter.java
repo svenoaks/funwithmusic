@@ -24,7 +24,7 @@ public class ImagesAdapter extends BaseAdapter
 {
 	private Context context;
 	private List<String> urls;
-	private Picasso picasso;
+	//private Picasso picasso;
 
 	// int width, height;
 
@@ -32,21 +32,21 @@ public class ImagesAdapter extends BaseAdapter
 	{
 		this.context = context;
 		this.urls = urls;
-		refreshPicasso();
+		//refreshPicasso();
 	}
-
+	/*
 	public void shutdownPicasso()
 	{
 		if (picasso != null)
 			picasso.shutdown();
 	}
-
+	
 	public void refreshPicasso()
 	{
 		Picasso.Builder builder = new Picasso.Builder(context);
 		picasso = builder.downloader(new OkHttpDownloader(context)).build();
 	}
-
+	*/
 	@Override
 	public int getCount()
 	{
@@ -81,13 +81,14 @@ public class ImagesAdapter extends BaseAdapter
 			imageView = (ArtistImageView) convertView;
 		}
 		/*
-		 * imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-		 * imageView.setDefaultImageResId(R.drawable.placeholder);
-		 * imageView.setErrorImageResId(R.drawable.placeholder);
-		 * imageView.setImageUrl(urls.get(position), GlobalRequest
-		 * .getInstance(context).getImageLoader());
+		 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+		 imageView.setDefaultImageResId(R.drawable.placeholder);
+		 imageView.setErrorImageResId(R.drawable.placeholder);
+		 imageView.setImageUrl(urls.get(position), GlobalRequest
+		 .getInstance(context).getImageLoader());
 		 */
-		picasso.load(urls.get(position))
+		GlobalRequest.getInstance(context)
+		.getPicasso().load(urls.get(position))
 				// .skipMemoryCache()
 				.centerCrop()
 				.placeholder(R.drawable.placeholder)
@@ -95,7 +96,7 @@ public class ImagesAdapter extends BaseAdapter
 				.fit()
 				// .noFade()
 				.into(imageView);
-
+		
 		// Log.d("Images", "In get view  " + urls.get(position));
 		return imageView;
 	}

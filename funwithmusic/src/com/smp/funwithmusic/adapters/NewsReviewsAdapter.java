@@ -37,6 +37,7 @@ public class NewsReviewsAdapter<T extends NewsReviewCard> extends CardAdapter<Ca
 		this.reviews = data;
 		this.type = type;
 	}
+
 	@Override
 	public View onViewCreated(int index, View recycled, Card item,
 			ViewGroup parent, ViewHolder holder)
@@ -49,24 +50,25 @@ public class NewsReviewsAdapter<T extends NewsReviewCard> extends CardAdapter<Ca
 
 		return super.onViewCreated(index, recycled, item, parent, holder);
 	}
+
 	private void onProcessDate(TextView text, Card item, ViewGroup parent)
 	{
 		final NewsReview event = ((NewsReviewCard) item).getReview();
 		text.setText(processDateTime(event.getDate(), false));
 	}
+
 	@Override
 	protected boolean onProcessThumbnail(ImageView icon, Card card, ViewGroup parent)
 	{
 		final NewsReview event = ((NewsReviewCard) card).getReview();
 		if (icon == null)
 			return false;
-	
+
 		if (type == ArtistInfo.NEWS)
-			Picasso.with(context).load(R.drawable.news).fit().into(icon);
-		else if
-			(type == ArtistInfo.REVIEWS)
-			Picasso.with(context).load(R.drawable.review).fit().into(icon);
-		
+			GlobalRequest.getInstance(context).getPicasso().load(R.drawable.news).fit().into(icon);
+		else if (type == ArtistInfo.REVIEWS)
+			GlobalRequest.getInstance(context).getPicasso().load(R.drawable.review).fit().into(icon);
+
 		return true;
 	}
 }

@@ -34,21 +34,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
+                android:layout_marginBottom="@dimen/card_gap"
                 android:textSize="@dimen/card_content" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="@dimen/card_content" />
-            
             <TextView
                 android:id="@+id/festival_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/card_content"
-                android:singleLine="true"
+                
                 android:ellipsize="end"
+                android:singleLine="true"
+                android:textSize="@dimen/card_content"
                 android:visibility="gone" />
 
             <com.afollestad.silk.views.text.SilkTextView

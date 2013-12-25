@@ -49,21 +49,23 @@ public class ImagesFragment extends BaseArtistFragment
 	public void onLowMemory()
 	{
 		super.onLowMemory();
-
+		/*
 		adapter.shutdownPicasso();
 		adapter.refreshPicasso();
 		adapter.notifyDataSetChanged();
+		*/
 	}
 
 	@Override
 	public void onDestroy()
 	{
 		super.onDestroy();
+		/*
 		if (adapter != null)
 		{
 			adapter.shutdownPicasso();
 		}
-
+		*/
 	}
 
 	public ImagesFragment()

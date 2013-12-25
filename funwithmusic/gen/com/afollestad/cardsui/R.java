@@ -47,18 +47,18 @@ public final class R {
 		public static final int card_selector = 0x7f020005;
 		public static final int card_shadow = 0x7f020006;
 		public static final int card_shadow_reverse = 0x7f020007;
-		public static final int ic_menu_moreoverflow_card_dark_normal = 0x7f020013;
-		public static final int ic_menu_moreoverflow_card_dark_pressed = 0x7f020014;
-		public static final int list_focused = 0x7f020017;
-		public static final int pressed_background = 0x7f020021;
-		public static final int unpressed_background = 0x7f020026;
+		public static final int ic_menu_moreoverflow_card_dark_normal = 0x7f020014;
+		public static final int ic_menu_moreoverflow_card_dark_pressed = 0x7f020015;
+		public static final int list_focused = 0x7f020018;
+		public static final int pressed_background = 0x7f020022;
+		public static final int unpressed_background = 0x7f020027;
 	}
 	public static final class id {
-		public static final int day = 0x7f0a0052;
+		public static final int day = 0x7f0a0051;
 		public static final int inner_frame = 0x7f0a001b;
-		public static final int month = 0x7f0a0051;
+		public static final int month = 0x7f0a0050;
 		public static final int titleFrame = 0x7f0a001c;
-		public static final int year = 0x7f0a0053;
+		public static final int year = 0x7f0a0052;
 	}
 	public static final class layout {
 		public static final int fragment_list = 0x7f03000e;
