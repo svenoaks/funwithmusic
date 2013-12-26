@@ -35,7 +35,6 @@ public class SongReceiver extends BroadcastReceiver
 
 	private class SongReceiverAsyncTask extends AsyncTask<Void, Void, Void>
 	{
-
 		protected Void doInBackground(Void... blah)
 		{
 			setSongInfo(context, intent);
@@ -122,6 +121,14 @@ public class SongReceiver extends BroadcastReceiver
 			{
 
 			}
+			
+			
+			else if (intent.getAction().equals("com.jrtstudio.music.metachanged"))
+			{
+				mArtist = intent.getStringExtra("artist");
+				mTitle = intent.getStringExtra("track");
+				mAlbum = intent.getStringExtra("album");
+			}
 			else if (intent.getAction().equals("fm.last.android.metachanged"))
 			{
 				mArtist = intent.getStringExtra("artist");
@@ -158,39 +165,53 @@ public class SongReceiver extends BroadcastReceiver
 			{
 
 			}
-			/*
-			 * else if (intent.getAction().equals(
-			 * "com.spotify.mobile.android.playbackstatechanged")) { if
-			 * (intent.getBooleanExtra("playing", false)) {
-			 * LyricsSettings.putBoolean(context, "spotifyPlaying", true);
-			 * mArtist = LyricsSettings.getString(context, "spotifyArtist");
-			 * mTitle = LyricsSettings.getString(context, "spotifyTitle");
-			 * mAlbum = LyricsSettings.getString(context, "spotifyAlbum"); if
-			 * ((mArtist != null) && (mTitle != null))
-			 * addNotificationIcon(context); } else {
-			 * LyricsSettings.putBoolean(context, "spotifyPlaying", false);
-			 * removeNotificationIcon(context); } } else if (intent.getAction
-			 * ().equals("com.spotify.mobile.android.metadatachanged")) {
-			 * boolean bool6 = LyricsSettings.getBoolean(context,
-			 * "spotifyPlaying"); mArtist = intent.getStringExtra("artist");
-			 * mTitle = intent.getStringExtra("track"); mAlbum =
-			 * intent.getStringExtra("album"); LyricsSettings.putString(context,
-			 * "spotifyArtist", intent.getStringExtra("artist"));
-			 * LyricsSettings.putString(context, "spotifyTitle",
-			 * intent.getStringExtra("track"));
-			 * LyricsSettings.putString(context, "spotifyAlbum",
-			 * intent.getStringExtra("album")); if (bool6)
-			 * addNotificationIcon(context); else
-			 * removeNotificationIcon(context); }
-			 */
+
+			else if (intent.getAction().equals(
+					"com.spotify.mobile.android.playbackstatechanged"))
+			{
+				if (intent.getBooleanExtra("playing", false))
+				{
+					mArtist = intent.getStringExtra("artist");
+					mTitle = intent.getStringExtra("track");
+					mAlbum =
+							intent.getStringExtra("album");
+					
+					
+					
+				}
+				
+			}
+			else if (intent.getAction
+					().equals("com.spotify.mobile.android.metadatachanged"))
+			{
+				mArtist = intent.getStringExtra("artist");
+				mTitle = intent.getStringExtra("track");
+				mAlbum =
+						intent.getStringExtra("album");
+				
+				
+			}
+			else if (intent.getAction
+					().equals("com.spotify.mobile.android.queuechanged"))
+			{
+				mArtist = intent.getStringExtra("artist");
+				mTitle = intent.getStringExtra("track");
+				mAlbum =
+						intent.getStringExtra("album");
+				
+				
+			}
+			
 			else if ((intent.getAction().equals("com.adam.aslfms.notify.playstatechanged")) || (intent.getAction().equals("com.adam.aslfms.notify.metachanged")))
 			{
+				/*
 				int i = intent.getIntExtra("state", 3);
 				if (i == 0)
 					return;
 
 				if (i == 1)
 					return;
+					*/
 				mArtist = intent.getStringExtra("artist");
 				mTitle = intent.getStringExtra("track");
 				mAlbum = intent.getStringExtra("album");

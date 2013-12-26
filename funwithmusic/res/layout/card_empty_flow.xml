@@ -2,7 +2,8 @@
 <!-- suppress AndroidLintUselessParent -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/card_gray"
      >
 
     <ScrollView
@@ -12,11 +13,13 @@
         <LinearLayout
             style="@style/card_outer"
             android:layout_marginTop="15dp"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+             >
 
             <RelativeLayout
                 android:id="@+id/inner_frame"
-                style="@style/card_inner" >
+                style="@style/card_inner" 
+                >
 
                 <!-- suppress AndroidLintContentDescription -->
                 <!-- <ImageView android:id="@android:id/icon" style="@style/card_thumbnail_large" android:src="@drawable/flow"/> -->
@@ -37,6 +40,8 @@
                     style="@style/card_content"
                     android:singleLine="false"
                     android:text="@string/welcome_content" />
+                
+              
 
                 <!-- <View -->
                 <!-- android:id="@+id/divider" -->

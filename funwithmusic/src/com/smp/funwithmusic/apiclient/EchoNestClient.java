@@ -210,7 +210,8 @@ public class EchoNestClient
 	{
 		final int LONG_ENOUGH = 3;
 		final String ELLIPSES = "...";
-
+		if (text.equals(LYRICS_WIKI_NOT_FOUND))
+			return text;
 		if (!text.equals(""))
 		{
 			//text = pattern.matcher(text)

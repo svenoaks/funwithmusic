@@ -8,7 +8,7 @@ import com.android.volley.toolbox.NetworkImageView;
  
 public class FadeInNetworkImageView extends NetworkImageView {
  
-    private static final int FADE_IN_TIME_MS = 150;
+    private static final int FADE_IN_TIME_MS = 110;
  
     public FadeInNetworkImageView(Context context) {
         super(context);
@@ -24,10 +24,7 @@ public class FadeInNetworkImageView extends NetworkImageView {
  
     @Override
     public void setImageBitmap(Bitmap bm) {
-    	setAlpha(0f);
-        super.setImageBitmap(bm);
-        animate().alpha(1f).setDuration(FADE_IN_TIME_MS);
-        /*
+    	
     	TransitionDrawable td = new TransitionDrawable(new Drawable[]{
                 new ColorDrawable(android.R.color.transparent),
                 new BitmapDrawable(getContext().getResources(), bm)
@@ -35,6 +32,6 @@ public class FadeInNetworkImageView extends NetworkImageView {
  		
         setImageDrawable(td);
         td.startTransition(FADE_IN_TIME_MS);
-        */
+        
     }
 }

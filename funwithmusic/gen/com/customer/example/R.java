@@ -17,11 +17,11 @@ public final class R {
 		public static final int gracenote_logo_tile = 0x7f02000e;
 		public static final int gracenote_logo_tile_transparent = 0x7f02000f;
 		public static final int headertile = 0x7f020011;
-		public static final int icon = 0x7f020016;
-		public static final int loading = 0x7f020019;
-		public static final int no_cover_art = 0x7f02001d;
-		public static final int no_metadata = 0x7f02001e;
-		public static final int pindown = 0x7f020020;
+		public static final int icon = 0x7f020015;
+		public static final int loading = 0x7f020018;
+		public static final int no_cover_art = 0x7f02001c;
+		public static final int no_metadata = 0x7f02001d;
+		public static final int pindown = 0x7f02001f;
 	}
 	public static final class id {
 		public static final int AlbumTextView = 0x7f0a0016;
