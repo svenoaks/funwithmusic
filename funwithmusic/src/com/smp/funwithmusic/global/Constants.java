@@ -5,6 +5,8 @@ public class Constants
 	public static final String BUNDLE_LIST_POSITION = "com.smp.funwithmusic.adapterposition";
 	public static final String BUNDLE_LIST_POSITION_TOP = "com.smp.funwithmusic.adapterpositiontop";
 	
+	public static final String PREF_CLICK_ACTION = "com.smp.funwithmusic.prefclickaction";
+	
 	public static final int INVALID = -1;
 	
 	public static final String NEW_LINE = "\n";

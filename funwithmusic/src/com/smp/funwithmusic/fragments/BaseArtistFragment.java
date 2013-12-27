@@ -12,7 +12,7 @@ import com.android.volley.VolleyError;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.activities.ArtistActivity;
 import com.smp.funwithmusic.activities.ArtistActivity.DisplayedView;
-import com.smp.funwithmusic.fragments.ArtistMenuFragment.ArtistInfo;
+import com.smp.funwithmusic.fragments.ArtistInfo;
 import com.smp.funwithmusic.global.GlobalRequest;
 
 import android.os.Bundle;

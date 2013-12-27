@@ -18,7 +18,7 @@ import com.smp.funwithmusic.activities.ArtistActivity.DisplayedView;
 import com.smp.funwithmusic.adapters.ImagesAdapter;
 import com.smp.funwithmusic.apiclient.EchoNestClient;
 import com.smp.funwithmusic.apiclient.EchoNestClient.echoNestRequest;
-import com.smp.funwithmusic.fragments.ArtistMenuFragment.ArtistInfo;
+import com.smp.funwithmusic.fragments.ArtistInfo;
 import com.smp.funwithmusic.global.ApplicationContextProvider;
 import com.smp.funwithmusic.global.GlobalRequest;
 import com.smp.funwithmusic.R;

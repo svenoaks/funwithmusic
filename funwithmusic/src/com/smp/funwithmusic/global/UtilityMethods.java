@@ -28,6 +28,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
@@ -114,7 +115,7 @@ public class UtilityMethods
 	{
 		// int mode = android.os.Build.VERSION.SDK_INT >= 11 ?
 		// Context.MODE_MULTI_PROCESS : Context.MODE_PRIVATE;
-		return context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+		return PreferenceManager.getDefaultSharedPreferences(context);
 	}
 
 	public static synchronized Object readObjectFromFile(Context context, String fileName)

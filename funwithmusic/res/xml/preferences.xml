@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/pref_key_log_songs"
+        android:summary="@string/pref_summary_log_songs"
+        android:title="@string/pref_log_songs" />
+    
+    <ListPreference
+        android:key="@string/pref_key_card_click"
+        android:summary="@string/pref_summary_card_click"
+        android:title="@string/pref_card_click"
+        android:entries="@array/pref_array_card_click"
+        android:defaultValue="@string/pref_default_card_click"
+        android:entryValues="@array/pref_array_card_click_values" />
+
+</PreferenceScreen>

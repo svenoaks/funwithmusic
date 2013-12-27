@@ -28,8 +28,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Menu;
@@ -96,7 +98,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		Log.d("PAUSE", "PAUSED");
 		cardsAdapter.releaseListenerReferences();
 		GlobalRequest.getInstance(this).getRequestQueue().cancelAll(TAG_VOLLEY);
-		
+
 	}
 
 	// reseting the imageUrl and lryics will allow the program to attempt to
@@ -125,8 +127,8 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		}
 		else if (listPosition != INVALID && listPositionTop != INVALID)
 		{
-		    cardsList.setSelectionFromTop(listPosition, listPositionTop);
-		    listPosition = listPositionTop = INVALID;
+			cardsList.setSelectionFromTop(listPosition, listPositionTop);
+			listPosition = listPositionTop = INVALID;
 		}
 
 		LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
@@ -142,8 +144,6 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		}
 	}
 
-	
-
 	@Override
 	protected void onSaveInstanceState(Bundle outState)
 	{
@@ -151,7 +151,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		int index = cardsList.getFirstVisiblePosition();
 		View v = cardsList.getChildAt(0);
 		int top = (v == null) ? 0 : v.getTop();
-		
+
 		outState.putInt(BUNDLE_LIST_POSITION, index);
 		outState.putInt(BUNDLE_LIST_POSITION_TOP, top);
 	}
@@ -194,36 +194,74 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 			@Override
 			public void onCardClick(int index, CardBase card, View view)
 			{
-
 				SongCard songCard = (SongCard) card;
 				Song song = songCard.getSong();
-				if (song.hasLyrics())
+
+				String logKey = getResources().getString(R.string.pref_key_card_click);
+				SharedPreferences pref = getPref(FlowActivity.this);
+				
+				String value = pref.getString(logKey, "error");
+
+				CardClickAction action = CardClickAction.valueOf(value);
+				
+				switch (action)
 				{
-
-					Intent intent = new Intent(FlowActivity.this, WebActivity.class);
-					intent.putExtra(WEB_URL, song.getFullLyricsUrl());
-					startActivity(intent);
-					/*
-					 * Uri uri = Uri.parse(song.getFullLyricsUrl()); Intent
-					 * intent = new Intent(Intent.ACTION_VIEW, uri);
-					 * startActivity(intent);
-					 */
+					case LYRICS:
+						doLyrics(song);
+						break;
+					case YOUTUBE:
+						doYouTube(song);
+						break;
+					case CLIPBOARD:
+						doClipboard(song);
+						break;
+					default:
+						throw new RuntimeException("not a valid click action");
 				}
-
 			}
 		});
-		
+
 		if (savedInstanceState != null)
 		{
 			listPosition = savedInstanceState.getInt(BUNDLE_LIST_POSITION);
 			listPositionTop = savedInstanceState.getInt(BUNDLE_LIST_POSITION_TOP);
 		}
+		
 		filter = new IntentFilter();
 		filter.addAction(ACTION_ADD_SONG);
 		filter.addAction(ACTION_REMOVE_IDENTIFY);
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 
 		receiver = new UpdateActivityReceiver();
+		
+		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+	}
+
+	protected void doClipboard(Song song)
+	{
+		ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+		ClipData clip = ClipData.newPlainText("MUSIC_FLOW", song.getArtist() + SPACE
+				+ song.getTitle());
+		clipboard.setPrimaryClip(clip);
+		Toast.makeText(this, "Artist and Song info saved to clipboard.", Toast.LENGTH_SHORT).show();
+	}
+
+	protected void doYouTube(Song song)
+	{
+		Intent intent = new Intent(this, YouTubeSelectionActivity.class);
+		intent.putExtra(EXTRA_YOUTUBE_SEARCH_TERMS
+				, song.getArtist() + SPACE + song.getTitle());
+		startActivity(intent);	
+	}
+
+	protected void doLyrics(Song song)
+	{
+		if (song.hasLyrics())
+		{
+			Uri uri = Uri.parse(song.getFullLyricsUrl());
+			Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+			startActivity(intent);
+		}
 	}
 
 	private void addCardsFromList()
@@ -291,6 +329,10 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 					doListen(getApplicationContext(), idDialog);
 				}
 				break;
+			case R.id.settings:
+				Intent intent = new Intent(FlowActivity.this, PrefActivity.class);
+				startActivity(intent);
+				break;
 			default:
 				return false;
 		}
@@ -309,20 +351,17 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	{
 		SongCard songCard = (SongCard) card;
 		Song song = songCard.getSong();
+		
 		switch (item.getItemId())
 		{
+			case R.id.lyrics:
+				doLyrics(song);
+				break;
 			case R.id.copy:
-				ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-				ClipData clip = ClipData.newPlainText("MUSIC_FLOW", song.getArtist() + SPACE
-						+ song.getTitle());
-				clipboard.setPrimaryClip(clip);
-				Toast.makeText(this, "Artist and Song info saved to clipboard.", Toast.LENGTH_SHORT).show();
+				doClipboard(song);
 				break;
 			case R.id.youtube:
-				Intent intent = new Intent(this, YouTubeSelectionActivity.class);
-				intent.putExtra(EXTRA_YOUTUBE_SEARCH_TERMS
-						, song.getArtist() + SPACE + song.getTitle());
-				startActivity(intent);
+				doYouTube(song);
 				break;
 		}
 	}

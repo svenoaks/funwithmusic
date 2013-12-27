@@ -8,19 +8,19 @@ package com.afollestad.silk;
 
 public final class R {
 	public static final class array {
-		public static final int months = 0x7f080000;
+		public static final int months = 0x7f090000;
 	}
 	public static final class color {
-		public static final int dark_gray = 0x7f050002;
+		public static final int dark_gray = 0x7f060002;
 	}
 	public static final class dimen {
-		public static final int empty_text_size = 0x7f070000;
-		public static final int spinner_item_text = 0x7f070001;
+		public static final int empty_text_size = 0x7f080000;
+		public static final int spinner_item_text = 0x7f080001;
 	}
 	public static final class id {
-		public static final int day = 0x7f0a0051;
-		public static final int month = 0x7f0a0050;
-		public static final int year = 0x7f0a0052;
+		public static final int day = 0x7f0b0051;
+		public static final int month = 0x7f0b0050;
+		public static final int year = 0x7f0b0052;
 	}
 	public static final class layout {
 		public static final int fragment_list = 0x7f03000e;

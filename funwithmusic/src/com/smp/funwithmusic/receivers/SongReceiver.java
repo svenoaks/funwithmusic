@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
+import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.activities.FlowActivity;
 import com.smp.funwithmusic.dataobjects.Song;
 
@@ -78,8 +79,14 @@ public class SongReceiver extends BroadcastReceiver
 		fromId = false;
 		this.context = context;
 		this.intent = intent;
-		result = goAsync();
-		new SongReceiverAsyncTask().execute();
+		
+		String logKey = context.getResources().getString(R.string.pref_key_log_songs);
+		SharedPreferences pref = getPref(context);
+		if (pref.getBoolean(logKey, true))
+		{
+			result = goAsync();
+			new SongReceiverAsyncTask().execute();
+		}
 	}
 
 	private void setSongInfo(Context context, Intent intent)

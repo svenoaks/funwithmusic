@@ -12,7 +12,7 @@ import com.smp.funwithmusic.dataobjects.Event;
 import com.smp.funwithmusic.dataobjects.EventCard;
 import com.smp.funwithmusic.dataobjects.NewsReview;
 import com.smp.funwithmusic.dataobjects.NewsReviewCard;
-import com.smp.funwithmusic.fragments.ArtistMenuFragment.ArtistInfo;
+import com.smp.funwithmusic.fragments.ArtistInfo;
 import com.smp.funwithmusic.global.GlobalRequest;
 import com.squareup.picasso.Picasso;
 

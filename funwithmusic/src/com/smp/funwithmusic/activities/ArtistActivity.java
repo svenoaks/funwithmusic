@@ -3,7 +3,7 @@ package com.smp.funwithmusic.activities;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.smp.funwithmusic.R;
-import com.smp.funwithmusic.fragments.ArtistMenuFragment.ArtistInfo;
+import com.smp.funwithmusic.fragments.ArtistInfo;
 import com.smp.funwithmusic.fragments.BaseArtistFragment;
 import com.smp.funwithmusic.fragments.BiographiesFragment;
 import com.smp.funwithmusic.fragments.ImagesFragment;
@@ -279,6 +279,10 @@ public class ArtistActivity extends SlidingFragmentActivity
 				boolean fromId = false;
 				startFlowActivity(fromId);
 				finish();
+				break;
+			case R.id.settings:
+				Intent intent = new Intent(ArtistActivity.this, PrefActivity.class);
+				startActivity(intent);
 				break;
 			default:
 				return false;

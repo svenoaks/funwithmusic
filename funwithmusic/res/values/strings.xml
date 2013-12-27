@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	 <string name="flow">Flow</string>
+
+    <string name="flow">Flow</string>
     <string name="app_name">Music Flow</string>
+    <string name="lyrics">View song lyrics</string>
     <string name="youtube">Watch on YouTube</string>
     <string name="copy">Copy to clipboard</string>
     <string name="action_settings">Settings</string>
@@ -20,6 +22,25 @@
     <string name="artist">Artist</string>
     <string name="identify">Identifying the music around you&#8230;</string>
     <string name="welcome_title">Welcome!</string>
+    <string name="pref_card_click">Behavior for card click</string>
+    <string name="pref_summary_card_click">Select an action to be performed when you tap on a song card in the flow.</string>
+    <string name="pref_key_card_click">com.smp.funwithmusic.cardclick</string>
+    <string name="pref_default_card_click">LYRICS</string>
+    <string name="pref_log_songs">Automatically log songs</string>
+    <string name="pref_key_log_songs">com.smp.funwithmusic.logsongs</string>
+    <string name="pref_summary_log_songs">If checked, Music Flow will automatically add songs played through your favorite supported music player.</string>
     <string name="welcome_content">To get started, simply begin listening to music in your normal music player and songs will begin to be added to the flow. You can also add songs to the flow by tapping the microphone icon at the top of screen, which will identify the music being played around you.\n\nSee the help documentation for information regarding configuring certain music players to work with Music Flow, and tips on successfully identifying music through the microphone.</string>
+
+    <string-array name="pref_array_card_click">
+        <item>View lyrics</item>
+        <item>Watch YouTube video</item>
+        <item>Copy song info to clipboard</item>
+    </string-array>
+    
+    <string-array name="pref_array_card_click_values">
+        <item>LYRICS</item>
+        <item>YOUTUBE</item>
+        <item>CLIPBOARD</item>
+    </string-array>
 
 </resources>
