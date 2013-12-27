@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Menu;
@@ -37,7 +38,7 @@ import android.view.View;
 import android.widget.Toast;
 import android.widget.AbsListView.RecyclerListener;
 
-public class FlowActivity extends Activity implements CardMenuListener<Card>, RecyclerListener
+public class FlowActivity extends Activity implements CardMenuListener<Card>
 {
 	@Override
 	protected void onNewIntent(Intent intent)
@@ -59,6 +60,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 	private View idDialog;
 	private View welcomeScreen;
 	private boolean shouldScrollToBottom;
+	private int listPosition, listPositionTop = INVALID;
 
 	private class UpdateActivityReceiver extends BroadcastReceiver
 	{
@@ -94,9 +96,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 		Log.d("PAUSE", "PAUSED");
 		cardsAdapter.releaseListenerReferences();
 		GlobalRequest.getInstance(this).getRequestQueue().cancelAll(TAG_VOLLEY);
-		SharedPreferences pref = getPref(this);
-		pref.edit().putInt(PREF_LIST_POSITION, cardsList.getFirstVisiblePosition())
-				.commit();
+		
 	}
 
 	// reseting the imageUrl and lryics will allow the program to attempt to
@@ -123,10 +123,12 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 			scrollToPositionInList(cardsAdapter.getCount() - 1);
 			shouldScrollToBottom = false;
 		}
-		else
+		else if (listPosition != INVALID && listPositionTop != INVALID)
 		{
-			scrollToPositionInList(getPref(this).getInt(PREF_LIST_POSITION, -1));
+		    cardsList.setSelectionFromTop(listPosition, listPositionTop);
+		    listPosition = listPositionTop = INVALID;
 		}
+
 		LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
 
 		if (isMyServiceRunning(this, IdentifyMusicService.class))
@@ -138,6 +140,20 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 		{
 			viewGone(idDialog);
 		}
+	}
+
+	
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState)
+	{
+		super.onSaveInstanceState(outState);
+		int index = cardsList.getFirstVisiblePosition();
+		View v = cardsList.getChildAt(0);
+		int top = (v == null) ? 0 : v.getTop();
+		
+		outState.putInt(BUNDLE_LIST_POSITION, index);
+		outState.putInt(BUNDLE_LIST_POSITION_TOP, top);
 	}
 
 	// Scrolls the view so that last item is at the bottom of the screen.
@@ -171,8 +187,6 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 		cardsList = (CardListView) findViewById(R.id.cardsList);
 		cardsList.setAdapter(cardsAdapter);
 
-		cardsList.setRecyclerListener(this);
-
 		cardsList.setOnCardClickListener(new CardListView.CardClickListener()
 
 		{
@@ -198,7 +212,12 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 
 			}
 		});
-
+		
+		if (savedInstanceState != null)
+		{
+			listPosition = savedInstanceState.getInt(BUNDLE_LIST_POSITION);
+			listPositionTop = savedInstanceState.getInt(BUNDLE_LIST_POSITION_TOP);
+		}
 		filter = new IntentFilter();
 		filter.addAction(ACTION_ADD_SONG);
 		filter.addAction(ACTION_REMOVE_IDENTIFY);
@@ -307,14 +326,4 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>, Re
 				break;
 		}
 	}
-
-	@Override
-	public void onMovedToScrapHeap(View view)
-	{
-		/*
-		 * ViewHolder holder = (ViewHolder) view.getTag();
-		 * Picasso.with(this).cancelRequest(holder.icon);
-		 */
-	}
-
 }

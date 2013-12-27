@@ -42,7 +42,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 {
 	public enum DisplayedView
 	{
-		FRAGMENT, NOT_FOUND, LOADING
+		CONTENT, NOT_FOUND, LOADING
 	};
 	
 	private class UpdateActivityReceiver extends BroadcastReceiver

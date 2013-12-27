@@ -160,7 +160,7 @@ public abstract class BaseArtistFragment extends Fragment
 	private void showFrag()
 	{
 
-		changeFlipperState((DisplayedView.FRAGMENT.ordinal()));
+		changeFlipperState((DisplayedView.CONTENT.ordinal()));
 	}
 
 	protected abstract void makeAdapter();

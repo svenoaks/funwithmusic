@@ -4,6 +4,7 @@ import static com.smp.funwithmusic.global.Constants.WEB_URL;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 import com.smp.funwithmusic.R;
+import com.smp.funwithmusic.activities.ArtistActivity.DisplayedView;
 import com.smp.funwithmusic.global.GlobalRequest;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -14,10 +15,45 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
+import android.widget.ViewFlipper;
 
 public class ImageActivity extends Activity
 {
-	ImageView imageView;
+	@Override
+	protected void onResume()
+	{
+
+		super.onResume();
+		Intent intent = getIntent();
+		String url = intent.getStringExtra(WEB_URL);
+
+		flipper.setDisplayedChild(DisplayedView.LOADING.ordinal());
+
+		GlobalRequest.getInstance(this).getPicasso()
+				.load(url)
+				.fit()
+				.centerInside()
+				.into(imageView, new Callback()
+				{
+
+					@Override
+					public void onError()
+					{
+						flipper.setDisplayedChild(DisplayedView.NOT_FOUND.ordinal());
+					}
+
+					@Override
+					public void onSuccess()
+					{
+						flipper.setDisplayedChild(DisplayedView.CONTENT.ordinal());
+						PhotoViewAttacher attacher = new PhotoViewAttacher(imageView);
+					}
+
+				});
+	}
+
+	private ImageView imageView;
+	private ViewFlipper flipper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -26,27 +62,7 @@ public class ImageActivity extends Activity
 		setContentView(R.layout.activity_image);
 
 		imageView = (ImageView) findViewById(R.id.image);
-
-		Intent intent = getIntent();
-		String url = intent.getStringExtra(WEB_URL);
-
-		GlobalRequest.getInstance(this).getPicasso().load(url).into(imageView, new Callback()
-		{
-
-			@Override
-			public void onError()
-			{
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onSuccess()
-			{
-				PhotoViewAttacher attacher = new PhotoViewAttacher(imageView);
-			}
-
-		});
+		flipper = (ViewFlipper) findViewById(R.id.flipper);
 
 	}
 
