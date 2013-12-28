@@ -333,6 +333,14 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 				Intent intent = new Intent(FlowActivity.this, PrefActivity.class);
 				startActivity(intent);
 				break;
+			case R.id.help:
+				Intent help = new Intent(FlowActivity.this, HelpActivity.class);
+				startActivity(help);
+				break;
+			case R.id.licenses:
+				Intent licenses = new Intent(FlowActivity.this, LicenseActivity.class);
+				startActivity(licenses);
+				break;
 			default:
 				return false;
 		}

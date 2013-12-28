@@ -2,6 +2,8 @@ package com.smp.funwithmusic.receivers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import com.smp.funwithmusic.R;
@@ -16,6 +18,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -79,7 +82,7 @@ public class SongReceiver extends BroadcastReceiver
 		fromId = false;
 		this.context = context;
 		this.intent = intent;
-		
+
 		String logKey = context.getResources().getString(R.string.pref_key_log_songs);
 		SharedPreferences pref = getPref(context);
 		if (pref.getBoolean(logKey, true))
@@ -105,7 +108,6 @@ public class SongReceiver extends BroadcastReceiver
 			}
 			else if ((intent.getAction().equals("com.htc.music.playstatechanged")) || (intent.getAction().equals("com.htc.music.metachanged")))
 			{
-				boolean bool1 = intent.getBooleanExtra("isplaying", false);
 				mArtist = intent.getStringExtra("artist");
 				mTitle = intent.getStringExtra("track");
 				mAlbum = intent.getStringExtra("album");
@@ -128,8 +130,13 @@ public class SongReceiver extends BroadcastReceiver
 			{
 
 			}
-			
-			
+
+			else if (intent.getAction().equals("com.rdio.android.metachanged") || (intent.getAction().equals("com.rdio.android.playstatechanged")))
+			{
+				mArtist = intent.getStringExtra("artist");
+				mTitle = intent.getStringExtra("track");
+				mAlbum = intent.getStringExtra("album");
+			}
 			else if (intent.getAction().equals("com.jrtstudio.music.metachanged"))
 			{
 				mArtist = intent.getStringExtra("artist");
@@ -149,7 +156,7 @@ public class SongReceiver extends BroadcastReceiver
 			}
 			else if ((intent.getAction().equals("com.real.RealPlayer.playstatechanged")) || (intent.getAction().equals("com.real.RealPlayer.metachanged")))
 			{
-				boolean bool3 = intent.getBooleanExtra("isplaying", false);
+				
 				mArtist = intent.getStringExtra("artist");
 				mTitle = intent.getStringExtra("track");
 				mAlbum = intent.getStringExtra("album");
@@ -162,7 +169,7 @@ public class SongReceiver extends BroadcastReceiver
 			else if ((intent.getAction().equals("com.tbig.playerprotrial.playstatechanged")) || (intent.getAction().equals("com.tbig.playerprotrial.metachanged"))
 					|| (intent.getAction().equals("com.tbig.playerpro.playstatechanged")) || (intent.getAction().equals("com.tbig.playerpro.metachanged")))
 			{
-				boolean bool4 = intent.getBooleanExtra("playing", false);
+				
 				mArtist = intent.getStringExtra("artist");
 				mTitle = intent.getStringExtra("track");
 				mAlbum = intent.getStringExtra("album");
@@ -176,17 +183,10 @@ public class SongReceiver extends BroadcastReceiver
 			else if (intent.getAction().equals(
 					"com.spotify.mobile.android.playbackstatechanged"))
 			{
-				if (intent.getBooleanExtra("playing", false))
-				{
 					mArtist = intent.getStringExtra("artist");
 					mTitle = intent.getStringExtra("track");
 					mAlbum =
 							intent.getStringExtra("album");
-					
-					
-					
-				}
-				
 			}
 			else if (intent.getAction
 					().equals("com.spotify.mobile.android.metadatachanged"))
@@ -195,8 +195,7 @@ public class SongReceiver extends BroadcastReceiver
 				mTitle = intent.getStringExtra("track");
 				mAlbum =
 						intent.getStringExtra("album");
-				
-				
+
 			}
 			else if (intent.getAction
 					().equals("com.spotify.mobile.android.queuechanged"))
@@ -205,24 +204,14 @@ public class SongReceiver extends BroadcastReceiver
 				mTitle = intent.getStringExtra("track");
 				mAlbum =
 						intent.getStringExtra("album");
-				
-				
+
 			}
-			
+
 			else if ((intent.getAction().equals("com.adam.aslfms.notify.playstatechanged")) || (intent.getAction().equals("com.adam.aslfms.notify.metachanged")))
 			{
-				/*
-				int i = intent.getIntExtra("state", 3);
-				if (i == 0)
-					return;
-
-				if (i == 1)
-					return;
-					*/
 				mArtist = intent.getStringExtra("artist");
 				mTitle = intent.getStringExtra("track");
 				mAlbum = intent.getStringExtra("album");
-
 			}
 			else if (intent.getAction().equals("com.adam.aslfms.notify.playbackcomplete"))
 			{
@@ -253,17 +242,50 @@ public class SongReceiver extends BroadcastReceiver
 			{
 
 			}
-			else
-			{
-				return;
-			}
 
+			else if ((intent.getAction().equals("com.real.RealPlayer.playstatechanged")) || (intent.getAction().equals("com.real.RealPlayer.metachanged")))
+			{
+				this.mArtist = intent.getStringExtra("artist");
+				this.mTitle = intent.getStringExtra("track");
+				this.mAlbum = intent.getStringExtra("album");
+			}
+			else if ((intent.getAction().equals("org.iii.romulus.meridian.metachanged")) || (intent.getAction().equals("org.iii.romulus.meridian.playstatechanged")))
+			{
+				this.mArtist = intent.getStringExtra("artist");
+				this.mTitle = intent.getStringExtra("track");
+				this.mAlbum = intent.getStringExtra("album");
+			}
+			
+			else if ((intent.getAction().equals("com.mixzing.music.metachanged")) || (intent.getAction().equals("com.mixzing.music.playstatechanged")))
+			{
+				this.mArtist = intent.getStringExtra("artist");
+				this.mTitle = intent.getStringExtra("track");
+				this.mAlbum = intent.getStringExtra("album");
+			}
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
+		dumpIntent(intent);
 
 	}
 
+	public static void dumpIntent(Intent i)
+	{
+
+		Bundle bundle = i.getExtras();
+		if (bundle != null)
+		{
+			Set<String> keys = bundle.keySet();
+			Iterator<String> it = keys.iterator();
+			Log.d("INTENT", "Dumping Intent start");
+			while (it.hasNext())
+			{
+				String key = it.next();
+				Log.d("INTENT", "[" + key + "=" + bundle.get(key) + "]");
+			}
+			Log.d("INTENT", "Dumping Intent end");
+		}
+	}
 }

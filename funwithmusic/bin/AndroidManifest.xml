@@ -24,8 +24,13 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.smp.funwithmusic.activities.LicenseActivity"
+            android:label="@string/activity_licenses"
+            android:theme="@android:style/Theme.Holo.Light.Dialog" />
+        <activity android:name="com.smp.funwithmusic.activities.HelpActivity" android:label="@string/activity_help" />
         <activity android:name="com.smp.funwithmusic.activities.ArtistActivity" />
-        <activity android:name="com.smp.funwithmusic.activities.PrefActivity" />
+        <activity android:name="com.smp.funwithmusic.activities.PrefActivity" android:label="@string/activity_settings" />
         <activity android:name="com.smp.funwithmusic.activities.ImageActivity" />
         <activity
             android:name="com.smp.funwithmusic.activities.YouTubeSelectionActivity"

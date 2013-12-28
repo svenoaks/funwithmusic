@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+	
+    <string name="activity_settings">Settings</string>
+    <string name="activity_licenses">Licenses</string>
+    <string name="activity_help">Help</string>
+    
     <string name="flow">Flow</string>
     <string name="app_name">Music Flow</string>
     <string name="lyrics">View song lyrics</string>
@@ -22,25 +26,55 @@
     <string name="artist">Artist</string>
     <string name="identify">Identifying the music around you&#8230;</string>
     <string name="welcome_title">Welcome!</string>
-    <string name="pref_card_click">Behavior for card click</string>
+    
+    <string name="select_action">Select Action...</string>
+    
+    <string name="pref_card_click">Action for card click</string>
     <string name="pref_summary_card_click">Select an action to be performed when you tap on a song card in the flow.</string>
     <string name="pref_key_card_click">com.smp.funwithmusic.cardclick</string>
     <string name="pref_default_card_click">LYRICS</string>
+    
+    <string name="pref_flow_category">Flow</string>
+    <string name="pref_artist_category">Artist Info</string>
+    
     <string name="pref_log_songs">Automatically log songs</string>
     <string name="pref_key_log_songs">com.smp.funwithmusic.logsongs</string>
     <string name="pref_summary_log_songs">If checked, Music Flow will automatically add songs played through your favorite supported music player.</string>
+    
+    <string name="pref_artist">Action for artist info click</string>
+    <string name="pref_summary_artist">Select an action to be performed when you tap on the ""Get Artist Info" button.</string>
+    <string name="pref_key_artist">com.smp.funwithmusic.artist</string>
+    <string name="pref_default_artist">BIOGRAPHIES</string>
+    
     <string name="welcome_content">To get started, simply begin listening to music in your normal music player and songs will begin to be added to the flow. You can also add songs to the flow by tapping the microphone icon at the top of screen, which will identify the music being played around you.\n\nSee the help documentation for information regarding configuring certain music players to work with Music Flow, and tips on successfully identifying music through the microphone.</string>
-
+	
+    <string name="apache"><a href="http://apache.org/licenses/LICENSE-2.0.html">http://apache.org/licenses/LICENSE-2.0.html</a></string>
+    <string name="commons"><a href="http://creativecommons.org/licenses/by/3.0/">http://creativecommons.org/licenses/by/3.0/</a></string>
+    
     <string-array name="pref_array_card_click">
         <item>View lyrics</item>
         <item>Watch YouTube video</item>
-        <item>Copy song info to clipboard</item>
+        <item>Copy song to clipboard</item>
     </string-array>
-    
     <string-array name="pref_array_card_click_values">
         <item>LYRICS</item>
         <item>YOUTUBE</item>
         <item>CLIPBOARD</item>
+    </string-array>
+    
+     <string-array name="pref_array_artist">
+        <item>View artist events</item>
+        <item>View artist news items</item>
+        <item>View artist album reviews</item>
+        <item>View artist biographies</item>
+        <item>View artist images</item>
+    </string-array>
+    <string-array name="pref_array_artist_values">
+        <item>EVENTS</item>
+        <item>NEWS</item>
+        <item>REVIEWS</item>
+        <item>BIOGRAPHIES</item>
+        <item>IMAGES</item>
     </string-array>
 
 </resources>

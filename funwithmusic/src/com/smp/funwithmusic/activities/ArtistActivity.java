@@ -18,6 +18,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -135,8 +136,15 @@ public class ArtistActivity extends SlidingFragmentActivity
 		
 		if (mContent == null)
 		{
+			String logKey = getResources().getString(R.string.pref_key_artist);
+			SharedPreferences pref = getPref(ArtistActivity.this);
+			
+			String value = pref.getString(logKey, "error");
+
+			ArtistInfo info  = ArtistInfo.valueOf(value);
+			
 			mContent = BaseArtistFragment.newInstance
-					(ArtistInfo.BIOGRAPHIES);
+					(info);
 		}
 
 		configureSlidingMenu();
@@ -284,8 +292,16 @@ public class ArtistActivity extends SlidingFragmentActivity
 				Intent intent = new Intent(ArtistActivity.this, PrefActivity.class);
 				startActivity(intent);
 				break;
+			case R.id.help:
+				Intent help = new Intent(ArtistActivity.this, HelpActivity.class);
+				startActivity(help);
+				break;
+			case R.id.licenses:
+				Intent licenses = new Intent(ArtistActivity.this, LicenseActivity.class);
+				startActivity(licenses);
+				break;
 			default:
-				return false;
+				throw new RuntimeException("not a valid click action");
 		}
 		return true;
 	}

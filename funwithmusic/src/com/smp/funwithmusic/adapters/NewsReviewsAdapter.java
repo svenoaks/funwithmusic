@@ -1,26 +1,17 @@
 package com.smp.funwithmusic.adapters;
 
 import java.util.ArrayList;
-import java.util.List;
 import static com.smp.funwithmusic.global.UtilityMethods.*;
 import com.afollestad.cardsui.Card;
 import com.afollestad.cardsui.CardAdapter;
-import com.afollestad.silk.adapters.SilkAdapter.ViewHolder;
-import com.android.volley.toolbox.NetworkImageView;
 import com.smp.funwithmusic.R;
-import com.smp.funwithmusic.dataobjects.Event;
-import com.smp.funwithmusic.dataobjects.EventCard;
 import com.smp.funwithmusic.dataobjects.NewsReview;
 import com.smp.funwithmusic.dataobjects.NewsReviewCard;
 import com.smp.funwithmusic.fragments.ArtistInfo;
 import com.smp.funwithmusic.global.GlobalRequest;
-import com.squareup.picasso.Picasso;
-
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,7 +51,6 @@ public class NewsReviewsAdapter<T extends NewsReviewCard> extends CardAdapter<Ca
 	@Override
 	protected boolean onProcessThumbnail(ImageView icon, Card card, ViewGroup parent)
 	{
-		final NewsReview event = ((NewsReviewCard) card).getReview();
 		if (icon == null)
 			return false;
 

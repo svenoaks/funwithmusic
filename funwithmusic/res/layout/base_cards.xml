@@ -31,7 +31,7 @@
 
     <include
         android:id="@+id/welcome_screen"
-        layout="@layout/card_empty_flow"
+        layout="@layout/empty_flow"
         android:visibility="gone" />
       <include
         android:id="@+id/progress"

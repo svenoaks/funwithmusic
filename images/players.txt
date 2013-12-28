@@ -1,8 +1,12 @@
-Last.lm
+Last.fm
 Spotify
 Google Play Music
 Android Music Player
-Winamp - you must have Last.fm app installed
+Winamp - you must have Last.fm app installed and scrobbling enabled
 Poweramp
 doubleTwist
 Cubed - turn on Last.fm scrobbling
+RealPlayer
+PlayerPro
+Meridian Player
+Rdio

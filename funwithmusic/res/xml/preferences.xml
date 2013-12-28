@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:title="@string/pref_flow_category" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_key_log_songs"
+            android:summary="@string/pref_summary_log_songs"
+            android:title="@string/pref_log_songs" />
 
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="@string/pref_key_log_songs"
-        android:summary="@string/pref_summary_log_songs"
-        android:title="@string/pref_log_songs" />
-    
-    <ListPreference
-        android:key="@string/pref_key_card_click"
-        android:summary="@string/pref_summary_card_click"
-        android:title="@string/pref_card_click"
-        android:entries="@array/pref_array_card_click"
-        android:defaultValue="@string/pref_default_card_click"
-        android:entryValues="@array/pref_array_card_click_values" />
+        <ListPreference
+            android:defaultValue="@string/pref_default_card_click"
+            android:dialogTitle="@string/select_action"
+            android:entries="@array/pref_array_card_click"
+            android:entryValues="@array/pref_array_card_click_values"
+            android:key="@string/pref_key_card_click"
+            android:summary="@string/pref_summary_card_click"
+            android:title="@string/pref_card_click" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_artist_category" >
+        <ListPreference
+            android:defaultValue="@string/pref_default_artist"
+            android:dialogTitle="@string/select_action"
+            android:entries="@array/pref_array_artist"
+            android:entryValues="@array/pref_array_artist_values"
+            android:key="@string/pref_key_artist"
+            android:summary="@string/pref_summary_artist"
+            android:title="@string/pref_artist" />
+    </PreferenceCategory>
 
 </PreferenceScreen>
