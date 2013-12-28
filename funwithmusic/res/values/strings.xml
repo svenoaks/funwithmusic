@@ -49,7 +49,10 @@
     <string name="welcome_content">To get started, simply begin listening to music in your normal music player and songs will begin to be added to the flow. You can also add songs to the flow by tapping the microphone icon at the top of screen, which will identify the music being played around you.\n\nSee the help documentation for information regarding configuring certain music players to work with Music Flow, and tips on successfully identifying music through the microphone.</string>
 	
     <string name="apache"><a href="http://apache.org/licenses/LICENSE-2.0.html">http://apache.org/licenses/LICENSE-2.0.html</a></string>
-    <string name="commons"><a href="http://creativecommons.org/licenses/by/3.0/">http://creativecommons.org/licenses/by/3.0/</a></string>
+    
+    <string name="apache_text">The following are distributed under the Apache 2.0 license:\n\nPicasso, OkHttp\nCopyright 2013 Square, Inc.\n\nPhotoView\nCopyright 2011, 2012 Chris Banes\n\nSlidingMenu\nCopyright 2012 Jeremy Feinstein\n\nCards-UI, Silk\nCopyright 2013 Aidan Follestad\n\nYouTube Data API Client Library\nYouTube Android Player API\nCopyright 2012, 2013 Google, Inc.\n\nLicensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at\n</string>
+    <string name="apache_text2">\nUnless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.\n</string>
+   
     
     <string-array name="pref_array_card_click">
         <item>View lyrics</item>
