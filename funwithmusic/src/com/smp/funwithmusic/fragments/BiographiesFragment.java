@@ -61,8 +61,8 @@ public class BiographiesFragment extends BaseArtistFragment
 
 			}
 		});
-		flipper = (ViewFlipper) layout.findViewById(R.id.flipper);
-		prepareAdapter();
+		
+		//prepareAdapter();
 
 		return layout;
 	}

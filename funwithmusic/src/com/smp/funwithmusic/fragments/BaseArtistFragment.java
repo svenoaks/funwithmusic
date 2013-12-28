@@ -108,7 +108,6 @@ public abstract class BaseArtistFragment extends Fragment
 			type = (ArtistInfo) savedInstanceState.getSerializable(BUNDLE_FRAGMENT);
 			artist = savedInstanceState.getString(BUNDLE_ARTIST_NAME);
 		}
-		listen = getNewListener(getType());
 	}
 
 	@Override
@@ -155,6 +154,9 @@ public abstract class BaseArtistFragment extends Fragment
 	public void onResume()
 	{
 		super.onResume();
+		flipper = (ViewFlipper) getView().findViewById(R.id.flipper);
+		listen = getNewListener(getType());
+		prepareAdapter();
 	}
 
 	private void showFrag()

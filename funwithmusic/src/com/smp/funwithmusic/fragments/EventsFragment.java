@@ -106,8 +106,8 @@ public class EventsFragment extends BaseArtistFragment
 				startActivity(intent);
 			}
 		});
-		flipper = (ViewFlipper) layout.findViewById(R.id.flipper);
-		prepareAdapter();
+		//flipper = (ViewFlipper) layout.findViewById(R.id.flipper);
+		//prepareAdapter();
 
 		return layout;
 	}

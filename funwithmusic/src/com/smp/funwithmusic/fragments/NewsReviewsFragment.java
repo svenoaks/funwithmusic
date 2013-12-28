@@ -69,8 +69,8 @@ public class NewsReviewsFragment extends BaseArtistFragment
 
 			}
 		});
-		flipper = (ViewFlipper) layout.findViewById(R.id.flipper);
-		prepareAdapter();
+		//flipper = (ViewFlipper) layout.findViewById(R.id.flipper);
+		//prepareAdapter();
 
 		return layout;
 	}
