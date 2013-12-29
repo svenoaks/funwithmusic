@@ -20,11 +20,11 @@ import com.smp.funwithmusic.R;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ViewFlipper;
+
 
 public class BiographiesFragment extends BaseArtistFragment
 {
@@ -111,7 +111,7 @@ public class BiographiesFragment extends BaseArtistFragment
 		@Override
 		public void onResponse(JSONObject response)
 		{
-			Log.d("response", "onResponse before frag called!");
+			//Log.d("response", "onResponse before frag called!");
 			if (frag != null)
 			{
 				super.onResponse(response);
@@ -123,7 +123,7 @@ public class BiographiesFragment extends BaseArtistFragment
 		@Override
 		public void onErrorResponse(VolleyError error)
 		{
-			Log.d("response", "onError before frag called!");
+			//Log.d("response", "onError before frag called!");
 			if (frag != null)
 			{
 				super.onErrorResponse(error);

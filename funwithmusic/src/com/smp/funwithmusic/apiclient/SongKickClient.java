@@ -9,7 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
+
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -59,14 +59,14 @@ public class SongKickClient
 				BASE_URL + "artists/" + artistId + ARTIST_EVENTS_URL + params, null, responseHandler, errorHandler);
 
 		jsObjRequest.setTag(tag);
-		Log.d("RESPONSE", jsObjRequest.getUrl());
+		//Log.d("RESPONSE", jsObjRequest.getUrl());
 		queue.add(jsObjRequest);
 	}
 
 	public static ArrayList<Event> parseEvents(JSONObject obj)
 	{
 		ArrayList<Event> result = new ArrayList<Event>();
-		Log.d("RESPONSE", obj.toString());
+		//Log.d("RESPONSE", obj.toString());
 		try
 		{
 			JSONArray events = obj.getJSONObject("resultsPage")
@@ -150,7 +150,7 @@ public class SongKickClient
 		{
 			e.printStackTrace();
 		}
-		Log.d("ID", result);
+		//Log.d("ID", result);
 		return result;
 	}
 

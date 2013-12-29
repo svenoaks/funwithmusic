@@ -11,15 +11,12 @@ import com.afollestad.cardsui.Card.CardMenuListener;
 import com.afollestad.cardsui.CardBase;
 import com.afollestad.cardsui.CardHeader;
 import com.afollestad.cardsui.CardListView;
-import com.afollestad.silk.adapters.SilkAdapter.ViewHolder;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.adapters.SongCardAdapter;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.dataobjects.SongCard;
 import com.smp.funwithmusic.global.GlobalRequest;
 import com.smp.funwithmusic.services.IdentifyMusicService;
-import com.squareup.picasso.Picasso;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
@@ -30,15 +27,13 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-import android.widget.AbsListView.RecyclerListener;
 
 public class FlowActivity extends Activity implements CardMenuListener<Card>
 {
@@ -95,7 +90,7 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 		LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
 		saveSongs();
 		resetArtist();
-		Log.d("PAUSE", "PAUSED");
+		//Log.d("PAUSE", "PAUSED");
 		cardsAdapter.releaseListenerReferences();
 		GlobalRequest.getInstance(this).getRequestQueue().cancelAll(TAG_VOLLEY);
 
@@ -258,9 +253,9 @@ public class FlowActivity extends Activity implements CardMenuListener<Card>
 	{
 		if (song.hasLyrics())
 		{
-			Uri uri = Uri.parse(song.getFullLyricsUrl());
-			Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-			startActivity(intent);
+			Intent intent = new Intent(FlowActivity.this, WebActivity.class);
+            intent.putExtra(WEB_URL, song.getFullLyricsUrl());
+            startActivity(intent);
 		}
 	}
 

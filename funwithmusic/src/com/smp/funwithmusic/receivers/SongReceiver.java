@@ -21,7 +21,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
+
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -267,7 +267,7 @@ public class SongReceiver extends BroadcastReceiver
 		{
 			e.printStackTrace();
 		}
-		dumpIntent(intent);
+		//dumpIntent(intent);
 
 	}
 
@@ -279,13 +279,13 @@ public class SongReceiver extends BroadcastReceiver
 		{
 			Set<String> keys = bundle.keySet();
 			Iterator<String> it = keys.iterator();
-			Log.d("INTENT", "Dumping Intent start");
+			//Log.d("INTENT", "Dumping Intent start");
 			while (it.hasNext())
 			{
 				String key = it.next();
-				Log.d("INTENT", "[" + key + "=" + bundle.get(key) + "]");
+				//Log.d("INTENT", "[" + key + "=" + bundle.get(key) + "]");
 			}
-			Log.d("INTENT", "Dumping Intent end");
+			//Log.d("INTENT", "Dumping Intent end");
 		}
 	}
 }

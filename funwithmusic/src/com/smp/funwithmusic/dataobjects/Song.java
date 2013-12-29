@@ -139,7 +139,8 @@ public class Song implements Serializable
 
 	public boolean hasLyrics()
 	{
-		return !(shortLyrics == null || fullLyricsUrl == null);
+		return shortLyrics != null && fullLyricsUrl != null
+		          && !fullLyricsUrl.equals("");
 	}
 
 	public void resetLyrics()

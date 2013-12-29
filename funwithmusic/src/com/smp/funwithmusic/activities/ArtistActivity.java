@@ -23,7 +23,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
+
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -223,7 +223,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 					mgr.popBackStackImmediate();
 				}
 			}
-			Log.d("STACK", String.valueOf(c));
+			//Log.d("STACK", String.valueOf(c));
 		}
 		mContent = (BaseArtistFragment) mgr.findFragmentById(R.id.fragment_frame);
 		

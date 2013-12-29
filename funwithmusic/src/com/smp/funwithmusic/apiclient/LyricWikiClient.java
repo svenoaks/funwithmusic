@@ -4,7 +4,6 @@ import java.util.Locale;
 
 import org.json.JSONObject;
 
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -46,7 +45,7 @@ public class LyricWikiClient
 		if (lyrics != null)
 		{
 			lyrics = EchoNestClient.processText(lyrics, MAX_LYRICS_LENGTH);
-			Log.d("LYRICS", lyrics);
+			//Log.d("LYRICS", lyrics);
 			/*
 			int tl = lyrics.length() > MAX_LYRICS_LENGTH ? MAX_LYRICS_LENGTH : lyrics.length();
 			lyrics = lyrics.substring(0, tl);

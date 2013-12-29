@@ -2,11 +2,10 @@ package com.smp.funwithmusic.global;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.util.DisplayMetrics;
-import android.util.Log;
+
 import android.util.LruCache;
 
 import com.android.volley.RequestQueue;
@@ -49,14 +48,14 @@ public class GlobalRequest
 		@Override
 		public Bitmap getBitmap(String url)
 		{
-			Log.v(TAG, "Retrieved item from Mem Cache");
+			//Log.v(TAG, "Retrieved item from Mem Cache");
 			return get(url);
 		}
 
 		@Override
 		public void putBitmap(String url, Bitmap bitmap)
 		{
-			Log.v(TAG, "Added item to Mem Cache");
+			//Log.v(TAG, "Added item to Mem Cache");
 			put(url, bitmap);
 		}
 	}

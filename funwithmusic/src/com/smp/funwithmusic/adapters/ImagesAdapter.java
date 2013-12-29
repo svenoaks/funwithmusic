@@ -1,24 +1,14 @@
 package com.smp.funwithmusic.adapters;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.android.volley.toolbox.NetworkImageView;
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.global.GlobalRequest;
 import com.smp.funwithmusic.views.ArtistImageView;
-import com.squareup.picasso.OkHttpDownloader;
-import com.squareup.picasso.Picasso;
-
 import android.content.Context;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.ImageView;
 
 public class ImagesAdapter extends BaseAdapter
 {

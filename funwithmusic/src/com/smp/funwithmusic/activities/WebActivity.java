@@ -6,7 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.Window;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -48,7 +48,7 @@ public class WebActivity extends Activity
 		Intent intent = getIntent();
 		url = intent.getStringExtra(WEB_URL);
 
-		Log.d("URL", url);
+		//Log.d("URL", url);
 		webView.getSettings().setJavaScriptEnabled(true);
 		webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 		webView.getSettings().setBuiltInZoomControls(true);

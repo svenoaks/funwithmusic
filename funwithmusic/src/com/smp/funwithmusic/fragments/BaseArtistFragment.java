@@ -17,7 +17,7 @@ import com.smp.funwithmusic.global.GlobalRequest;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.ViewFlipper;
 
@@ -27,6 +27,9 @@ public abstract class BaseArtistFragment extends Fragment
 	public void onViewCreated(View view, Bundle savedInstanceState)
 	{
 		super.onViewCreated(view, savedInstanceState);
+		flipper = (ViewFlipper) view.findViewById(R.id.flipper);
+		listen = getNewListener(getType());
+		prepareAdapter();
 	}
 
 	@Override
@@ -114,6 +117,12 @@ public abstract class BaseArtistFragment extends Fragment
 	public void onPause()
 	{
 		super.onPause();
+	}
+
+	@Override
+	public void onDestroy()
+	{
+		super.onDestroy();
 		GlobalRequest.getInstance(getActivity())
 				.getRequestQueue().cancelAll(TAG_VOLLEY);
 		if (listen != null)
@@ -154,9 +163,6 @@ public abstract class BaseArtistFragment extends Fragment
 	public void onResume()
 	{
 		super.onResume();
-		flipper = (ViewFlipper) getView().findViewById(R.id.flipper);
-		listen = getNewListener(getType());
-		prepareAdapter();
 	}
 
 	private void showFrag()
@@ -211,7 +217,7 @@ public abstract class BaseArtistFragment extends Fragment
 
 			if (frag != null)
 			{
-				Log.d("response", "onResponse called!");
+				//Log.d("response", "onResponse called!");
 			}
 		}
 
@@ -222,7 +228,7 @@ public abstract class BaseArtistFragment extends Fragment
 			if (frag != null)
 			{
 				frag.changeFlipperState((DisplayedView.NOT_FOUND.ordinal()));
-				Log.d("response", "onError called!");
+				//Log.d("response", "onError called!");
 			}
 		}
 	}

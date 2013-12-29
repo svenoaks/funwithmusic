@@ -27,7 +27,7 @@ import com.smp.funwithmusic.global.URLParamEncoder;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
-import android.util.Log;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -96,7 +96,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 					.getInstance(mContext).getImageLoader());
 			
 		
-			 Log.d("SONG", song.getTitle() + " " + song.getAlbumUrl());
+			 //Log.d("SONG", song.getTitle() + " " + song.getAlbumUrl());
 			if (!song.hasAlbumUrl() && !song.isCantGetAlbumUrl())
 			{
 				ThumbnailListener listen = new ThumbnailListener(this, song,
@@ -326,7 +326,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		{
 			if (isAlive())
 			{
-				Log.d("Lyrics", "Onfailure" + " " + song.getTitle());
+				//Log.d("Lyrics", "Onfailure" + " " + song.getTitle());
 				song.setLyricsLoading(false);
 				updater.updateSingleView(parent, card);
 			}

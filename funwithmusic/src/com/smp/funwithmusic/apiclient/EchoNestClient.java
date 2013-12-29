@@ -13,7 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.Html;
-import android.util.Log;
+
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;

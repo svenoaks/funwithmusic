@@ -58,8 +58,8 @@ public class Constants
 
 	public static final String LYRICS_LOADING = "Lyrics loading...";
 	public static final String LYRICS_WIKI_NOT_FOUND = "Not found";
-	public static final String SEARCH_LYRICS = "Tap for lyrics search";
-	public static final String COULDNT_FIND_LYRICS = "Lyrics couldn't be found";
+	public static final String SEARCH_LYRICS = "Lyrics search available.";
+	public static final String COULDNT_FIND_LYRICS = "Lyrics couldn't be found.";
 
 	public static final String WEB_URL = "com.smp.funwithmusic.WEB_URL";
 
@@ -68,7 +68,7 @@ public class Constants
 	public static final String TAG_VOLLEY = "VolleyTag";
 
 	public static final String TOAST_ID_SUCCESSFUL = "Song identified!";
-	public static final String TOAST_ID_FAILURE = "Song couldn't be identified, see help";
-	public static final String TOAST_FLOW_DELETED = "All songs were removed";
+	public static final String TOAST_ID_FAILURE = "Song couldn't be identified, see help.";
+	public static final String TOAST_FLOW_DELETED = "All songs were removed.";
 
 }

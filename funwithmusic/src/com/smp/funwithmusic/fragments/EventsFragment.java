@@ -1,58 +1,27 @@
 package com.smp.funwithmusic.fragments;
 
 import static com.smp.funwithmusic.global.Constants.TAG_VOLLEY;
-import static com.smp.funwithmusic.global.UtilityMethods.viewVisible;
-
 import java.util.ArrayList;
 
 import org.json.JSONObject;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.ViewTreeObserver;
-import android.view.ViewTreeObserver.OnGlobalLayoutListener;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.ViewFlipper;
-
-import com.afollestad.cardsui.Card;
-import com.afollestad.cardsui.CardAdapter;
 import com.afollestad.cardsui.CardBase;
 import com.afollestad.cardsui.CardHeader;
 import com.afollestad.cardsui.CardListView;
 import com.android.volley.VolleyError;
 import com.smp.funwithmusic.R;
-import com.smp.funwithmusic.activities.ArtistActivity;
-import com.smp.funwithmusic.activities.ArtistActivity.DisplayedView;
 import com.smp.funwithmusic.adapters.EventCardAdapter;
-import com.smp.funwithmusic.apiclient.EchoNestClient;
-import com.smp.funwithmusic.apiclient.EchoNestClient.echoNestRequest;
 import com.smp.funwithmusic.apiclient.SongKickClient;
-import com.smp.funwithmusic.dataobjects.Biography;
 import com.smp.funwithmusic.dataobjects.Event;
 import com.smp.funwithmusic.dataobjects.EventCard;
-import com.smp.funwithmusic.fragments.BaseArtistFragment.BaseArtistListener;
 import com.smp.funwithmusic.global.ApplicationContextProvider;
 import com.smp.funwithmusic.global.GlobalRequest;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Picasso.LoadedFrom;
-import com.squareup.picasso.Target;
 
 public class EventsFragment extends BaseArtistFragment
 {
@@ -76,6 +45,12 @@ public class EventsFragment extends BaseArtistFragment
 	public void onPause()
 	{
 		super.onPause();
+
+	}
+	@Override
+	public void onDestroy()
+	{
+		super.onDestroy();
 		if (eventListener != null)
 		{
 			eventListener.frag = null;
@@ -84,7 +59,9 @@ public class EventsFragment extends BaseArtistFragment
 		{
 			cardsAdapter.cancelPicasso();
 		}
+
 	}
+	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -106,8 +83,8 @@ public class EventsFragment extends BaseArtistFragment
 				startActivity(intent);
 			}
 		});
-		//flipper = (ViewFlipper) layout.findViewById(R.id.flipper);
-		//prepareAdapter();
+		// flipper = (ViewFlipper) layout.findViewById(R.id.flipper);
+		// prepareAdapter();
 
 		return layout;
 	}
