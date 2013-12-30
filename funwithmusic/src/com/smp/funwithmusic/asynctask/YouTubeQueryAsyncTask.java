@@ -26,7 +26,7 @@ public class YouTubeQueryAsyncTask extends AsyncTask<String, Void, List<SearchRe
 	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	private static final JsonFactory JSON_FACTORY = new JacksonFactory();
 	private static final long NUMBER_OF_VIDEOS_RETURNED = 25;
-	private static YouTube youtube;
+	private static final YouTube youtube;
 
 	static
 	{
