@@ -1,6 +1,7 @@
 package com.smp.funwithmusic.apiclient;
 
 import static com.smp.funwithmusic.global.Constants.*;
+import static com.smp.funwithmusic.global.UtilityMethods.*;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.Html;
+import android.util.Log;
 
 
 import com.android.volley.Request;
@@ -23,6 +25,7 @@ import com.smp.funwithmusic.dataobjects.Biography;
 import com.smp.funwithmusic.dataobjects.NewsReview;
 import com.smp.funwithmusic.dataobjects.Song;
 import com.smp.funwithmusic.global.URLParamEncoder;
+import com.smp.funwithmusic.global.UtilityMethods;
 
 public class EchoNestClient
 {
@@ -58,8 +61,9 @@ public class EchoNestClient
 			Response.Listener<JSONObject> responseHandler, Response.ErrorListener errorHandler)
 	{
 		String params = "api_key=" + API_KEY_ECHONEST
-				+ "&name=" + URLParamEncoder.encode(artist)
+				+ "&name=" + URLParamEncoder.encode(deAccent(artist))
 						.replace(ESCAPED_SPACE, ECHO_NEST_TERMS_CONNECTOR)
+						
 				+ "&format=json"
 				+ "&results=100";
 
@@ -119,8 +123,9 @@ public class EchoNestClient
 				}
 				if (summary != null)
 				{
-					summary = processText(summary, NEWSREVIEWS_MAX_CHARS);
+					//Log.d("SUMMARY", summary);
 					summary = Html.fromHtml(summary).toString();
+					summary = processText(summary, NEWSREVIEWS_MAX_CHARS);
 				}
 				
 

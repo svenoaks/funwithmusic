@@ -1,6 +1,7 @@
 package com.smp.funwithmusic.apiclient;
 
 import static com.smp.funwithmusic.global.Constants.*;
+import static com.smp.funwithmusic.global.UtilityMethods.deAccent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +35,10 @@ public class SongKickClient
 	public static void getId(RequestQueue queue, Object tag, String artist,
 			Response.Listener<JSONObject> responseHandler, Response.ErrorListener errorHandler)
 	{
-		String params = "query=" + URLParamEncoder.encode(artist)
+		String params = "query=" + URLParamEncoder.encode(deAccent(artist))
 				.replace(ESCAPED_SPACE, SONGKICK_TERMS_CONNECTOR)
 				+ "&apikey=" + API_KEY_SONGKICK;
-
+		
 		JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET,
 				BASE_URL + ARTIST_ID_URL + params, null, responseHandler, errorHandler);
 

@@ -1,7 +1,12 @@
 package com.smp.funwithmusic.global;
 
+import android.annotation.SuppressLint;
+import android.os.Build;
+import android.text.Html;
+
 public class URLParamEncoder
 {
+	@SuppressLint("NewApi")
 	public static String encode(String input)
 	{
 		StringBuilder resultStr = new StringBuilder();

@@ -167,6 +167,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 		}
 		else
 		{
+			
 			lyrics.setText(COULDNT_FIND_LYRICS);
 		}
 
@@ -174,6 +175,7 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 
 	}
 
+	
 	@Override
 	public View onViewCreated(int index, View recycled, Card item,
 			ViewGroup parent, ViewHolder holder)
@@ -297,7 +299,8 @@ public class SongCardAdapter<T extends SongCard> extends CardAdapter<Card>
 				Locale locale = Locale.getDefault();
 				String shortLyrics = LyricWikiClient.getShortLyric(obj);
 
-				if (shortLyrics.toUpperCase(locale).equals(LYRICS_WIKI_NOT_FOUND.toUpperCase(locale)))
+				if (shortLyrics.toUpperCase(locale).equals(LYRICS_WIKI_NOT_FOUND.toUpperCase(locale))
+						|| shortLyrics.equals(""))
 				{
 					song.setCanSearchLyrics(true);
 

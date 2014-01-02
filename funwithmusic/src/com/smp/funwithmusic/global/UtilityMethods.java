@@ -6,11 +6,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.DateFormat;
+import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import com.smp.funwithmusic.R;
 import com.smp.funwithmusic.dataobjects.EventInfo;
@@ -60,10 +62,10 @@ public class UtilityMethods
 		}
 		if (showTime)
 			format = DateFormat.getDateTimeInstance
-				(DateFormat.MEDIUM, DateFormat.SHORT, locale);
+					(DateFormat.MEDIUM, DateFormat.SHORT, locale);
 		else
 			format = DateFormat.getDateInstance
-			(DateFormat.MEDIUM, locale);
+					(DateFormat.MEDIUM, locale);
 		if (date != null)
 			return format.format(date);
 
@@ -116,6 +118,13 @@ public class UtilityMethods
 		// int mode = android.os.Build.VERSION.SDK_INT >= 11 ?
 		// Context.MODE_MULTI_PROCESS : Context.MODE_PRIVATE;
 		return PreferenceManager.getDefaultSharedPreferences(context);
+	}
+
+	public static String deAccent(String str)
+	{
+		String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
+		Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+		return pattern.matcher(nfdNormalizedString).replaceAll("");
 	}
 
 	public static synchronized Object readObjectFromFile(Context context, String fileName)
