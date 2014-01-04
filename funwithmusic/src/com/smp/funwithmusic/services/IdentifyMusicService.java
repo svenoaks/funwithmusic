@@ -25,6 +25,7 @@ public class IdentifyMusicService extends IntentService
 	private volatile String artist;
 	private volatile String album;
 	private volatile String title;
+	RecognizeFromMic task;
 
 	private GNConfig config;
 
@@ -36,6 +37,7 @@ public class IdentifyMusicService extends IntentService
 	@Override
 	public void onDestroy()
 	{
+		GNOperations.cancel(task);
 		if (successful)
 		{
 			Toast.makeText(this, TOAST_ID_SUCCESSFUL, Toast.LENGTH_SHORT).show();
@@ -114,8 +116,9 @@ public class IdentifyMusicService extends IntentService
 		config.setProperty("content.coverArt", "1");
 		config.setProperty("content.coverArt.genreCoverArt", "1");
 		config.setProperty("content.coverArt.sizePreference", "SMALL");
-		RecognizeFromMic task = new RecognizeFromMic();
+		task = new RecognizeFromMic();
 		task.doFingerprint();
+	
 		// AudioFingerprinter fingerprinter = new AudioFingerprinter(this);
 		// fingerprinter.fingerprint(TIME_TO_LISTEN);
 		try

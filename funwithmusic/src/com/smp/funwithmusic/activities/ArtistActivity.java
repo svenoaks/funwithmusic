@@ -22,6 +22,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 
 import android.util.TypedValue;
@@ -45,7 +46,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 	{
 		CONTENT, NOT_FOUND, LOADING
 	};
-	
+
 	private class UpdateActivityReceiver extends BroadcastReceiver
 	{
 		@Override
@@ -71,16 +72,16 @@ public class ArtistActivity extends SlidingFragmentActivity
 	private UpdateActivityReceiver receiver;
 	private BaseArtistFragment mContent;
 	private View idDialog;
-	
-	
+
 	private void startFlowActivity(boolean fromId)
 	{
 		Intent flowIntent = new Intent(ArtistActivity.this, FlowActivity.class);
-		if (fromId) flowIntent.putExtra(EXTRA_SHOULD_SCROLL, true);
+		if (fromId)
+			flowIntent.putExtra(EXTRA_SHOULD_SCROLL, true);
 		flowIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		ArtistActivity.this.startActivity(flowIntent);
 	}
-	
+
 	public String getArtist()
 	{
 		return artist;
@@ -123,7 +124,7 @@ public class ArtistActivity extends SlidingFragmentActivity
 		setContentView(R.layout.activity_artist);
 		artist = getIntent().getStringExtra(ARTIST_NAME);
 		idDialog = findViewById(R.id.progress);
-		
+
 		if (savedInstanceState != null)
 		{
 			artist = savedInstanceState.getString(BUNDLE_ARTIST_NAME);
@@ -131,18 +132,18 @@ public class ArtistActivity extends SlidingFragmentActivity
 			mContent = BaseArtistFragment.newInstance
 					(ArtistInfo.valueOf(type));
 		}
-		
+
 		setTitle(artist);
-		
+
 		if (mContent == null)
 		{
 			String logKey = getResources().getString(R.string.pref_key_artist);
 			SharedPreferences pref = getPref(ArtistActivity.this);
-			
+
 			String value = pref.getString(logKey, "error");
 
-			ArtistInfo info  = ArtistInfo.valueOf(value);
-			
+			ArtistInfo info = ArtistInfo.valueOf(value);
+
 			mContent = BaseArtistFragment.newInstance
 					(info);
 		}
@@ -195,44 +196,52 @@ public class ArtistActivity extends SlidingFragmentActivity
 	@Override
 	public void onBackPressed()
 	{
-		
-		FragmentManager mgr = getSupportFragmentManager();
-		int c = mgr.getBackStackEntryCount();
-		if (c == 0)
+		Intent intent = new Intent(this, IdentifyMusicService.class);
+		if (stopService(intent))
 		{
-			finish();
-			return;
+			progressStopSpin(idDialog);
+			viewGone(idDialog);
 		}
-		if (c > 0)
+		else
 		{
-			BackStackEntry lastFrag =
-					mgr.getBackStackEntryAt(c - 1);
-			mgr.popBackStackImmediate();
-			c = mgr.getBackStackEntryCount();
-			if (lastFrag
-					.getName()
-					.equals(mContent.getType()
-							.toString()))
+			FragmentManager mgr = getSupportFragmentManager();
+			int c = mgr.getBackStackEntryCount();
+			if (c == 0)
 			{
-				if (c == 0)
-				{
-					finish();
-				}
-				else
-				{
-					mgr.popBackStackImmediate();
-				}
+				finish();
+				return;
 			}
-			//Log.d("STACK", String.valueOf(c));
+			if (c > 0)
+			{
+				BackStackEntry lastFrag =
+						mgr.getBackStackEntryAt(c - 1);
+				mgr.popBackStackImmediate();
+				c = mgr.getBackStackEntryCount();
+				if (lastFrag
+						.getName()
+						.equals(mContent.getType()
+								.toString()))
+				{
+					if (c == 0)
+					{
+						finish();
+					}
+					else
+					{
+						mgr.popBackStackImmediate();
+					}
+				}
+				// Log.d("STACK", String.valueOf(c));
+			}
+			mContent = (BaseArtistFragment) mgr.findFragmentById(R.id.fragment_frame);
 		}
-		mContent = (BaseArtistFragment) mgr.findFragmentById(R.id.fragment_frame);
-		
+
 	}
 
 	public void switchContent(ArtistInfo info)
 	{
 		FragmentManager mgr = getSupportFragmentManager();
-		
+
 		BaseArtistFragment newContent = null;
 		try
 		{
@@ -317,5 +326,10 @@ public class ArtistActivity extends SlidingFragmentActivity
 	protected void onDestroy()
 	{
 		super.onDestroy();
+	}
+
+	public void whatever()
+	{
+
 	}
 }

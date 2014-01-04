@@ -38,6 +38,21 @@ import android.widget.Toast;
 public class FlowActivity extends Activity implements CardMenuListener<Card>
 {
 	@Override
+	public void onBackPressed()
+	{
+		Intent intent = new Intent(this, IdentifyMusicService.class);
+		if(stopService(intent))
+		{
+			progressStopSpin(idDialog);
+			viewGone(idDialog);
+		}
+		else
+		{
+			super.onBackPressed();
+		}
+	}
+
+	@Override
 	protected void onNewIntent(Intent intent)
 	{
 		// this is a new Intent from Music Id in Artist Activity, so
